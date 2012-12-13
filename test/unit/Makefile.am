@@ -33,6 +33,12 @@ CUESETTINGS_TESTS = \
 CUETIMES_TESTS = \
   cuetimes_unittest
 
+CUEIDS_TESTS = \
+  ciarrow_unittest \
+  cigeneral_unittest \
+  cilanguage_unittest \
+  cilineendings_unittest
+
 PAYLOAD_TESTS = \
   plboldtag_unittest \
   plclasstag_unittest \
@@ -49,6 +55,7 @@ UNIT_TESTS = \
   $(CUEGENERAL_TESTS) \
   $(CUESETTINGS_TESTS) \
   $(CUETIMES_TESTS) \
+  $(CUEIDS_TESTS) \
   $(PAYLOAD_TESTS)
 
 # On TravisCI, we run valgrind for unit tests with --exit-exitcode=1,
@@ -61,6 +68,10 @@ UNIT_TESTS = \
 KNOWN_VALGRIND_TEST_FAILURES =
 if VALGRIND_TESTING
 KNOWN_VALGRIND_TEST_FAILURES +=
+	ciarrow_unittest \
+	cigeneral_unittest \
+	cilanguage_unittest \
+	cilineendings_unittest
 endif
 
 # Tests we expect to fail (i.e., known-fails)
@@ -84,6 +95,12 @@ csalign_unittest_SOURCES = csalign_unittest.cpp
 
 # Cue Times tests
 cuetimes_unittest_SOURCES = cuetimes_unittest.cpp
+
+# Cue Ids Tests
+ciarrow_unittest_SOURCES = ciarrow_unittest.cpp
+cigeneral_unittest_SOURCES = cigeneral_unittest.cpp
+cilanguage_unittest_SOURCES = cilanguage_unittest.cpp
+cilineendings_unittest_SOURCES = cilineendings_unittest.cpp
 
 #Payload Tests
 plboldtag_unittest_SOURCES = plboldtag_unittest.cpp
