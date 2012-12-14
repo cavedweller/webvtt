@@ -31,7 +31,8 @@ CUESETTINGS_TESTS = \
   csalign_unittest
 
 CUETIMES_TESTS = \
-  cuetimes_unittest
+  cuetimes_unittest \
+  ctgenstructure_unittest
 
 CUEIDS_TESTS = \
   ciarrow_unittest \
@@ -94,6 +95,7 @@ csalign_unittest_SOURCES = csalign_unittest.cpp
 
 # Cue Times tests
 cuetimes_unittest_SOURCES = cuetimes_unittest.cpp
+ctgenstructure_unittest_SOURCES = ctgenstructure_unittest.cpp
 
 # Cue Ids Tests
 ciarrow_unittest_SOURCES = ciarrow_unittest.cpp

@@ -358,3 +358,88 @@ TEST_F(FileStructure,DISABLED_NewlineBetweenPayloadText)
 	ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
 	assertEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 3, 13 );
 }
+
+/*
+ Test expecting parser to succeed if a bunch of new lines at the bottom of file exists.
+ 
+ From http://dev.w3.org/html5/webvtt/#the-webvtt-file-format
+ A WebVTT file must consist of a WebVTT file body encoded as UTF-8 and labeled with the MIME type text/vtt. [RFC3629]
+ 
+ A WebVTT file body consists of the following components, in the following order:
+ 
+ 1.  An optional U+FEFF BYTE ORDER MARK (BOM) character.
+ 2.  The string "WEBVTT".
+ 3.  Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ 4.  Two or more WebVTT line terminators.
+ 5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ 6.  Zero or more WebVTT line terminators.
+ */
+TEST_F(FileStructure, DISABLED_NewLinesAtTheEnd)
+{
+	loadVtt( "filestructure/new_lines_at_end.vtt");
+	ASSERT_EQ(0, errorCount()) <<"This file should contain no errors.";
+}
+
+
+/*
+ This test checks for a bom charecter followed by garbage data to make sure that a WEBVTT header follows the bom character and nothing else (garbage data).
+ 
+ From http://dev.w3.org/html5/webvtt/#the-webvtt-file-format
+ A WebVTT file must consist of a WebVTT file body encoded as UTF-8 and labeled with the MIME type text/vtt. [RFC3629]
+ 
+ A WebVTT file body consists of the following components, in the following order:
+ 
+ 1.  An optional U+FEFF BYTE ORDER MARK (BOM) character.
+ 2.  The string "WEBVTT".
+ 3.  Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ 4.  Two or more WebVTT line terminators.
+ 5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ 6.  Zero or more WebVTT line terminators.
+ */
+TEST_F(FileStructure, DISABLED_BOMGarbageData)
+{
+	loadVtt( "filestructure/bom_garbage_data.vtt");
+	ASSERT_EQ(1, errorCount()) <<"This file should fail the test because it has garbage data";
+}
+
+/*
+ This test checks for a tab after the bom charecter to make sure that trailing spaces after bom do  not make it pass.
+ 
+ From http://dev.w3.org/html5/webvtt/#the-webvtt-file-format
+ A WebVTT file must consist of a WebVTT file body encoded as UTF-8 and labeled with the MIME type text/vtt. [RFC3629]
+ 
+ A WebVTT file body consists of the following components, in the following order:
+ 
+ 1.  An optional U+FEFF BYTE ORDER MARK (BOM) character.
+ 2.  The string "WEBVTT".
+ 3.  Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ 4.  Two or more WebVTT line terminators.
+ 5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ 6.  Zero or more WebVTT line terminators.
+ */
+TEST_F(FileStructure, DISABLED_BOMTabWebvtt)
+{
+	loadVtt( "filestructure/bom_tab_webvtt.vtt");
+	ASSERT_EQ(1, errorCount()) <<"This file should fail the test because it contains a tab before WEBVTT";
+}
+
+/*
+ Test expected to fail when missing a new line between two cues
+ 
+ From http://dev.w3.org/html5/webvtt/#the-webvtt-file-format
+ A WebVTT file must consist of a WebVTT file body encoded as UTF-8 and labeled with the MIME type text/vtt. [RFC3629]
+ 
+ A WebVTT file body consists of the following components, in the following order:
+ 
+ 1.  An optional U+FEFF BYTE ORDER MARK (BOM) character.
+ 2.  The string "WEBVTT".
+ 3.  Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ 4.  Two or more WebVTT line terminators.
+ 5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ 6.  Zero or more WebVTT line terminators.
+ */
+TEST_F(FileStructure, DISABLED_MissingNewLineBetweenCues)
+{
+	loadVtt( "filestructure/missing_new_line_between_cues.vtt");
+	ASSERT_EQ(1, errorCount()) <<"This file should fail the test because a blank line is missing between cues";
+}
