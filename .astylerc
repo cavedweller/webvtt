@@ -1,5 +1,8 @@
+################################################################################
 # .astylerc - rules for Artistic Style source code formatter, see:
 # http://astyle.sourceforge.net/astyle.html
+################################################################################
+
 
 # "One True Brace Style" formatting/indenting uses linux brackets and adds brackets
 # to unbracketed one line conditional statements. In the following example brackets
@@ -16,32 +19,102 @@
 # }
 --style=1tbs
 
+
 # Indent using # spaces per indent
 --indent=spaces=2
 
+
 # Indent 'switch' blocks so that the 'case X:' statements are indented in the switch
 # block. The entire case block is indented.
+#
+# switch (foo)
+# {
+# case 1:
+#    a += 1;
+#    break;
+#
+# case 2:
+# {
+#    a += 2;
+#   break;
+# }
+# }
+#
+# becomes:
+#
+# switch (foo)
+# {
+#    case 1:
+#        a += 1;
+#        break;
+#
+#    case 2:
+#    {
+#        a += 2;
+#        break;
+#    }
+# }
 --indent-switches
+
 
 # Insert space padding around operators. Any end of line comments will remain in the
 # original column, if possible. Note that there is no option to unpad. Once padded,
 # they stay padded.
+#
+# if (foo==2)
+#    a=bar((b-c)*a,d--);
+#
+# becomes:
+#
+# if (foo == 2)
+#     a = bar((b - c) * a, d--);
 --pad-oper
 
-# Insert space padding around parenthesis on both the outside and the inside. Any
-# end of line comments will remain in the original column, if possible.
+
+# Insert space padding around parenthesis on the inside only. Any end of line
+# comments will remain in the original column, if possible. This can be used
+# with unpad-paren below to remove unwanted spaces.
+#
+# if (isFoo(a, b))
+#    bar(a, b);
+#
+# becomes:
+#
+# if ( isFoo( a, b ) )
+#    bar( a, b );
 --pad-paren-in
+
 
 # Add one line brackets to unbracketed one line conditional statements (e.g. 'if', 'for',
 # 'while'...).
+#
+# if (isFoo)
+#    isFoo = false;
+#
+# becomes:
+#
+# if (isFoo)
+#    { isFoo = false; }
 --add-one-line-brackets
+
 
 # Converts tabs into spaces in the non-indentation part of the line.
 --convert-tabs
 
+
 # Attach a pointer or reference operator (* or &) to variable name (right).
+#
+# char* foo1;
+# char& foo2;
+#
+# becomes:
+#
+# char *foo1;
+# char &foo2;
 --align-pointer=name
 --align-reference=name
+
+
 
 # Force use of the specified line end style.  linux = LF.
 --lineend=linux
