@@ -19,12 +19,6 @@
 # Indent using # spaces per indent
 --indent=spaces=2
 
-# Indent 'class' and 'struct' blocks so that the blocks 'public:', 'protected:'
-# and 'private:' are indented. The struct blocks are indented only if an access
-# modifier is declared somewhere in the struct. The entire block is indented.
-# This option is effective for C++ files only.
---indent-classes
-
 # Indent 'switch' blocks so that the 'case X:' statements are indented in the switch
 # block. The entire case block is indented.
 --indent-switches
