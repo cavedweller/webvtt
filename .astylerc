@@ -24,6 +24,14 @@
 --indent=spaces=2
 
 
+# Converts tabs into spaces in the non-indentation part of the line.
+--convert-tabs
+
+
+# Force use of the specified line end style.  linux = LF.
+--lineend=linux
+
+
 # Indent 'switch' blocks so that the 'case X:' statements are indented in the switch
 # block. The entire case block is indented.
 #
@@ -71,20 +79,6 @@
 --pad-oper
 
 
-# Insert space padding around parenthesis on the inside only. Any end of line
-# comments will remain in the original column, if possible. This can be used
-# with unpad-paren below to remove unwanted spaces.
-#
-# if (isFoo(a, b))
-#    bar(a, b);
-#
-# becomes:
-#
-# if ( isFoo( a, b ) )
-#    bar( a, b );
---pad-paren-in
-
-
 # Add one line brackets to unbracketed one line conditional statements (e.g. 'if', 'for',
 # 'while'...).
 #
@@ -98,10 +92,6 @@
 --add-one-line-brackets
 
 
-# Converts tabs into spaces in the non-indentation part of the line.
---convert-tabs
-
-
 # Attach a pointer or reference operator (* or &) to variable name (right).
 #
 # char* foo1;
@@ -113,8 +103,3 @@
 # char &foo2;
 --align-pointer=name
 --align-reference=name
-
-
-
-# Force use of the specified line end style.  linux = LF.
---lineend=linux
