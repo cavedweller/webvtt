@@ -2,7 +2,7 @@
 class CueSetting : public CueTest { };
 #if 0
 /**
- * Verifies that the parser correctly parses a combination of 2 cue settings of different types, 
+ * Verifies that the parser correctly parses a combination of 2 cue settings of different types,
  * delimited by U+0009 (tab)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
@@ -14,16 +14,16 @@ class CueSetting : public CueTest { };
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,MultipleCueSettings2Tab)
+TEST_F(CueSetting, MultipleCueSettings2Tab)
 {
-	loadVtt( "cue-settings/2-cue-settings-0x09.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
-	ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
+  loadVtt( "cue-settings/2-cue-settings-0x09.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
 }
 
 /**
- * Verifies that the parser correctly parses a combination of 2 cue settings of different types, 
+ * Verifies that the parser correctly parses a combination of 2 cue settings of different types,
  * delimited by U+0020 (space)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
@@ -35,16 +35,16 @@ TEST_F(CueSetting,MultipleCueSettings2Tab)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,MultipleCueSettings2Space)
+TEST_F(CueSetting, MultipleCueSettings2Space)
 {
-	loadVtt( "cue-settings/2-cue-settings-0x20.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
-	ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
+  loadVtt( "cue-settings/2-cue-settings-0x20.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
 }
 
 /**
- * Verifies that the parser correctly parses a combination of 2 cue settings of different types, 
+ * Verifies that the parser correctly parses a combination of 2 cue settings of different types,
  * delimited by a combination of U+0020 (space) and U+0009 (tab)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
@@ -56,12 +56,12 @@ TEST_F(CueSetting,MultipleCueSettings2Space)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,MultipleCueSettings2Mixed)
+TEST_F(CueSetting, MultipleCueSettings2Mixed)
 {
-	loadVtt( "cue-settings/2-cue-settings-mixed.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
-	ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
+  loadVtt( "cue-settings/2-cue-settings-mixed.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  ASSERT_EQ( 50, getCue( 0 ).relativeLinePositionPercentage() );
 }
 
 /**
@@ -79,11 +79,11 @@ TEST_F(CueSetting,MultipleCueSettings2Mixed)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,Delimiter0x20)
+TEST_F(CueSetting, Delimiter0x20)
 {
-	loadVtt( "cue-settings/delimiter-0x20.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/delimiter-0x20.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -101,11 +101,11 @@ TEST_F(CueSetting,Delimiter0x20)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,Delimiter0x20Sequence)
+TEST_F(CueSetting, Delimiter0x20Sequence)
 {
-	loadVtt( "cue-settings/delimiter-0x20-sequence.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/delimiter-0x20-sequence.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -123,11 +123,11 @@ TEST_F(CueSetting,Delimiter0x20Sequence)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,Delimiter0x09)
+TEST_F(CueSetting, Delimiter0x09)
 {
-	loadVtt( "cue-settings/delimiter-0x09.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/delimiter-0x09.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -145,11 +145,11 @@ TEST_F(CueSetting,Delimiter0x09)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,Delimiter0x09Sequence)
+TEST_F(CueSetting, Delimiter0x09Sequence)
 {
-	loadVtt( "cue-settings/delimiter-0x09-sequence.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/delimiter-0x09-sequence.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -167,11 +167,11 @@ TEST_F(CueSetting,Delimiter0x09Sequence)
  * From http://dev.w3.org/html5/spec//common-microsyntaxes.html#space-character (11/27/2012):
  * The space characters, for the purposes of this specification, are U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and "CR" (U+000D).
  */
-TEST_F(CueSetting,DelimiterMixed)
+TEST_F(CueSetting, DelimiterMixed)
 {
-	loadVtt( "cue-settings/delimiter-mixed.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/delimiter-mixed.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -181,22 +181,22 @@ TEST_F(CueSetting,DelimiterMixed)
  * 1. Let settings be the result of splitting input on spaces.
  * 2. For each token setting in the list settings...
  */
-TEST_F(CueSetting,SameCueSetting)
+TEST_F(CueSetting, SameCueSetting)
 {
-	loadVtt( "cue-settings/2-same-settings.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Parser will successfully parse duplicate settings so there will be no error.
+  loadVtt( "cue-settings/2-same-settings.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Parser will successfully parse duplicate settings so there will be no error.
      * The settings are parsed in order so that the right most (last in the list) one is used.
-	 */
-    ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
-    /**
-	 * We're expecting a WEBVTT_VERTICAL_ALREADY_SET error on the 37th column of the 3rd line
-	 * We can probably make this smarter, like WEBVTT_EXPECTED_CUESETTING_DELIMITER or something
-	 */
-	ASSERT_EQ( WEBVTT_VERTICAL_ALREADY_SET, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 37, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
+  /**
+  * We're expecting a WEBVTT_VERTICAL_ALREADY_SET error on the 37th column of the 3rd line
+  * We can probably make this smarter, like WEBVTT_EXPECTED_CUESETTING_DELIMITER or something
+  */
+  ASSERT_EQ( WEBVTT_VERTICAL_ALREADY_SET, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 37, err.column() );
 }
 
 /**
@@ -207,23 +207,23 @@ TEST_F(CueSetting,SameCueSetting)
  * 2. For each token setting in the list settings...
  * 2.3. Let value be the trailing substring of setting starting from the character immediately after the first U+003A COLON character (:) in that string.
  */
- #endif
-TEST_F(CueSetting,DISABLED_BadDelimiter)
+#endif
+TEST_F(CueSetting, DISABLED_BadDelimiter)
 {
-	loadVtt( "cue-settings/bad-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * The parser should try to use "vertical" as keyword and "lr;line:50%" as value.
+  loadVtt( "cue-settings/bad-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * The parser should try to use "vertical" as keyword and "lr;line:50%" as value.
      * Writing direction should "horizontal" because the malformed setting should be skipped
      * and "horizontal" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 36th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 36, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 36th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 36, err.column() );
 }
 
 /**
@@ -240,23 +240,23 @@ TEST_F(CueSetting,DISABLED_BadDelimiter)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting,DISABLED_BadDelimiter2)
+TEST_F(CueSetting, DISABLED_BadDelimiter2)
 {
-	loadVtt( "cue-settings/bad-delimiter2.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * The parser does not require a spacing character between cue end time timestamp and
+  loadVtt( "cue-settings/bad-delimiter2.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * The parser does not require a spacing character between cue end time timestamp and
      * settings. The parser should try to use "^line" for the keyword.
      * Line should "auto" because the malformed setting should be skipped
      * and "auto" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-	/**
-	 * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 24, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
+  /**
+   * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 24, err.column() );
 }
 
 /**
@@ -273,22 +273,22 @@ TEST_F(CueSetting,DISABLED_BadDelimiter2)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting,NoDelimiter)
+TEST_F(CueSetting, NoDelimiter)
 {
-	loadVtt( "cue-settings/no-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * The parser does not require a spacing character between cue end time timestamp and
+  loadVtt( "cue-settings/no-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * The parser does not require a spacing character between cue end time timestamp and
      * settings. The parser should try to use "line" for the keyword.
      * The line setting should be valid.
-	 */
-	ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
-	/**
-	 * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_EXPECTED_WHITESPACE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 24, err.column() );
+   */
+  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
+  /**
+   * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_EXPECTED_WHITESPACE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 24, err.column() );
 }
 
 /**
@@ -305,15 +305,15 @@ TEST_F(CueSetting,NoDelimiter)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting,DISABLED_DigitDelimiter)
+TEST_F(CueSetting, DISABLED_DigitDelimiter)
 {
-	loadVtt( "cue-settings/digit-delimiter.vtt" );
-	const Error& err = getError( 0 );
-	/**
-	 * We're expecting a WEBVTT_MALFORMED_TIMESTAMP error on the 24th column of the 3rd line.
+  loadVtt( "cue-settings/digit-delimiter.vtt" );
+  const Error &err = getError( 0 );
+  /**
+   * We're expecting a WEBVTT_MALFORMED_TIMESTAMP error on the 24th column of the 3rd line.
      * It might be on column 21 depending on how the parser parses the fractions of a second.
-	 */
-	ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 24, err.column() );
+   */
+  ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 24, err.column() );
 }

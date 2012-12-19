@@ -99,10 +99,10 @@
 #define AND
 
 #define OVERFLOW(X) \
-	if( self->token_pos >= (sizeof(self->token) - 1 ) ) \
-	{ \
-		RETURN(X) \
-	}
+  if( self->token_pos >= (sizeof(self->token) - 1 ) ) \
+  { \
+    RETURN(X) \
+  }
 
 #define BEGIN_STATE(state) case state: { switch(c) {
 #define END_STATE DEFAULT BACKUP return BADTOKEN; } } break;
@@ -120,419 +120,398 @@
 #define CHECK_BROKEN_TIMESTAMP \
 if(self->token_pos == sizeof(self->token) - 1 ) \
 { \
-	ERROR(WEBVTT_MALFORMED_TIMESTAMP); \
-	return BADTOKEN; \
+  ERROR(WEBVTT_MALFORMED_TIMESTAMP); \
+  return BADTOKEN; \
 }
 
 /**
  * lexer state
  */
-enum token_state_t
-{
-	T_INITIAL = 0, T_BOM0, T_BOM1, T_WEBVTT0, T_WEBVTT1, T_WEBVTT2, T_WEBVTT3, T_WEBVTT4, T_WEBVTT5, T_DASH0, T_SEP1,
-	T_DIGIT0, T_NEWLINE0, T_WHITESPACE, T_POSITION0, T_POSITION1, T_POSITION2, T_POSITION3, T_POSITION4, T_POSITION5, 
-	T_POSITION6, T_ALIGN0, T_ALIGN1, T_ALIGN2, T_ALIGN3, T_L0, T_LINE1, T_LINE2, T_LINE3,
-	T_VERTICAL0, T_VERTICAL1, T_VERTICAL2, T_VERTICAL3, T_VERTICAL4, T_VERTICAL5, T_VERTICAL6, T_RL0,
-	T_S0, T_SIZE1, T_SIZE2, T_START1, T_START2, T_START3, T_MIDDLE0, T_MIDDLE1, T_MIDDLE2, T_MIDDLE3,
-	T_MIDDLE4, T_END0, T_END1, T_TIMESTAMP1, T_TIMESTAMP2, T_TIMESTAMP3, T_RIGHT1, T_RIGHT2,
-	T_RIGHT3, T_NOTE1, T_NOTE2, T_NOTE3, T_LEFT1, T_LEFT2, 
+enum token_state_t {
+  T_INITIAL = 0, T_BOM0, T_BOM1, T_WEBVTT0, T_WEBVTT1, T_WEBVTT2, T_WEBVTT3, T_WEBVTT4, T_WEBVTT5, T_DASH0, T_SEP1,
+  T_DIGIT0, T_NEWLINE0, T_WHITESPACE, T_POSITION0, T_POSITION1, T_POSITION2, T_POSITION3, T_POSITION4, T_POSITION5,
+  T_POSITION6, T_ALIGN0, T_ALIGN1, T_ALIGN2, T_ALIGN3, T_L0, T_LINE1, T_LINE2, T_LINE3,
+  T_VERTICAL0, T_VERTICAL1, T_VERTICAL2, T_VERTICAL3, T_VERTICAL4, T_VERTICAL5, T_VERTICAL6, T_RL0,
+  T_S0, T_SIZE1, T_SIZE2, T_START1, T_START2, T_START3, T_MIDDLE0, T_MIDDLE1, T_MIDDLE2, T_MIDDLE3,
+  T_MIDDLE4, T_END0, T_END1, T_TIMESTAMP1, T_TIMESTAMP2, T_TIMESTAMP3, T_RIGHT1, T_RIGHT2,
+  T_RIGHT3, T_NOTE1, T_NOTE2, T_NOTE3, T_LEFT1, T_LEFT2,
 };
 
 WEBVTT_INTERN webvtt_status
 webvtt_lex_word( webvtt_parser self, webvtt_bytearray *pba, const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint length, int finish )
 {
-	webvtt_status status = WEBVTT_SUCCESS;
-	webvtt_uint pos = *ppos;
-	int d = 0;
-	if( !pba )
-	{
-		return WEBVTT_INVALID_PARAM;
-	}
-	if( !*pba )
-	{
-		if( WEBVTT_FAILED( status = webvtt_create_bytearray( 8, pba ) ) )
-		{
-			return status;
-		}
-	}
+  webvtt_status status = WEBVTT_SUCCESS;
+  webvtt_uint pos = *ppos;
+  int d = 0;
+  if( !pba ) {
+    return WEBVTT_INVALID_PARAM;
+  }
+  if( !*pba ) {
+    if( WEBVTT_FAILED( status = webvtt_create_bytearray( 8, pba ) ) ) {
+      return status;
+    }
+  }
 
 # define ASCII_DASH (0x2D)
 # define ASCII_GT (0x3E)
-	while( pos < length )
-	{
-		webvtt_uint last_bytes = self->bytes;
-		webvtt_uint last_line = self->line;
-		webvtt_uint last_column = self->column;
-		webvtt_uint last_pos = pos;
+  while( pos < length ) {
+    webvtt_uint last_bytes = self->bytes;
+    webvtt_uint last_line = self->line;
+    webvtt_uint last_column = self->column;
+    webvtt_uint last_pos = pos;
 
-		webvtt_token token = webvtt_lex(self, buffer, &pos, length, finish );
+    webvtt_token token = webvtt_lex(self, buffer, &pos, length, finish );
 
-		if( token == BADTOKEN )
-		{
-			if( WEBVTT_FAILED( status = webvtt_bytearray_putc( pba, buffer[pos] ) ) )
-			{
-				webvtt_delete_bytearray( pba );
-				goto _finished; 
-			}
-			++pos;
-		}
-		else
-		{
-			pos = last_pos;
-			self->bytes = last_bytes;
-			self->line = last_line;
-			self->column = last_column;
-			goto _finished;
-		}
-	}
+    if( token == BADTOKEN ) {
+      if( WEBVTT_FAILED( status = webvtt_bytearray_putc( pba, buffer[pos] ) ) ) {
+        webvtt_delete_bytearray( pba );
+        goto _finished;
+      }
+      ++pos;
+    } else {
+      pos = last_pos;
+      self->bytes = last_bytes;
+      self->line = last_line;
+      self->column = last_column;
+      goto _finished;
+    }
+  }
 
 _finished:
-	*ppos = pos;
-	return status;
+  *ppos = pos;
+  return status;
 }
 
 WEBVTT_INTERN webvtt_token
 webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, int finish )
 {
-	while( *pos < length )
-	{
-		webvtt_byte c = buffer[(*pos)++];
-		self->token[ self->token_pos++ ] = c;
-		self->token[ self->token_pos ] = 0;
-		self->column++;
-		self->bytes++;
-		switch( self->tstate )
-		{
-			BEGIN_STATE(T_INITIAL)
-				UTF8_DIGIT { SET_STATE(T_DIGIT0) }
-				UTF8_W  { SET_STATE(T_WEBVTT0) }
-				UTF8_DASH { SET_STATE(T_DASH0) }
-				UTF8_BOM0 { SET_STATE(T_BOM0) }
-				UTF8_LF { SET_NEWLINE }
-				UTF8_CR { SET_STATE(T_NEWLINE0) }
-				UTF8_SPACE OR UTF8_TAB { SET_STATE(T_WHITESPACE) }
-				UTF8_PERIOD { RETURN(FULL_STOP) }
-				UTF8_COLON { RETURN(COLON) }
-				UTF8_p { SET_STATE(T_POSITION0) }
-				UTF8_a { SET_STATE(T_ALIGN0) }
-				UTF8_l { SET_STATE(T_L0) }
-				UTF8_v { SET_STATE(T_VERTICAL0) }
-				UTF8_r { SET_STATE(T_RL0) }
-				UTF8_s { SET_STATE(T_S0) }
-				UTF8_m { SET_STATE(T_MIDDLE0) }
-				UTF8_e { SET_STATE(T_END0) }
-				UTF8_N { SET_STATE(T_NOTE1) }
-			END_STATE
+  while( *pos < length ) {
+    webvtt_byte c = buffer[(*pos)++];
+    self->token[ self->token_pos++ ] = c;
+    self->token[ self->token_pos ] = 0;
+    self->column++;
+    self->bytes++;
+    switch( self->tstate ) {
+        BEGIN_STATE(T_INITIAL)
+        UTF8_DIGIT { SET_STATE(T_DIGIT0) }
+        UTF8_W  { SET_STATE(T_WEBVTT0) }
+        UTF8_DASH { SET_STATE(T_DASH0) }
+        UTF8_BOM0 { SET_STATE(T_BOM0) }
+        UTF8_LF { SET_NEWLINE }
+        UTF8_CR { SET_STATE(T_NEWLINE0) }
+        UTF8_SPACE OR UTF8_TAB { SET_STATE(T_WHITESPACE) }
+        UTF8_PERIOD { RETURN(FULL_STOP) }
+        UTF8_COLON { RETURN(COLON) }
+        UTF8_p { SET_STATE(T_POSITION0) }
+        UTF8_a { SET_STATE(T_ALIGN0) }
+        UTF8_l { SET_STATE(T_L0) }
+        UTF8_v { SET_STATE(T_VERTICAL0) }
+        UTF8_r { SET_STATE(T_RL0) }
+        UTF8_s { SET_STATE(T_S0) }
+        UTF8_m { SET_STATE(T_MIDDLE0) }
+        UTF8_e { SET_STATE(T_END0) }
+        UTF8_N { SET_STATE(T_NOTE1) }
+        END_STATE
 
-			BEGIN_STATE(T_BOM0)
-				UTF8_BOM1 { SET_STATE(T_BOM1) }
-			END_STATE
+        BEGIN_STATE(T_BOM0)
+        UTF8_BOM1 { SET_STATE(T_BOM1) }
+        END_STATE
 
-			BEGIN_STATE(T_BOM1)
-				UTF8_BOM2
-				{
-					if( self->bytes == 3 )
-					{
-						RESET
-						BREAK
-					}
-					RETURN(BOM)
-				}
-			END_STATE
+        BEGIN_STATE(T_BOM1)
+        UTF8_BOM2 {
+          if( self->bytes == 3 ) {
+            RESET
+            BREAK
+          }
+          RETURN(BOM)
+        }
+        END_STATE
 
-			BEGIN_STATE(T_WEBVTT0)
-				UTF8_E { SET_STATE(T_WEBVTT1) }
-			END_STATE
+        BEGIN_STATE(T_WEBVTT0)
+        UTF8_E { SET_STATE(T_WEBVTT1) }
+        END_STATE
 
-			BEGIN_STATE(T_WEBVTT1)
-				UTF8_B { SET_STATE(T_WEBVTT2) }
-			END_STATE
+        BEGIN_STATE(T_WEBVTT1)
+        UTF8_B { SET_STATE(T_WEBVTT2) }
+        END_STATE
 
-			BEGIN_STATE(T_WEBVTT2)
-				UTF8_V { SET_STATE(T_WEBVTT3) }
-			END_STATE
+        BEGIN_STATE(T_WEBVTT2)
+        UTF8_V { SET_STATE(T_WEBVTT3) }
+        END_STATE
 
-			BEGIN_STATE(T_WEBVTT3)
-				UTF8_T { SET_STATE(T_WEBVTT4) }
-			END_STATE
-		
-			BEGIN_STATE(T_WEBVTT4)
-				UTF8_T { RETURN(WEBVTT) }
-			END_STATE
-		
-			BEGIN_STATE(T_DASH0)
-				UTF8_DIGIT { SET_STATE(T_DIGIT0) }
-				UTF8_DASH { SET_STATE(T_SEP1) }
-			END_STATE
+        BEGIN_STATE(T_WEBVTT3)
+        UTF8_T { SET_STATE(T_WEBVTT4) }
+        END_STATE
 
-			BEGIN_STATE(T_SEP1)
-				UTF8_GT { RETURN(SEPARATOR) }
-			END_STATE
+        BEGIN_STATE(T_WEBVTT4)
+        UTF8_T { RETURN(WEBVTT) }
+        END_STATE
 
-			BEGIN_STATE(T_DIGIT0)
-				UTF8_DIGIT
-				{
-					OVERFLOW(INTEGER)
-					SET_STATE(T_DIGIT0)
-				}
-				UTF8_COLON { SET_STATE(T_TIMESTAMP1) }
-				UTF8_PERCENT { RETURN(PERCENTAGE) }
-				DEFAULT { BACKUP AND RETURN(INTEGER) }
-			END_STATE_EX
+        BEGIN_STATE(T_DASH0)
+        UTF8_DIGIT { SET_STATE(T_DIGIT0) }
+        UTF8_DASH { SET_STATE(T_SEP1) }
+        END_STATE
 
-			BEGIN_STATE(T_NEWLINE0)
-				UTF8_LF { SET_NEWLINE }
-				DEFAULT { BACKUP AND SET_NEWLINE }
-			END_STATE_EX
+        BEGIN_STATE(T_SEP1)
+        UTF8_GT { RETURN(SEPARATOR) }
+        END_STATE
 
-			BEGIN_STATE(T_WHITESPACE)
-				UTF8_SPACE OR UTF8_TAB { OVERFLOW(WHITESPACE) SET_STATE(T_WHITESPACE) }
-				DEFAULT { BACKUP RETURN(WHITESPACE) }
-			END_STATE_EX
+        BEGIN_STATE(T_DIGIT0)
+        UTF8_DIGIT {
+          OVERFLOW(INTEGER)
+          SET_STATE(T_DIGIT0)
+        }
+        UTF8_COLON { SET_STATE(T_TIMESTAMP1) }
+        UTF8_PERCENT { RETURN(PERCENTAGE) }
+        DEFAULT { BACKUP AND RETURN(INTEGER) }
+        END_STATE_EX
 
-			BEGIN_STATE(T_POSITION0)
-				UTF8_o { SET_STATE(T_POSITION1) }
-			END_STATE
+        BEGIN_STATE(T_NEWLINE0)
+        UTF8_LF { SET_NEWLINE }
+        DEFAULT { BACKUP AND SET_NEWLINE }
+        END_STATE_EX
 
-			BEGIN_STATE(T_POSITION1)
-				UTF8_s { SET_STATE(T_POSITION2) }
-			END_STATE
+        BEGIN_STATE(T_WHITESPACE)
+        UTF8_SPACE OR UTF8_TAB { OVERFLOW(WHITESPACE) SET_STATE(T_WHITESPACE) }
+        DEFAULT { BACKUP RETURN(WHITESPACE) }
+        END_STATE_EX
 
-			BEGIN_STATE(T_POSITION2)
-				UTF8_i { SET_STATE(T_POSITION3) }
-			END_STATE
+        BEGIN_STATE(T_POSITION0)
+        UTF8_o { SET_STATE(T_POSITION1) }
+        END_STATE
 
-			BEGIN_STATE(T_POSITION3)
-				UTF8_t { SET_STATE(T_POSITION4) }
-			END_STATE
+        BEGIN_STATE(T_POSITION1)
+        UTF8_s { SET_STATE(T_POSITION2) }
+        END_STATE
 
-			BEGIN_STATE(T_POSITION4)
-				UTF8_i { SET_STATE(T_POSITION5) }
-			END_STATE
+        BEGIN_STATE(T_POSITION2)
+        UTF8_i { SET_STATE(T_POSITION3) }
+        END_STATE
 
-			BEGIN_STATE(T_POSITION5)
-				UTF8_o { SET_STATE(T_POSITION6) }
-			END_STATE
+        BEGIN_STATE(T_POSITION3)
+        UTF8_t { SET_STATE(T_POSITION4) }
+        END_STATE
 
-			BEGIN_STATE(T_POSITION6)
-				UTF8_n { RETURN(POSITION) }
-			END_STATE
+        BEGIN_STATE(T_POSITION4)
+        UTF8_i { SET_STATE(T_POSITION5) }
+        END_STATE
 
-			BEGIN_STATE(T_ALIGN0)
-				UTF8_l { SET_STATE(T_ALIGN1) }
-			END_STATE
+        BEGIN_STATE(T_POSITION5)
+        UTF8_o { SET_STATE(T_POSITION6) }
+        END_STATE
 
-			BEGIN_STATE(T_ALIGN1)
-				UTF8_i { SET_STATE(T_ALIGN2) }
-			END_STATE
+        BEGIN_STATE(T_POSITION6)
+        UTF8_n { RETURN(POSITION) }
+        END_STATE
 
-			BEGIN_STATE(T_ALIGN2)
-				UTF8_g { SET_STATE(T_ALIGN3) }
-			END_STATE
+        BEGIN_STATE(T_ALIGN0)
+        UTF8_l { SET_STATE(T_ALIGN1) }
+        END_STATE
 
-			BEGIN_STATE(T_ALIGN3)
-				UTF8_n { RETURN(ALIGN) }
-			END_STATE
+        BEGIN_STATE(T_ALIGN1)
+        UTF8_i { SET_STATE(T_ALIGN2) }
+        END_STATE
 
-			BEGIN_STATE(T_L0)
-				UTF8_r { RETURN(LR) }
-				UTF8_i { SET_STATE(T_LINE1) }
-				UTF8_e { SET_STATE(T_LEFT1) }
-			END_STATE
+        BEGIN_STATE(T_ALIGN2)
+        UTF8_g { SET_STATE(T_ALIGN3) }
+        END_STATE
 
-			BEGIN_STATE(T_LINE1)
-				UTF8_n { SET_STATE(T_LINE2) }
-			END_STATE
+        BEGIN_STATE(T_ALIGN3)
+        UTF8_n { RETURN(ALIGN) }
+        END_STATE
 
-			BEGIN_STATE(T_LINE2)
-				UTF8_e { RETURN(LINE) }
-			END_STATE
+        BEGIN_STATE(T_L0)
+        UTF8_r { RETURN(LR) }
+        UTF8_i { SET_STATE(T_LINE1) }
+        UTF8_e { SET_STATE(T_LEFT1) }
+        END_STATE
 
-			BEGIN_STATE(T_LEFT1)
-				UTF8_f { SET_STATE(T_LEFT2) }
-			END_STATE
+        BEGIN_STATE(T_LINE1)
+        UTF8_n { SET_STATE(T_LINE2) }
+        END_STATE
 
-			BEGIN_STATE(T_LEFT2)
-				UTF8_t { RETURN(LEFT) }
-			END_STATE
+        BEGIN_STATE(T_LINE2)
+        UTF8_e { RETURN(LINE) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL0)
-				UTF8_e { SET_STATE(T_VERTICAL1) }
-			END_STATE
+        BEGIN_STATE(T_LEFT1)
+        UTF8_f { SET_STATE(T_LEFT2) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL1)
-				UTF8_r { SET_STATE(T_VERTICAL2) }
-			END_STATE
+        BEGIN_STATE(T_LEFT2)
+        UTF8_t { RETURN(LEFT) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL2)
-				UTF8_t { SET_STATE(T_VERTICAL3) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL0)
+        UTF8_e { SET_STATE(T_VERTICAL1) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL3)
-				UTF8_i { SET_STATE(T_VERTICAL4) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL1)
+        UTF8_r { SET_STATE(T_VERTICAL2) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL4)
-				UTF8_c { SET_STATE(T_VERTICAL5) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL2)
+        UTF8_t { SET_STATE(T_VERTICAL3) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL5)
-				UTF8_a { SET_STATE(T_VERTICAL6) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL3)
+        UTF8_i { SET_STATE(T_VERTICAL4) }
+        END_STATE
 
-			BEGIN_STATE(T_VERTICAL6)
-				UTF8_l { RETURN(VERTICAL) }
-			END_STATE
-			
-			BEGIN_STATE(T_RL0)
-				UTF8_l { RETURN(RL) }
-				UTF8_i { SET_STATE(T_RIGHT1) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL4)
+        UTF8_c { SET_STATE(T_VERTICAL5) }
+        END_STATE
 
-			BEGIN_STATE(T_RIGHT1)
-				UTF8_g { SET_STATE(T_RIGHT2) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL5)
+        UTF8_a { SET_STATE(T_VERTICAL6) }
+        END_STATE
 
-			BEGIN_STATE(T_RIGHT2)
-				UTF8_h { SET_STATE(T_RIGHT3) }
-			END_STATE
+        BEGIN_STATE(T_VERTICAL6)
+        UTF8_l { RETURN(VERTICAL) }
+        END_STATE
 
-			BEGIN_STATE(T_RIGHT3)
-				UTF8_t { RETURN(RIGHT) }
-			END_STATE
+        BEGIN_STATE(T_RL0)
+        UTF8_l { RETURN(RL) }
+        UTF8_i { SET_STATE(T_RIGHT1) }
+        END_STATE
 
-			BEGIN_STATE(T_S0)
-				UTF8_t { SET_STATE(T_START1) }
-				UTF8_i { SET_STATE(T_SIZE1) }
-			END_STATE
+        BEGIN_STATE(T_RIGHT1)
+        UTF8_g { SET_STATE(T_RIGHT2) }
+        END_STATE
 
-			BEGIN_STATE(T_SIZE1)
-				UTF8_z { SET_STATE(T_SIZE2) }
-			END_STATE
+        BEGIN_STATE(T_RIGHT2)
+        UTF8_h { SET_STATE(T_RIGHT3) }
+        END_STATE
 
-			BEGIN_STATE(T_SIZE2)
-				UTF8_e { RETURN(SIZE) }
-			END_STATE
+        BEGIN_STATE(T_RIGHT3)
+        UTF8_t { RETURN(RIGHT) }
+        END_STATE
 
-			BEGIN_STATE(T_START1)
-				UTF8_a { SET_STATE(T_START2) }
-			END_STATE
+        BEGIN_STATE(T_S0)
+        UTF8_t { SET_STATE(T_START1) }
+        UTF8_i { SET_STATE(T_SIZE1) }
+        END_STATE
 
-			BEGIN_STATE(T_START2)
-				UTF8_r { SET_STATE(T_START3) }
-			END_STATE
+        BEGIN_STATE(T_SIZE1)
+        UTF8_z { SET_STATE(T_SIZE2) }
+        END_STATE
 
-			BEGIN_STATE(T_START3)
-				UTF8_t { RETURN(START) }
-			END_STATE
+        BEGIN_STATE(T_SIZE2)
+        UTF8_e { RETURN(SIZE) }
+        END_STATE
 
-			BEGIN_STATE(T_MIDDLE0)
-				UTF8_i { SET_STATE(T_MIDDLE1) }
-			END_STATE
+        BEGIN_STATE(T_START1)
+        UTF8_a { SET_STATE(T_START2) }
+        END_STATE
 
-			BEGIN_STATE(T_MIDDLE1)
-				UTF8_d { SET_STATE(T_MIDDLE2) }
-			END_STATE
+        BEGIN_STATE(T_START2)
+        UTF8_r { SET_STATE(T_START3) }
+        END_STATE
 
-			BEGIN_STATE(T_MIDDLE2)
-				UTF8_d { SET_STATE(T_MIDDLE3) }
-			END_STATE
+        BEGIN_STATE(T_START3)
+        UTF8_t { RETURN(START) }
+        END_STATE
 
-			BEGIN_STATE(T_MIDDLE3)
-				UTF8_l { SET_STATE(T_MIDDLE4) }
-			END_STATE
+        BEGIN_STATE(T_MIDDLE0)
+        UTF8_i { SET_STATE(T_MIDDLE1) }
+        END_STATE
 
-			BEGIN_STATE(T_MIDDLE4)
-				UTF8_e { RETURN(MIDDLE) }
-			END_STATE
+        BEGIN_STATE(T_MIDDLE1)
+        UTF8_d { SET_STATE(T_MIDDLE2) }
+        END_STATE
 
-			BEGIN_STATE(T_END0)
-				UTF8_n { SET_STATE(T_END1) }
-			END_STATE
+        BEGIN_STATE(T_MIDDLE2)
+        UTF8_d { SET_STATE(T_MIDDLE3) }
+        END_STATE
 
-			BEGIN_STATE(T_END1)
-				UTF8_d { RETURN(END) }
-			END_STATE
+        BEGIN_STATE(T_MIDDLE3)
+        UTF8_l { SET_STATE(T_MIDDLE4) }
+        END_STATE
 
-			BEGIN_STATE(T_TIMESTAMP1)
-				UTF8_DIGIT
-				{
-					OVERFLOW(BADTOKEN)
-					SET_STATE(T_TIMESTAMP1)
-				}
-				UTF8_COLON
-				{
-					OVERFLOW(BADTOKEN)
-					SET_STATE(T_TIMESTAMP2)
-				}
-				UTF8_PERIOD
-				{
-					OVERFLOW(BADTOKEN)
-					SET_STATE(T_TIMESTAMP3)
-				}
-			END_STATE
+        BEGIN_STATE(T_MIDDLE4)
+        UTF8_e { RETURN(MIDDLE) }
+        END_STATE
 
-			BEGIN_STATE(T_TIMESTAMP2)
-				UTF8_DIGIT
-				{
-					OVERFLOW(BADTOKEN)
-					SET_STATE(T_TIMESTAMP2)
-				}
-				UTF8_PERIOD
-				{
-					OVERFLOW(BADTOKEN)
-					SET_STATE(T_TIMESTAMP3)
-				}
-			END_STATE
+        BEGIN_STATE(T_END0)
+        UTF8_n { SET_STATE(T_END1) }
+        END_STATE
 
-			BEGIN_STATE(T_TIMESTAMP3)
-				UTF8_DIGIT
-				{
-					OVERFLOW(TIMESTAMP)
-					BREAK
-				}
-				DEFAULT
-				{
-					BACKUP
-					RETURN(TIMESTAMP)
-					BREAK
-				}
-			END_STATE_EX
-				
-			BEGIN_STATE(T_NOTE1)
-				UTF8_O { SET_STATE(T_NOTE2) }
-			END_STATE
-			
-			BEGIN_STATE(T_NOTE2)
-				UTF8_T { SET_STATE(T_NOTE3) }
-			END_STATE
+        BEGIN_STATE(T_END1)
+        UTF8_d { RETURN(END) }
+        END_STATE
 
-			BEGIN_STATE(T_NOTE3)
-				UTF8_E { RETURN(NOTE) }
-			END_STATE
-		}
-	}
+        BEGIN_STATE(T_TIMESTAMP1)
+        UTF8_DIGIT {
+          OVERFLOW(BADTOKEN)
+          SET_STATE(T_TIMESTAMP1)
+        }
+        UTF8_COLON {
+          OVERFLOW(BADTOKEN)
+          SET_STATE(T_TIMESTAMP2)
+        }
+        UTF8_PERIOD {
+          OVERFLOW(BADTOKEN)
+          SET_STATE(T_TIMESTAMP3)
+        }
+        END_STATE
 
-	/**
-	 * If we got here, we've reached the end of the buffer.
-	 * We therefore can attempt to finish up
-	 */
-	if( finish )
-	{
-		switch( self->tstate )
-		{
-			case T_DIGIT0: RETURN(INTEGER)
-			case T_TIMESTAMP3: RETURN(TIMESTAMP)
-			case T_WHITESPACE: RETURN(WHITESPACE)
-			default:
-				if(self->token_pos)
-				{
-					RESET
-					return BADTOKEN;
-				}
-		}
-	}
-	return *pos == length || self->token_pos ? UNFINISHED : BADTOKEN;
+        BEGIN_STATE(T_TIMESTAMP2)
+        UTF8_DIGIT {
+          OVERFLOW(BADTOKEN)
+          SET_STATE(T_TIMESTAMP2)
+        }
+        UTF8_PERIOD {
+          OVERFLOW(BADTOKEN)
+          SET_STATE(T_TIMESTAMP3)
+        }
+        END_STATE
+
+        BEGIN_STATE(T_TIMESTAMP3)
+        UTF8_DIGIT {
+          OVERFLOW(TIMESTAMP)
+          BREAK
+        }
+        DEFAULT {
+          BACKUP
+          RETURN(TIMESTAMP)
+          BREAK
+        }
+        END_STATE_EX
+
+        BEGIN_STATE(T_NOTE1)
+        UTF8_O { SET_STATE(T_NOTE2) }
+        END_STATE
+
+        BEGIN_STATE(T_NOTE2)
+        UTF8_T { SET_STATE(T_NOTE3) }
+        END_STATE
+
+        BEGIN_STATE(T_NOTE3)
+        UTF8_E { RETURN(NOTE) }
+        END_STATE
+    }
+  }
+
+  /**
+   * If we got here, we've reached the end of the buffer.
+   * We therefore can attempt to finish up
+   */
+  if( finish ) {
+    switch( self->tstate ) {
+      case T_DIGIT0:
+        RETURN(INTEGER)
+      case T_TIMESTAMP3:
+        RETURN(TIMESTAMP)
+      case T_WHITESPACE:
+        RETURN(WHITESPACE)
+      default:
+        if(self->token_pos) {
+          RESET
+          return BADTOKEN;
+        }
+    }
+  }
+  return *pos == length || self->token_pos ? UNFINISHED : BADTOKEN;
 }
 /**
  * token states

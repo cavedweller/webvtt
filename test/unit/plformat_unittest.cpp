@@ -5,20 +5,20 @@ class PayloadFormat : public PayloadTest {};
  * Verifies that a cue text span with no tags will parse correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text-span (11/27/2012)
  */
-TEST_F(PayloadFormat,DISABLED_BasicCueText)
+TEST_F(PayloadFormat, DISABLED_BasicCueText)
 {
-	loadVtt( "payload/payload-format/basic-cue-text.vtt", 1 );
-	ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  loadVtt( "payload/payload-format/basic-cue-text.vtt", 1 );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
 }
 
 /*
  * Verifies that multiple cue components can be put in one line.
  * http://dev.w3.org/html5/webvtt/#webvtt-cue-components
  */
-TEST_F(PayloadFormat,DISABLED_MultipleCueTextTag)
+TEST_F(PayloadFormat, DISABLED_MultipleCueTextTag)
 {
-	loadVtt( "payload/payload-format/multiple-cue-tag.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
+  loadVtt( "payload/payload-format/multiple-cue-tag.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
 }
 
 /*
@@ -26,491 +26,491 @@ TEST_F(PayloadFormat,DISABLED_MultipleCueTextTag)
  * the other.
  * http://dev.w3.org/html5/webvtt/#webvtt-cue-components
  */
-TEST_F(PayloadFormat,DISABLED_MultipleCueTextTagTogether)
+TEST_F(PayloadFormat, DISABLED_MultipleCueTextTagTogether)
 {
-	loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
+  loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
 }
 
 /*
  * Verifies that a cue text span with multiple lines will work.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *	Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineBasicCueText)
+TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
 {
-	loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
-	ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
 }
 
 /*
  * Verifies that cue text with single line feed characters will be parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *	Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueText)
+TEST_F(PayloadFormat, DISABLED_MultilineCueText)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  loadVtt( "payload/payload-format/multiline-cue-text.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
 }
 
 /*
  * Verifies that cue text with single carriage return characters will be parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *	Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueTextCR)
+TEST_F(PayloadFormat, DISABLED_MultilineCueTextCR)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text-cr.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  loadVtt( "payload/payload-format/multiline-cue-text-cr.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
 }
 
 /*
  * Verifies that cue text with single CRLF pair characters will be parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *	Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueTextCRLF)
+TEST_F(PayloadFormat, DISABLED_MultilineCueTextCRLF)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text-crlf.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  loadVtt( "payload/payload-format/multiline-cue-text-crlf.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
 }
 
 /*
- * Verifies that a file with payload text containing a line feed in between the text 
+ * Verifies that a file with payload text containing a line feed in between the text
  * will finish the parsing attempt gracefully.
  * From http://dev.w3.org/html5/webvtt/#parsing (12/10/2012):
  *
  * ...
  * 50. Bad cue: Discard cue.
- * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end. 
+ * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueTextExtraNewline)
+TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewline)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text-extra-newline.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
 }
 
 /*
- * Verifies that a file with payload text containing a carriage return in between the text 
+ * Verifies that a file with payload text containing a carriage return in between the text
  * will finish the parsing attempt gracefully.
  * From http://dev.w3.org/html5/webvtt/#parsing (12/10/2012):
  *
  * ...
  * 50. Bad cue: Discard cue.
- * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end. 
+ * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueTextExtraNewlineCR)
+TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCR)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-cr.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-cr.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
 }
 
 /*
- * Verifies that a file with payload text containing a CRLF pair in between the text 
+ * Verifies that a file with payload text containing a CRLF pair in between the text
  * will finish the parsing attempt gracefully.
  * From http://dev.w3.org/html5/webvtt/#parsing (12/10/2012):
  *
  * ...
  * 50. Bad cue: Discard cue.
- * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end. 
+ * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat,DISABLED_MultilineCueTextExtraNewlineCRLF)
+TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCRLF)
 {
-	loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
-	ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
+  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
 }
 
 /*
  * Verifies that multiple cue component are parsed correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *	Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineMultipleCueTextTag)
+TEST_F(PayloadFormat, DISABLED_MultilineMultipleCueTextTag)
 {
-	loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt" );
-	
-	const InternalNode *node = getHeadOfCue( 0 );
-	ASSERT_EQ( Node::Underline, node->kind() );
+  loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt" );
 
-	node = node->child( 0 )->toInternalNode();
-	ASSERT_EQ( Node::Italic, node->kind() );
+  const InternalNode *node = getHeadOfCue( 0 );
+  ASSERT_EQ( Node::Underline, node->kind() );
 
-	node = node->child( 0 )->toInternalNode();
-	ASSERT_EQ( Node::Bold, node->kind() );
+  node = node->child( 0 )->toInternalNode();
+  ASSERT_EQ( Node::Italic, node->kind() );
+
+  node = node->child( 0 )->toInternalNode();
+  ASSERT_EQ( Node::Bold, node->kind() );
 }
 
 /*
  * WebVTT Escape Character Specification being Tested:
  *
  * U+003B SEMICOLON character (;)
- *	First, examine the value of buffer:
- * 	If buffer is the string "&amp", then append a U+0026 AMPERSAND character (&) to result.
- *	If buffer is the string "&lt", then append a U+003C LESS-THAN SIGN character (<) to result.
- *	If buffer is the string "&gt", then append a U+003E GREATER-THAN SIGN character (>) to result.
- *	If buffer is the string "&lrm", then append a U+200E LEFT-TO-RIGHT MARK character to result.
- *	If buffer is the string "&rlm", then append a U+200F RIGHT-TO-LEFT MARK character to result.
- *	If buffer is the string "&nbsp", then append a U+00A0 NO-BREAK SPACE character to result.
- *	Otherwise, append buffer followed by a U+003B SEMICOLON character (;) to result.
- *	Then, in any case, set tokenizer state to the WebVTT data state, and jump to the step labeled next.
- * 
+ *  First, examine the value of buffer:
+ *  If buffer is the string "&amp", then append a U+0026 AMPERSAND character (&) to result.
+ *  If buffer is the string "&lt", then append a U+003C LESS-THAN SIGN character (<) to result.
+ *  If buffer is the string "&gt", then append a U+003E GREATER-THAN SIGN character (>) to result.
+ *  If buffer is the string "&lrm", then append a U+200E LEFT-TO-RIGHT MARK character to result.
+ *  If buffer is the string "&rlm", then append a U+200F RIGHT-TO-LEFT MARK character to result.
+ *  If buffer is the string "&nbsp", then append a U+00A0 NO-BREAK SPACE character to result.
+ *  Otherwise, append buffer followed by a U+003B SEMICOLON character (;) to result.
+ *  Then, in any case, set tokenizer state to the WebVTT data state, and jump to the step labeled next.
+ *
 */
 
 /*
  WebVTT - Living Standard Last Updated 2 October 2012
- 
- Relates to: 
- Cue Text Escape Characters and Cue Text Tags: 
+
+ Relates to:
+ Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  cue text to be parsed: <i>Test Ampersand escape within i tag: &amp; </i>
  correct Ampersand Character Escape : within a cue i tag
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandWithinTag)
+TEST_F(PayloadFormat, DISABLED_AmpersandWithinTag)
 {
-	loadVtt( "payload/escape-character/i-tag-with-ampersand.vtt", 1 );
+  loadVtt( "payload/escape-character/i-tag-with-ampersand.vtt", 1 );
 
-	const InternalNode *node = getHeadOfCue(0);
+  const InternalNode *node = getHeadOfCue(0);
 
-	/* Check to see if the Italic node has been correctly formed */
-	ASSERT_EQ( Node::Italic, node->kind() );
+  /* Check to see if the Italic node has been correctly formed */
+  ASSERT_EQ( Node::Italic, node->kind() );
 
-	/* verify the text within the i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toTextNode();
-	String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp;", 40 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify the text within the i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toTextNode();
+  String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp;", 40 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
  Relates To:
- Cue Text Escape Characters and Cue Text Tags: 
+ Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
  Cue Text to be Parsed: <b><i>Test Ampersand escape within i tag: &amp; </i></b>
  correct Ampersand Character Escape : cue b tag within a cue i tag
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandWithinMultipleTags)
+TEST_F(PayloadFormat, DISABLED_AmpersandWithinMultipleTags)
 {
-	loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand.vtt", 1 );
+  loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand.vtt", 1 );
 
-	/* verify bold tag */
-	const InternalNode *boldTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Bold, boldTag->kind() );
+  /* verify bold tag */
+  const InternalNode *boldTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Bold, boldTag->kind() );
 
-	/* verify italic tag within bold tag */
-	const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag within bold tag */
+  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify the text within the italic tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toInternalNode()->child(0)->toTextNode();
-	String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp; ", 40 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify the text within the italic tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toInternalNode()->child(0)->toTextNode();
+  String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp; ", 40 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
  Cue Text to be Parsed: <b><i> some filler text </i></b> &amp;
  correct Ampersand Character Escape outside cue b tag within a cue i tag
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOutsideTwoTags)
+TEST_F(PayloadFormat, DISABLED_AmpersandOutsideTwoTags)
 {
-	loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand-outside.vtt", 1 );
+  loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand-outside.vtt", 1 );
 
-	/* verify bold tag */
-	const InternalNode *boldTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Bold, boldTag->kind() );
+  /* verify bold tag */
+  const InternalNode *boldTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Bold, boldTag->kind() );
 
-	/* verify italic tag within bold tag */
-	const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag within bold tag */
+  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify the escape character text within the i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)" &amp;", 6 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify the escape character text within the i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)" &amp;", 6 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
  Relates To:
- Cue Text Escape Characters and Cue Text Tags: 
+ Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text to be Parsed: 
+ Cue Text to be Parsed:
  <i.class> Some Filler Text </i>
- &amp; 
+ &amp;
  correct Ampersand Character Escape on new line after two encapsulated tags with class
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOnNewLineAfterTwoTagsWithClass)
+TEST_F(PayloadFormat, DISABLED_AmpersandOnNewLineAfterTwoTagsWithClass)
 {
-	loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-class.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-class.vtt", 1 );
 
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
 
-	/* verify the escape character text within i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)"&amp;", 5 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify the escape character text within i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)"&amp;", 5 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text to be Parsed: <i.class> ampersand escape: &amp; </i> 
+ Cue Text to be Parsed: <i.class> ampersand escape: &amp; </i>
  correct Ampersand Character Escape inside tag with a class
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandInsideOneTagWithClass)
+TEST_F(PayloadFormat, DISABLED_AmpersandInsideOneTagWithClass)
 {
-	loadVtt( "payload/escape-character/ampersand-within-tag-with-class.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-within-tag-with-class.vtt", 1 );
 
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
-	
-	/* verify escape character text within i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child( 0 )->toTextNode();
-	String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+
+  /* verify escape character text within i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child( 0 )->toTextNode();
+  String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  WebVTT Specification Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text to be Parsed: 
- <b><i> some filler text </i></b> 
+ Cue Text to be Parsed:
+ <b><i> some filler text </i></b>
  &amp;
  correct Ampersand Character Escape outside two encapsulates tags
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandInsideTagWithSubclasses)
+TEST_F(PayloadFormat, DISABLED_AmpersandInsideTagWithSubclasses)
 {
-	loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
 
-	/* verify bold tag */
-	const InternalNode *boldTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Bold, boldTag->kind() );
+  /* verify bold tag */
+  const InternalNode *boldTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Bold, boldTag->kind() );
 
-	/* verify italic tag within bold tag */
-	const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag within bold tag */
+  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify character escape outside i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)"&amp;", 5 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify character escape outside i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)"&amp;", 5 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  WebVTT Specification Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
  Relates To:
- Cue Text Escape Characters and Cue Text Tags: 
+ Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text to be Parsed: <i.class.subclass> ampersand escape: &amp; </i> 
+ Cue Text to be Parsed: <i.class.subclass> ampersand escape: &amp; </i>
  correct Ampersand Character Escape on line after a tag with a class
  and subclass
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOnLineWithClassAndSubClass)
+TEST_F(PayloadFormat, DISABLED_AmpersandOnLineWithClassAndSubClass)
 {
-	loadVtt( "payload/escape-character/ampersand-inside-tag-with-subclass.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-inside-tag-with-subclass.vtt", 1 );
 
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
 
-	/* verify subclass within the i tag */
-	String cssSubClassExpected = String((const byte *)"subclass",8);
-	ASSERT_EQ(cssSubClassExpected.text(),cssClass.stringAtIndex(1).text());
+  /* verify subclass within the i tag */
+  String cssSubClassExpected = String((const byte *)"subclass", 8);
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
 
-	/* verify escape character text within i tag*/
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-	String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify escape character text within i tag*/
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  WebVTT Specification Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text To be Parsed: 
+ Cue Text To be Parsed:
  <i.class.subclass> Some Filler Text </i>
- &amp; 
+ &amp;
  correct Ampersand Character Escape on new line after a tag with a class
  and subclass
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOnNewlineWithClassAndSubclass)
+TEST_F(PayloadFormat, DISABLED_AmpersandOnNewlineWithClassAndSubclass)
 {
-	loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
-	
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify subclass within the i tag */
-	String cssSubClassExpected = String((const byte *)"subclass",8);
-	ASSERT_EQ(cssSubClassExpected.text(),cssClass.stringAtIndex(1).text());
-	
-	/* verify character escape outside i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)"&amp;", 5 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+
+  /* verify subclass within the i tag */
+  String cssSubClassExpected = String((const byte *)"subclass", 8);
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
+
+  /* verify character escape outside i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)"&amp;", 5 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  WebVTT Specification Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text To be Parsed: <i.class.subclass> Some Filler Text </i> &amp; 
+ Cue Text To be Parsed: <i.class.subclass> Some Filler Text </i> &amp;
  correct Ampersand Character Escape on line outsidetag with a class
  and subclass
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOnCurrlineWithClassAndSubclass)
+TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClassAndSubclass)
 {
-	loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
-	
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
 
-	/* verify subclass within the i tag */
-	String cssSubClassExpected = String((const byte *)"subclass",8);
-	ASSERT_EQ(cssSubClassExpected.text(),cssClass.stringAtIndex(1).text());
-	
-	/* verify character escape outside i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)" &amp;", 6 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+
+  /* verify subclass within the i tag */
+  String cssSubClassExpected = String((const byte *)"subclass", 8);
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
+
+  /* verify character escape outside i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)" &amp;", 6 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 /*
  WebVTT Specification Version:
  WebVTT - Living Standard Last Updated 2 October 2012
- 
+
   Relates To:
-  Cue Text Escape Characters and Cue Text Tags: 
+  Cue Text Escape Characters and Cue Text Tags:
  http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
- 
+
  Description:
- Cue Text To be Parsed: <i.class> Some Filler Text </i> &amp; 
+ Cue Text To be Parsed: <i.class> Some Filler Text </i> &amp;
  correct Ampersand Character Escape on line outsidetag with a class
  and subclass
 */
-TEST_F(PayloadFormat,DISABLED_AmpersandOnCurrlineWithClass)
+TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClass)
 {
-	loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
-	
-	/* verify italic tag */
-	const InternalNode *italicTag = getHeadOfCue(0);
-	ASSERT_EQ(Node::Italic, italicTag->kind() );
+  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
-	/* verify class inside italic tag*/
-	StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
-	String cssClassExpected = String((const byte *)"class",5);
-	ASSERT_EQ(cssClassExpected.text(),cssClass.stringAtIndex(0).text());
-	
-	/* verify character escape outside i tag */
-	const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
-	String expectedText = String( (const byte *)" &amp;", 6 );
-	ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  /* verify italic tag */
+  const InternalNode *italicTag = getHeadOfCue(0);
+  ASSERT_EQ(Node::Italic, italicTag->kind() );
+
+  /* verify class inside italic tag*/
+  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  String cssClassExpected = String((const byte *)"class", 5);
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+
+  /* verify character escape outside i tag */
+  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  String expectedText = String( (const byte *)" &amp;", 6 );
+  ASSERT_EQ( expectedText.text(), textNode->content().text() );
 }
 
 /*
  * Verifies that cue text separated by a CR line terminator is parsed correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (12/02/2012)
- *	Cue text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineBasicCueTextCR)
+TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCR)
 {
-	loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt" );
-	ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt" );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
 }
 
 /*
  * Verifies that cue text separated by a CRLF line terminator is parsed correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (12/02/2012)
- *	Cue text consists of one or more cue text components optionally separated by a single line terminator which can be: 
- *		1. CR (U+000D)
- *		2. LF (U+000A)
- *		3. CRLF pair
+ *  Cue text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *    1. CR (U+000D)
+ *    2. LF (U+000A)
+ *    3. CRLF pair
  */
-TEST_F(PayloadFormat,DISABLED_MultilineBasicCueTextCRLF)
+TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCRLF)
 {
-	loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt" );
-	ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt" );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
 }
 
 /* Verifies that cue text with a malformed line terminator is still parsed correctly.
@@ -518,8 +518,8 @@ TEST_F(PayloadFormat,DISABLED_MultilineBasicCueTextCRLF)
  * The WebVTT parser algorithm is as follows:
  * [...] 50. Bad cue: Discard cue.
  */
-TEST_F(PayloadFormat,DISABLED_MultilineBasicCueTextExtraLine)
+TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextExtraLine)
 {
-	loadVtt( "payload/payload-format/multiline-extra-line-terminator.vtt", 1);
-	ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  loadVtt( "payload/payload-format/multiline-extra-line-terminator.vtt", 1);
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
 }

@@ -8,14 +8,14 @@ class CueSettingVertical : public CueTest { };
  * This cue should have a Vertical orientation with direction RightToLeft
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
- *	If name is a case-sensitive match for "vertical"
- *	1. If value is a case-sensitive match for the string "rl", then let cue's text track cue writing direction be vertical growing left.
+ *  If name is a case-sensitive match for "vertical"
+ *  1. If value is a case-sensitive match for the string "rl", then let cue's text track cue writing direction be vertical growing left.
  */
-TEST_F(CueSettingVertical,RL)
+TEST_F(CueSettingVertical, RL)
 {
-	loadVtt( "cue-settings/vertical/rl.vtt", 1 );
-    ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
+  loadVtt( "cue-settings/vertical/rl.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
 }
 
 /**
@@ -25,14 +25,14 @@ TEST_F(CueSettingVertical,RL)
  * This cue should have a Vertical orientation with direction RightToLeft
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
- *	If name is a case-sensitive match for "vertical"
- *	2. Otherwise, if value is a case-sensitive match for the string "lr", then let cue's text track cue writing direction be vertical growing right.
+ *  If name is a case-sensitive match for "vertical"
+ *  2. Otherwise, if value is a case-sensitive match for the string "lr", then let cue's text track cue writing direction be vertical growing right.
  */
-TEST_F(CueSettingVertical,LR)
+TEST_F(CueSettingVertical, LR)
 {
-	loadVtt( "cue-settings/vertical/lr.vtt", 1 );
-    ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  loadVtt( "cue-settings/vertical/lr.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
 }
 
 /**
@@ -47,21 +47,21 @@ TEST_F(CueSettingVertical,LR)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_BadKeyword)
+TEST_F(CueSettingVertical, DISABLED_BadKeyword)
 {
-	loadVtt( "cue-settings/vertical/bad-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/bad-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -71,21 +71,21 @@ TEST_F(CueSettingVertical,DISABLED_BadKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_BadDelimiter)
+TEST_F(CueSettingVertical, DISABLED_BadDelimiter)
 {
-	loadVtt ( "cue-settings/vertical/bad-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt ( "cue-settings/vertical/bad-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 33rd column of the 3rd line
-	 */
-	ASSERT_EQ(WEBVTT_INVALID_CUESETTING_DELIMITER,err.error());
-	ASSERT_EQ(3,err.line());
-	ASSERT_EQ(25,err.column());
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 33rd column of the 3rd line
+   */
+  ASSERT_EQ(WEBVTT_INVALID_CUESETTING_DELIMITER, err.error());
+  ASSERT_EQ(3, err.line());
+  ASSERT_EQ(25, err.column());
 }
 
 /**
@@ -98,21 +98,21 @@ TEST_F(CueSettingVertical,DISABLED_BadDelimiter)
  * 2. Otherwise, if value is a case-sensitive match for the string "lr", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_BadValue)
+TEST_F(CueSettingVertical, DISABLED_BadValue)
 {
-	loadVtt( "cue-settings/vertical/bad-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/bad-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 34, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 34, err.column() );
 }
 
 /**
@@ -123,21 +123,21 @@ TEST_F(CueSettingVertical,DISABLED_BadValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_BadWhitespaceBeforeDelimiter)
+TEST_F(CueSettingVertical, DISABLED_BadWhitespaceBeforeDelimiter)
 {
-	loadVtt( "cue-settings/vertical/bad-whitespace-before-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/bad-whitespace-before-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_UNEXPECTED_WHITESPACE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_UNEXPECTED_WHITESPACE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -148,22 +148,22 @@ TEST_F(CueSettingVertical,DISABLED_BadWhitespaceBeforeDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_BadWhitespaceAfterDelimiter)
+TEST_F(CueSettingVertical, DISABLED_BadWhitespaceAfterDelimiter)
 {
-	loadVtt( "cue-settings/vertical/bad-whitespace-after-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/bad-whitespace-after-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
-	 * This should really be changed to a different error, like WEBVTT_UNEXPECTED_WHITESPACE, or something
-	 */
-	ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 34, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
+   * This should really be changed to a different error, like WEBVTT_UNEXPECTED_WHITESPACE, or something
+   */
+  ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 34, err.column() );
 }
 
 /**
@@ -173,21 +173,21 @@ TEST_F(CueSettingVertical,DISABLED_BadWhitespaceAfterDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_NoKeyword)
+TEST_F(CueSettingVertical, DISABLED_NoKeyword)
 {
-	loadVtt( "cue-settings/vertical/no-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/no-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -197,21 +197,21 @@ TEST_F(CueSettingVertical,DISABLED_NoKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_NoValue)
+TEST_F(CueSettingVertical, DISABLED_NoValue)
 {
-	loadVtt( "cue-settings/vertical/no-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/no-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 34, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 34, err.column() );
 }
 
 /**
@@ -221,21 +221,21 @@ TEST_F(CueSettingVertical,DISABLED_NoValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_NoDelimiter)
+TEST_F(CueSettingVertical, DISABLED_NoDelimiter)
 {
-	loadVtt( "cue-settings/vertical/no-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/no-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -250,21 +250,21 @@ TEST_F(CueSettingVertical,DISABLED_NoDelimiter)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_UppercaseKeyword)
+TEST_F(CueSettingVertical, DISABLED_UppercaseKeyword)
 {
-	loadVtt( "cue-settings/vertical/uppercase-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/uppercase-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -277,19 +277,19 @@ TEST_F(CueSettingVertical,DISABLED_UppercaseKeyword)
  * 2. Otherwise, if value is a case-sensitive match for the string "lr", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical,DISABLED_UppercaseValue)
+TEST_F(CueSettingVertical, DISABLED_UppercaseValue)
 {
-	loadVtt( "cue-settings/vertical/uppercase-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Writing direction should be horizontal because the malformed setting should be skipped
+  loadVtt( "cue-settings/vertical/uppercase-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Writing direction should be horizontal because the malformed setting should be skipped
      * because horiztonal is default.
-	 */
-	ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
-	/**
-	 * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_UNEXPECTED_WHITESPACE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 34, err.column() );
+   */
+  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  /**
+   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_UNEXPECTED_WHITESPACE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 34, err.column() );
 }

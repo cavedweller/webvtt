@@ -3,15 +3,15 @@ class CueIdLanguage : public CueTest { };
 
 /**
  * Test to determine if random junk characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,JunkCharacters)
+TEST_F(CueIdLanguage, JunkCharacters)
 {
   loadVtt( "cue-ids/languages/junk_characters.vtt" );
 
@@ -20,15 +20,15 @@ TEST_F(CueIdLanguage,JunkCharacters)
 
 /**
  * Test to determine if Arabic characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Arabic)
+TEST_F(CueIdLanguage, Arabic)
 {
   loadVtt( "cue-ids/languages/arabic.vtt" );
 
@@ -37,15 +37,15 @@ TEST_F(CueIdLanguage,Arabic)
 
 /**
  * Test to determine if Japanese characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Japanese)
+TEST_F(CueIdLanguage, Japanese)
 {
   loadVtt( "cue-ids/languages/japanese.vtt" );
 
@@ -54,15 +54,15 @@ TEST_F(CueIdLanguage,Japanese)
 
 /**
  * Test to determine if Russian characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Russian)
+TEST_F(CueIdLanguage, Russian)
 {
   loadVtt( "cue-ids/languages/russian.vtt" );
 
@@ -71,15 +71,15 @@ TEST_F(CueIdLanguage,Russian)
 
 /**
  * Test to determine if Chinese characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Chinese)
+TEST_F(CueIdLanguage, Chinese)
 {
   loadVtt( "cue-ids/languages/chinese.vtt" );
 
@@ -88,15 +88,15 @@ TEST_F(CueIdLanguage,Chinese)
 
 /**
  * Test to determine if Greek characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Greek)
+TEST_F(CueIdLanguage, Greek)
 {
   loadVtt( "cue-ids/languages/greek.vtt" );
 
@@ -105,15 +105,15 @@ TEST_F(CueIdLanguage,Greek)
 
 /**
  * Test to determine if Hebrew characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Hebrew)
+TEST_F(CueIdLanguage, Hebrew)
 {
   loadVtt( "cue-ids/languages/hebrew.vtt" );
 
@@ -122,15 +122,15 @@ TEST_F(CueIdLanguage,Hebrew)
 
 /**
  * Test to determine if Korean characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Korean)
+TEST_F(CueIdLanguage, Korean)
 {
   loadVtt( "cue-ids/languages/korean.vtt" );
 
@@ -139,15 +139,15 @@ TEST_F(CueIdLanguage,Korean)
 
 /**
  * Test to determine if Thai characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,Thai)
+TEST_F(CueIdLanguage, Thai)
 {
   loadVtt( "cue-ids/languages/thai.vtt" );
 
@@ -156,15 +156,15 @@ TEST_F(CueIdLanguage,Thai)
 
 /**
  * Test to determine if Thai characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,MultipleLanguages)
+TEST_F(CueIdLanguage, MultipleLanguages)
 {
   loadVtt( "cue-ids/languages/multiple_languages.vtt" );
 
@@ -173,15 +173,15 @@ TEST_F(CueIdLanguage,MultipleLanguages)
 
 /**
  * Test to determine if an extremely long string (5000+) of Arabic characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringArabic) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringArabic) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_arabic.vtt" );
 
@@ -190,15 +190,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringArabic) //currently truncating character
 
 /**
  * Test to determine if an extremely long string (5000+) Japanese characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringJapanese) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringJapanese) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_japanese.vtt" );
 
@@ -207,15 +207,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringJapanese) //currently truncating charact
 
 /**
  * Test to determine if an extremely long string (5000+) Russian characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringRussian) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringRussian) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_russian.vtt" );
 
@@ -224,15 +224,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringRussian) //currently truncating characte
 
 /**
  * Test to determine if an extremely long string (5000+) Chinese characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringChinese) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringChinese) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_chinese.vtt" );
 
@@ -241,15 +241,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringChinese) //currently truncating characte
 
 /**
  * Test to determine if an extremely long string (5000+) Greek characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringGreek) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringGreek) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_greek.vtt" );
 
@@ -258,15 +258,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringGreek) //currently truncating characters
 
 /**
  * Test to determine if an extremely long string (5000+) Hebrew characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringHebrew) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringHebrew) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_hebrew.vtt" );
 
@@ -275,15 +275,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringHebrew) //currently truncating character
 
 /**
  * Test to determine if an extremely long string (5000+) Korean characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringKorean) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringKorean) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_korean.vtt" );
 
@@ -292,15 +292,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringKorean) //currently truncating character
 
 /**
  * Test to determine if an extremely long string (5000+) Thai characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringThai) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringThai) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_thai.vtt" );
 
@@ -309,15 +309,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringThai) //currently truncating characters 
 
 /**
  * Test to determine if an extremely long string (5000+) of multiple characters (Left and right aligned) are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_multiple_languages.vtt" );
 
@@ -326,15 +326,15 @@ TEST_F(CueIdLanguage,DISABLED_LongStringMultipleLanguages) //currently truncatin
 
 /**
  * Test to determine if an extremely long string (5000+) of junk characters are able to pass as part of the cue id in the parser
- * 
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-identifier (11/24/2012)
- * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->" 
- * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF) 
+ * A WebVTT cue identifier is any sequence of one or more characters not containing the substring "-->"
+ * (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN), nor containing any U+000A LINE FEED (LF)
  * characters or U+000D CARRIAGE RETURN (CR) characters.
- * 
+ *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage,DISABLED_LongStringJunkCharacters) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringJunkCharacters) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_junk_characters.vtt" );
 

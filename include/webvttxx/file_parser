@@ -1,8 +1,8 @@
 #ifndef __WEBVTTXX_FILE_PARSER__
-#	define __WEBVTTXX_FILE_PARSER__
-#	include "abstract_parser"
-#	include <string>
-#	include <fstream>
+# define __WEBVTTXX_FILE_PARSER__
+# include "abstract_parser"
+# include <string>
+# include <fstream>
 
 namespace WebVTT
 {
@@ -10,17 +10,17 @@ namespace WebVTT
 class FileParser : public AbstractParser
 {
 public:
-	FileParser( const char *fileName );
-	virtual ~FileParser();
+  FileParser( const char *fileName );
+  virtual ~FileParser();
 
-	bool parse();
-	virtual bool reportError( const Error &error ) = 0;
-	virtual void parsedCue( Cue &cue ) = 0;
+  bool parse();
+  virtual bool reportError( const Error &error ) = 0;
+  virtual void parsedCue( Cue &cue ) = 0;
 
 
 protected:
-	std::string fileName;
-	std::ifstream reader;
+  std::string fileName;
+  std::ifstream reader;
 };
 
 }
