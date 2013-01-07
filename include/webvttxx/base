@@ -1,7 +1,7 @@
 #ifndef __WEBVTTXX_BASE__
-#	define __WEBVTTXX_BASE__
+# define __WEBVTTXX_BASE__
 
-#	include <webvtt/util.h>
+# include <webvtt/util.h>
 
 namespace WebVTT
 {

@@ -8,11 +8,11 @@ class CueSettingAlign : public CueTest { };
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "start", then let cue's text track cue alignment be start alignment.
  */
-TEST_F(CueSettingAlign,Start)
+TEST_F(CueSettingAlign, Start)
 {
-	loadVtt( "cue-settings/align/start.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isAlignedToStart() );
+  loadVtt( "cue-settings/align/start.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isAlignedToStart() );
 }
 
 /**
@@ -22,11 +22,11 @@ TEST_F(CueSettingAlign,Start)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "middle", then let cue's text track cue alignment be middle alignment.
  */
-TEST_F(CueSettingAlign,Middle)
+TEST_F(CueSettingAlign, Middle)
 {
-	loadVtt( "cue-settings/align/middle.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  loadVtt( "cue-settings/align/middle.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
 }
 
 /**
@@ -36,11 +36,11 @@ TEST_F(CueSettingAlign,Middle)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "end", then let cue's text track cue alignment be end alignment.
  */
-TEST_F(CueSettingAlign,End)
+TEST_F(CueSettingAlign, End)
 {
-	loadVtt( "cue-settings/align/end.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isAlignedToEnd() );
+  loadVtt( "cue-settings/align/end.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isAlignedToEnd() );
 }
 
 /**
@@ -50,11 +50,11 @@ TEST_F(CueSettingAlign,End)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "left", then let cue's text track cue alignment be left alignment.
  */
-TEST_F(CueSettingAlign,Left)
+TEST_F(CueSettingAlign, Left)
 {
-	loadVtt( "cue-settings/align/left.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isAlignedToLeft() );
+  loadVtt( "cue-settings/align/left.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isAlignedToLeft() );
 }
 
 /**
@@ -64,11 +64,11 @@ TEST_F(CueSettingAlign,Left)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "right", then let cue's text track cue alignment be right alignment.
  */
-TEST_F(CueSettingAlign,Right)
+TEST_F(CueSettingAlign, Right)
 {
-	loadVtt( "cue-settings/align/right.vtt", 1 );
-	ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
-	ASSERT_TRUE( getCue( 0 ).isAlignedToRight() );
+  loadVtt( "cue-settings/align/right.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_TRUE( getCue( 0 ).isAlignedToRight() );
 }
 
 /**
@@ -83,22 +83,22 @@ TEST_F(CueSettingAlign,Right)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,DISABLED_BadKeyword)
+TEST_F(CueSettingAlign, DISABLED_BadKeyword)
 {
-	loadVtt( "cue-settings/align/bad-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/bad-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 * We could return a smarter error, after a little bit of refactoring, perhaps.
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We could return a smarter error, after a little bit of refactoring, perhaps.
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -108,21 +108,21 @@ TEST_F(CueSettingAlign,DISABLED_BadKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,NoKeyword)
+TEST_F(CueSettingAlign, NoKeyword)
 {
-	loadVtt( "cue-settings/align/no-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/no-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_MISSING_CUESETTING_KEYWORD error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_MISSING_CUESETTING_KEYWORD, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_MISSING_CUESETTING_KEYWORD error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_MISSING_CUESETTING_KEYWORD, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -138,21 +138,21 @@ TEST_F(CueSettingAlign,NoKeyword)
  * 5. If value is a case-sensitive match for the string "right", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,BadValue)
+TEST_F(CueSettingAlign, BadValue)
 {
-	loadVtt( "cue-settings/align/bad-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/bad-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 31, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 31, err.column() );
 }
 
 /**
@@ -162,21 +162,21 @@ TEST_F(CueSettingAlign,BadValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,NoValue)
+TEST_F(CueSettingAlign, NoValue)
 {
-	loadVtt( "cue-settings/align/no-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/no-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 31, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 31, err.column() );
 }
 
 /**
@@ -186,21 +186,21 @@ TEST_F(CueSettingAlign,NoValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,BadDelimiter)
+TEST_F(CueSettingAlign, BadDelimiter)
 {
-	loadVtt( "cue-settings/align/bad-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/bad-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 30th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 30, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 30th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 30, err.column() );
 }
 
 /**
@@ -210,21 +210,21 @@ TEST_F(CueSettingAlign,BadDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,DISABLED_NoDelimiter)
+TEST_F(CueSettingAlign, DISABLED_NoDelimiter)
 {
-	loadVtt( "cue-settings/align/no-delimiter.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/no-delimiter.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 25, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 25, err.column() );
 }
 
 /**
@@ -239,21 +239,21 @@ TEST_F(CueSettingAlign,DISABLED_NoDelimiter)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,DISABLED_UppercaseKeyword)
+TEST_F(CueSettingAlign, DISABLED_UppercaseKeyword)
 {
-	loadVtt( "cue-settings/align/uppercase-keyword.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/uppercase-keyword.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_MISSING_CUESETTING_DELIMITER, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 30, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_MISSING_CUESETTING_DELIMITER, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 30, err.column() );
 }
 
 /**
@@ -268,19 +268,19 @@ TEST_F(CueSettingAlign,DISABLED_UppercaseKeyword)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign,DISABLED_UppercaseValue)
+TEST_F(CueSettingAlign, DISABLED_UppercaseValue)
 {
-	loadVtt( "cue-settings/align/uppercase-value.vtt", 1 );
-	const Error& err = getError( 0 );
-	/**
-	 * Align should be "middle" because the malformed setting should be skipped
+  loadVtt( "cue-settings/align/uppercase-value.vtt", 1 );
+  const Error &err = getError( 0 );
+  /**
+   * Align should be "middle" because the malformed setting should be skipped
      * and "middle" is default.
-	 */
-	ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
-	/**
-	 * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
-	 */
-	ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
-	ASSERT_EQ( 3, err.line() );
-	ASSERT_EQ( 31, err.column() );
+   */
+  ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+  /**
+   * We're expecting a WEBVTT_ALIGN_BAD_VALUE error on the 31st column of the 3rd line
+   */
+  ASSERT_EQ( WEBVTT_ALIGN_BAD_VALUE, err.error() );
+  ASSERT_EQ( 3, err.line() );
+  ASSERT_EQ( 31, err.column() );
 }
