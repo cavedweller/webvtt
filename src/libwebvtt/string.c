@@ -423,14 +423,15 @@ _end:
  * String lists
  */
 WEBVTT_EXPORT webvtt_status
-webvtt_create_string_list( webvtt_string_list_ptr *result )
+webvtt_create_string_list( webvtt_string_list **result )
 {
-  webvtt_string_list_ptr list;
+  webvtt_string_list *list;
+
   if( !result ) {
     return WEBVTT_INVALID_PARAM;
   }
 
-  list = ( webvtt_string_list_ptr )webvtt_alloc0( sizeof( *list ) );
+  list = ( webvtt_string_list *)webvtt_alloc0( sizeof( *list ) );
 
   if( !list ) {
     return WEBVTT_OUT_OF_MEMORY;
@@ -442,12 +443,12 @@ webvtt_create_string_list( webvtt_string_list_ptr *result )
 }
 
 WEBVTT_EXPORT void
-webvtt_delete_string_list( webvtt_string_list_ptr *list )
+webvtt_delete_string_list( webvtt_string_list **list )
 {
   webvtt_uint i;
 
   if( list && *list ) {
-    webvtt_string_list_ptr l = *list;
+    webvtt_string_list *l = *list;
     *list = 0;
     if( l->items ) {
       for( i = 0; i < l->length; i++ ) {
@@ -460,7 +461,7 @@ webvtt_delete_string_list( webvtt_string_list_ptr *list )
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_add_to_string_list( webvtt_string_list_ptr list, webvtt_string *str )
+webvtt_add_to_string_list( webvtt_string_list *list, webvtt_string *str )
 {
   if( !list || !str ) {
     return WEBVTT_INVALID_PARAM;

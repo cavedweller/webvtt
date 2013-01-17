@@ -19,9 +19,12 @@ private:
   Cue( webvtt_cue pcue ) {
     webvtt_ref_cue(pcue);
     cue = pcue;
+    head = new InternalNode( pcue->node_head );
   }
 
 public:
+  InternalNode *head;
+
   Cue( const Cue &other )
     : cue(other.cue) {
     webvtt_ref_cue( cue );
@@ -37,6 +40,7 @@ public:
     if( oldcue ) {
       webvtt_release_cue( &oldcue );
     }
+    head = other.head;
 
     return *this;
   }
@@ -83,7 +87,7 @@ public:
   }
 
   inline const Node *nodeHead() const {
-    return NodeFactory::createNode( cue->node_head );
+    return head;
   }
 
   /**

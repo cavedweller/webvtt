@@ -61,8 +61,7 @@ typedef struct webvtt_state {
   union {
     webvtt_cue cue;
     webvtt_bytearray text;
-    webvtt_leaf_node *lf;
-    webvtt_internal_node *in;
+    webvtt_node *node;
     webvtt_uint value;
   } v;
 } webvtt_state;

@@ -4,15 +4,26 @@
 namespace WebVTT
 {
 
+InternalNode::InternalNode( webvtt_node *otherNode )
+  : Node( otherNode ) 
+{
+  Node *temp_node;
+  for( int i = 0; i < otherNode->internal_data->length; i++ )
+  {
+    temp_node = NodeFactory::createNode( node->internal_data->children[i] );
+    children.push_back( temp_node );
+  }
+}
+
 const Node *Node::parent() const
 {
-  return NodeFactory::createNode( nodePtr->parent );
+  return parentNode;
 }
 
 const Node *InternalNode::child( uint index ) const
 {
-  if( index <= internalNodePtr->length )
-  { return NodeFactory::createNode( internalNodePtr->children[index] ); }
+  if( index <= node->internal_data->length )
+  { return children.at(index); }
   else
   { return 0; }
 }

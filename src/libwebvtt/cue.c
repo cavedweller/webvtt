@@ -92,149 +92,142 @@ error:
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_node( webvtt_node_ptr *node_pptr, void *concrete_node, webvtt_node_kind kind, webvtt_node_ptr parent_ptr )
+webvtt_create_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind )
 {
-  webvtt_node_ptr temp_node_ptr = (webvtt_node_ptr)malloc(sizeof(*temp_node_ptr));
+  webvtt_node *temp_node = (webvtt_node *)webvtt_alloc0(sizeof(*temp_node));
+  
+  if( !temp_node )
+  { 
+    return WEBVTT_OUT_OF_MEMORY; 
+  }
 
-  if( !temp_node_ptr )
-  { return WEBVTT_OUT_OF_MEMORY; }
-
-  temp_node_ptr->concrete_node = concrete_node;
-  temp_node_ptr->kind = kind;
-  temp_node_ptr->parent = parent_ptr;
-  *node_pptr = temp_node_ptr;
+  temp_node->kind = kind;
+  temp_node->parent = parent;
+  *node = temp_node;
 
   return WEBVTT_SUCCESS;
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_internal_node( webvtt_node_ptr *node_pptr, webvtt_node_ptr parent_ptr, webvtt_node_kind kind, webvtt_string_list_ptr css_classes_ptr, webvtt_string annotation )
+webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, webvtt_string_list *css_classes, webvtt_string annotation )
 {
-  webvtt_internal_node_ptr internal_node_ptr = (webvtt_internal_node_ptr)malloc(sizeof(*internal_node_ptr));
+  webvtt_status status;
+  webvtt_internal_node_data *node_data;
 
-  if( !internal_node_ptr )
-  { return WEBVTT_OUT_OF_MEMORY; }
+  if( WEBVTT_FAILED( status = webvtt_create_node( node, parent, kind ) ) ) {
+    return status;
+  }
 
-  internal_node_ptr->css_classes_ptr = css_classes_ptr;
-  internal_node_ptr->annotation = annotation;
-  internal_node_ptr->children = NULL;
-  internal_node_ptr->length = 0;
-  internal_node_ptr->alloc = 0;
-
-  return webvtt_create_node( node_pptr, (void *)internal_node_ptr, kind, parent_ptr );
-}
-
-WEBVTT_INTERN webvtt_status
-webvtt_create_head_node( webvtt_node_ptr *node_pptr )
-{
-  webvtt_internal_node_ptr internal_node_ptr = (webvtt_internal_node_ptr)webvtt_alloc(sizeof(*internal_node_ptr));
-
-  if ( !internal_node_ptr ) {
+  node_data = (webvtt_internal_node_data *)webvtt_alloc0( sizeof(*node_data) );
+  
+  if ( !node_data )
+  {
     return WEBVTT_OUT_OF_MEMORY;
   }
 
-  webvtt_init_string(&internal_node_ptr->annotation);
-  internal_node_ptr->css_classes_ptr = NULL;
-  internal_node_ptr->children = NULL;
-  internal_node_ptr->length = 0;
-  internal_node_ptr->alloc = 0;
+  node_data->css_classes = css_classes;
+  node_data->annotation = annotation;
+  node_data->children = NULL;
+  node_data->length = 0;
+  node_data->alloc = 0;
 
-  return webvtt_create_node( node_pptr, (void *)internal_node_ptr, WEBVTT_HEAD_NODE, NULL );
+  (*node)->internal_data = node_data;
+  
+  return WEBVTT_SUCCESS;
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_time_stamp_leaf_node( webvtt_node_ptr *node_pptr, webvtt_node_ptr parent_ptr, webvtt_timestamp time_stamp )
+webvtt_create_head_node( webvtt_node **node )
 {
-  webvtt_leaf_node_ptr leaf_node_ptr = (webvtt_leaf_node_ptr)webvtt_alloc(sizeof(*leaf_node_ptr));
+  webvtt_status status;
+  webvtt_string temp_annotation;
 
-  if( !leaf_node_ptr ) {
-    return WEBVTT_OUT_OF_MEMORY;
+  /* This isn't the best way to do this... */
+  temp_annotation.d = NULL;
+
+  if( WEBVTT_FAILED( status = webvtt_create_internal_node( node, NULL, WEBVTT_HEAD_NODE, NULL, temp_annotation ) ) ) {
+    return status;
   }
 
-  leaf_node_ptr->time_stamp = time_stamp;
-
-  return webvtt_create_node( node_pptr, (void *)leaf_node_ptr, WEBVTT_TIME_STAMP, parent_ptr );
+  return WEBVTT_SUCCESS;
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_text_leaf_node( webvtt_node_ptr *node_pptr, webvtt_node_ptr parent_ptr, webvtt_string text )
+webvtt_create_time_stamp_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_timestamp time_stamp )
 {
-  webvtt_leaf_node_ptr leaf_node_ptr = (webvtt_leaf_node_ptr)malloc(sizeof(*leaf_node_ptr));
+  webvtt_status status;
 
-  if( !leaf_node_ptr )
-  { return WEBVTT_OUT_OF_MEMORY; }
+  if( WEBVTT_FAILED( status = webvtt_create_node( node, parent, WEBVTT_TIME_STAMP ) ) ) {
+    return status;
+  }
 
-  leaf_node_ptr->text = text;
-  webvtt_create_node( node_pptr, (void *)leaf_node_ptr, WEBVTT_TEXT, parent_ptr );
+  (*node)->time_stamp = time_stamp;
+
+  return WEBVTT_SUCCESS;
+}
+
+WEBVTT_INTERN webvtt_status
+webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_string text )
+{
+  webvtt_status status;
+
+  if( WEBVTT_FAILED( status = webvtt_create_node( node, parent, WEBVTT_TIME_STAMP ) ) ) {
+    return status;
+  }
+
+  (*node)->text = text;
 
   return WEBVTT_SUCCESS;
 
 }
 
 WEBVTT_INTERN void
-webvtt_delete_node( webvtt_node_ptr node_ptr )
+webvtt_delete_node( webvtt_node *node )
 {
-  if( node_ptr ) {
-    if( WEBVTT_IS_VALID_LEAF_NODE( node_ptr->kind ) ) {
-      webvtt_delete_leaf_node( (webvtt_leaf_node_ptr)node_ptr->concrete_node );
-    } else if( WEBVTT_IS_VALID_INTERNAL_NODE( node_ptr->kind ) ) {
-      webvtt_delete_internal_node( (webvtt_internal_node_ptr)node_ptr->concrete_node );
-    }
-    free( node_ptr );
-  }
-}
+  int i;
 
-WEBVTT_INTERN void
-webvtt_delete_internal_node( webvtt_internal_node_ptr internal_node_ptr )
-{
-  webvtt_uint i ;
-
-  if( internal_node_ptr ) {
-    webvtt_delete_string_list( &internal_node_ptr->css_classes_ptr );
-
-    if( webvtt_string_length(&internal_node_ptr->annotation) ) {
-      webvtt_release_string( &internal_node_ptr->annotation );
+  if( node ) {
+    if( WEBVTT_IS_VALID_LEAF_NODE( node->kind ) ) {
+      if( node->text.d ) {
+        webvtt_release_string( &node->text );
+      }
+    } else if( WEBVTT_IS_VALID_INTERNAL_NODE( node->kind ) ) {
+      webvtt_delete_string_list( &node->internal_data->css_classes );
+      if( node->internal_data->annotation.d ) {
+        webvtt_release_string( &node->internal_data->annotation );
+      }
+      for( i = 0; i < node->internal_data->length; i++ ) {
+        webvtt_delete_node( *(node->internal_data->children + i) );
+      }
+      webvtt_free( node->internal_data );
     }
-    for( i = 0; i < internal_node_ptr->length; i++ ) {
-      webvtt_delete_node( *(internal_node_ptr->children + i) );
-    }
-    webvtt_free( internal_node_ptr );
-  }
-}
-
-WEBVTT_INTERN void
-webvtt_delete_leaf_node( webvtt_leaf_node_ptr leaf_node_ptr )
-{
-  if( leaf_node_ptr ) {
-    if( webvtt_string_length( &leaf_node_ptr->text ) ) {
-      webvtt_release_string( &leaf_node_ptr->text );
-    }
-    webvtt_free( leaf_node_ptr );
+    webvtt_free( node );
   }
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_attach_internal_node( webvtt_internal_node_ptr current_ptr, webvtt_node_ptr to_attach_ptr )
+webvtt_attach_internal_node( webvtt_node *current, webvtt_node *to_attach )
 {
-  if( !current_ptr || !to_attach_ptr ) {
+  if( !current || !to_attach ) {
     return WEBVTT_INVALID_PARAM;
   }
 
-  if( current_ptr->length + 1 >= ( current_ptr->alloc / 3 ) * 2 ) {
-    webvtt_node_ptr *arr, *old;
-    current_ptr->alloc = current_ptr->alloc ? current_ptr->alloc * 2 : 8;
-    arr = (webvtt_node_ptr *)webvtt_alloc0( sizeof(webvtt_node_ptr) * (current_ptr->alloc));
+  if( current->internal_data->length + 1 >= ( current->internal_data->alloc / 3 ) * 2 ) {
+    webvtt_node **arr, **old;
+    current->internal_data->alloc = current->internal_data->alloc ? current->internal_data->alloc * 2 : 8;
+    *arr = (webvtt_node *)webvtt_alloc0( sizeof(webvtt_node) * (current->internal_data->alloc));
+
     if( !arr ) {
       return WEBVTT_OUT_OF_MEMORY;
     }
 
-    old = current_ptr->children;
-    memcpy( arr, old, current_ptr->length * sizeof(webvtt_node_ptr) );
-    current_ptr->children = arr;
+    old = current->internal_data->children;
+    memcpy( arr, old, current->internal_data->length * sizeof(webvtt_node) );
+    current->internal_data->children = arr;
     webvtt_free( old );
   }
 
-  current_ptr->children[current_ptr->length++] = to_attach_ptr;
+  current->internal_data->children[current->internal_data->length++] = to_attach;
 
   return WEBVTT_SUCCESS;
 }
