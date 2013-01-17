@@ -56,6 +56,15 @@
 #   define __WEBVTT_STRING_INLINE
 # endif
 
+struct
+webvtt_string_data_t {
+  struct webvtt_refcount_t refs;
+  webvtt_uint32 alloc;
+  webvtt_uint32 length;
+  webvtt_byte *text;
+  webvtt_byte array[1];
+};
+
 static __WEBVTT_STRING_INLINE int
 webvtt_isalpha( webvtt_wchar ch )
 {
