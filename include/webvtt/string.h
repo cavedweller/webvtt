@@ -159,7 +159,7 @@ WEBVTT_EXPORT void webvtt_delete_stringlist( webvtt_stringlist **list );
  *
  * add a new string to the end of the stringlist
  */
-WEBVTT_EXPORT webvtt_status webvtt_stringlist_push( webvtt_stringlist **list, webvtt_string *str );
+WEBVTT_EXPORT webvtt_status webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

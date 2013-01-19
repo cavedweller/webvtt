@@ -27,7 +27,7 @@ webvtt_create_cue( webvtt_cue *pcue )
    *
    * Let cue's text track cue alignment be middle alignment.
    */
-  webvtt_ref( &cue->refs );
+  webvtt_inc_ref( &cue->refs );
   webvtt_init_string( &cue->id );
   webvtt_init_string( &cue->payload );
   cue->from = 0xFFFFFFFFFFFFFFFF;
@@ -47,7 +47,7 @@ WEBVTT_EXPORT void
 webvtt_ref_cue( webvtt_cue cue )
 {
   if( cue ) {
-    webvtt_ref( &cue->refs );
+    webvtt_inc_ref( &cue->refs );
   }
 }
 
@@ -57,7 +57,7 @@ webvtt_release_cue( webvtt_cue *pcue )
   if( pcue && *pcue ) {
     webvtt_cue cue = *pcue;
     *pcue = 0;
-    if( webvtt_deref( &cue->refs ) == 0 ) {
+    if( webvtt_dec_ref( &cue->refs ) == 0 ) {
       webvtt_release_string( &cue->id );
       webvtt_release_string( &cue->payload );
       webvtt_delete_node( cue->node_head );
@@ -109,7 +109,7 @@ webvtt_create_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind ki
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, webvtt_string_list *css_classes, webvtt_string annotation )
+webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, webvtt_stringlist *css_classes, webvtt_string annotation )
 {
   webvtt_status status;
   webvtt_internal_node_data *node_data;
@@ -184,7 +184,7 @@ webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_st
 WEBVTT_INTERN void
 webvtt_delete_node( webvtt_node *node )
 {
-  int i;
+  webvtt_uint i;
 
   if( node ) {
     if( WEBVTT_IS_VALID_LEAF_NODE( node->kind ) ) {
@@ -192,7 +192,7 @@ webvtt_delete_node( webvtt_node *node )
         webvtt_release_string( &node->text );
       }
     } else if( WEBVTT_IS_VALID_INTERNAL_NODE( node->kind ) ) {
-      webvtt_delete_string_list( &node->internal_data->css_classes );
+      webvtt_delete_stringlist( &node->internal_data->css_classes );
       if( node->internal_data->annotation.d ) {
         webvtt_release_string( &node->internal_data->annotation );
       }
@@ -208,13 +208,14 @@ webvtt_delete_node( webvtt_node *node )
 WEBVTT_INTERN webvtt_status
 webvtt_attach_internal_node( webvtt_node *current, webvtt_node *to_attach )
 {
+  webvtt_node **arr, **old;
+
   if( !current || !to_attach ) {
     return WEBVTT_INVALID_PARAM;
   }
 
-  if( current->internal_data->length + 1 >= ( current->internal_data->alloc / 3 ) * 2 ) {
-    webvtt_node **arr, **old;
-    current->internal_data->alloc = current->internal_data->alloc ? current->internal_data->alloc * 2 : 8;
+  if( current->internal_data->length + 1 >= ( current->internal_data->alloc / 3 ) * 2 ) {  
+    current->internal_data->alloc = current->internal_data->alloc ? current->internal_data->alloc * 2 : 8;  
     *arr = (webvtt_node *)webvtt_alloc0( sizeof(webvtt_node) * (current->internal_data->alloc));
 
     if( !arr ) {

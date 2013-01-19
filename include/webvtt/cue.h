@@ -94,7 +94,7 @@ webvtt_node_t {
  struct
 webvtt_internal_node_data_t {
     webvtt_string annotation;
-    webvtt_string_list *css_classes;
+    webvtt_stringlist *css_classes;
 
     webvtt_uint alloc;
     webvtt_uint length;

@@ -261,7 +261,7 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
   //const webvtt_byte *n = buffer + len;
 
   //if( !str ) {
-  //  if(WEBVTT_FAILED(webvtt_create_string( 0x100, str ))) {
+  //  if( WEBVTT_FAILED( webvtt_create_string( 0x100, str ) ) ) {
   //    return -1;
   //  }
   //  ba = *pba;
@@ -338,7 +338,7 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
   /**
    * Ensure that we have at least 'len' characters available.
    */
-  if( size && WEBVTT_SUCCESS( result = grow( size, str ) ) ) {
+  if( size && WEBVTT_SUCCESS( result = grow( str, size ) ) ) {
     memcpy( str->d->text, buffer, size );
 	  str->d->length += size;
   }
@@ -425,7 +425,7 @@ webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str )
   }
 
   list->items[list->length].d = str->d;
-  webvtt_ref_string( list->items + list->length++ );
+  webvtt_string_inc_ref( list->items + list->length++ );
 
   return WEBVTT_SUCCESS;
 }

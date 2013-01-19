@@ -22,12 +22,6 @@ public:
     webvtt_copy_string( &string, other );
   }
 
-  inline String( const byte *buffer, uint len ) {
-    if( WEBVTT_FAILED( webvtt_string_from_utf8( &string, buffer, len ) ) ) {
-      // TODO: Throw exception on errors.
-    }
-  }
-
   /**
    * Copy constructors
    */
@@ -48,7 +42,7 @@ public:
     webvtt_string_detach( &string );
   }
 
-  inline const wchar *text() const {
+  inline const byte *text() const {
     return webvtt_string_text(&string);
   }
 
@@ -60,7 +54,7 @@ public:
     return webvtt_string_capacity(&string);
   }
 
-  inline String &append( wchar ch ) {
+  inline String &append( byte ch ) {
     webvtt_status status;
     if( WEBVTT_FAILED(status = webvtt_string_putc( &string, ch ) ) ) {
       // TODO: Throw exception on errors
@@ -83,7 +77,7 @@ private:
 class StringList
 {
 public:
-  inline StringList( webvtt_string_list otherStringList ) {
+  inline StringList( webvtt_stringlist otherStringList ) {
     stringList = otherStringList;
   }
 
@@ -97,7 +91,7 @@ public:
   inline uint alloc() { return stringList.alloc; }
 
 private:
-  webvtt_string_list stringList;
+  webvtt_stringlist stringList;
 };
 
 }

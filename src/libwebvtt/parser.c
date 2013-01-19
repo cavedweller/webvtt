@@ -1034,8 +1034,7 @@ _recheck:
             } else {
               webvtt_uint pos = 0;
               self->column += text->length;
-              if( WEBVTT_FAILED( status = webvtt_string_append_utf8(
-                                            &cue->id, text->text, &pos, text->length, 0 ) ) ) {
+              if( WEBVTT_FAILED( status = webvtt_string_append(&cue->id, text->text, text->length ) ) ) {
                 webvtt_delete_bytearray( &text );
                 ERROR( WEBVTT_ALLOCATION_FAILED );
               }

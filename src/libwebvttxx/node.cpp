@@ -8,7 +8,7 @@ InternalNode::InternalNode( webvtt_node *otherNode )
   : Node( otherNode ) 
 {
   Node *temp_node;
-  for( int i = 0; i < otherNode->internal_data->length; i++ )
+  for( uint i = 0; i < otherNode->internal_data->length; i++ )
   {
     temp_node = NodeFactory::createNode( node->internal_data->children[i] );
     children.push_back( temp_node );
