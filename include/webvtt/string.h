@@ -11,7 +11,7 @@ extern "C" {
 */
 typedef struct webvtt_string_t webvtt_string;
 typedef struct webvtt_string_data_t webvtt_string_data;
-typedef struct webvtt_stringlist_t webvtt_string_list;
+typedef struct webvtt_stringlist_t webvtt_stringlist;
 struct webvtt_string_data_t;
 
 struct
@@ -41,7 +41,7 @@ WEBVTT_EXPORT webvtt_status webvtt_create_string( webvtt_uint32 alloc, webvtt_st
  * allocate and initialize a string with the contents of 'init_text' of length 'len'
  * if 'len' < 0, assume init_text to be null-terminated.
  */
-WEBVTT_EXPORT webvtt_status webvtt_create_init_string( webvtt_string *result, const webvtt_byte *init_text, int len );
+WEBVTT_EXPORT webvtt_status webvtt_init_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len );
 
 /**
  * webvtt_ref_string
@@ -50,7 +50,7 @@ WEBVTT_EXPORT webvtt_status webvtt_create_init_string( webvtt_string *result, co
  *
  * when the reference count drops to zero, the string is deallocated.
  */
-WEBVTT_EXPORT void webvtt_ref_string( webvtt_string *str );
+WEBVTT_EXPORT void webvtt_string_inc_ref( webvtt_string *str );
 
 /**
  * webvtt_release_string
@@ -83,21 +83,21 @@ WEBVTT_EXPORT void webvtt_copy_string( webvtt_string *left, const webvtt_string 
  *
  * return the text contents of a string
  */
-WEBVTT_EXPORT const webvtt_byte *webvtt_string_text(const webvtt_string *str);
+WEBVTT_EXPORT const webvtt_byte *webvtt_string_text( const webvtt_string *str );
 
 /**
  * webvtt_string_length
  *
  * return the length of a strings text
  */
-WEBVTT_EXPORT const webvtt_uint32 webvtt_string_length(const webvtt_string *str);
+WEBVTT_EXPORT const webvtt_uint32 webvtt_string_length( const webvtt_string *str );
 
 /**
  * webvtt_string_capacity
  *
  * return the current capacity of a string
  */
-WEBVTT_EXPORT const webvtt_uint32 webvtt_string_capacity(const webvtt_string *str);
+WEBVTT_EXPORT const webvtt_uint32 webvtt_string_capacity( const webvtt_string *str );
 
 /**
  * webvtt_string_getline
@@ -112,7 +112,7 @@ WEBVTT_EXPORT int webvtt_string_getline( webvtt_string *str, const webvtt_byte *
  *
  * append a single byte to a webvtt string
  */
-WEBVTT_EXPORT webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte ch );
+WEBVTT_EXPORT webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte to_append );
 
 /**
  * webvtt_string_append
@@ -121,7 +121,7 @@ WEBVTT_EXPORT webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte 
  *
  * if 'len' is < 0, then buffer is expected to be null-terminated.
  */
-WEBVTT_EXPORT webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len );
+WEBVTT_EXPORT webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint32 len );
 
 /**
  * webvtt_string_appendstr
@@ -145,7 +145,7 @@ webvtt_stringlist_t {
  *
  * allocate a new, empty stringlist
  */
-WEBVTT_EXPORT webvtt_status webvtt_create_string_list( webvtt_stringlist **result );
+WEBVTT_EXPORT webvtt_status webvtt_create_stringlist( webvtt_stringlist **result );
 
 /**
  * webvtt_delete_stringlist

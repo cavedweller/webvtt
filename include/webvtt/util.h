@@ -158,7 +158,7 @@ extern "C" {
    * Macros to filter out webvtt status returns.
    */
 
-#define WEBVTT_ENSURE_SUCCESS(status) ( (status) == WEBVTT_SUCCESS )
+#define WEBVTT_SUCCESS(status) ( (status) == WEBVTT_SUCCESS )
 #define WEBVTT_FAILED(status) ( (status) != WEBVTT_SUCCESS )
 
   struct
@@ -181,11 +181,11 @@ extern "C" {
 # endif
 
 # if defined(WEBVTT_INLINE)
-  static WEBVTT_INLINE int webvtt_ref( struct webvtt_refcount_t *ref )
+  static WEBVTT_INLINE int webvtt_inc_ref( struct webvtt_refcount_t *ref )
   {
     return WEBVTT_ATOMIC_INC(ref->value);
   }
-  static WEBVTT_INLINE int webvtt_deref( struct webvtt_refcount_t *ref )
+  static WEBVTT_INLINE int webvtt_dec_ref( struct webvtt_refcount_t *ref )
   {
     return WEBVTT_ATOMIC_DEC(ref->value);
   }
