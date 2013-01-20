@@ -64,7 +64,7 @@ TEST_F(PayloadBoldTag, DISABLED_BoldTagSingleSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
 /*
@@ -93,8 +93,8 @@ TEST_F(PayloadBoldTag, DISABLED_BoldTagMultiSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAtIndex( 1 ).text() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );
 }

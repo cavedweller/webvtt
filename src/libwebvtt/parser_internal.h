@@ -1,7 +1,7 @@
 #ifndef __INTERN_PARSER_H__
 # define __INTERN_PARSER_H__
 # include <webvtt/parser.h>
-# include "bytearray_internal.h"
+# include "string_internal.h"
 
 typedef enum webvtt_token_t webvtt_token;
 
@@ -59,8 +59,8 @@ typedef struct webvtt_state {
   webvtt_uint line;
   webvtt_uint column;
   union {
-    webvtt_cue cue;
-    webvtt_bytearray text;
+    webvtt_cue *cue;
+    webvtt_string *text;
     webvtt_node *node;
     webvtt_uint value;
   } v;
@@ -72,8 +72,8 @@ struct
   webvtt_uint bytes; /* number of bytes read. */
   webvtt_uint line;
   webvtt_uint column;
-  webvtt_cue_fn_ptr read;
-  webvtt_error_fn_ptr error;
+  webvtt_cue_fn read;
+  webvtt_error_fn error;
   void *userdata;
 
   /**
@@ -92,7 +92,7 @@ struct
    */
   int truncate;
   webvtt_uint line_pos;
-  webvtt_bytearray line_buffer;
+  webvtt_string line_buffer;
 
   /**
    * tokenizer
@@ -103,7 +103,7 @@ struct
 };
 
 WEBVTT_INTERN webvtt_token webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, int finish );
-WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_bytearray *pba, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, int finish );
+WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *pba, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, int finish );
 
 #define BAD_TIMESTAMP(ts) ( ( ts ) == 0xFFFFFFFFFFFFFFFF )
 

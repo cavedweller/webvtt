@@ -278,7 +278,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnNewLineAfterTwoTagsWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify the escape character text within i tag */
   const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
@@ -308,7 +308,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandInsideOneTagWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify escape character text within i tag */
   const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child( 0 )->toTextNode();
@@ -370,11 +370,11 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnLineWithClassAndSubClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify escape character text within i tag*/
   const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toTextNode();
@@ -407,11 +407,11 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnNewlineWithClassAndSubclass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify character escape outside i tag */
   const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
@@ -442,11 +442,11 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClassAndSubclass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAtIndex(1).text());
+  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify character escape outside i tag */
   const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
@@ -477,7 +477,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAtIndex(0).text());
+  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify character escape outside i tag */
   const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();

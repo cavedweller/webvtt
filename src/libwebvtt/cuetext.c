@@ -620,7 +620,7 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
  * Don't think pnode_length is needed as nodes track there list count internally.
  */
 WEBVTT_INTERN webvtt_status
-webvtt_parse_cuetext( webvtt_cue cue )
+webvtt_parse_cuetext( webvtt_cue *cue )
 {
 
   const webvtt_byte *cue_text;

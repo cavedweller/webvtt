@@ -62,7 +62,7 @@ extern "C" {
 # if defined(__cplusplus) || defined(c_plusplus)
 #   define WEBVTT_INLINE inline
 # elif WEBVTT_CC_MSVC
-#   define WEBVTT_INLINE __forceinline
+#   define WEBVTT_INLINE __inline
 # elif WEBVTT_CC_GCC
 #   define WEBVTT_INLINE __inline__
 # endif
@@ -111,6 +111,7 @@ extern "C" {
   typedef webvtt_uint8 webvtt_byte;
   typedef webvtt_int webvtt_bool;
   typedef webvtt_uint32 webvtt_length;
+  typedef webvtt_uint64 webvtt_timestamp;
 
   /**
    * Memory allocation callbacks, which allow overriding the allocation strategy.
@@ -181,11 +182,11 @@ extern "C" {
 # endif
 
 # if defined(WEBVTT_INLINE)
-  static WEBVTT_INLINE int webvtt_inc_ref( struct webvtt_refcount_t *ref )
+  static WEBVTT_INLINE int webvtt_ref( struct webvtt_refcount_t *ref )
   {
     return WEBVTT_ATOMIC_INC(ref->value);
   }
-  static WEBVTT_INLINE int webvtt_dec_ref( struct webvtt_refcount_t *ref )
+  static WEBVTT_INLINE int webvtt_deref( struct webvtt_refcount_t *ref )
   {
     return WEBVTT_ATOMIC_DEC(ref->value);
   }

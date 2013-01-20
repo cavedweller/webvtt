@@ -16,7 +16,7 @@ class Cue
 private:
   friend class AbstractParser;
   friend class CueBuilder;
-  Cue( webvtt_cue pcue ) {
+  Cue( webvtt_cue *pcue ) {
     webvtt_ref_cue(pcue);
     cue = pcue;
     head = new InternalNode( pcue->node_head );
@@ -32,9 +32,9 @@ public:
 
   Cue &operator=( const Cue &other ) {
     webvtt_ref_cue( other.cue );
-    webvtt_cue oldcue = 0;
+    webvtt_cue *oldcue = 0;
     if( cue ) {
-      webvtt_cue oldcue = cue;
+      webvtt_cue *oldcue = cue;
     }
     cue = other.cue;
     if( oldcue ) {
@@ -123,7 +123,7 @@ public:
   inline bool isAlignedToLeft() const { return alignment() == Left; }
   inline bool isAlignedToRight() const { return alignment() == Right; }
 private:
-  webvtt_cue cue;
+  webvtt_cue *cue;
 };
 
 }
