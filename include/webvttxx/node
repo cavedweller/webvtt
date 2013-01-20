@@ -47,7 +47,7 @@ public:
   InternalNode( webvtt_node *otherNode );
 
   inline String annotation() const { return String( &node->internal_data->annotation ); }
-  inline StringList cssClasses() const { return StringList( *node->internal_data->css_classes ); }
+  inline StringList cssClasses() const { return StringList( node->internal_data->css_classes ); }
   inline uint childCount() const { return node->internal_data->length; }
   const Node *child( uint index ) const;
 private:
@@ -67,7 +67,7 @@ class TimeStampNode : public Node
 public:
   inline TimeStampNode( webvtt_node *otherNode )
     : Node( otherNode ) { }
-  inline Timestamp timeStamp() const { return Timestamp( node->time_stamp ); }
+  inline Timestamp timeStamp() const { return Timestamp( node->timestamp ); }
 };
 
 }

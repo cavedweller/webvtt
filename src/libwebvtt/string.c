@@ -4,19 +4,23 @@
 
 
 static webvtt_string_data empty_string = {
-  { 1 },
-  0,
-  0,
-  empty_string.array,
-  { 0x0000 }
+  { 1 }, /* init refcount */
+  0, /* length */
+  0, /* capacity */
+  empty_string.array, /* text */
+  { '\0' } /* array */
 };
 
 WEBVTT_EXPORT void
 webvtt_init_string( webvtt_string *result )
 {
-  if( result ) {
+  if( result && result->d != &empty_string ) {
+    webvtt_string_data *d = result->d;
     result->d = &empty_string;
-    webvtt_inc_ref( &result->d->refs );
+    webvtt_ref( &result->d->refs );
+    if( d && ( webvtt_deref( &d->refs ) == 0 ) ) {
+      webvtt_free( d );
+    }
   }
 }
 
@@ -49,7 +53,7 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_init_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len )
+webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len )
 {
   webvtt_uint pos = 0;
   
@@ -72,10 +76,10 @@ webvtt_init_string_with_text( webvtt_string *result, const webvtt_byte *init_tex
  * reference counting
  */
 WEBVTT_EXPORT void
-webvtt_string_inc_ref( webvtt_string *str )
+webvtt_ref_string( webvtt_string *str )
 {
   if( str ) {
-    webvtt_inc_ref( &str->d->refs );
+    webvtt_ref( &str->d->refs );
   }
 }
 
@@ -88,8 +92,8 @@ webvtt_release_string( webvtt_string *str )
   if( str ) {
     webvtt_string_data *d = str->d;
     str->d = &empty_string;
-    webvtt_inc_ref( &str->d->refs );
-    if( d && webvtt_dec_ref( &d->refs ) == 0 ) {
+    webvtt_ref( &str->d->refs );
+    if( d && webvtt_deref( &d->refs ) == 0 ) {
       webvtt_free( d );
     }
   }
@@ -123,7 +127,7 @@ webvtt_string_detach( /* in, out */ webvtt_string *str )
 
   str->d = d;
 
-  if( webvtt_dec_ref( &q->refs ) == 0 ) {
+  if( webvtt_deref( &q->refs ) == 0 ) {
     webvtt_free( q );
   }
 
@@ -140,8 +144,8 @@ webvtt_copy_string( webvtt_string *left, const webvtt_string *right )
     } else {
       left->d = &empty_string;
     }
-    webvtt_dec_ref( &left->d->refs );
-    if( webvtt_dec_ref( &d->refs ) == 0 ) {
+    webvtt_deref( &left->d->refs );
+    if( webvtt_deref( &d->refs ) == 0 ) {
       /**
        * We don't try to check if we're freeing a static string or not.
        * Static strings should be initialized with a reference count of '1',
@@ -243,7 +247,7 @@ grow( webvtt_string *str, webvtt_uint need )
   p->text[ p->length ] = 0;
   str->d = p;
 
-  if( webvtt_dec_ref( &d->refs ) == 0 ) {
+  if( webvtt_deref( &d->refs ) == 0 ) {
     webvtt_free( d );
   }
 
@@ -254,48 +258,59 @@ WEBVTT_EXPORT int
 webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
     webvtt_uint *pos, webvtt_uint len, int *truncate, webvtt_bool finish )
 {
-  //int ret = 0;
-  //webvtt_string *str = src;
-  //const webvtt_byte *s = buffer + *pos;
-  //const webvtt_byte *p = s;
-  //const webvtt_byte *n = buffer + len;
+  int ret = 0;
+  webvtt_string *str = src;
+  webvtt_string_data *d = 0;
+  const webvtt_byte *s = buffer + *pos;
+  const webvtt_byte *p = s;
+  const webvtt_byte *n = buffer + len;
 
-  //if( !str ) {
-  //  if(WEBVTT_FAILED(webvtt_create_string( 0x100, str ))) {
-  //    return -1;
-  //  }
-  //  ba = *pba;
-  //}
+  /**
+   *if this is public now, maybe we should return webvtt_status so we can
+   * differentiate between WEBVTT_OUT_OF_MEMORY and WEBVTT_INVALID_PARAM
+   */
+  if( !str ) {
+    return -1;
+  }
 
-  //while( p < n && *p != UTF8_CARRIAGE_RETURN && *p != UTF8_LINE_FEED ) {
-  //  ++p;
-  //}
+  /* This had better be a valid string_data, or else NULL. */
+  d = str->d;
+  if( !str->d ) {
+    if(WEBVTT_FAILED(webvtt_create_string( 0x100, str ))) {
+      return -1;
+    }
+    d = str->d;
+  }
 
-  //if( p < n || finish ) {
-  //  ret = 1; /* indicate that we found EOL */
-  //}
-  //len = (webvtt_uint)( p - s );
-  //*pos += len;
-  //if( ba->length + len + 1 >= ba->alloc ) {
-  //  if( truncate && ba->alloc >= WEBVTT_MAX_LINE ) {
-  //    /* truncate. */
-  //    (*truncate)++;
-  //  } else {
-  //    if( grow( pba, len ) == WEBVTT_OUT_OF_MEMORY ) {
-  //      ret = -1;
-  //    }
-  //    ba = *pba;
-  //  }
-  //}
+  while( p < n && *p != UTF8_CARRIAGE_RETURN && *p != UTF8_LINE_FEED ) {
+    ++p;
+  }
 
-  ///* Copy everything in */
-  //if( len && ret >= 0 && ba->length + len < ba->alloc ) {
-  //  memcpy( ba->text + ba->length, s, len );
-  //  ba->length += len;
-  //  ba->text[ ba->length ] = 0;
-  //}
+  if( p < n || finish ) {
+    ret = 1; /* indicate that we found EOL */
+  }
+  len = (webvtt_uint)( p - s );
+  *pos += len;
+  if( d->length + len + 1 >= d->alloc ) {
+    if( truncate && d->alloc >= WEBVTT_MAX_LINE ) {
+      /* truncate. */
+      (*truncate)++;
+    } else {
+      if( grow( str, len ) == WEBVTT_OUT_OF_MEMORY ) {
+        ret = -1;
+      }
+      d = str->d;
+    }
+  }
 
-  //return ret;
+  /* Copy everything in */
+  if( len && ret >= 0 && d->length + len < d->alloc ) {
+    memcpy( d->text + d->length, s, len );
+    d->length += len;
+    d->text[ d->length ] = 0;
+  }
+
+  return ret;
 }
 
 WEBVTT_EXPORT webvtt_status
@@ -338,10 +353,12 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
   /**
    * Ensure that we have at least 'len' characters available.
    */
-  if( size && WEBVTT_SUCCESS( result = grow( size, str ) ) ) {
+  if( size && WEBVTT_SUCCESS( result = grow( str, size ) ) ) {
     memcpy( str->d->text, buffer, size );
-	  str->d->length += size;
+	str->d->length += size;
   }
+
+  /* null-terminate string */
   str->d->text[ str->d->length ] = 0;
   
   return result;
@@ -350,8 +367,7 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
 WEBVTT_EXPORT webvtt_status 
  webvtt_string_append_string( webvtt_string *str, const webvtt_string *other )
 {
-  if( !str || !other )
-  {
+  if( !str || !other ) {
     return WEBVTT_INVALID_PARAM;
   }
 

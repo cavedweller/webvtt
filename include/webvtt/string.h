@@ -41,7 +41,7 @@ WEBVTT_EXPORT webvtt_status webvtt_create_string( webvtt_uint32 alloc, webvtt_st
  * allocate and initialize a string with the contents of 'init_text' of length 'len'
  * if 'len' < 0, assume init_text to be null-terminated.
  */
-WEBVTT_EXPORT webvtt_status webvtt_init_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len );
+WEBVTT_EXPORT webvtt_status webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len );
 
 /**
  * webvtt_ref_string
@@ -50,7 +50,7 @@ WEBVTT_EXPORT webvtt_status webvtt_init_string_with_text( webvtt_string *result,
  *
  * when the reference count drops to zero, the string is deallocated.
  */
-WEBVTT_EXPORT void webvtt_string_inc_ref( webvtt_string *str );
+WEBVTT_EXPORT void webvtt_ref_string( webvtt_string *str );
 
 /**
  * webvtt_release_string
@@ -159,7 +159,7 @@ WEBVTT_EXPORT void webvtt_delete_stringlist( webvtt_stringlist **list );
  *
  * add a new string to the end of the stringlist
  */
-WEBVTT_EXPORT webvtt_status webvtt_stringlist_push( webvtt_stringlist **list, webvtt_string *str );
+WEBVTT_EXPORT webvtt_status webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
