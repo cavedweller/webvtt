@@ -6,7 +6,7 @@
 /**
  * Routines for creating nodes.
  */
-WEBVTT_INTERN webvtt_status webvtt_create_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind );
+WEBVTT_INTERN webvtt_status webvtt_create_node( webvtt_node **node, webvtt_node_kind kind, webvtt_node *parent );
 WEBVTT_INTERN webvtt_status webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, webvtt_stringlist *css_classes, webvtt_string annotation );
 /**
  * We probably shouldn't have a 'head node' type. 
