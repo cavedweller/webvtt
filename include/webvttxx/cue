@@ -82,10 +82,6 @@ public:
     return String(&cue->id);
   }
 
-  inline const String payload() const {
-    return String(&cue->payload);
-  }
-
   inline const Node *nodeHead() const {
     return head;
   }

@@ -153,4 +153,6 @@ WEBVTT_INTERN webvtt_status webvtt_cuetext_tokenizer_end_tag_state( webvtt_byte 
 WEBVTT_INTERN webvtt_status webvtt_cuetext_tokenizer_time_stamp_tag_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result );
 
+WEBVTT_INTERN webvtt_status webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payload, int finished );
+
 #endif

@@ -143,11 +143,6 @@ webvtt_cue_t {
   webvtt_string id;
 
   /**
-    * Unparsed cue-text
-    */
-  webvtt_string payload;
-
-  /**
     * Parsed cue-text (NULL if has not been parsed)
     */
   webvtt_node *node_head;

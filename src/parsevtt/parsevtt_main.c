@@ -14,7 +14,7 @@ error( void *userdata, webvtt_uint line, webvtt_uint col, webvtt_error errcode )
 static void WEBVTT_CALLBACK
 cue( void *userdata, webvtt_cue *cue )
 {
-  webvtt_parse_cuetext( cue );
+  /* do nothing! */
 }
 
 int

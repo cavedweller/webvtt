@@ -150,7 +150,7 @@ extern "C" {
     WEBVTT_INVALID_TAG_NAME = -7,
     WEBVTT_INVALID_TOKEN_TYPE = -8,
     WEBVTT_INVALID_TOKEN_STATE = -9,
-    WEBVTT_FAIL = -10
+    WEBVTT_FAIL = -10 /* This is not very specific! */
   };
 
   typedef enum webvtt_status_t webvtt_status;
