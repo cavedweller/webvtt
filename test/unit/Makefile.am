@@ -84,6 +84,9 @@ TESTS = $(UNIT_TESTS)
 TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT)
 check_PROGRAMS = $(UNIT_TESTS)
 
+EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
+	     test_parser
+
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
 csgeneric_unittest_SOURCES = csgeneric_unittest.cpp
