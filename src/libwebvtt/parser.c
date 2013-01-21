@@ -1,4 +1,5 @@
 #include "parser_internal.h"
+#include "cuetext_internal.h"
 #include "cue_internal.h"
 #include <string.h>
 
@@ -118,15 +119,19 @@ webvtt_create_parser( webvtt_cue_fn on_read,
   return WEBVTT_SUCCESS;
 }
 
+/**
+ * Helper to validate a cue and, if valid, notify the application that a cue has been read.
+ * If it fails to validate, silently delete the cue.
+ *
+ * ( This might not be the best way to go about this, and additionally, webvtt_validate_cue
+ *   has no means to report errors with the cue, and we do nothing with its return value )
+ */
 static void
 finish_cue( webvtt_parser self, webvtt_cue **pcue )
 {
   if( pcue ) {
     webvtt_cue *cue = *pcue;
     if( cue ) {
-      /**
-       * Validate the cue
-       */
       if( webvtt_validate_cue( cue ) ) {
         self->read( self->userdata, cue );
       } else {
@@ -1075,17 +1080,6 @@ _finish:
   return status;
 }
 
-
-static WEBVTT_INTERN webvtt_status
-parse_cuetext( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint len, webvtt_uint *mode, int finish )
-{
-  /**
-   * TODO:
-   * Unify cuetext parsing
-   */
-  return WEBVTT_PARSE_ERROR;
-}
-
 static WEBVTT_INTERN webvtt_status
 read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len, webvtt_uint *mode, webvtt_bool finish )
 {
@@ -1122,6 +1116,10 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos, webvt
   } while( pos < len && !finished );
 _finish:
   *ppos = pos;
+  /* If we didn't encounter 2 successive EOLs, and it's not the final buffer in the file, notify the caller. */
+  if( pos >= len && WEBVTT_SUCCESS( status ) && !finished ) {
+    status = WEBVTT_UNFINISHED;
+  }
   return status;
 }
 
@@ -1141,22 +1139,38 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
         break;
 
       case M_CUETEXT:
-#if 0
-        if( WEBVTT_FAILED( status = parse_cuetext( self, b, &pos, len, &self->mode, finished ) ) ) {
-          return status;
-        }
-#else
         /**
          * read in cuetext
          */
         if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len, &self->mode, finished ) ) ) {
+          if( status == WEBVTT_UNFINISHED ) {
+            /* Make an exception here, because this isn't really a failure. */
+            return WEBVTT_SUCCESS;
+          }
           return status;
         }
-#endif
+        /**
+         * Once we've successfully read the cuetext into line_buffer, call the
+         * cuetext parser from cuetext.c
+         */
+        status = webvtt_parse_cuetext( self, SP->v.cue, &self->line_buffer, finished );
+        
+        /**
+         * return the cue to the user, if possible.
+         */
         finish_cue( self, &SP->v.cue );
+
+        /**
+         * return to our typical parsing mode now.
+         */
         SP->type = V_NONE;
         webvtt_release_string( &self->line_buffer );
         self->mode = M_WEBVTT;
+
+        /* If we failed to parse cuetext, return the error */
+        if( WEBVTT_FAILED( status ) ) {
+          return status;
+        }
         break;
 
       case M_SKIP_CUE:

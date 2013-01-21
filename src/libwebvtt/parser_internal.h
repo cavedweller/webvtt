@@ -3,13 +3,11 @@
 # include <webvtt/parser.h>
 # include "string_internal.h"
 
-typedef enum webvtt_token_t webvtt_token;
-
 #define ASCII_0 (0x30)
 #define ASCII_9 (0x39)
 #define ASCII_ISDIGIT(c) ( ((c) >= ASCII_0) && ((c) <= ASCII_9) )
 
-enum
+typedef enum
 webvtt_token_t {
   BADTOKEN = -2,
   UNFINISHED = -1, /* not-token */
@@ -36,11 +34,12 @@ webvtt_token_t {
   TIMESTAMP,
   PERCENTAGE, /* '\d+%' */
   COLON, /* ':' */
-};
+} webvtt_token;
 
 
 
-typedef enum {
+typedef enum 
+webvtt_state_value_type_t {
   V_NONE,
   V_POINTER,
   V_INTEGER,
@@ -51,7 +50,8 @@ typedef enum {
   V_TOKEN,
 } webvtt_state_value_type;
 
-typedef struct webvtt_state {
+typedef struct
+webvtt_state {
   webvtt_uint state;
   webvtt_token token;
   webvtt_state_value_type type;
@@ -59,15 +59,34 @@ typedef struct webvtt_state {
   webvtt_uint line;
   webvtt_uint column;
   union {
+    /**
+     * cue value
+     */
     webvtt_cue *cue;
+
+    /**
+     * string value
+     */
     webvtt_string *text;
+
+    /**
+     * The cuetext parser is not currently using the state stack, and
+     * because of this, 'node' is never actually used.
+     *
+     * It is here if the cuetext parser begins to use the/a state stack
+     * in the future.
+     */
     webvtt_node *node;
+
+    /**
+     * unsigned integer value
+     */
     webvtt_uint value;
   } v;
 } webvtt_state;
 
 struct
-    webvtt_parser_t {
+webvtt_parser_t {
   webvtt_uint state;
   webvtt_uint bytes; /* number of bytes read. */
   webvtt_uint line;
@@ -88,7 +107,7 @@ struct
   webvtt_bool popped;
 
   /**
-   * line
+   * line (cue payload also stored here)
    */
   int truncate;
   webvtt_uint line_pos;
@@ -113,6 +132,7 @@ do \
   if( !self->error || self->error(self->userdata,self->line,self->column,Code) < 0 ) \
     return WEBVTT_PARSE_ERROR; \
 } while(0)
+
 #define ERROR_AT_COLUMN(Code,Column) \
 do \
 { \

@@ -22,7 +22,6 @@ extern "C" {
       userdata, webvtt_parser *ppout );
   WEBVTT_EXPORT void webvtt_delete_parser( webvtt_parser parser );
   WEBVTT_EXPORT webvtt_status webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, webvtt_bool is_final_chunk );
-  WEBVTT_EXPORT webvtt_status webvtt_parse_cuetext( webvtt_cue *cue );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
