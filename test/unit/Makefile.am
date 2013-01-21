@@ -53,7 +53,7 @@ PAYLOAD_TESTS = \
   plrubytag_unittest
 
 UNIT_TESTS = \
-	$(FILESTRUCTURE_TESTS) \
+  $(FILESTRUCTURE_TESTS) \
   $(CUESETTINGS_TESTS) \
   $(CUETIMES_TESTS) \
   $(CUEIDS_TESTS) \
@@ -83,6 +83,9 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
 TESTS = $(UNIT_TESTS)
 TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT)
 check_PROGRAMS = $(UNIT_TESTS)
+
+EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
+	     test_parser
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
