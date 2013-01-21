@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libwebvtt.la
 noinst_LTLIBRARIES = libwebvtt-static.la
-WEBVTT_SOURCES = alloc.c bytearray.c cue.c cuetext.c error.c lexer.c parser.c string.c
+WEBVTT_SOURCES = alloc.c cue.c cuetext.c error.c lexer.c parser.c string.c
 WEBVTT_CFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include
 
 libwebvtt_la_LDFLAGS = -no-undefined -shared

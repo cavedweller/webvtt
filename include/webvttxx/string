@@ -23,7 +23,7 @@ public:
   }
 
   inline String( const byte *buffer, uint len ) {
-    if( WEBVTT_FAILED( webvtt_string_from_utf8( &string, buffer, len ) ) ) {
+    if( WEBVTT_FAILED( webvtt_create_string_with_text( &string, buffer, len ) ) ) {
       // TODO: Throw exception on errors.
     }
   }
@@ -48,7 +48,7 @@ public:
     webvtt_string_detach( &string );
   }
 
-  inline const wchar *text() const {
+  inline const byte *text() const {
     return webvtt_string_text(&string);
   }
 
@@ -60,7 +60,7 @@ public:
     return webvtt_string_capacity(&string);
   }
 
-  inline String &append( wchar ch ) {
+  inline String &append( byte ch ) {
     webvtt_status status;
     if( WEBVTT_FAILED(status = webvtt_string_putc( &string, ch ) ) ) {
       // TODO: Throw exception on errors
@@ -83,21 +83,32 @@ private:
 class StringList
 {
 public:
-  inline StringList( webvtt_string_list otherStringList ) {
-    stringList = otherStringList;
-  }
 
-  inline String stringAtIndex( uint index ) {
-    if( index <= stringList.length )
-    { return String( &stringList.items[index] ); }
+  inline StringList() : stringList( 0 ) { }
+  inline StringList( webvtt_stringlist *other ) : stringList( other ) {}
+
+  inline String operator[]( uint i ) const
+  {
+    if( stringList && i <= stringList->length ) {
+      return String( &stringList->items[ i ] );
+	}
     return String();
   }
 
-  inline uint length() { return stringList.length; }
-  inline uint alloc() { return stringList.alloc; }
+  inline String stringAt( uint i ) {
+    return (*this)[ i ];
+  }
+
+  inline uint length() {
+    return stringList ? stringList->length : 0;
+  }
+
+  inline uint alloc() {
+    return stringList ? stringList->alloc : 0;
+  }
 
 private:
-  webvtt_string_list stringList;
+  webvtt_stringlist *stringList;
 };
 
 }

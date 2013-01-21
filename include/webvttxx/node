@@ -1,6 +1,7 @@
 #ifndef __WEBVTTXX_NODE__
 # define __WEBVTTXX_NODE__
 
+# include <vector>
 # include <webvtt/cue.h>
 # include "string"
 # include "timestamp"
@@ -26,59 +27,47 @@ public:
     TimeStamp = WEBVTT_TIME_STAMP
   };
 
-  inline Node( webvtt_node_ptr otherNode ) { nodePtr = otherNode; }
-  inline NodeKind kind() const { return (NodeKind)nodePtr->kind; }
+  inline Node( webvtt_node *otherNode, Node *parent ) { node = otherNode; parentNode = parent; }
+  inline Node( webvtt_node *otherNode ) { node = otherNode; }
+  inline NodeKind kind() const { return (NodeKind)node->kind; }
 
   const Node *parent() const;
   const InternalNode *toInternalNode() const;
   const TextNode *toTextNode() const;
   const TimeStampNode *toTimeStampNode() const;
 
-private:
-  webvtt_node_ptr nodePtr;
+protected:
+  Node *parentNode;
+  webvtt_node *node;
 };
 
 class InternalNode : public Node
 {
 public:
-  inline InternalNode( webvtt_node_ptr otherNode )
-    : Node( otherNode ) {
-    internalNodePtr = (webvtt_internal_node_ptr)otherNode->concrete_node;
-  }
+  InternalNode( webvtt_node *otherNode );
 
-  inline String annotation() const { return String( &internalNodePtr->annotation ); }
-  inline StringList cssClasses() const { return StringList( *internalNodePtr->css_classes_ptr ); }
-  inline uint childCount() const { return internalNodePtr->length; }
+  inline String annotation() const { return String( &node->data.internal_data->annotation ); }
+  inline StringList cssClasses() const { return StringList( node->data.internal_data->css_classes ); }
+  inline uint childCount() const { return node->data.internal_data->length; }
   const Node *child( uint index ) const;
-
 private:
-  webvtt_internal_node_ptr internalNodePtr;
+  std::vector<Node *> children;
 };
 
 class TextNode : public Node
 {
 public:
-  inline TextNode( webvtt_node_ptr otherNode )
-    : Node( otherNode ) {
-    leafNodePtr = (webvtt_leaf_node_ptr)otherNode->concrete_node;
-  }
-  inline String content() const { return String( &leafNodePtr->text ); }
-
-private:
-  webvtt_leaf_node_ptr leafNodePtr;
+  inline TextNode( webvtt_node *otherNode )
+    : Node( otherNode ) { }
+  inline String content() const { return String( &node->data.text ); }
 };
 
 class TimeStampNode : public Node
 {
 public:
-  inline TimeStampNode( webvtt_node_ptr otherNode )
-    : Node( otherNode ) {
-    leafNodePtr = (webvtt_leaf_node_ptr)otherNode->concrete_node;
-  }
-  inline Timestamp timeStamp() const { return Timestamp( leafNodePtr->time_stamp ); }
-
-private:
-  webvtt_leaf_node_ptr leafNodePtr;
+  inline TimeStampNode( webvtt_node *otherNode )
+    : Node( otherNode ) { }
+  inline Timestamp timeStamp() const { return Timestamp( node->data.timestamp ); }
 };
 
 }

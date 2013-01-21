@@ -28,9 +28,6 @@
     <ClCompile Include="..\..\src\libwebvtt\lexer.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\libwebvtt\bytearray.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\libwebvtt\cue.c">
       <Filter>src</Filter>
     </ClCompile>
@@ -53,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\webvtt\string.h">
       <Filter>include\webvtt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\libwebvtt\bytearray_internal.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\libwebvtt\string_internal.h">
       <Filter>src</Filter>

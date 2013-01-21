@@ -62,7 +62,7 @@ extern "C" {
 # if defined(__cplusplus) || defined(c_plusplus)
 #   define WEBVTT_INLINE inline
 # elif WEBVTT_CC_MSVC
-#   define WEBVTT_INLINE __forceinline
+#   define WEBVTT_INLINE __inline
 # elif WEBVTT_CC_GCC
 #   define WEBVTT_INLINE __inline__
 # endif
@@ -111,6 +111,7 @@ extern "C" {
   typedef webvtt_uint8 webvtt_byte;
   typedef webvtt_int webvtt_bool;
   typedef webvtt_uint32 webvtt_length;
+  typedef webvtt_uint64 webvtt_timestamp;
 
   /**
    * Memory allocation callbacks, which allow overriding the allocation strategy.
@@ -149,7 +150,7 @@ extern "C" {
     WEBVTT_INVALID_TAG_NAME = -7,
     WEBVTT_INVALID_TOKEN_TYPE = -8,
     WEBVTT_INVALID_TOKEN_STATE = -9,
-    WEBVTT_FAIL = -10
+    WEBVTT_FAIL = -10 /* This is not very specific! */
   };
 
   typedef enum webvtt_status_t webvtt_status;
@@ -158,7 +159,7 @@ extern "C" {
    * Macros to filter out webvtt status returns.
    */
 
-#define WEBVTT_ENSURE_SUCCESS(status) ( (status) == WEBVTT_SUCCESS )
+#define WEBVTT_SUCCESS(status) ( (status) == WEBVTT_SUCCESS )
 #define WEBVTT_FAILED(status) ( (status) != WEBVTT_SUCCESS )
 
   struct
@@ -190,8 +191,8 @@ extern "C" {
     return WEBVTT_ATOMIC_DEC(ref->value);
   }
 # else
-#   define webvtt_ref(ref) ( WEBVTT_ATOMIC_INC((ref)->value) )
-#   define webvtt_deref(ref) ( WEBVTT_ATOMIC_DEC((ref)->value) )
+#   define webvtt_inc_ref(ref) ( WEBVTT_ATOMIC_INC((ref)->value) )
+#   define webvtt_dec_ref(ref) ( WEBVTT_ATOMIC_DEC((ref)->value) )
 # endif
 
 #if defined(__cplusplus) || defined(c_plusplus)

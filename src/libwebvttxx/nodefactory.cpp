@@ -3,7 +3,7 @@
 namespace WebVTT
 {
 
-const Node *NodeFactory::createNode( webvtt_node_ptr otherNode )
+Node *NodeFactory::createNode( webvtt_node *otherNode )
 {
   if( !otherNode )
   { throw "Attemp to create Node from non-pointer."; }
