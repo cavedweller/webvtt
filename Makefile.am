@@ -1,5 +1,5 @@
+SUBDIRS = . src include test
+DIST_SUBDIRS = . include src test
+
 ACLOCAL_AMFLAGS = -I build/autoconf
-SUBDIRS = src include . test
-BUILT_SOURCES = ${top_builddir}/webvtt-config.h
-${top_builddir}/webvtt-config.h: ${top_builddir}/config.h
-	@cat $< | sed "s/#define \([[:alpha:]_]\{1,\}\)/#define WEBVTT_\1/" > $@
+
