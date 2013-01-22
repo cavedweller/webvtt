@@ -209,7 +209,7 @@ TEST_F(FileStructure, TabAfterBOMBeforeHeader)
  *     then set the already collected line flag and jump to the step labeled cue loop.
  * 15. If line is not the empty string, then jump back to the step labeled header.
  */
-TEST_F(FileStructure, HeaderNoNewLine)
+TEST_F(FileStructure, DISABLED_HeaderNoNewLine)
 {
   loadVtt( "filestructure/header-no-new-line.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
@@ -230,7 +230,7 @@ TEST_F(FileStructure, HeaderNoNewLine)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, NoPayloadText)
+TEST_F(FileStructure, DISABLED_NoPayloadText)
 {
   loadVtt( "filestructure/no-payload-text.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -248,7 +248,7 @@ TEST_F(FileStructure, NoPayloadText)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, MissingCueIdentifier)
+TEST_F(FileStructure, DISABLED_MissingCueIdentifier)
 {
   loadVtt( "filestructure/missing-cue-identifier.vtt", 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error: WEBVTT_CUE_INCOMPLETE.";

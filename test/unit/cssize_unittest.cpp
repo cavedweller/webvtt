@@ -9,7 +9,7 @@ class CueSettingSize : public CueTest { };
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, SingleDigitPercentage)
+TEST_F(CueSettingSize, DISABLED_SingleDigitPercentage)
 {
   loadVtt( "cue-settings/size/single-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -24,7 +24,7 @@ TEST_F(CueSettingSize, SingleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, SingleDigitPercentageHighBoundary)
+TEST_F(CueSettingSize, DISABLED_SingleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/size/single-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -39,7 +39,7 @@ TEST_F(CueSettingSize, SingleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, SingleDigitPercentageLowBoundary)
+TEST_F(CueSettingSize, DISABLED_SingleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/size/single-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -54,7 +54,7 @@ TEST_F(CueSettingSize, SingleDigitPercentageLowBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, DoubleDigitPercentage)
+TEST_F(CueSettingSize, DISABLED_DoubleDigitPercentage)
 {
   loadVtt( "cue-settings/size/double-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -69,7 +69,7 @@ TEST_F(CueSettingSize, DoubleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, DoubleDigitPercentageHighBoundary)
+TEST_F(CueSettingSize, DISABLED_DoubleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/size/double-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -84,7 +84,7 @@ TEST_F(CueSettingSize, DoubleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, DoubleDigitPercentageLowBoundary)
+TEST_F(CueSettingSize, DISABLED_DoubleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/size/double-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -99,7 +99,7 @@ TEST_F(CueSettingSize, DoubleDigitPercentageLowBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, TripleDigitPercentage)
+TEST_F(CueSettingSize, DISABLED_TripleDigitPercentage)
 {
   loadVtt( "cue-settings/size/triple-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -114,7 +114,7 @@ TEST_F(CueSettingSize, TripleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, TripleDigitPercentageHighBoundary)
+TEST_F(CueSettingSize, DISABLED_TripleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/size/triple-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -129,7 +129,7 @@ TEST_F(CueSettingSize, TripleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text size be number.
  */
-TEST_F(CueSettingSize, TripleDigitPercentageLowBoundary)
+TEST_F(CueSettingSize, DISABLED_TripleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/size/double-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -292,7 +292,7 @@ TEST_F(CueSettingSize, DISABLED_BadKeyword)
  * If name is a case-sensitive match for "size"
  * 1. If value contains any characters other than U+0025 PERCENT SIGN characters (%) and ASCII digits, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingSize, AsciiDigitBeyondHighBoundary)
+TEST_F(CueSettingSize, DISABLED_AsciiDigitBeyondHighBoundary)
 {
   loadVtt( "cue-settings/size/above-0x39.vtt", 1 );
   const Error &err = getError( 0 );

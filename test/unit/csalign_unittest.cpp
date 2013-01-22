@@ -8,7 +8,7 @@ class CueSettingAlign : public CueTest { };
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "start", then let cue's text track cue alignment be start alignment.
  */
-TEST_F(CueSettingAlign, Start)
+TEST_F(CueSettingAlign, DISABLED_Start)
 {
   loadVtt( "cue-settings/align/start.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -22,7 +22,7 @@ TEST_F(CueSettingAlign, Start)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "middle", then let cue's text track cue alignment be middle alignment.
  */
-TEST_F(CueSettingAlign, Middle)
+TEST_F(CueSettingAlign, DISABLED_Middle)
 {
   loadVtt( "cue-settings/align/middle.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -36,7 +36,7 @@ TEST_F(CueSettingAlign, Middle)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "end", then let cue's text track cue alignment be end alignment.
  */
-TEST_F(CueSettingAlign, End)
+TEST_F(CueSettingAlign, DISABLED_End)
 {
   loadVtt( "cue-settings/align/end.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -50,7 +50,7 @@ TEST_F(CueSettingAlign, End)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "left", then let cue's text track cue alignment be left alignment.
  */
-TEST_F(CueSettingAlign, Left)
+TEST_F(CueSettingAlign, DISABLED_Left)
 {
   loadVtt( "cue-settings/align/left.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -64,7 +64,7 @@ TEST_F(CueSettingAlign, Left)
  * If name is a case-sensitive match for "align"
  * If value is a case-sensitive match for the string "right", then let cue's text track cue alignment be right alignment.
  */
-TEST_F(CueSettingAlign, Right)
+TEST_F(CueSettingAlign, DISABLED_Right)
 {
   loadVtt( "cue-settings/align/right.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -108,7 +108,7 @@ TEST_F(CueSettingAlign, DISABLED_BadKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign, NoKeyword)
+TEST_F(CueSettingAlign, DISABLED_NoKeyword)
 {
   loadVtt( "cue-settings/align/no-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -138,7 +138,7 @@ TEST_F(CueSettingAlign, NoKeyword)
  * 5. If value is a case-sensitive match for the string "right", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign, BadValue)
+TEST_F(CueSettingAlign, DISABLED_BadValue)
 {
   loadVtt( "cue-settings/align/bad-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -162,7 +162,7 @@ TEST_F(CueSettingAlign, BadValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign, NoValue)
+TEST_F(CueSettingAlign, DISABLED_NoValue)
 {
   loadVtt( "cue-settings/align/no-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -186,7 +186,7 @@ TEST_F(CueSettingAlign, NoValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingAlign, BadDelimiter)
+TEST_F(CueSettingAlign, DISABLED_BadDelimiter)
 {
   loadVtt( "cue-settings/align/bad-delimiter.vtt", 1 );
   const Error &err = getError( 0 );

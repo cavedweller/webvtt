@@ -11,7 +11,7 @@ class CueIdArrow : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, MalformedArrows)
+TEST_F(CueIdArrow, DISABLED_MalformedArrows)
 {
   loadVtt( "cue-ids/arrows/malformed_arrows.vtt" );
 
