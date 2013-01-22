@@ -11,7 +11,7 @@ class CueIdLineEndings : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLineEndings, MissingBetweenSignatureAndId)
+TEST_F(CueIdLineEndings, DISABLED_MissingBetweenSignatureAndId)
 {
   loadVtt( "cue-ids/lineendings/missing_between_signature_and_Id.vtt" );
   const Error &err = getError( 0 );
@@ -31,7 +31,7 @@ TEST_F(CueIdLineEndings, MissingBetweenSignatureAndId)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLineEndings, TwoBetweenIdAndTimestamp)
+TEST_F(CueIdLineEndings, DISABLED_TwoBetweenIdAndTimestamp)
 {
   loadVtt( "cue-ids/lineendings/two_between_id_and_timestamp.vtt" );
   const Error &err = getError( 0 );
@@ -73,7 +73,7 @@ TEST_F(CueIdLineEndings, DISABLED_MissingBetweenPayloadAndId) //This parses for 
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLineEndings, LongStringLF)
+TEST_F(CueIdLineEndings, DISABLED_LongStringLF)
 {
   loadVtt( "cue-ids/lineendings/long_string_lf.vtt" );
   const Error &err = getError( 0 );
@@ -95,7 +95,7 @@ TEST_F(CueIdLineEndings, LongStringLF)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLineEndings, LongStringCRLF)
+TEST_F(CueIdLineEndings, DISABLED_LongStringCRLF)
 {
   loadVtt( "cue-ids/lineendings/long_string_crlf.vtt" );
   const Error &err = getError( 0 );

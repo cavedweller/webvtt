@@ -11,7 +11,7 @@ class CueSettingVertical : public CueTest { };
  *  If name is a case-sensitive match for "vertical"
  *  1. If value is a case-sensitive match for the string "rl", then let cue's text track cue writing direction be vertical growing left.
  */
-TEST_F(CueSettingVertical, RL)
+TEST_F(CueSettingVertical, DISABLED_RL)
 {
   loadVtt( "cue-settings/vertical/rl.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -28,7 +28,7 @@ TEST_F(CueSettingVertical, RL)
  *  If name is a case-sensitive match for "vertical"
  *  2. Otherwise, if value is a case-sensitive match for the string "lr", then let cue's text track cue writing direction be vertical growing right.
  */
-TEST_F(CueSettingVertical, LR)
+TEST_F(CueSettingVertical, DISABLED_LR)
 {
   loadVtt( "cue-settings/vertical/lr.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";

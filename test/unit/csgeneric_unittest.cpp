@@ -273,7 +273,7 @@ TEST_F(CueSetting, DISABLED_BadDelimiter2)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting, NoDelimiter)
+TEST_F(CueSetting, DISABLED_NoDelimiter)
 {
   loadVtt( "cue-settings/no-delimiter.vtt", 1 );
   const Error &err = getError( 0 );

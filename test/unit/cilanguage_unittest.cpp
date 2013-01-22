@@ -11,7 +11,7 @@ class CueIdLanguage : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, JunkCharacters)
+TEST_F(CueIdLanguage, DISABLED_JunkCharacters)
 {
   loadVtt( "cue-ids/languages/junk_characters.vtt" );
 
@@ -28,7 +28,7 @@ TEST_F(CueIdLanguage, JunkCharacters)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Arabic)
+TEST_F(CueIdLanguage, DISABLED_Arabic)
 {
   loadVtt( "cue-ids/languages/arabic.vtt" );
 
@@ -45,7 +45,7 @@ TEST_F(CueIdLanguage, Arabic)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Japanese)
+TEST_F(CueIdLanguage, DISABLED_Japanese)
 {
   loadVtt( "cue-ids/languages/japanese.vtt" );
 
@@ -62,7 +62,7 @@ TEST_F(CueIdLanguage, Japanese)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Russian)
+TEST_F(CueIdLanguage, DISABLED_Russian)
 {
   loadVtt( "cue-ids/languages/russian.vtt" );
 
@@ -79,7 +79,7 @@ TEST_F(CueIdLanguage, Russian)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Chinese)
+TEST_F(CueIdLanguage, DISABLED_Chinese)
 {
   loadVtt( "cue-ids/languages/chinese.vtt" );
 
@@ -96,7 +96,7 @@ TEST_F(CueIdLanguage, Chinese)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Greek)
+TEST_F(CueIdLanguage, DISABLED_Greek)
 {
   loadVtt( "cue-ids/languages/greek.vtt" );
 
@@ -113,7 +113,7 @@ TEST_F(CueIdLanguage, Greek)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Hebrew)
+TEST_F(CueIdLanguage, DISABLED_Hebrew)
 {
   loadVtt( "cue-ids/languages/hebrew.vtt" );
 
@@ -130,7 +130,7 @@ TEST_F(CueIdLanguage, Hebrew)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Korean)
+TEST_F(CueIdLanguage, DISABLED_Korean)
 {
   loadVtt( "cue-ids/languages/korean.vtt" );
 
@@ -147,7 +147,7 @@ TEST_F(CueIdLanguage, Korean)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, Thai)
+TEST_F(CueIdLanguage, DISABLED_Thai)
 {
   loadVtt( "cue-ids/languages/thai.vtt" );
 
@@ -164,7 +164,7 @@ TEST_F(CueIdLanguage, Thai)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, MultipleLanguages)
+TEST_F(CueIdLanguage, DISABLED_MultipleLanguages)
 {
   loadVtt( "cue-ids/languages/multiple_languages.vtt" );
 
