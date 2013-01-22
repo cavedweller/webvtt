@@ -2,17 +2,14 @@
 webvttincludedir = $(includedir)/webvtt
 
 #Mangled config file
-BUILT_SOURCES = webvtt-config.h
+BUILT_SOURCES = $(builddir)/webvtt-config.h
 
-$(top_builddir)/include/webvtt:
-	@$(mkdir_p) $@
-
-webvtt-config.h: $(top_builddir)/config.h | $(top_builddir)/include/webvtt
+$(builddir)/webvtt-config.h: $(top_builddir)/config.h
 	@cat $< | sed "s/#define \([[:alpha:]_]\{1,\}\)/#define WEBVTT_\1/" > $@
 
 #C API headers
 webvttinclude_HEADERS = \
-  webvtt-config.h \
+  $(builddir)/webvtt-config.h \
   webvtt-config-win32.h \
   cue.h \
   error.h \
