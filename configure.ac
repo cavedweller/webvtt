@@ -41,11 +41,11 @@ AM_CONDITIONAL(HAVE_VALGRIND, test "x$VALGRIND" != "xno")
 
 # Enable debugging (currently only gdb)
 AC_ARG_ENABLE([debug],
-    [  --enable-debug           build with additional debugging code],
+    AS_HELP_STRING([--enable-debug],[build with additional debugging code]),
     [CFLAGS='-g'; AC_DEFINE([DEBUG],[1],[Defined if debugging is enabled])])
 # Enable profiling (currently only gdb)
 AC_ARG_ENABLE([gprof],
-	[ --enable-gprof            build with gprof profiling engine],
+	AS_HELP_STRING([--enable-gprof],[build with gprof profiling engine]),
 	[CFLAGS='-pg'; AC_DEFINE([GPROF],[1],[Defined if using gprof profiling engine])])
 
 # Checks for libraries.
