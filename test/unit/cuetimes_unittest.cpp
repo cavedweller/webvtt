@@ -9,7 +9,7 @@ class CueTimes : public CueTest { };
  * Bounds checking - 'from' hour
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'hours' component consists
  * of a non-digit character (below U+0030)
  *
@@ -23,20 +23,20 @@ class CueTimes : public CueTest { };
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromHourBeyondLowBoundary)
+TEST_F(CueTimes, FromHourBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/hour-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -56,27 +56,27 @@ TEST_F(CueTimes,FromHourBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromHourBeyondHighBoundary)
+TEST_F(CueTimes, FromHourBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/hour-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'hours' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -89,27 +89,27 @@ TEST_F(CueTimes,FromHourBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromHourWithinLowBoundary)
+TEST_F(CueTimes, FromHourWithinLowBoundary)
 {
   loadVtt( "cue-times/from/hour-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 5  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'hours' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -122,20 +122,20 @@ TEST_F(CueTimes,FromHourWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromHourWithinHighBoundary)
+TEST_F(CueTimes, FromHourWithinHighBoundary)
 {
   loadVtt( "cue-times/from/hour-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 9, 56, 5  );
@@ -145,7 +145,7 @@ TEST_F(CueTimes,FromHourWithinHighBoundary)
  * Bounds checking - 'from' minute
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'minutes' component consists
  * of a non-digit character (below U+0030)
  *
@@ -159,20 +159,20 @@ TEST_F(CueTimes,FromHourWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMinuteBeyondLowBoundary)
+TEST_F(CueTimes, FromMinuteBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/minute-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -192,27 +192,27 @@ TEST_F(CueTimes,FromMinuteBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMinuteBeyondHighBoundary)
+TEST_F(CueTimes, FromMinuteBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/minute-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'minutes' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -225,27 +225,27 @@ TEST_F(CueTimes,FromMinuteBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMinuteWithinLowBoundary)
+TEST_F(CueTimes, FromMinuteWithinLowBoundary)
 {
   loadVtt( "cue-times/from/minute-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 56, 5  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'minutes' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -258,20 +258,20 @@ TEST_F(CueTimes,FromMinuteWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMinuteWithinHighBoundary)
+TEST_F(CueTimes, FromMinuteWithinHighBoundary)
 {
   loadVtt( "cue-times/from/minute-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 005 );
@@ -281,7 +281,7 @@ TEST_F(CueTimes,FromMinuteWithinHighBoundary)
  * Bounds checking - 'from' second
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'seconds' component consists
  * of a non-digit character (below U+0030)
  *
@@ -295,20 +295,20 @@ TEST_F(CueTimes,FromMinuteWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromSecondBeyondLowBoundary)
+TEST_F(CueTimes, FromSecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/second-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -328,27 +328,27 @@ TEST_F(CueTimes,FromSecondBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromSecondBeyondHighBoundary)
+TEST_F(CueTimes, FromSecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/second-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'seconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -361,27 +361,27 @@ TEST_F(CueTimes,FromSecondBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromSecondWithinLowBoundary)
+TEST_F(CueTimes, FromSecondWithinLowBoundary)
 {
   loadVtt( "cue-times/from/second-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 0, 5  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'seconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -394,20 +394,20 @@ TEST_F(CueTimes,FromSecondWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromSecondWithinHighBoundary)
+TEST_F(CueTimes, FromSecondWithinHighBoundary)
 {
   loadVtt( "cue-times/from/second-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 59, 5 );
@@ -417,7 +417,7 @@ TEST_F(CueTimes,FromSecondWithinHighBoundary)
  * Bounds checking - 'from' millisecond
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'milliseconds' component consists
  * of a non-digit character (below U+0030)
  *
@@ -431,20 +431,20 @@ TEST_F(CueTimes,FromSecondWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMillisecondBeyondLowBoundary)
+TEST_F(CueTimes, FromMillisecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/millisecond-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -464,27 +464,27 @@ TEST_F(CueTimes,FromMillisecondBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMillisecondBeyondHighBoundary)
+TEST_F(CueTimes, FromMillisecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/millisecond-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'milliseconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -497,27 +497,27 @@ TEST_F(CueTimes,FromMillisecondBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMillisecondWithinLowBoundary)
+TEST_F(CueTimes, FromMillisecondWithinLowBoundary)
 {
   loadVtt( "cue-times/from/millisecond-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 0  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'milliseconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -530,20 +530,20 @@ TEST_F(CueTimes,FromMillisecondWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMillisecondWithinHighBoundary)
+TEST_F(CueTimes, FromMillisecondWithinHighBoundary)
 {
   loadVtt( "cue-times/from/millisecond-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 999 );
@@ -553,7 +553,7 @@ TEST_F(CueTimes,FromMillisecondWithinHighBoundary)
  * Format - 'from' numbers of minute digits
  */
 
-TEST_F(CueTimes,FromOneDigitMinute)
+TEST_F(CueTimes, FromOneDigitMinute)
 {
   loadVtt( "cue-times/from/minute-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -574,20 +574,20 @@ TEST_F(CueTimes,FromOneDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromTwoDigitMinute)
+TEST_F(CueTimes, FromTwoDigitMinute)
 {
   loadVtt( "cue-times/from/minute-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 1, 0, 0 );
@@ -607,20 +607,20 @@ TEST_F(CueTimes,FromTwoDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromThreeDigitMinute)
+TEST_F(CueTimes, FromThreeDigitMinute)
 {
   loadVtt( "cue-times/from/minute-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -644,20 +644,20 @@ TEST_F(CueTimes,FromThreeDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromOneDigitSecond)
+TEST_F(CueTimes, FromOneDigitSecond)
 {
   loadVtt( "cue-times/from/second-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -678,20 +678,20 @@ TEST_F(CueTimes,FromOneDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromTwoDigitSecond)
+TEST_F(CueTimes, FromTwoDigitSecond)
 {
   loadVtt( "cue-times/from/second-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 0, 25, 0 );
@@ -711,20 +711,20 @@ TEST_F(CueTimes,FromTwoDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromThreeDigitSecond)
+TEST_F(CueTimes, FromThreeDigitSecond)
 {
   loadVtt( "cue-times/from/second-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -748,20 +748,20 @@ TEST_F(CueTimes,FromThreeDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromTwoDigitMillisecond)
+TEST_F(CueTimes, FromTwoDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-2-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -782,20 +782,20 @@ TEST_F(CueTimes,FromTwoDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromThreeDigitMillisecond)
+TEST_F(CueTimes, FromThreeDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-3-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 0, 0, 111 );
@@ -815,20 +815,20 @@ TEST_F(CueTimes,FromThreeDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromFourDigitMillisecond)
+TEST_F(CueTimes, FromFourDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-4-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -852,20 +852,20 @@ TEST_F(CueTimes,FromFourDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMinuteGreaterThan59)
+TEST_F(CueTimes, FromMinuteGreaterThan59)
 {
   loadVtt( "cue-times/from/minute-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -886,20 +886,20 @@ TEST_F(CueTimes,FromMinuteGreaterThan59)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromSecondGreaterThan59)
+TEST_F(CueTimes, FromSecondGreaterThan59)
 {
   loadVtt( "cue-times/from/second-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -920,20 +920,20 @@ TEST_F(CueTimes,FromSecondGreaterThan59)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromMillisecondGreaterThan999)
+TEST_F(CueTimes, FromMillisecondGreaterThan999)
 {
   loadVtt( "cue-times/from/millisecond-greater-than-999.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -953,24 +953,24 @@ TEST_F(CueTimes,FromMillisecondGreaterThan999)
  * in the given order:
  * 1. Optionally (required if hour is non-zero):
  *    a. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
- * 	     NINE (9), representing the hours as a base ten integer.
- *    
+ *       NINE (9), representing the hours as a base ten integer.
+ *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromBadDelimiterHourMinute)
+TEST_F(CueTimes, FromBadDelimiterHourMinute)
 {
   loadVtt( "cue-times/from/bad-delimiter-hour-minute.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -990,20 +990,20 @@ TEST_F(CueTimes,FromBadDelimiterHourMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  * representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromBadDelimiterMinuteSecond)
+TEST_F(CueTimes, FromBadDelimiterMinuteSecond)
 {
   loadVtt( "cue-times/from/bad-delimiter-minute-second.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -1023,20 +1023,20 @@ TEST_F(CueTimes,FromBadDelimiterMinuteSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,FromBadDelimiterSecondMillisecond)
+TEST_F(CueTimes, FromBadDelimiterSecondMillisecond)
 {
   loadVtt( "cue-times/from/bad-delimiter-second-millisecond.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -1050,7 +1050,7 @@ TEST_F(CueTimes,FromBadDelimiterSecondMillisecond)
  * Bounds checking - 'until' hour
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'hours' component consists
  * of a non-digit character (below U+0030)
  *
@@ -1064,20 +1064,20 @@ TEST_F(CueTimes,FromBadDelimiterSecondMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilHourBeyondLowBoundary)
+TEST_F(CueTimes, UntilHourBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/hour-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1097,27 +1097,27 @@ TEST_F(CueTimes,UntilHourBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilHourBeyondHighBoundary)
+TEST_F(CueTimes, UntilHourBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/hour-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'hours' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1130,27 +1130,27 @@ TEST_F(CueTimes,UntilHourBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilHourWithinLowBoundary)
+TEST_F(CueTimes, UntilHourWithinLowBoundary)
 {
   loadVtt( "cue-times/until/hour-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'hours' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1163,20 +1163,20 @@ TEST_F(CueTimes,UntilHourWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilHourWithinHighBoundary)
+TEST_F(CueTimes, UntilHourWithinHighBoundary)
 {
   loadVtt( "cue-times/until/hour-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 9, 10, 02, 780 );
@@ -1186,7 +1186,7 @@ TEST_F(CueTimes,UntilHourWithinHighBoundary)
  * Bounds checking - 'until' minute
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'minutes' component consists
  * of a non-digit character (below U+0030)
  *
@@ -1200,20 +1200,20 @@ TEST_F(CueTimes,UntilHourWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMinuteBeyondLowBoundary)
+TEST_F(CueTimes, UntilMinuteBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/minute-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1233,27 +1233,27 @@ TEST_F(CueTimes,UntilMinuteBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMinuteBeyondHighBoundary)
+TEST_F(CueTimes, UntilMinuteBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/minute-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'minutes' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1266,27 +1266,27 @@ TEST_F(CueTimes,UntilMinuteBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMinuteWithinLowBoundary)
+TEST_F(CueTimes, UntilMinuteWithinLowBoundary)
 {
   loadVtt( "cue-times/until/minute-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'minutes' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1299,20 +1299,20 @@ TEST_F(CueTimes,UntilMinuteWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMinuteWithinHighBoundary)
+TEST_F(CueTimes, UntilMinuteWithinHighBoundary)
 {
   loadVtt( "cue-times/until/minute-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1323,7 +1323,7 @@ TEST_F(CueTimes,UntilMinuteWithinHighBoundary)
  * Bounds checking - 'until' second
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'seconds' component consists
  * of a non-digit character (below U+0030)
  *
@@ -1337,20 +1337,20 @@ TEST_F(CueTimes,UntilMinuteWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilSecondBeyondLowBoundary)
+TEST_F(CueTimes, UntilSecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/second-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1370,27 +1370,27 @@ TEST_F(CueTimes,UntilSecondBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilSecondBeyondHighBoundary)
+TEST_F(CueTimes, UntilSecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/second-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'seconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1403,27 +1403,27 @@ TEST_F(CueTimes,UntilSecondBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilSecondWithinLowBoundary)
+TEST_F(CueTimes, UntilSecondWithinLowBoundary)
 {
   loadVtt( "cue-times/until/second-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'seconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1436,20 +1436,20 @@ TEST_F(CueTimes,UntilSecondWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilSecondWithinHighBoundary)
+TEST_F(CueTimes, UntilSecondWithinHighBoundary)
 {
   loadVtt( "cue-times/until/second-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1459,7 +1459,7 @@ TEST_F(CueTimes,UntilSecondWithinHighBoundary)
  * Bounds checking - 'until' millisecond
  */
 /**
- * Test expecting parser to report an error and skip cue 
+ * Test expecting parser to report an error and skip cue
  * when a 4 component timestamp's 'milliseconds' component consists
  * of a non-digit character (below U+0030)
  *
@@ -1473,20 +1473,20 @@ TEST_F(CueTimes,UntilSecondWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMillisecondBeyondLowBoundary)
+TEST_F(CueTimes, UntilMillisecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/millisecond-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1506,27 +1506,27 @@ TEST_F(CueTimes,UntilMillisecondBeyondLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMillisecondBeyondHighBoundary)
+TEST_F(CueTimes, UntilMillisecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/millisecond-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'milliseconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1539,27 +1539,27 @@ TEST_F(CueTimes,UntilMillisecondBeyondHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMillisecondWithinLowBoundary)
+TEST_F(CueTimes, UntilMillisecondWithinLowBoundary)
 {
   loadVtt( "cue-times/until/millisecond-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
 }
 
 /**
- * Test expecting parser to encounter no errors when parsing a valid, well-formed 
+ * Test expecting parser to encounter no errors when parsing a valid, well-formed
  * cue timestamp whose 'milliseconds' component's digits are all ASCII digits (U+0030-U+0039)
  *
  * From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
@@ -1572,20 +1572,20 @@ TEST_F(CueTimes,UntilMillisecondWithinLowBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMillisecondWithinHighBoundary)
+TEST_F(CueTimes, UntilMillisecondWithinHighBoundary)
 {
   loadVtt( "cue-times/until/millisecond-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1608,20 +1608,20 @@ TEST_F(CueTimes,UntilMillisecondWithinHighBoundary)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilOneDigitMinute)
+TEST_F(CueTimes, UntilOneDigitMinute)
 {
   loadVtt( "cue-times/until/minute-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1642,20 +1642,20 @@ TEST_F(CueTimes,UntilOneDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilTwoDigitMinute)
+TEST_F(CueTimes, UntilTwoDigitMinute)
 {
   loadVtt( "cue-times/until/minute-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 2, 0, 0 );
@@ -1675,20 +1675,20 @@ TEST_F(CueTimes,UntilTwoDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilThreeDigitMinute)
+TEST_F(CueTimes, UntilThreeDigitMinute)
 {
   loadVtt( "cue-times/until/minute-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1712,20 +1712,20 @@ TEST_F(CueTimes,UntilThreeDigitMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilOneDigitSecond)
+TEST_F(CueTimes, UntilOneDigitSecond)
 {
   loadVtt( "cue-times/until/second-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1746,20 +1746,20 @@ TEST_F(CueTimes,UntilOneDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilTwoDigitSecond)
+TEST_F(CueTimes, UntilTwoDigitSecond)
 {
   loadVtt( "cue-times/until/second-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 0, 27, 0 );
@@ -1779,20 +1779,20 @@ TEST_F(CueTimes,UntilTwoDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilThreeDigitSecond)
+TEST_F(CueTimes, UntilThreeDigitSecond)
 {
   loadVtt( "cue-times/until/second-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1816,20 +1816,20 @@ TEST_F(CueTimes,UntilThreeDigitSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilTwoDigitMillisecond)
+TEST_F(CueTimes, UntilTwoDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-2-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1850,20 +1850,20 @@ TEST_F(CueTimes,UntilTwoDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilThreeDigitMillisecond)
+TEST_F(CueTimes, UntilThreeDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-3-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 0, 0, 222 );
@@ -1883,20 +1883,20 @@ TEST_F(CueTimes,UntilThreeDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilFourDigitMillisecond)
+TEST_F(CueTimes, UntilFourDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-4-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1920,20 +1920,20 @@ TEST_F(CueTimes,UntilFourDigitMillisecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMinuteGreaterThan59)
+TEST_F(CueTimes, UntilMinuteGreaterThan59)
 {
   loadVtt( "cue-times/until/minute-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1954,20 +1954,20 @@ TEST_F(CueTimes,UntilMinuteGreaterThan59)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilSecondGreaterThan59)
+TEST_F(CueTimes, UntilSecondGreaterThan59)
 {
   loadVtt( "cue-times/until/second-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1988,20 +1988,20 @@ TEST_F(CueTimes,UntilSecondGreaterThan59)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilMillisecondGreaterThan999)
+TEST_F(CueTimes, UntilMillisecondGreaterThan999)
 {
   loadVtt( "cue-times/until/millisecond-greater-than-999.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -2021,24 +2021,24 @@ TEST_F(CueTimes,UntilMillisecondGreaterThan999)
  * in the given order:
  * 1. Optionally (required if hour is non-zero):
  *    a. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
- * 	     NINE (9), representing the hours as a base ten integer.
- *    
+ *       NINE (9), representing the hours as a base ten integer.
+ *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilBadDelimiterHourMinute)
+TEST_F(CueTimes, UntilBadDelimiterHourMinute)
 {
   loadVtt( "cue-times/until/bad-delimiter-hour-minute.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -2058,20 +2058,20 @@ TEST_F(CueTimes,UntilBadDelimiterHourMinute)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  * representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilBadDelimiterMinuteSecond)
+TEST_F(CueTimes, UntilBadDelimiterMinuteSecond)
 {
   loadVtt( "cue-times/until/bad-delimiter-minute-second.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -2091,21 +2091,1059 @@ TEST_F(CueTimes,UntilBadDelimiterMinuteSecond)
  *
  *    b. A U+003A COLON character (:)
  *
- * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), 
+ * 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
  *    representing the minutes as a base ten integer in the range 0 = minutes = 59.
  *
  * 3. A U+003A COLON character (:)
  *
- * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    seconds as a base ten integer in the range 0 = seconds = 59.
  *
  * 5. A U+002E FULL STOP character (.).
  *
- * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the 
+ * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,UntilBadDelimiterSecondMillisecond)
+TEST_F(CueTimes, UntilBadDelimiterSecondMillisecond)
 {
   loadVtt( "cue-times/until/bad-delimiter-second-millisecond.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
+}
+
+/*
+ * This tests the bare minimum required for a valid WebVTT file with
+ * one cue and no content.
+ * CURRENTY DISABLED: Parser does not recognized
+ * a cue with no payload as a cue, is returning 0
+ * cues founf.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue
+ * WHICH STATED:
+ * A WebVTT cue consists of the following components, in the given order:
+ * Optionally, a WebVTT cue identifier followed by a WebVTT line terminator.
+ * WebVTT cue timings.
+ * Optionally, one or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION
+ * (tab) characters followed by WebVTT cue settings.
+ * A WebVTT line terminator.
+ * The cue payload: either WebVTT cue text, WebVTT chapter title text, or WebVTT
+ * metadata text, but it must not contain the substring "-->" (U+002D HYPHEN-MINUS,
+ * U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ *
+ * Each payload consists of "zero or more" objects, making
+ * them optional.
+ */
+TEST_F(CueTimes, DISABLED_BareMinimum)
+{
+  loadVtt("cue-times/bare_minimum.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests the bare minimum required for a valid WebVTT file with
+ * one cue and sample content.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue
+ * WHICH STATED:
+ * A WebVTT cue consists of the following components, in the given order:
+ * Optionally, a WebVTT cue identifier followed by a WebVTT line terminator.
+ * WebVTT cue timings.
+ * Optionally, one or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION
+ * (tab) characters followed by WebVTT cue settings.
+ * A WebVTT line terminator.
+ * The cue payload: either WebVTT cue text, WebVTT chapter title text, or WebVTT
+ * metadata text, but it must not contain the substring "-->" (U+002D HYPHEN-MINUS,
+ * U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ */
+TEST_F(CueTimes, BareMinimumWithContent)
+{
+  loadVtt("cue-times/bare_minimum_content.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests the highest legal values in a timestamp.
+ * This does not included hours, as the highest legal value
+ * of an hour would be the highest value of an int (system-dependent)
+ * CURRENTY DISABLED: Parser does not recognized
+ * a cue with no payload as a cue, is returning 0
+ * cues founf.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-timestamp
+ * WHICH STATED:
+ * A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds, and thousandths of a
+ * second seconds-frac, consists of the following components, in the given order:
+ * Optionally (required if hour is non-zero):
+ * Two or more ASCII digits, representing the hours as a base ten integer.
+ * A U+003A COLON character (:)
+ * Two ASCII digits, representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+ * A U+003A COLON character (:)
+ * Two ASCII digits, representing the seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+ * A U+002E FULL STOP character (.).
+ * Three ASCII digits, representing the thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_HighestValues)
+{
+  loadVtt("cue-times/highest_values.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests a bunch of space and tab characters in between
+ * timestamp tokens
+ * CURRENTY DISABLED: Parser does not recognized
+ * a cue with no payload as a cue, is returning 0
+ * cues founf.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ */
+TEST_F(CueTimes, DISABLED_SpaceTabs)
+{
+  loadVtt("cue-times/space_tabs.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests using tabs instead of sapces
+ * in between timesetamp tokens
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ */
+TEST_F(CueTimes, Tabs)
+{
+  loadVtt("cue-times/tabs.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests the optional hours token in the timestamp
+ * CURRENTY DISABLED: Parser does not recognized
+ * a cue with no payload as a cue, is returning 0
+ * cues founf.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-timestamp
+ * WHICH STATED:
+ * A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ * and thousandths of a second seconds-frac, consists of the following components, in the given order:
+ * Optionally (required if hour is non-zero):
+ * Two or more ASCII digits, representing the hours as a base ten integer.
+ * A U+003A COLON character (:)
+ *.[...]
+ */
+TEST_F(CueTimes, DISABLED_Hours)
+{
+  loadVtt("cue-times/hours.vtt", 1);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests multiple cues in a vtt file
+ * DISABLED as it is returning an error count greater than
+ * 0. Will have to debug when I have some time.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * [...]
+ */
+TEST_F(CueTimes, DISABLED_MultiCues)
+{
+  loadVtt("cue-times/multicues.vtt", 2);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests nested cues.
+ * DISABLED as it is returning an error count greater than
+ * 0. Will have to debug when I have some time.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-file-using-only-nested-cues
+ * WHICH STATED:
+ * A WebVTT file whose cues all have an end time offset x greater than or equal to the end time offsets
+ * of all the cues whose start time offsets are less than x is said to be a WebVTT file using only nested cues.
+ */
+TEST_F(CueTimes, DISABLED_NestedCues)
+{
+  loadVtt("cue-times/nestedcues.vtt", 6);
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+}
+
+/*
+ * This tests spaces missing between time stamp tokens
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * NO ERROR CODE DEFINED FOR THIS CASE YET
+ * THEREFORE, THE LOADVTT STATEMENT DOUBLES
+ * AS AN ASSERTION THAT THE VTT FILE IS
+ * PARSABLE.
+ * DISABLED due to std::bad_alloc being thrown
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, DISABLED_MissingSpaces)
+{
+  loadVtt("cue-times/missing_spaces.vtt", 1);
+}
+
+/*
+ * This tests a missing space between left timestamp and arrow token
+ * one cue and no content.
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * NO ERROR CODE DEFINED FOR THIS CASE YET
+ * THEREFORE, THE LOADVTT STATEMENT DOUBLES
+ * AS AN ASSERTION THAT THE VTT FILE IS
+ * PARSABLE.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, MissingSpaceLeft)
+{
+  loadVtt("cue-times/missing_space_left.vtt", 1);
+}
+
+/*
+ * This tests a missing space between right timestamp and arrow token
+ * one cue and no content.
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * NO ERROR CODE DEFINED FOR THIS CASE YET
+ * THEREFORE, THE LOADVTT STATEMENT DOUBLES
+ * AS AN ASSERTION THAT THE VTT FILE IS
+ * PARSABLE.
+ * DISABLED due to std::bad_alloc
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, DISABLED_MissingSpaceRight)
+{
+  loadVtt("cue-times/missing_space_right.vtt", 1);
+}
+
+/*
+ * This tests the effect of non-numeric characters
+ * in the timestamp.
+ * one cue and no content.
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * CURRENTY DISABLED: Parser segmentation faults
+ * when trying to parse timestamps and encountering
+ * any character it is not expecting.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, DISABLED_NoNumsInTimeStamp)
+{
+  loadVtt("cue-times/nonums_in_timestamp.vtt", 1);
+  const Error &err = getError( 0 );
+  ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
+}
+
+/*
+ * This tests demonstrates that a WebVTT file
+ * fails validation when the --> token is anything
+ * but three characters in a row.
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * CURRENTY DISABLED: Parser does not recognized
+ * a cue with no payload as a cue, is returning 0
+ * cues founf.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * [...]
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * [...]
+ */
+TEST_F(CueTimes, DISABLED_ArrowsWrongDirection)
+{
+  loadVtt("cue-times/arrows_wrong_direction.vtt", 1);
+  const Error &err = getError( 0 );
+  ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
+}
+
+/*
+ * This tests demonstrates bad timestamps.
+ * Because the parser does not validate, the parser should
+ * attempt to parse this. Parse.
+ * CURRENTY DISABLED: Parser segmentation faults
+ * when trying to parse timestamps and encountering
+ * any character it is not expecting.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, DISABLED_BadTimeStamps1)
+{
+  loadVtt("cue-times/bad_timestamps_1.vtt", 1);
+  const Error &err = getError( 0 );
+  ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
+}
+
+/*
+ * This tests demonstrates bad timestamps.
+ * CURRENTY DISABLED: Parser segmentation faults
+ * when trying to parse timestamps and encountering
+ * any character it is not expecting.
+ * ACCORDING TO WEBVTT SPEC DATE: 2012-12-12
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-timings
+ * WHICH STATED:
+ * The WebVTT cue timings part of a WebVTT cue consists of the following components, in the given order:
+ * A WebVTT timestamp representing the start time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
+ * One or more U+0020 SPACE characters or U+0009 CHARACTER TABULATION (tab) characters.
+ * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
+ * timestamp must be greater than the start time offset of the cue.
+ *
+ */
+TEST_F(CueTimes, DISABLED_BadTimeStamps2)
+{
+  loadVtt("cue-times/bad_timestamps_2.vtt", 1);
+  const Error &err = getError( 0 );
+  ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of 2 digits at the high end of the valid range (99)
+
+ e.g 99:00:00.000 --> 99:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsHigh)
+{
+  loadVtt( "cue-times/from/timestamp_hours_2_digits_high_good.vtt", 1 );
+  ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
+  ASSERT_EQ(99, getCue(0).startTime().hours());
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsHigh)
+{
+  loadVtt( "cue-times/until/timestamp_hours_2_digits_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 99, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of 2 digits at the low end of the valid range (00)
+
+ e.g 00:00:00.000 --> 00:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsLow)
+{
+  loadVtt( "cue-times/from/timestamp_hours_2_digits_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).startTime().hours() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsLow)
+{
+  loadVtt( "cue-times/until/timestamp_hours_2_digits_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of 2 digits at the middle of the valid range (54)
+
+ e.g. 54:00:00.000 --> 54:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsMiddle)
+{
+  loadVtt( "cue-times/from/timestamp_hours_2_digits_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 54, getCue(0).startTime().hours() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsMiddle)
+{
+  loadVtt( "cue-times/until/timestamp_hours_2_digits_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 54, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of more than 2 digits at the high end of the valid range
+
+ e.g 9999:00:00.000 --> 9999:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsHigh)
+{
+  loadVtt( "cue-times/from/timestamp_hours_n_digits_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 9999, getCue(0).startTime().hours() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsHigh)
+{
+  loadVtt( "cue-times/until/timestamp_hours_n_digits_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 9999, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of more than 2 digits at the low end of the valid range
+
+ e.g. 0000:00:00.000 --> 0000:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsLow)
+{
+  loadVtt( "cue-times/from/timestamp_hours_n_digits_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 0000, getCue(0).startTime().hours() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsLow)
+{
+  loadVtt( "cue-times/until/timestamp_hours_n_digits_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 0000, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ consists of more than 2 digits at the middle of the valid range
+
+ e.g. 5544:00:00.000 --> 5544:00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsMiddle)
+{
+  loadVtt( "cue-times/from/timestamp_hours_n_digits_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 5544, getCue(0).startTime().hours() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsMiddle)
+{
+  loadVtt( "cue-times/until/timestamp_hours_n_digits_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 5544, getCue(0).endTime().hours() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'hours' component
+ and it's delimiter is omitted.
+
+ e.g. 00:00.000 --> 00:05.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+
+TEST_F(CueTimes, DISABLED_TimeStampHoursOmitted)
+{
+  loadVtt( "cue-times/from/timestamp_hours_omitted_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds-frac' component
+ is a 3 digit character at the high end of the valid range
+ e.g. 00:00:00.999 --> 00:00:01.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsHigh)
+{
+  loadVtt( "cue-times/from/timestamp_milliseconds_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 999, getCue(0).startTime().milliseconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsHigh)
+{
+  loadVtt( "cue-times/until/timestamp_milliseconds_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 999, getCue(0).endTime().milliseconds() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds-frac' component
+ is a 3 digit character at the low end of the valid range
+ e.g. 00:00:00.000 --> 00:00:01.000
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+
+TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsLow)
+{
+  loadVtt( "cue-times/from/timestamp_milliseconds_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 000, getCue(0).startTime().milliseconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsLow)
+{
+  loadVtt( "cue-times/until/timestamp_milliseconds_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 000, getCue(0).endTime().milliseconds() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds-frac' component
+ is a 3 digit character at the middle of the valid range
+ e.g. 00:00:00.555 --> 00:00:01.555
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsMiddle)
+{
+  loadVtt( "cue-times/from/timestamp_milliseconds_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 555, getCue(0).startTime().milliseconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsMiddle)
+{
+  loadVtt( "cue-times/until/timestamp_milliseconds_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 555, getCue(0).endTime().milliseconds() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'minutes' component
+ is a 2 digit character at the high end of the valid range
+ e.g. 00:59:00.000 --> 00:59:00.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampMinutesHigh)
+{
+  loadVtt( "cue-times/from/timestamp_minutes_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 59, getCue(0).startTime().minutes() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMinutesHigh)
+{
+  loadVtt( "cue-times/until/timestamp_minutes_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 59, getCue(0).endTime().minutes() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'minutes' component
+ is a 2 digit character at the low end of the valid range
+ e.g. 00:00:00.000 --> 00:00:00.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampMinutesLow)
+{
+  loadVtt( "cue-times/from/timestamp_minutes_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).startTime().minutes() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMinutesLow)
+{
+  loadVtt( "cue-times/until/timestamp_minutes_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).endTime().minutes() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'minutes' component
+ is a 2 digit character at the middle of the valid range
+ e.g. 00:30:00.000 --> 00:30:00.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+
+TEST_F(CueTimes, DISABLED_StartTimeStampMinutesMiddle)
+{
+  loadVtt( "cue-times/from/timestamp_minutes_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 30, getCue(0).startTime().minutes() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampMinutesMiddle)
+{
+  loadVtt( "cue-times/until/timestamp_minutes_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 30, getCue(0).endTime().minutes() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds' component
+ is a 2 digit character at the high end of the valid range
+ e.g. 00:00:59.000 --> 00:00:59.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampSecondsHigh)
+{
+  loadVtt( "cue-times/from/timestamp_seconds_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 59, getCue(0).startTime().seconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampSecondsHigh)
+{
+  loadVtt( "cue-times/until/timestamp_seconds_high_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 59, getCue(0).endTime().seconds() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds' component
+ is a 2 digit character at the low end of the valid range
+ e.g. 00:00:00.000 --> 00:00:00.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampSecondsLow)
+{
+  loadVtt( "cue-times/from/timestamp_seconds_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).startTime().seconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampSecondsLow)
+{
+  loadVtt( "cue-times/until/timestamp_seconds_low_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 00, getCue(0).endTime().seconds() );
+}
+
+/*
+ Test expecting parser to succeed when a 4 component timestamp's 'seconds' component
+ is a 2 digit character at the middle of the valid range
+ e.g. 00:00:30.000 --> 00:00:30.999
+
+ From http://dev.w3.org/html5/webvtt/#webvtt-timestamp (10/15/2012):
+ A WebVTT timestamp representing hours hours, minutes minutes, seconds seconds,
+ and thousandths of a second seconds-frac, consists of the following components,
+ in the given order:
+ 1. Optionally (required if hour is non-zero):
+ 1. Two or more characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT
+ NINE (9), representing the hours as a base ten integer.
+
+ 2. A U+003A COLON character (:)
+
+ 2. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9),
+ representing the minutes as a base ten integer in the range 0 ≤ minutes ≤ 59.
+
+ 3. A U+003A COLON character (:)
+
+ 4. Two characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ seconds as a base ten integer in the range 0 ≤ seconds ≤ 59.
+
+ 5. A U+002E FULL STOP character (.).
+
+ 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
+ thousandths of a second seconds-frac as a base ten integer.
+ */
+TEST_F(CueTimes, DISABLED_StartTimeStampSecondsMiddle)
+{
+  loadVtt( "cue-times/from/timestamp_seconds_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 30, getCue(0).startTime().seconds() );
+}
+
+TEST_F(CueTimes, DISABLED_EndTimeStampSecondsMiddle)
+{
+  loadVtt( "cue-times/until/timestamp_seconds_mid_good.vtt", 1 );
+  ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
+  ASSERT_EQ( 30, getCue(0).endTime().seconds() );
 }

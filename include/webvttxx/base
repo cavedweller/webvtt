@@ -1,7 +1,7 @@
 #ifndef __WEBVTTXX_BASE__
-#	define __WEBVTTXX_BASE__
+# define __WEBVTTXX_BASE__
 
-#	include <webvtt/util.h>
+# include <webvtt/util.h>
 
 namespace WebVTT
 {
@@ -15,7 +15,6 @@ typedef ::webvtt_int16 int16;
 typedef ::webvtt_int32 int32;
 typedef ::webvtt_int64 int64;
 typedef ::webvtt_uint uint;
-typedef ::webvtt_wchar wchar;
 typedef ::webvtt_byte byte;
 typedef ::webvtt_uchar uchar;
 typedef ::webvtt_ushort ushort;

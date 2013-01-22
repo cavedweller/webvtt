@@ -19,8 +19,8 @@ LIBS = \
 
 LDADD = $(LIBS)
 
-CUEGENERAL_TESTS = \
-	cuegeneral_unittest
+FILESTRUCTURE_TESTS = \
+	filestructure_unittest
 
 CUESETTINGS_TESTS = \
   csgeneric_unittest \
@@ -31,7 +31,8 @@ CUESETTINGS_TESTS = \
   csalign_unittest
 
 CUETIMES_TESTS = \
-  cuetimes_unittest
+  cuetimes_unittest \
+  ctgenstructure_unittest
 
 CUEIDS_TESTS = \
   ciarrow_unittest \
@@ -52,7 +53,7 @@ PAYLOAD_TESTS = \
   plrubytag_unittest
 
 UNIT_TESTS = \
-  $(CUEGENERAL_TESTS) \
+  $(FILESTRUCTURE_TESTS) \
   $(CUESETTINGS_TESTS) \
   $(CUETIMES_TESTS) \
   $(CUEIDS_TESTS) \
@@ -83,8 +84,10 @@ TESTS = $(UNIT_TESTS)
 TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT)
 check_PROGRAMS = $(UNIT_TESTS)
 
-# Cue General tests
-cuegeneral_unittest_SOURCES = cuegeneral_unitttest.cpp
+EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
+	     test_parser
+
+filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
 csgeneric_unittest_SOURCES = csgeneric_unittest.cpp
 csline_unittest_SOURCES = csline_unittest.cpp
@@ -95,6 +98,7 @@ csalign_unittest_SOURCES = csalign_unittest.cpp
 
 # Cue Times tests
 cuetimes_unittest_SOURCES = cuetimes_unittest.cpp
+ctgenstructure_unittest_SOURCES = ctgenstructure_unittest.cpp
 
 # Cue Ids Tests
 ciarrow_unittest_SOURCES = ciarrow_unittest.cpp

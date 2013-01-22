@@ -2,43 +2,54 @@
 #include <webvttxx/nodefactory>
 
 namespace WebVTT
-{	
-
-const Node * Node::parent() const
 {
-	return NodeFactory::createNode( nodePtr->parent );
+
+InternalNode::InternalNode( webvtt_node *otherNode )
+  : Node( otherNode ) 
+{
+  Node *temp_node;
+  for( uint i = 0; i < otherNode->data.internal_data->length; i++ )
+  {
+    temp_node = NodeFactory::createNode( node->data.internal_data->children[i] );
+    children.push_back( temp_node );
+  }
 }
 
-const Node * InternalNode::child( uint index ) const
+const Node *Node::parent() const
 {
-	if( index <= internalNodePtr->length )
-		return NodeFactory::createNode( internalNodePtr->children[index] );
-	else 
-		return 0;
+  return parentNode;
 }
 
-const InternalNode * Node::toInternalNode() const
+const Node *InternalNode::child( uint index ) const
 {
-	if( WEBVTT_IS_VALID_INTERNAL_NODE( this->kind() ) )
-		return (const InternalNode *)this;
-	else
-		throw "Invalid cast to InternalNode.";
+  if( index <= node->data.internal_data->length )
+  { return children.at(index); }
+  else
+  { return 0; }
 }
 
-const TextNode * Node::toTextNode() const
+const InternalNode *Node::toInternalNode() const
 {
-	if( this->kind() == WEBVTT_TEXT )
-		return (const TextNode *)this;
-	else
-		throw "Invalid cast to TextNode.";
+  if( WEBVTT_IS_VALID_INTERNAL_NODE( this->kind() ) )
+  { return ( const InternalNode * )this; }
+  else
+  { throw "Invalid cast to InternalNode."; }
 }
 
-const TimeStampNode * Node::toTimeStampNode() const
+const TextNode *Node::toTextNode() const
 {
-	if( this->kind() == WEBVTT_TIME_STAMP )
-		return (const TimeStampNode *)this;
-	else
-		throw "Invalid cast to TimeStampNode.";
+  if( this->kind() == WEBVTT_TEXT )
+  { return ( const TextNode * )this; }
+  else
+  { throw "Invalid cast to TextNode."; }
+}
+
+const TimeStampNode *Node::toTimeStampNode() const
+{
+  if( this->kind() == WEBVTT_TIME_STAMP )
+  { return ( const TimeStampNode * )this; }
+  else
+  { throw "Invalid cast to TimeStampNode."; }
 }
 
 }

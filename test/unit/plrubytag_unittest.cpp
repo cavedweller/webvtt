@@ -12,7 +12,7 @@ class PayloadRubyTag : public PayloadTest {};
  * 2. One or more occurrences of the following group of components, in the order given:
  *  1. WebVTT cue internal text, representing the ruby base.
  *  2. A WebVTT cue span start tag "rt" that disallows an annotation.
- *  3. A WebVTT cue ruby text span: WebVTT cue internal text, representing the ruby text component 
+ *  3. A WebVTT cue ruby text span: WebVTT cue internal text, representing the ruby text component
  *     of the ruby annotation.
  *  4. A WebVTT cue span end tag "rt". If this is the last occurrence of this group of components in
  *     the WebVTT cue ruby span, then this last end tag string may be omitted.
@@ -21,7 +21,7 @@ class PayloadRubyTag : public PayloadTest {};
  *    CHARACTER TABULATION (tab) characters, each optionally followed by a WebVTT line terminator.
  * 5. A WebVTT cue span end tag "ruby".
  */
-TEST_F(PayloadRubyTag,DISABLED_ValidRuby)
+TEST_F(PayloadRubyTag, DISABLED_ValidRuby)
 {
   loadVtt( "payload/ruby-tag/ruby-cue-component.vtt");
 
@@ -31,17 +31,17 @@ TEST_F(PayloadRubyTag,DISABLED_ValidRuby)
   ASSERT_EQ( Node::RubyText, head0->child( 1 )->toInternalNode()->child( 1 )->kind() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_RubyAnnotation)
+TEST_F(PayloadRubyTag, DISABLED_RubyAnnotation)
 {
   loadVtt( "payload/ruby-tag/ruby-annotation.vtt", 1);
 
   const InternalNode *head = getHeadOfCue( 0 );
 
   ASSERT_EQ( 0, head->child( 1 )->toInternalNode()->annotation().length() );
-  
+
 }
 
-TEST_F(PayloadRubyTag,DISABLED_RubyTextAnnotation)
+TEST_F(PayloadRubyTag, DISABLED_RubyTextAnnotation)
 {
   loadVtt( "payload/ruby-tag/ruby-text-annotation.vtt" );
 
@@ -50,7 +50,7 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTextAnnotation)
   ASSERT_EQ( 0, head->child( 1 )->toInternalNode()->annotation().length() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_NoRubyBaseText)
+TEST_F(PayloadRubyTag, DISABLED_NoRubyBaseText)
 {
   loadVtt( "payload/ruby-tag/no-base-text.vtt");
 
@@ -60,7 +60,7 @@ TEST_F(PayloadRubyTag,DISABLED_NoRubyBaseText)
   ASSERT_EQ( Node::RubyText, head->child( 1 )->toInternalNode()->child( 0 )->kind() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_NoRubyTextTag)
+TEST_F(PayloadRubyTag, DISABLED_NoRubyTextTag)
 {
   loadVtt( "payload/ruby-tag/no-ruby-text-tag.vtt", 1 );
 
@@ -70,7 +70,7 @@ TEST_F(PayloadRubyTag,DISABLED_NoRubyTextTag)
   ASSERT_EQ( Node::Text, head->child( 1 )->toInternalNode()->child( 0 )->kind() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_NoRubyText)
+TEST_F(PayloadRubyTag, DISABLED_NoRubyText)
 {
   loadVtt( "payload/ruby-tag/no-ruby-text.vtt", 2 );
 
@@ -97,11 +97,11 @@ TEST_F(PayloadRubyTag,DISABLED_NoRubyText)
  *    3. Zero or more the following sequence representing a subclasses of the start tag
  *      3.1. A full stop "." character.
  *      3.2. A sequence of non-whitespace characters.
- *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of 
+ *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadRubyTag,DISABLED_RubyTagSingleSubclass)
+TEST_F(PayloadRubyTag, DISABLED_RubyTagSingleSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-tag-single-subclass.vtt" );
 
@@ -113,10 +113,10 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTagSingleSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_RubyTagMultiSubclass)
+TEST_F(PayloadRubyTag, DISABLED_RubyTagMultiSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-tag-multi-subclass.vtt" );
 
@@ -128,10 +128,10 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTagMultiSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAtIndex( 1 ).text() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );
 }
 
 /*
@@ -143,11 +143,11 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTagMultiSubclass)
  *    3. Zero or more the following sequence representing a subclasses of the start tag
  *      3.1. A full stop "." character.
  *      3.2. A sequence of non-whitespace characters.
- *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of 
+ *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadRubyTag,DISABLED_RubyTextTagSingleSubclass)
+TEST_F(PayloadRubyTag, DISABLED_RubyTextTagSingleSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-text-tag-single-subclass.vtt" );
 
@@ -159,10 +159,10 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTextTagSingleSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
-TEST_F(PayloadRubyTag,DISABLED_RubyTextTagMultiSubclass)
+TEST_F(PayloadRubyTag, DISABLED_RubyTextTagMultiSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-text-tag-multi-subclass.vtt" );
 
@@ -174,8 +174,8 @@ TEST_F(PayloadRubyTag,DISABLED_RubyTextTagMultiSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAtIndex( 0 ).text() );
+  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAtIndex( 1 ).text() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );
 }

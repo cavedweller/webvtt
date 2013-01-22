@@ -23,6 +23,8 @@ AM_INIT_AUTOMAKE([1.11 -Wall -Wno-extra-portability foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/libwebvtt/alloc.c])
 AC_CONFIG_HEADERS([config.h])
 
+AM_SILENT_RULES([yes])
+
 LT_INIT([win32-dll])
 
 # Checks for programs.
