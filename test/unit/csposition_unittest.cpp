@@ -9,7 +9,7 @@ class CueSettingPosition : public CueTest { };
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentage)
+TEST_F(CueSettingPosition, SingleDigitPercentage)
 {
   loadVtt( "cue-settings/position/single-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";

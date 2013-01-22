@@ -81,8 +81,7 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
 TESTS = $(UNIT_TESTS)
-TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT) 
-TESTS_FILE_DIR = $(topbuilddir)/test/unit
+TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT) TESTS_FILE_DIR=$(srcdir)
 
 check_PROGRAMS = $(UNIT_TESTS)
 

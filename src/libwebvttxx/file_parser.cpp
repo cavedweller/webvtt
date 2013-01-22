@@ -5,10 +5,10 @@ namespace WebVTT
 
 FileParser::FileParser( const char *relativeFilePath )
 {
-  std::string testDirPath(getenv("TEST_FILE_DIR"));
+  std::string testDirPath(getenv("TESTS_FILE_DIR"));
   
   filePath = relativeFilePath + testDirPath;
-  
+
   reader.open( filePath.c_str(), std::ios::in | std::ios::binary );
 
   if( !reader.good() ) {
