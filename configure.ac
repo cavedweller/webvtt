@@ -123,6 +123,8 @@ AC_CHECK_FUNC([strerror],[AC_DEFINE([HAVE_STRERROR],[1],[Define if strerror() is
 AC_CONFIG_FILES([
   Makefile
   include/Makefile
+  include/webvtt/Makefile
+  include/webvttxx/Makefile
   src/Makefile
   src/libwebvtt/Makefile
   src/libwebvttxx/Makefile
