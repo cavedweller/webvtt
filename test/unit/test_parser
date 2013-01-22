@@ -16,8 +16,9 @@ public:
 	: FileParser( fileName ),
 	  cue_count(0),
 	  error_count(0)
-	  {
-	  }
+    {
+	}
+	
 	virtual ~ItemCounterParser() {}
 	virtual bool reportError( const Error &error )
 	{

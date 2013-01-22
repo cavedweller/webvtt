@@ -3,10 +3,14 @@
 namespace WebVTT
 {
 
-FileParser::FileParser( const char *filename )
-  : fileName(filename)
+FileParser::FileParser( const char *relativeFilePath )
 {
-  reader.open( filename, std::ios::in | std::ios::binary );
+  std::string testDirPath(getenv("TEST_FILE_DIR"));
+  
+  filePath = relativeFilePath + testDirPath;
+  
+  reader.open( filePath.c_str(), std::ios::in | std::ios::binary );
+
   if( !reader.good() ) {
     // TODO: Throw
   }
