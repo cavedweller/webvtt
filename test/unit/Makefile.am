@@ -82,7 +82,7 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
 TESTS = $(UNIT_TESTS)
 TESTS_ENVIRONMENT = $(VALGRIND_ENVIRONMENT) \
-                   TEST_FILE_DIR=$(srcdir)/test/unit
+                    TEST_FILE_DIR=$(srcdir)
 
 check_PROGRAMS = $(UNIT_TESTS)
 
