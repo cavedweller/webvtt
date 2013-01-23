@@ -47,24 +47,36 @@ protected:
     ASSERT_EQ( column, err.column() );
   }
   
-  void loadVtt( const char *fileName, WebVTT::uint expectedNumberOfCues )
+  void setVtt( const char *relativeFilePath )
   {
-     parser = new ItemStorageParser( fileName );
-     ASSERT_TRUE( parser->parse() ) << "parser.parse() failed";
-     ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
+    std::string filePath;
+
+    // If TEST_FILE_DIR has not been set then that means we are probably
+    // not executing from a make command. Therefore, just use the path
+    // passed in.
+    filePath = std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) + 
+               std::string( "/" ) + relativeFilePath; 
+
+    parser = new ItemStorageParser( filePath.c_str() );
   }
 
-  void loadVtt( const char *fileName, bool expectedParseSuccessful, WebVTT::uint expectedNumberOfCues )
+  void loadVtt( const char *relativeFilePath )
   {
-     parser = new ItemStorageParser( fileName );
-     ASSERT_EQ( expectedParseSuccessful, parser->parse() ) << "parser.parse() failed";
-     ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
+    setVtt( relativeFilePath );
+    ASSERT_TRUE( parser->parse() ) << "parser.parse() failed";
   }
 
-  void loadVtt( const char *fileName )
+  void loadVtt( const char *relativeFilePath, WebVTT::uint expectedNumberOfCues )
   {
-     parser = new ItemStorageParser( fileName );
-     ASSERT_TRUE( parser->parse() ) << "parser.parse() failed";
+    loadVtt( relativeFilePath );
+    ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
+  }
+
+  void loadVtt( const char *relativeFilePath, bool expectedParseSuccessful, WebVTT::uint expectedNumberOfCues )
+  {
+    setVtt( relativeFilePath );
+    ASSERT_EQ( expectedParseSuccessful, parser->parse() ) << "parser.parse() failed";
+    ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
   }
 
   WebVTT::uint cueCount() const

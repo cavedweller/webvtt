@@ -1,12 +1,14 @@
+#include <stdlib.h>
 #include <webvttxx/file_parser>
 
 namespace WebVTT
 {
 
-FileParser::FileParser( const char *filename )
-  : fileName(filename)
+FileParser::FileParser( const char *fPath )
+ : filePath( fPath )
 {
-  reader.open( filename, std::ios::in | std::ios::binary );
+  reader.open( fPath, std::ios::in | std::ios::binary );
+
   if( !reader.good() ) {
     // TODO: Throw
   }
