@@ -1,4 +1,5 @@
 #include <webvttxx/file_parser>
+#include <stdlib.h>
 
 namespace WebVTT
 {
