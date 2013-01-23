@@ -38,7 +38,7 @@ const InternalNode *Node::toInternalNode() const
 
 const TextNode *Node::toTextNode() const
 {
-  if( this->kind() == WEBVTT_TEXT )
+  if( this->kind() == Node::Text )
   { return ( const TextNode * )this; }
   else
   { throw "Invalid cast to TextNode."; }
@@ -46,7 +46,7 @@ const TextNode *Node::toTextNode() const
 
 const TimeStampNode *Node::toTimeStampNode() const
 {
-  if( this->kind() == WEBVTT_TIME_STAMP )
+  if( this->kind() == Node::TimeStamp )
   { return ( const TimeStampNode * )this; }
   else
   { throw "Invalid cast to TimeStampNode."; }
