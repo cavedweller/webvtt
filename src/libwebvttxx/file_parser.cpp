@@ -4,15 +4,10 @@
 namespace WebVTT
 {
 
-FileParser::FileParser( const char *relativeFilePath )
+FileParser::FileParser( const char *fPath )
+ : filePath( fPath )
 {
-  // If TEST_FILE_DIR has not been set then that means we are probably
-  // not executing from a make command. Therefore, just use the path
-  // passed in.
-  filePath = std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) + 
-             std::string( "/" ) + relativeFilePath; 
-
-  reader.open( filePath.c_str(), std::ios::in | std::ios::binary );
+  reader.open( fPath, std::ios::in | std::ios::binary );
 
   if( !reader.good() ) {
     // TODO: Throw

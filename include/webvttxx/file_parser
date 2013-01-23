@@ -10,7 +10,7 @@ namespace WebVTT
 class FileParser : public AbstractParser
 {
 public:
-  FileParser( const char *relativeFilePath );
+  FileParser( const char *fPath );
   virtual ~FileParser();
 
   bool parse();
