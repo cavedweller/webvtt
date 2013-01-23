@@ -5,10 +5,18 @@ namespace WebVTT
 
 FileParser::FileParser( const char *relativeFilePath )
 {
-  std::string testDirPath(getenv("TESTS_FILE_DIR"));
+  // If TEST_FILE_DIR has not been set then that means we are probably
+  // not executing from a make command. Therefore, just use the path
+  // passed in.
+  if ( getenv( "TEST_FILE_DIR" ) ) {
+    // Prepend a path from the enviroment so the unit test
+    // driver can tell us where its test files are.
+    filePath = std::string( getenv( "TEST_FILE_DIR" ) ) + std::string( "/" ) + relativeFilePath;
+  }
+  else {
+    filePath = std::string( relativeFilePath );
+  }
   
-  filePath = relativeFilePath + testDirPath;
-
   reader.open( filePath.c_str(), std::ios::in | std::ios::binary );
 
   if( !reader.good() ) {
