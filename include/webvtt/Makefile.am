@@ -5,7 +5,7 @@ webvttincludedir = $(includedir)/webvtt
 BUILT_SOURCES = $(builddir)/webvtt-config.h
 CLEANFILES = $(builddir)/webvtt-config.h
 
-$(builddir)/webvtt-config.h: $(top_builddir)/config.h
+$(builddir)/webvtt-config.h: $(top_builddir)/config.h Makefile
 	@cat $< | sed "s/#define \([[:alpha:]_]\{1,\}\)/#define WEBVTT_\1/" > $@
 
 #C API headers
