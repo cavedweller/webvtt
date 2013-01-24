@@ -94,8 +94,8 @@ TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
 
 check_PROGRAMS = $(UNIT_TESTS)
 
-EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
-	     test_parser
+# gtest fragments
+EXTRA_DIST += cue_testfixture payload_testfixture test_parser
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
