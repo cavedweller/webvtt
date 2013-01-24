@@ -21,7 +21,7 @@ class PayloadRubyTag : public PayloadTest {};
  *    CHARACTER TABULATION (tab) characters, each optionally followed by a WebVTT line terminator.
  * 5. A WebVTT cue span end tag "ruby".
  */
-TEST_F(PayloadRubyTag, DISABLED_ValidRuby)
+TEST_F(PayloadRubyTag, ValidRuby)
 {
   loadVtt( "payload/ruby-tag/ruby-cue-component.vtt");
 
@@ -31,7 +31,7 @@ TEST_F(PayloadRubyTag, DISABLED_ValidRuby)
   ASSERT_EQ( Node::RubyText, head0->child( 1 )->toInternalNode()->child( 1 )->kind() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_RubyAnnotation)
+TEST_F(PayloadRubyTag, RubyAnnotation)
 {
   loadVtt( "payload/ruby-tag/ruby-annotation.vtt", 1);
 
@@ -41,7 +41,7 @@ TEST_F(PayloadRubyTag, DISABLED_RubyAnnotation)
 
 }
 
-TEST_F(PayloadRubyTag, DISABLED_RubyTextAnnotation)
+TEST_F(PayloadRubyTag, RubyTextAnnotation)
 {
   loadVtt( "payload/ruby-tag/ruby-text-annotation.vtt" );
 
@@ -50,7 +50,7 @@ TEST_F(PayloadRubyTag, DISABLED_RubyTextAnnotation)
   ASSERT_EQ( 0, head->child( 1 )->toInternalNode()->annotation().length() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_NoRubyBaseText)
+TEST_F(PayloadRubyTag, NoRubyBaseText)
 {
   loadVtt( "payload/ruby-tag/no-base-text.vtt");
 
@@ -60,7 +60,7 @@ TEST_F(PayloadRubyTag, DISABLED_NoRubyBaseText)
   ASSERT_EQ( Node::RubyText, head->child( 1 )->toInternalNode()->child( 0 )->kind() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_NoRubyTextTag)
+TEST_F(PayloadRubyTag, NoRubyTextTag)
 {
   loadVtt( "payload/ruby-tag/no-ruby-text-tag.vtt", 1 );
 
@@ -70,7 +70,7 @@ TEST_F(PayloadRubyTag, DISABLED_NoRubyTextTag)
   ASSERT_EQ( Node::Text, head->child( 1 )->toInternalNode()->child( 0 )->kind() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_NoRubyText)
+TEST_F(PayloadRubyTag, NoRubyText)
 {
   loadVtt( "payload/ruby-tag/no-ruby-text.vtt", 2 );
 
@@ -101,7 +101,7 @@ TEST_F(PayloadRubyTag, DISABLED_NoRubyText)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadRubyTag, DISABLED_RubyTagSingleSubclass)
+TEST_F(PayloadRubyTag, RubyTagSingleSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-tag-single-subclass.vtt" );
 
@@ -116,7 +116,7 @@ TEST_F(PayloadRubyTag, DISABLED_RubyTagSingleSubclass)
   ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_RubyTagMultiSubclass)
+TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-tag-multi-subclass.vtt" );
 
@@ -147,7 +147,7 @@ TEST_F(PayloadRubyTag, DISABLED_RubyTagMultiSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadRubyTag, DISABLED_RubyTextTagSingleSubclass)
+TEST_F(PayloadRubyTag, RubyTextTagSingleSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-text-tag-single-subclass.vtt" );
 
@@ -162,7 +162,7 @@ TEST_F(PayloadRubyTag, DISABLED_RubyTextTagSingleSubclass)
   ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
-TEST_F(PayloadRubyTag, DISABLED_RubyTextTagMultiSubclass)
+TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
 {
   loadVtt( "payload/ruby-tag/ruby-text-tag-multi-subclass.vtt" );
 

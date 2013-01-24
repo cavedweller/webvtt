@@ -36,7 +36,7 @@ class CueTimes : public CueTest { };
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromHourBeyondLowBoundary)
+TEST_F(CueTimes, FromHourBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/hour-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -69,7 +69,7 @@ TEST_F(CueTimes, DISABLED_FromHourBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromHourBeyondHighBoundary)
+TEST_F(CueTimes, FromHourBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/hour-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -102,7 +102,7 @@ TEST_F(CueTimes, DISABLED_FromHourBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromHourWithinLowBoundary)
+TEST_F(CueTimes, FromHourWithinLowBoundary)
 {
   loadVtt( "cue-times/from/hour-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 5  );
@@ -135,7 +135,7 @@ TEST_F(CueTimes, DISABLED_FromHourWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromHourWithinHighBoundary)
+TEST_F(CueTimes, FromHourWithinHighBoundary)
 {
   loadVtt( "cue-times/from/hour-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 9, 56, 5  );
@@ -172,7 +172,7 @@ TEST_F(CueTimes, DISABLED_FromHourWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMinuteBeyondLowBoundary)
+TEST_F(CueTimes, FromMinuteBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/minute-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -205,7 +205,7 @@ TEST_F(CueTimes, DISABLED_FromMinuteBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMinuteBeyondHighBoundary)
+TEST_F(CueTimes, FromMinuteBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/minute-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -238,7 +238,7 @@ TEST_F(CueTimes, DISABLED_FromMinuteBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMinuteWithinLowBoundary)
+TEST_F(CueTimes, FromMinuteWithinLowBoundary)
 {
   loadVtt( "cue-times/from/minute-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 56, 5  );
@@ -271,7 +271,7 @@ TEST_F(CueTimes, DISABLED_FromMinuteWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMinuteWithinHighBoundary)
+TEST_F(CueTimes, FromMinuteWithinHighBoundary)
 {
   loadVtt( "cue-times/from/minute-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 005 );
@@ -308,7 +308,7 @@ TEST_F(CueTimes, DISABLED_FromMinuteWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromSecondBeyondLowBoundary)
+TEST_F(CueTimes, FromSecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/second-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -341,7 +341,7 @@ TEST_F(CueTimes, DISABLED_FromSecondBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromSecondBeyondHighBoundary)
+TEST_F(CueTimes, FromSecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/second-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -374,7 +374,7 @@ TEST_F(CueTimes, DISABLED_FromSecondBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromSecondWithinLowBoundary)
+TEST_F(CueTimes, FromSecondWithinLowBoundary)
 {
   loadVtt( "cue-times/from/second-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 0, 5  );
@@ -407,7 +407,7 @@ TEST_F(CueTimes, DISABLED_FromSecondWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromSecondWithinHighBoundary)
+TEST_F(CueTimes, FromSecondWithinHighBoundary)
 {
   loadVtt( "cue-times/from/second-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 59, 5 );
@@ -444,7 +444,7 @@ TEST_F(CueTimes, DISABLED_FromSecondWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMillisecondBeyondLowBoundary)
+TEST_F(CueTimes, FromMillisecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/from/millisecond-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -477,7 +477,7 @@ TEST_F(CueTimes, DISABLED_FromMillisecondBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMillisecondBeyondHighBoundary)
+TEST_F(CueTimes, FromMillisecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/from/millisecond-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -510,7 +510,7 @@ TEST_F(CueTimes, DISABLED_FromMillisecondBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMillisecondWithinLowBoundary)
+TEST_F(CueTimes, FromMillisecondWithinLowBoundary)
 {
   loadVtt( "cue-times/from/millisecond-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 0  );
@@ -543,7 +543,7 @@ TEST_F(CueTimes, DISABLED_FromMillisecondWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMillisecondWithinHighBoundary)
+TEST_F(CueTimes, FromMillisecondWithinHighBoundary)
 {
   loadVtt( "cue-times/from/millisecond-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 9, 56, 999 );
@@ -553,7 +553,7 @@ TEST_F(CueTimes, DISABLED_FromMillisecondWithinHighBoundary)
  * Format - 'from' numbers of minute digits
  */
 
-TEST_F(CueTimes, DISABLED_FromOneDigitMinute)
+TEST_F(CueTimes, FromOneDigitMinute)
 {
   loadVtt( "cue-times/from/minute-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -587,7 +587,7 @@ TEST_F(CueTimes, DISABLED_FromOneDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromTwoDigitMinute)
+TEST_F(CueTimes, FromTwoDigitMinute)
 {
   loadVtt( "cue-times/from/minute-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 1, 0, 0 );
@@ -620,7 +620,7 @@ TEST_F(CueTimes, DISABLED_FromTwoDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromThreeDigitMinute)
+TEST_F(CueTimes, FromThreeDigitMinute)
 {
   loadVtt( "cue-times/from/minute-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -657,7 +657,7 @@ TEST_F(CueTimes, DISABLED_FromThreeDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromOneDigitSecond)
+TEST_F(CueTimes, FromOneDigitSecond)
 {
   loadVtt( "cue-times/from/second-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -691,7 +691,7 @@ TEST_F(CueTimes, DISABLED_FromOneDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromTwoDigitSecond)
+TEST_F(CueTimes, FromTwoDigitSecond)
 {
   loadVtt( "cue-times/from/second-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 0, 25, 0 );
@@ -724,7 +724,7 @@ TEST_F(CueTimes, DISABLED_FromTwoDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromThreeDigitSecond)
+TEST_F(CueTimes, FromThreeDigitSecond)
 {
   loadVtt( "cue-times/from/second-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -761,7 +761,7 @@ TEST_F(CueTimes, DISABLED_FromThreeDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromTwoDigitMillisecond)
+TEST_F(CueTimes, FromTwoDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-2-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -795,7 +795,7 @@ TEST_F(CueTimes, DISABLED_FromTwoDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromThreeDigitMillisecond)
+TEST_F(CueTimes, FromThreeDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-3-digit.vtt", 1 );
   assertEquals( getCue( 0 ).startTime(), 0, 0, 0, 111 );
@@ -828,7 +828,7 @@ TEST_F(CueTimes, DISABLED_FromThreeDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromFourDigitMillisecond)
+TEST_F(CueTimes, FromFourDigitMillisecond)
 {
   loadVtt( "cue-times/from/millisecond-4-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -865,7 +865,7 @@ TEST_F(CueTimes, DISABLED_FromFourDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMinuteGreaterThan59)
+TEST_F(CueTimes, FromMinuteGreaterThan59)
 {
   loadVtt( "cue-times/from/minute-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -899,7 +899,7 @@ TEST_F(CueTimes, DISABLED_FromMinuteGreaterThan59)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromSecondGreaterThan59)
+TEST_F(CueTimes, FromSecondGreaterThan59)
 {
   loadVtt( "cue-times/from/second-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -933,7 +933,7 @@ TEST_F(CueTimes, DISABLED_FromSecondGreaterThan59)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromMillisecondGreaterThan999)
+TEST_F(CueTimes, FromMillisecondGreaterThan999)
 {
   loadVtt( "cue-times/from/millisecond-greater-than-999.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 1 );
@@ -970,7 +970,7 @@ TEST_F(CueTimes, DISABLED_FromMillisecondGreaterThan999)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromBadDelimiterHourMinute)
+TEST_F(CueTimes, FromBadDelimiterHourMinute)
 {
   loadVtt( "cue-times/from/bad-delimiter-hour-minute.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -1003,7 +1003,7 @@ TEST_F(CueTimes, DISABLED_FromBadDelimiterHourMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromBadDelimiterMinuteSecond)
+TEST_F(CueTimes, FromBadDelimiterMinuteSecond)
 {
   loadVtt( "cue-times/from/bad-delimiter-minute-second.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -1036,7 +1036,7 @@ TEST_F(CueTimes, DISABLED_FromBadDelimiterMinuteSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_FromBadDelimiterSecondMillisecond)
+TEST_F(CueTimes, FromBadDelimiterSecondMillisecond)
 {
   loadVtt( "cue-times/from/bad-delimiter-second-millisecond.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 1 );
@@ -1077,7 +1077,7 @@ TEST_F(CueTimes, DISABLED_FromBadDelimiterSecondMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilHourBeyondLowBoundary)
+TEST_F(CueTimes, UntilHourBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/hour-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1110,7 +1110,7 @@ TEST_F(CueTimes, DISABLED_UntilHourBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilHourBeyondHighBoundary)
+TEST_F(CueTimes, UntilHourBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/hour-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1143,7 +1143,7 @@ TEST_F(CueTimes, DISABLED_UntilHourBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilHourWithinLowBoundary)
+TEST_F(CueTimes, UntilHourWithinLowBoundary)
 {
   loadVtt( "cue-times/until/hour-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
@@ -1176,7 +1176,7 @@ TEST_F(CueTimes, DISABLED_UntilHourWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilHourWithinHighBoundary)
+TEST_F(CueTimes, UntilHourWithinHighBoundary)
 {
   loadVtt( "cue-times/until/hour-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 9, 10, 02, 780 );
@@ -1213,7 +1213,7 @@ TEST_F(CueTimes, DISABLED_UntilHourWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMinuteBeyondLowBoundary)
+TEST_F(CueTimes, UntilMinuteBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/minute-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1246,7 +1246,7 @@ TEST_F(CueTimes, DISABLED_UntilMinuteBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMinuteBeyondHighBoundary)
+TEST_F(CueTimes, UntilMinuteBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/minute-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1279,7 +1279,7 @@ TEST_F(CueTimes, DISABLED_UntilMinuteBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMinuteWithinLowBoundary)
+TEST_F(CueTimes, UntilMinuteWithinLowBoundary)
 {
   loadVtt( "cue-times/until/minute-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1312,7 +1312,7 @@ TEST_F(CueTimes, DISABLED_UntilMinuteWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMinuteWithinHighBoundary)
+TEST_F(CueTimes, UntilMinuteWithinHighBoundary)
 {
   loadVtt( "cue-times/until/minute-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1350,7 +1350,7 @@ TEST_F(CueTimes, DISABLED_UntilMinuteWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilSecondBeyondLowBoundary)
+TEST_F(CueTimes, UntilSecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/second-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1383,7 +1383,7 @@ TEST_F(CueTimes, DISABLED_UntilSecondBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilSecondBeyondHighBoundary)
+TEST_F(CueTimes, UntilSecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/second-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1416,7 +1416,7 @@ TEST_F(CueTimes, DISABLED_UntilSecondBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilSecondWithinLowBoundary)
+TEST_F(CueTimes, UntilSecondWithinLowBoundary)
 {
   loadVtt( "cue-times/until/second-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
@@ -1449,7 +1449,7 @@ TEST_F(CueTimes, DISABLED_UntilSecondWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilSecondWithinHighBoundary)
+TEST_F(CueTimes, UntilSecondWithinHighBoundary)
 {
   loadVtt( "cue-times/until/second-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1486,7 +1486,7 @@ TEST_F(CueTimes, DISABLED_UntilSecondWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMillisecondBeyondLowBoundary)
+TEST_F(CueTimes, UntilMillisecondBeyondLowBoundary)
 {
   loadVtt( "cue-times/until/millisecond-beyond-low-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1519,7 +1519,7 @@ TEST_F(CueTimes, DISABLED_UntilMillisecondBeyondLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMillisecondBeyondHighBoundary)
+TEST_F(CueTimes, UntilMillisecondBeyondHighBoundary)
 {
   loadVtt( "cue-times/until/millisecond-beyond-high-boundary.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -1552,7 +1552,7 @@ TEST_F(CueTimes, DISABLED_UntilMillisecondBeyondHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMillisecondWithinLowBoundary)
+TEST_F(CueTimes, UntilMillisecondWithinLowBoundary)
 {
   loadVtt( "cue-times/until/millisecond-within-low-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780  );
@@ -1585,7 +1585,7 @@ TEST_F(CueTimes, DISABLED_UntilMillisecondWithinLowBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMillisecondWithinHighBoundary)
+TEST_F(CueTimes, UntilMillisecondWithinHighBoundary)
 {
   loadVtt( "cue-times/until/millisecond-within-high-boundary.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 10, 02, 780 );
@@ -1621,7 +1621,7 @@ TEST_F(CueTimes, DISABLED_UntilMillisecondWithinHighBoundary)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilOneDigitMinute)
+TEST_F(CueTimes, UntilOneDigitMinute)
 {
   loadVtt( "cue-times/until/minute-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1655,7 +1655,7 @@ TEST_F(CueTimes, DISABLED_UntilOneDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilTwoDigitMinute)
+TEST_F(CueTimes, UntilTwoDigitMinute)
 {
   loadVtt( "cue-times/until/minute-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 2, 0, 0 );
@@ -1688,7 +1688,7 @@ TEST_F(CueTimes, DISABLED_UntilTwoDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilThreeDigitMinute)
+TEST_F(CueTimes, UntilThreeDigitMinute)
 {
   loadVtt( "cue-times/until/minute-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1725,7 +1725,7 @@ TEST_F(CueTimes, DISABLED_UntilThreeDigitMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilOneDigitSecond)
+TEST_F(CueTimes, UntilOneDigitSecond)
 {
   loadVtt( "cue-times/until/second-1-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1759,7 +1759,7 @@ TEST_F(CueTimes, DISABLED_UntilOneDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilTwoDigitSecond)
+TEST_F(CueTimes, UntilTwoDigitSecond)
 {
   loadVtt( "cue-times/until/second-2-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 0, 27, 0 );
@@ -1792,7 +1792,7 @@ TEST_F(CueTimes, DISABLED_UntilTwoDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilThreeDigitSecond)
+TEST_F(CueTimes, UntilThreeDigitSecond)
 {
   loadVtt( "cue-times/until/second-3-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1829,7 +1829,7 @@ TEST_F(CueTimes, DISABLED_UntilThreeDigitSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilTwoDigitMillisecond)
+TEST_F(CueTimes, UntilTwoDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-2-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1863,7 +1863,7 @@ TEST_F(CueTimes, DISABLED_UntilTwoDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilThreeDigitMillisecond)
+TEST_F(CueTimes, UntilThreeDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-3-digit.vtt", 1 );
   assertEquals( getCue( 0 ).endTime(), 0, 0, 0, 222 );
@@ -1896,7 +1896,7 @@ TEST_F(CueTimes, DISABLED_UntilThreeDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes,DISABLED_UntilFourDigitMillisecond)
+TEST_F(CueTimes,UntilFourDigitMillisecond)
 {
   loadVtt( "cue-times/until/millisecond-4-digit.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1933,7 +1933,7 @@ TEST_F(CueTimes,DISABLED_UntilFourDigitMillisecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMinuteGreaterThan59)
+TEST_F(CueTimes, UntilMinuteGreaterThan59)
 {
   loadVtt( "cue-times/until/minute-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -1967,7 +1967,7 @@ TEST_F(CueTimes, DISABLED_UntilMinuteGreaterThan59)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilSecondGreaterThan59)
+TEST_F(CueTimes, UntilSecondGreaterThan59)
 {
   loadVtt( "cue-times/until/second-greater-than-59.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -2001,7 +2001,7 @@ TEST_F(CueTimes, DISABLED_UntilSecondGreaterThan59)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilMillisecondGreaterThan999)
+TEST_F(CueTimes, UntilMillisecondGreaterThan999)
 {
   loadVtt( "cue-times/until/millisecond-greater-than-999.vtt", 1 );
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 18 );
@@ -2038,7 +2038,7 @@ TEST_F(CueTimes, DISABLED_UntilMillisecondGreaterThan999)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilBadDelimiterHourMinute)
+TEST_F(CueTimes, UntilBadDelimiterHourMinute)
 {
   loadVtt( "cue-times/until/bad-delimiter-hour-minute.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -2071,7 +2071,7 @@ TEST_F(CueTimes, DISABLED_UntilBadDelimiterHourMinute)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilBadDelimiterMinuteSecond)
+TEST_F(CueTimes, UntilBadDelimiterMinuteSecond)
 {
   loadVtt( "cue-times/until/bad-delimiter-minute-second.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -2104,7 +2104,7 @@ TEST_F(CueTimes, DISABLED_UntilBadDelimiterMinuteSecond)
  * 6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  *    thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_UntilBadDelimiterSecondMillisecond)
+TEST_F(CueTimes, UntilBadDelimiterSecondMillisecond)
 {
   loadVtt( "cue-times/until/bad-delimiter-second-millisecond.vtt", 0 );
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 18 );
@@ -2132,7 +2132,7 @@ TEST_F(CueTimes, DISABLED_UntilBadDelimiterSecondMillisecond)
  * Each payload consists of "zero or more" objects, making
  * them optional.
  */
-TEST_F(CueTimes, DISABLED_DISABLED_BareMinimum)
+TEST_F(CueTimes, DISABLED_BareMinimum)
 {
   loadVtt("cue-times/bare_minimum.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2154,7 +2154,7 @@ TEST_F(CueTimes, DISABLED_DISABLED_BareMinimum)
  * metadata text, but it must not contain the substring "-->" (U+002D HYPHEN-MINUS,
  * U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
  */
-TEST_F(CueTimes, DISABLED_BareMinimumWithContent)
+TEST_F(CueTimes, BareMinimumWithContent)
 {
   loadVtt("cue-times/bare_minimum_content.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2181,7 +2181,7 @@ TEST_F(CueTimes, DISABLED_BareMinimumWithContent)
  * A U+002E FULL STOP character (.).
  * Three ASCII digits, representing the thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_DISABLED_HighestValues)
+TEST_F(CueTimes, DISABLED_HighestValues)
 {
   loadVtt("cue-times/highest_values.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2205,7 +2205,7 @@ TEST_F(CueTimes, DISABLED_DISABLED_HighestValues)
  * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
  * timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimes, DISABLED_DISABLED_SpaceTabs)
+TEST_F(CueTimes, DISABLED_SpaceTabs)
 {
   loadVtt("cue-times/space_tabs.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2226,7 +2226,7 @@ TEST_F(CueTimes, DISABLED_DISABLED_SpaceTabs)
  * A WebVTT timestamp representing the end time offset of the cue. The time represented by this WebVTT
  * timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimes, DISABLED_Tabs)
+TEST_F(CueTimes, Tabs)
 {
   loadVtt("cue-times/tabs.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2247,7 +2247,7 @@ TEST_F(CueTimes, DISABLED_Tabs)
  * A U+003A COLON character (:)
  *.[...]
  */
-TEST_F(CueTimes, DISABLED_Hours)
+TEST_F(CueTimes, Hours)
 {
   loadVtt("cue-times/hours.vtt", 1);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2265,7 +2265,7 @@ TEST_F(CueTimes, DISABLED_Hours)
  * timestamp must be greater than or equal to the start time offsets of all previous cues in the file.
  * [...]
  */
-TEST_F(CueTimes, DISABLED_MultiCues)
+TEST_F(CueTimes, MultiCues)
 {
   loadVtt("cue-times/multicues.vtt", 2);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2281,7 +2281,7 @@ TEST_F(CueTimes, DISABLED_MultiCues)
  * A WebVTT file whose cues all have an end time offset x greater than or equal to the end time offsets
  * of all the cues whose start time offsets are less than x is said to be a WebVTT file using only nested cues.
  */
-TEST_F(CueTimes, DISABLED_NestedCues)
+TEST_F(CueTimes, NestedCues)
 {
   loadVtt("cue-times/nestedcues.vtt", 6);
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -2309,7 +2309,7 @@ TEST_F(CueTimes, DISABLED_NestedCues)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_MissingSpaces)
+TEST_F(CueTimes, MissingSpaces)
 {
   loadVtt("cue-times/missing_spaces.vtt", 1);
 }
@@ -2336,7 +2336,7 @@ TEST_F(CueTimes, DISABLED_MissingSpaces)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_MissingSpaceLeft)
+TEST_F(CueTimes, MissingSpaceLeft)
 {
   loadVtt("cue-times/missing_space_left.vtt", 1);
 }
@@ -2364,7 +2364,7 @@ TEST_F(CueTimes, DISABLED_MissingSpaceLeft)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_MissingSpaceRight)
+TEST_F(CueTimes, MissingSpaceRight)
 {
   loadVtt("cue-times/missing_space_right.vtt", 1);
 }
@@ -2391,7 +2391,7 @@ TEST_F(CueTimes, DISABLED_MissingSpaceRight)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_NoNumsInTimeStamp)
+TEST_F(CueTimes, NoNumsInTimeStamp)
 {
   loadVtt("cue-times/nonums_in_timestamp.vtt", 1);
   const Error &err = getError( 0 );
@@ -2415,7 +2415,7 @@ TEST_F(CueTimes, DISABLED_NoNumsInTimeStamp)
  * The string "-->" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN).
  * [...]
  */
-TEST_F(CueTimes, DISABLED_ArrowsWrongDirection)
+TEST_F(CueTimes, ArrowsWrongDirection)
 {
   loadVtt("cue-times/arrows_wrong_direction.vtt", 1);
   const Error &err = getError( 0 );
@@ -2442,7 +2442,7 @@ TEST_F(CueTimes, DISABLED_ArrowsWrongDirection)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_BadTimeStamps1)
+TEST_F(CueTimes, BadTimeStamps1)
 {
   loadVtt("cue-times/bad_timestamps_1.vtt", 1);
   const Error &err = getError( 0 );
@@ -2467,7 +2467,7 @@ TEST_F(CueTimes, DISABLED_BadTimeStamps1)
  * timestamp must be greater than the start time offset of the cue.
  *
  */
-TEST_F(CueTimes, DISABLED_BadTimeStamps2)
+TEST_F(CueTimes, BadTimeStamps2)
 {
   loadVtt("cue-times/bad_timestamps_2.vtt", 1);
   const Error &err = getError( 0 );
@@ -2503,14 +2503,14 @@ TEST_F(CueTimes, DISABLED_BadTimeStamps2)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsHigh)
+TEST_F(CueTimes, StartTimeStampHours2DigitsHigh)
 {
   loadVtt( "cue-times/from/timestamp_hours_2_digits_high_good.vtt", 1 );
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
   ASSERT_EQ(99, getCue(0).startTime().hours());
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsHigh)
+TEST_F(CueTimes, EndTimeStampHours2DigitsHigh)
 {
   loadVtt( "cue-times/until/timestamp_hours_2_digits_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2546,14 +2546,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsHigh)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsLow)
+TEST_F(CueTimes, StartTimeStampHours2DigitsLow)
 {
   loadVtt( "cue-times/from/timestamp_hours_2_digits_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 00, getCue(0).startTime().hours() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsLow)
+TEST_F(CueTimes, EndTimeStampHours2DigitsLow)
 {
   loadVtt( "cue-times/until/timestamp_hours_2_digits_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2589,14 +2589,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsLow)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHours2DigitsMiddle)
+TEST_F(CueTimes, StartTimeStampHours2DigitsMiddle)
 {
   loadVtt( "cue-times/from/timestamp_hours_2_digits_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 54, getCue(0).startTime().hours() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsMiddle)
+TEST_F(CueTimes, EndTimeStampHours2DigitsMiddle)
 {
   loadVtt( "cue-times/until/timestamp_hours_2_digits_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2632,14 +2632,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHours2DigitsMiddle)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsHigh)
+TEST_F(CueTimes, StartTimeStampHoursNDigitsHigh)
 {
   loadVtt( "cue-times/from/timestamp_hours_n_digits_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 9999, getCue(0).startTime().hours() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsHigh)
+TEST_F(CueTimes, EndTimeStampHoursNDigitsHigh)
 {
   loadVtt( "cue-times/until/timestamp_hours_n_digits_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2675,14 +2675,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsHigh)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsLow)
+TEST_F(CueTimes, StartTimeStampHoursNDigitsLow)
 {
   loadVtt( "cue-times/from/timestamp_hours_n_digits_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 0000, getCue(0).startTime().hours() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsLow)
+TEST_F(CueTimes, EndTimeStampHoursNDigitsLow)
 {
   loadVtt( "cue-times/until/timestamp_hours_n_digits_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2718,14 +2718,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsLow)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampHoursNDigitsMiddle)
+TEST_F(CueTimes, StartTimeStampHoursNDigitsMiddle)
 {
   loadVtt( "cue-times/from/timestamp_hours_n_digits_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 5544, getCue(0).startTime().hours() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsMiddle)
+TEST_F(CueTimes, EndTimeStampHoursNDigitsMiddle)
 {
   loadVtt( "cue-times/until/timestamp_hours_n_digits_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2762,7 +2762,7 @@ TEST_F(CueTimes, DISABLED_EndTimeStampHoursNDigitsMiddle)
  thousandths of a second seconds-frac as a base ten integer.
  */
 
-TEST_F(CueTimes, DISABLED_TimeStampHoursOmitted)
+TEST_F(CueTimes, TimeStampHoursOmitted)
 {
   loadVtt( "cue-times/from/timestamp_hours_omitted_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2796,14 +2796,14 @@ TEST_F(CueTimes, DISABLED_TimeStampHoursOmitted)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsHigh)
+TEST_F(CueTimes, StartTimeStampMilliSecondsHigh)
 {
   loadVtt( "cue-times/from/timestamp_milliseconds_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 999, getCue(0).startTime().milliseconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsHigh)
+TEST_F(CueTimes, EndTimeStampMilliSecondsHigh)
 {
   loadVtt( "cue-times/until/timestamp_milliseconds_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2839,14 +2839,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsHigh)
  thousandths of a second seconds-frac as a base ten integer.
  */
 
-TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsLow)
+TEST_F(CueTimes, StartTimeStampMilliSecondsLow)
 {
   loadVtt( "cue-times/from/timestamp_milliseconds_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 000, getCue(0).startTime().milliseconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsLow)
+TEST_F(CueTimes, EndTimeStampMilliSecondsLow)
 {
   loadVtt( "cue-times/until/timestamp_milliseconds_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2881,14 +2881,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsLow)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampMilliSecondsMiddle)
+TEST_F(CueTimes, StartTimeStampMilliSecondsMiddle)
 {
   loadVtt( "cue-times/from/timestamp_milliseconds_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 555, getCue(0).startTime().milliseconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsMiddle)
+TEST_F(CueTimes, EndTimeStampMilliSecondsMiddle)
 {
   loadVtt( "cue-times/until/timestamp_milliseconds_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2923,14 +2923,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMilliSecondsMiddle)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampMinutesHigh)
+TEST_F(CueTimes, StartTimeStampMinutesHigh)
 {
   loadVtt( "cue-times/from/timestamp_minutes_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 59, getCue(0).startTime().minutes() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMinutesHigh)
+TEST_F(CueTimes, EndTimeStampMinutesHigh)
 {
   loadVtt( "cue-times/until/timestamp_minutes_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -2965,14 +2965,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMinutesHigh)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampMinutesLow)
+TEST_F(CueTimes, StartTimeStampMinutesLow)
 {
   loadVtt( "cue-times/from/timestamp_minutes_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 00, getCue(0).startTime().minutes() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMinutesLow)
+TEST_F(CueTimes, EndTimeStampMinutesLow)
 {
   loadVtt( "cue-times/until/timestamp_minutes_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -3008,14 +3008,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMinutesLow)
  thousandths of a second seconds-frac as a base ten integer.
  */
 
-TEST_F(CueTimes, DISABLED_StartTimeStampMinutesMiddle)
+TEST_F(CueTimes, StartTimeStampMinutesMiddle)
 {
   loadVtt( "cue-times/from/timestamp_minutes_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 30, getCue(0).startTime().minutes() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampMinutesMiddle)
+TEST_F(CueTimes, EndTimeStampMinutesMiddle)
 {
   loadVtt( "cue-times/until/timestamp_minutes_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -3050,14 +3050,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampMinutesMiddle)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampSecondsHigh)
+TEST_F(CueTimes, StartTimeStampSecondsHigh)
 {
   loadVtt( "cue-times/from/timestamp_seconds_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 59, getCue(0).startTime().seconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampSecondsHigh)
+TEST_F(CueTimes, EndTimeStampSecondsHigh)
 {
   loadVtt( "cue-times/until/timestamp_seconds_high_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -3092,14 +3092,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampSecondsHigh)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampSecondsLow)
+TEST_F(CueTimes, StartTimeStampSecondsLow)
 {
   loadVtt( "cue-times/from/timestamp_seconds_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 00, getCue(0).startTime().seconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampSecondsLow)
+TEST_F(CueTimes, EndTimeStampSecondsLow)
 {
   loadVtt( "cue-times/until/timestamp_seconds_low_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -3134,14 +3134,14 @@ TEST_F(CueTimes, DISABLED_EndTimeStampSecondsLow)
  6. Three characters in the range U+0030 DIGIT ZERO (0) to U+0039 DIGIT NINE (9), representing the
  thousandths of a second seconds-frac as a base ten integer.
  */
-TEST_F(CueTimes, DISABLED_StartTimeStampSecondsMiddle)
+TEST_F(CueTimes, StartTimeStampSecondsMiddle)
 {
   loadVtt( "cue-times/from/timestamp_seconds_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
   ASSERT_EQ( 30, getCue(0).startTime().seconds() );
 }
 
-TEST_F(CueTimes, DISABLED_EndTimeStampSecondsMiddle)
+TEST_F(CueTimes, EndTimeStampSecondsMiddle)
 {
   loadVtt( "cue-times/until/timestamp_seconds_mid_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";

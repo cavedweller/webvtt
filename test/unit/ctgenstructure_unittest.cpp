@@ -22,7 +22,7 @@ class CueTimingsGeneralStructure : public CueTest { };
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
 
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperator1LeftMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1LeftMix)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_1l_mix_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -48,7 +48,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperator1LeftMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperator1RightMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1RightMix)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_1r_mix_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -73,7 +73,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperator1RightMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNSpace)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNSpace)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_n_space_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -99,7 +99,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNSpace)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNTab)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNTab)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_n_tab_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -125,7 +125,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNTab)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNLMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNLMix)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_nl_mix_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -151,7 +151,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNLMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNRMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNRMix)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_nr_mix_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -177,7 +177,7 @@ TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorNRMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, DISABLED_CueTimingsSeperatorXMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorXMix)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_x_mix_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";

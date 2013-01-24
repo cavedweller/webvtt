@@ -9,7 +9,7 @@ class PayloadItalicTag : public PayloadTest {};
  *    2. Possible cue internal text representing the italicized text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadItalicTag, DISABLED_ItalicTag)
+TEST_F(PayloadItalicTag, ItalicTag)
 {
   loadVtt( "payload/i-tag/i-tag.vtt" );
 
@@ -27,7 +27,7 @@ TEST_F(PayloadItalicTag, DISABLED_ItalicTag)
  *    2. Possible cue internal text representing the italicized text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadItalicTag, DISABLED_ItalicAnnotation)
+TEST_F(PayloadItalicTag, ItalicAnnotation)
 {
   loadVtt( "payload/i-tag/i-tag-annotation.vtt" );
 
@@ -51,7 +51,7 @@ TEST_F(PayloadItalicTag, DISABLED_ItalicAnnotation)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadItalicTag, DISABLED_ItalicTagSingleSubclass)
+TEST_F(PayloadItalicTag, ItalicTagSingleSubclass)
 {
   loadVtt( "payload/i-tag/i-tag-single-subclass.vtt" );
 
@@ -80,7 +80,7 @@ TEST_F(PayloadItalicTag, DISABLED_ItalicTagSingleSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadItalicTag, DISABLED_ItalicTagMultiSubclass)
+TEST_F(PayloadItalicTag, ItalicTagMultiSubclass)
 {
   loadVtt( "payload/i-tag/i-tag-multi-subclass.vtt" );
 

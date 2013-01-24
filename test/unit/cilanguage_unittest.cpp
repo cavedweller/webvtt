@@ -11,7 +11,7 @@ class CueIdLanguage : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_JunkCharacters)
+TEST_F(CueIdLanguage, JunkCharacters)
 {
   loadVtt( "cue-ids/languages/junk_characters.vtt" );
 
@@ -28,7 +28,7 @@ TEST_F(CueIdLanguage, DISABLED_JunkCharacters)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Arabic)
+TEST_F(CueIdLanguage, Arabic)
 {
   loadVtt( "cue-ids/languages/arabic.vtt" );
 
@@ -45,7 +45,7 @@ TEST_F(CueIdLanguage, DISABLED_Arabic)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Japanese)
+TEST_F(CueIdLanguage, Japanese)
 {
   loadVtt( "cue-ids/languages/japanese.vtt" );
 
@@ -62,7 +62,7 @@ TEST_F(CueIdLanguage, DISABLED_Japanese)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Russian)
+TEST_F(CueIdLanguage, Russian)
 {
   loadVtt( "cue-ids/languages/russian.vtt" );
 
@@ -79,7 +79,7 @@ TEST_F(CueIdLanguage, DISABLED_Russian)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Chinese)
+TEST_F(CueIdLanguage, Chinese)
 {
   loadVtt( "cue-ids/languages/chinese.vtt" );
 
@@ -96,7 +96,7 @@ TEST_F(CueIdLanguage, DISABLED_Chinese)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Greek)
+TEST_F(CueIdLanguage, Greek)
 {
   loadVtt( "cue-ids/languages/greek.vtt" );
 
@@ -113,7 +113,7 @@ TEST_F(CueIdLanguage, DISABLED_Greek)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Hebrew)
+TEST_F(CueIdLanguage, Hebrew)
 {
   loadVtt( "cue-ids/languages/hebrew.vtt" );
 
@@ -130,7 +130,7 @@ TEST_F(CueIdLanguage, DISABLED_Hebrew)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Korean)
+TEST_F(CueIdLanguage, Korean)
 {
   loadVtt( "cue-ids/languages/korean.vtt" );
 
@@ -147,7 +147,7 @@ TEST_F(CueIdLanguage, DISABLED_Korean)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_Thai)
+TEST_F(CueIdLanguage, Thai)
 {
   loadVtt( "cue-ids/languages/thai.vtt" );
 
@@ -164,7 +164,7 @@ TEST_F(CueIdLanguage, DISABLED_Thai)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_MultipleLanguages)
+TEST_F(CueIdLanguage, MultipleLanguages)
 {
   loadVtt( "cue-ids/languages/multiple_languages.vtt" );
 
@@ -181,7 +181,7 @@ TEST_F(CueIdLanguage, DISABLED_MultipleLanguages)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringArabic) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringArabic) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_arabic.vtt" );
 
@@ -198,7 +198,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringArabic) //currently truncating characte
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringJapanese) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringJapanese) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_japanese.vtt" );
 
@@ -215,7 +215,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringJapanese) //currently truncating charac
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringRussian) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringRussian) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_russian.vtt" );
 
@@ -232,7 +232,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringRussian) //currently truncating charact
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringChinese) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringChinese) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_chinese.vtt" );
 
@@ -249,7 +249,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringChinese) //currently truncating charact
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringGreek) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringGreek) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_greek.vtt" );
 
@@ -266,7 +266,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringGreek) //currently truncating character
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringHebrew) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringHebrew) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_hebrew.vtt" );
 
@@ -283,7 +283,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringHebrew) //currently truncating characte
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringKorean) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringKorean) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_korean.vtt" );
 
@@ -300,7 +300,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringKorean) //currently truncating characte
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringThai) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringThai) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_thai.vtt" );
 
@@ -317,7 +317,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringThai) //currently truncating characters
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, DISABLED_LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit and/or hanging
 {
   loadVtt( "cue-ids/languages/long_string_multiple_languages.vtt" );
 
@@ -334,7 +334,7 @@ TEST_F(CueIdLanguage, DISABLED_LongStringMultipleLanguages) //currently truncati
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringJunkCharacters) //currently truncating characters below the 65535 byte limit
+TEST_F(CueIdLanguage, LongStringJunkCharacters) //currently truncating characters below the 65535 byte limit
 {
   loadVtt( "cue-ids/languages/long_string_junk_characters.vtt" );
 
