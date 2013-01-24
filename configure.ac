@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.67])
+AC_PREREQ([2.61])
 AC_INIT([webvtt], [0.0.3])
 AC_CANONICAL_HOST
 
@@ -19,11 +19,12 @@ AM_CONDITIONAL(OSX,test x$osx = xtrue)
 AM_CONDITIONAL(WIN32,test x$win32 = xtrue)
 
 AC_CONFIG_MACRO_DIR([build/autoconf])
-AM_INIT_AUTOMAKE([1.11 -Wall -Wno-extra-portability foreign subdir-objects])
+AM_INIT_AUTOMAKE([1.10 -Wall -Wno-extra-portability foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/libwebvtt/alloc.c])
 AC_CONFIG_HEADERS([config.h])
 
-AM_SILENT_RULES([yes])
+dnl enable silent rules on automake 1.11 and later
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 LT_INIT([win32-dll])
 
