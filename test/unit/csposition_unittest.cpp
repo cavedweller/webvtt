@@ -9,7 +9,7 @@ class CueSettingPosition : public CueTest { };
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentage)
+TEST_F(CueSettingPosition, SingleDigitPercentage)
 {
   loadVtt( "cue-settings/position/single-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -24,7 +24,7 @@ TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentageHighBoundary)
+TEST_F(CueSettingPosition, SingleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/position/single-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -39,7 +39,7 @@ TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentageLowBoundary)
+TEST_F(CueSettingPosition, SingleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/position/single-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -54,7 +54,7 @@ TEST_F(CueSettingPosition, DISABLED_SingleDigitPercentageLowBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentage)
+TEST_F(CueSettingPosition, DoubleDigitPercentage)
 {
   loadVtt( "cue-settings/position/double-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -69,7 +69,7 @@ TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentageHighBoundary)
+TEST_F(CueSettingPosition, DoubleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/position/double-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -84,7 +84,7 @@ TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentageLowBoundary)
+TEST_F(CueSettingPosition, DoubleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/position/double-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -99,7 +99,7 @@ TEST_F(CueSettingPosition, DISABLED_DoubleDigitPercentageLowBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentage)
+TEST_F(CueSettingPosition, TripleDigitPercentage)
 {
   loadVtt( "cue-settings/position/triple-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -114,7 +114,7 @@ TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentage)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentageHighBoundary)
+TEST_F(CueSettingPosition, TripleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/position/triple-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -129,7 +129,7 @@ TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentageHighBoundary)
  * 5. Ignoring the trailing percent sign, interpret value as an integer, and let number be that number.
  * 7. Let cue's text track cue text position be number.
  */
-TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentageLowBoundary)
+TEST_F(CueSettingPosition, TripleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/position/double-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -143,7 +143,7 @@ TEST_F(CueSettingPosition, DISABLED_TripleDigitPercentageLowBoundary)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_NoDelimiter)
+TEST_F(CueSettingPosition, NoDelimiter)
 {
   loadVtt( "cue-settings/position/no-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -167,7 +167,7 @@ TEST_F(CueSettingPosition, DISABLED_NoDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_NoKeyword)
+TEST_F(CueSettingPosition, NoKeyword)
 {
   loadVtt( "cue-settings/position/no-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -216,7 +216,7 @@ TEST_F(CueSettingPosition, DISABLED_NoValue)
  * If name is a case-sensitive match for "position"
  * 3. If any character in value other than the last character is a U+0025 PERCENT SIGN character (%), then jump to the step labeled next setting.
  */
-TEST_F(CueSettingPosition, DISABLED_NoPercentSign)
+TEST_F(CueSettingPosition, NoPercentSign)
 {
   loadVtt( "cue-settings/position/no-percent-sign.vtt", 1 );
   const Error &err = getError( 0 );
@@ -241,7 +241,7 @@ TEST_F(CueSettingPosition, DISABLED_NoPercentSign)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_BadDelimiter)
+TEST_F(CueSettingPosition, BadDelimiter)
 {
   loadVtt( "cue-settings/position/bad-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -294,7 +294,7 @@ TEST_F(CueSettingPosition, DISABLED_BadKeyword)
  * If name is a case-sensitive match for "position"
  * 1. If value contains any characters other than U+0025 PERCENT SIGN characters (%) and ASCII digits, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingPosition, DISABLED_AsciiDigitBeyondHighBoundary)
+TEST_F(CueSettingPosition, AsciiDigitBeyondHighBoundary)
 {
   loadVtt( "cue-settings/position/above-0x39.vtt", 1 );
   const Error &err = getError( 0 );
@@ -318,7 +318,7 @@ TEST_F(CueSettingPosition, DISABLED_AsciiDigitBeyondHighBoundary)
  * If name is a case-sensitive match for "position"
  * 1. If value contains any characters other than U+0025 PERCENT SIGN characters (%) and ASCII digits, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingPosition, DISABLED_AsciiDigitBeyondLowBoundary)
+TEST_F(CueSettingPosition, AsciiDigitBeyondLowBoundary)
 {
   loadVtt( "cue-settings/position/below-0x30.vtt", 1 );
   const Error &err = getError( 0 );
