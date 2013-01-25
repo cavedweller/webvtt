@@ -10,6 +10,14 @@ AM_CPPFLAGS = \
 AM_CXXFLAGS = $(AM_CPPFLAGS) $(CXXFLAGS)
 AM_LDFLAGS = -static -lm
 
+# Add subdirectories containing test files here:
+EXTRA_DIST = \
+  cue-ids \
+  cue-settings \
+  cue-times \
+  filestructure \
+  payload
+
 LIBS = \
   $(top_builddir)/src/libwebvtt/libwebvtt-static.la \
   $(top_builddir)/src/libwebvttxx/libwebvttxx-static.la \
@@ -86,8 +94,8 @@ TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
 
 check_PROGRAMS = $(UNIT_TESTS)
 
-EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
-	     test_parser
+# gtest fragments
+EXTRA_DIST += cue_testfixture payload_testfixture test_parser
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
