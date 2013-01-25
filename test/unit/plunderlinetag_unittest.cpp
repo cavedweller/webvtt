@@ -9,7 +9,7 @@ class PayloadUnderlineTag : public PayloadTest {};
  *    2. Possible cue internal text representing the underlined text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadUnderlineTag, DISABLED_UnderlineTag)
+TEST_F(PayloadUnderlineTag, UnderlineTag)
 {
   loadVtt( "payload/u-tag/u-tag.vtt" );
 
@@ -27,7 +27,7 @@ TEST_F(PayloadUnderlineTag, DISABLED_UnderlineTag)
  *    2. Possible cue internal text representing the underlined text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadUnderlineTag, DISABLED_UnderlineAnnotation)
+TEST_F(PayloadUnderlineTag, UnderlineAnnotation)
 {
   loadVtt( "payload/u-tag/u-tag-annotation.vtt" );
 
@@ -51,7 +51,7 @@ TEST_F(PayloadUnderlineTag, DISABLED_UnderlineAnnotation)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadUnderlineTag, DISABLED_UnderlineTagSingleSubclass)
+TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
 {
   loadVtt( "payload/u-tag/u-tag-single-subclass.vtt" );
 
@@ -80,7 +80,7 @@ TEST_F(PayloadUnderlineTag, DISABLED_UnderlineTagSingleSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadUnderlineTag, DISABLED_UnderlineTagMultiSubclass)
+TEST_F(PayloadUnderlineTag, UnderlineTagMultiSubclass)
 {
   loadVtt( "payload/u-tag/u-tag-multi-subclass.vtt" );
 

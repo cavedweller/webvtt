@@ -208,7 +208,7 @@ TEST_F(CueSetting, SameCueSetting)
  * 2.3. Let value be the trailing substring of setting starting from the character immediately after the first U+003A COLON character (:) in that string.
  */
 #endif
-TEST_F(CueSetting, DISABLED_BadDelimiter)
+TEST_F(CueSetting, BadDelimiter)
 {
   loadVtt( "cue-settings/bad-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -240,7 +240,7 @@ TEST_F(CueSetting, DISABLED_BadDelimiter)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting, DISABLED_BadDelimiter2)
+TEST_F(CueSetting, BadDelimiter2)
 {
   loadVtt( "cue-settings/bad-delimiter2.vtt", 1 );
   const Error &err = getError( 0 );
@@ -273,7 +273,7 @@ TEST_F(CueSetting, DISABLED_BadDelimiter2)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting, DISABLED_NoDelimiter)
+TEST_F(CueSetting, NoDelimiter)
 {
   loadVtt( "cue-settings/no-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -305,7 +305,7 @@ TEST_F(CueSetting, DISABLED_NoDelimiter)
  * 14. Collect a sequence of characters that are ASCII digits, and let string be the collected substring.
  * 15. If string is not exactly three characters in length, return an error and abort these steps.
  */
-TEST_F(CueSetting, DISABLED_DigitDelimiter)
+TEST_F(CueSetting, DigitDelimiter)
 {
   loadVtt( "cue-settings/digit-delimiter.vtt" );
   const Error &err = getError( 0 );

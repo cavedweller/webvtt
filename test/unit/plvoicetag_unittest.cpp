@@ -9,7 +9,7 @@ class PayloadVoiceTag : public PayloadTest {};
  *    2. Cue internal text representing the voice text.
  *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
  */
-TEST_F(PayloadVoiceTag, DISABLED_VoiceTag)
+TEST_F(PayloadVoiceTag, VoiceTag)
 {
   loadVtt( "payload/v-tag/v-tag.vtt" );
 
@@ -27,7 +27,7 @@ TEST_F(PayloadVoiceTag, DISABLED_VoiceTag)
  *    2. Cue internal text representing the voice text.
  *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
  */
-TEST_F(PayloadVoiceTag, DISABLED_VoiceInternalTextTag)
+TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
 {
   loadVtt( "payload/v-tag/v-tag-internal-text.vtt" );
 
@@ -46,7 +46,7 @@ TEST_F(PayloadVoiceTag, DISABLED_VoiceInternalTextTag)
  *    2. Cue internal text representing the voice text.
  *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
  */
-TEST_F(PayloadVoiceTag, DISABLED_VoiceTagAnnotation)
+TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 {
   loadVtt( "payload/v-tag/v-tag-annotation.vtt" );
 
@@ -72,7 +72,7 @@ TEST_F(PayloadVoiceTag, DISABLED_VoiceTagAnnotation)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadVoiceTag, DISABLED_VoiceTagSingleSubclass)
+TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
 {
   loadVtt( "payload/v-tag/v-tag-single-subclass.vtt" );
 
@@ -101,7 +101,7 @@ TEST_F(PayloadVoiceTag, DISABLED_VoiceTagSingleSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadVoiceTag, DISABLED_VoiceTagMultiSubclass)
+TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
 {
   loadVtt( "payload/v-tag/v-tag-multi-subclass.vtt" );
 

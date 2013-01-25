@@ -10,6 +10,14 @@ AM_CPPFLAGS = \
 AM_CXXFLAGS = $(AM_CPPFLAGS) $(CXXFLAGS)
 AM_LDFLAGS = -static -lm
 
+# Add subdirectories containing test files here:
+EXTRA_DIST = \
+  cue-ids \
+  cue-settings \
+  cue-times \
+  filestructure \
+  payload
+
 LIBS = \
   $(top_builddir)/src/libwebvtt/libwebvtt-static.la \
   $(top_builddir)/src/libwebvttxx/libwebvttxx-static.la \
@@ -77,7 +85,30 @@ KNOWN_VALGRIND_TEST_FAILURES +=
 endif
 
 # Tests we expect to fail (i.e., known-fails)
-XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
+XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
+	      ciarrow_unittest \
+	      cigeneral_unittest \
+	      cilanguage_unittest \
+	      cilineendings_unittest \
+	      csalign_unittest \
+	      csgeneric_unittest \
+	      csline_unittest \
+	      csposition_unittest \
+	      cssize_unittest \
+	      csvertical_unittest \
+	      ctgenstructure_unittest \
+	      cuetimes_unittest \
+	      filestructure_unittest \
+	      plboldtag_unittest \
+	      plclasstag_unittest \
+	      plescapecharacter_unittest \
+	      plformat_unittest \
+	      plitalictag_unittest \
+	      plrubytag_unittest \
+	      pltagformat_unittest \
+	      pltimestamp_unittest \
+	      plunderlinetag_unittest \
+	      plvoicetag_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
@@ -87,8 +118,8 @@ TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
 
 check_PROGRAMS = $(UNIT_TESTS)
 
-EXTRA_DIST = filestructure cue_testfixture payload_testfixture \
-	     test_parser
+# gtest fragments
+EXTRA_DIST += cue_testfixture payload_testfixture test_parser
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests

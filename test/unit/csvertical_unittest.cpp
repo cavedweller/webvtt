@@ -11,7 +11,7 @@ class CueSettingVertical : public CueTest { };
  *  If name is a case-sensitive match for "vertical"
  *  1. If value is a case-sensitive match for the string "rl", then let cue's text track cue writing direction be vertical growing left.
  */
-TEST_F(CueSettingVertical, DISABLED_RL)
+TEST_F(CueSettingVertical, RL)
 {
   loadVtt( "cue-settings/vertical/rl.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -28,7 +28,7 @@ TEST_F(CueSettingVertical, DISABLED_RL)
  *  If name is a case-sensitive match for "vertical"
  *  2. Otherwise, if value is a case-sensitive match for the string "lr", then let cue's text track cue writing direction be vertical growing right.
  */
-TEST_F(CueSettingVertical, DISABLED_LR)
+TEST_F(CueSettingVertical, LR)
 {
   loadVtt( "cue-settings/vertical/lr.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -47,7 +47,7 @@ TEST_F(CueSettingVertical, DISABLED_LR)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_BadKeyword)
+TEST_F(CueSettingVertical, BadKeyword)
 {
   loadVtt( "cue-settings/vertical/bad-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -71,7 +71,7 @@ TEST_F(CueSettingVertical, DISABLED_BadKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_BadDelimiter)
+TEST_F(CueSettingVertical, BadDelimiter)
 {
   loadVtt ( "cue-settings/vertical/bad-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -98,7 +98,7 @@ TEST_F(CueSettingVertical, DISABLED_BadDelimiter)
  * 2. Otherwise, if value is a case-sensitive match for the string "lr", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_BadValue)
+TEST_F(CueSettingVertical, BadValue)
 {
   loadVtt( "cue-settings/vertical/bad-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -123,7 +123,7 @@ TEST_F(CueSettingVertical, DISABLED_BadValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_BadWhitespaceBeforeDelimiter)
+TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-before-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -148,7 +148,7 @@ TEST_F(CueSettingVertical, DISABLED_BadWhitespaceBeforeDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_BadWhitespaceAfterDelimiter)
+TEST_F(CueSettingVertical, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-after-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -173,7 +173,7 @@ TEST_F(CueSettingVertical, DISABLED_BadWhitespaceAfterDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_NoKeyword)
+TEST_F(CueSettingVertical, NoKeyword)
 {
   loadVtt( "cue-settings/vertical/no-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -197,7 +197,7 @@ TEST_F(CueSettingVertical, DISABLED_NoKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_NoValue)
+TEST_F(CueSettingVertical, NoValue)
 {
   loadVtt( "cue-settings/vertical/no-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -221,7 +221,7 @@ TEST_F(CueSettingVertical, DISABLED_NoValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_NoDelimiter)
+TEST_F(CueSettingVertical, NoDelimiter)
 {
   loadVtt( "cue-settings/vertical/no-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -250,7 +250,7 @@ TEST_F(CueSettingVertical, DISABLED_NoDelimiter)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_UppercaseKeyword)
+TEST_F(CueSettingVertical, UppercaseKeyword)
 {
   loadVtt( "cue-settings/vertical/uppercase-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -277,7 +277,7 @@ TEST_F(CueSettingVertical, DISABLED_UppercaseKeyword)
  * 2. Otherwise, if value is a case-sensitive match for the string "lr", ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingVertical, DISABLED_UppercaseValue)
+TEST_F(CueSettingVertical, UppercaseValue)
 {
   loadVtt( "cue-settings/vertical/uppercase-value.vtt", 1 );
   const Error &err = getError( 0 );

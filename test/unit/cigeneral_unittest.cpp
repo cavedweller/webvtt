@@ -11,7 +11,7 @@ class CueIdGeneral : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdGeneral, DISABLED_BasicPass) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdGeneral, BasicPass) //C++ exception: "std::bad_alloc"
 {
   loadVtt( "cue-ids/basic_pass.vtt" );
 
@@ -29,7 +29,7 @@ TEST_F(CueIdGeneral, DISABLED_BasicPass) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdGeneral, DISABLED_LongString) //Test currently throws a webvtt cue incomplete error, however it should pass
+TEST_F(CueIdGeneral, LongString) //Test currently throws a webvtt cue incomplete error, however it should pass
 {
   loadVtt( "cue-ids/long_string.vtt" );
   const Error &err = getError( 0 );
@@ -48,7 +48,7 @@ TEST_F(CueIdGeneral, DISABLED_LongString) //Test currently throws a webvtt cue i
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdGeneral, DISABLED_IdOnly)
+TEST_F(CueIdGeneral, IdOnly)
 {
   loadVtt( "cue-ids/id_only.vtt" );
   const Error &err = getError( 0 );

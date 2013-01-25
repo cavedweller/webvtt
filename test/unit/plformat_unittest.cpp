@@ -5,7 +5,7 @@ class PayloadFormat : public PayloadTest {};
  * Verifies that a cue text span with no tags will parse correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text-span (11/27/2012)
  */
-TEST_F(PayloadFormat, DISABLED_BasicCueText)
+TEST_F(PayloadFormat, BasicCueText)
 {
   loadVtt( "payload/payload-format/basic-cue-text.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
@@ -15,7 +15,7 @@ TEST_F(PayloadFormat, DISABLED_BasicCueText)
  * Verifies that multiple cue components can be put in one line.
  * http://dev.w3.org/html5/webvtt/#webvtt-cue-components
  */
-TEST_F(PayloadFormat, DISABLED_MultipleCueTextTag)
+TEST_F(PayloadFormat, MultipleCueTextTag)
 {
   loadVtt( "payload/payload-format/multiple-cue-tag.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
@@ -26,7 +26,7 @@ TEST_F(PayloadFormat, DISABLED_MultipleCueTextTag)
  * the other.
  * http://dev.w3.org/html5/webvtt/#webvtt-cue-components
  */
-TEST_F(PayloadFormat, DISABLED_MultipleCueTextTagTogether)
+TEST_F(PayloadFormat, MultipleCueTextTagTogether)
 {
   loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
@@ -40,7 +40,7 @@ TEST_F(PayloadFormat, DISABLED_MultipleCueTextTagTogether)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
+TEST_F(PayloadFormat, MultilineBasicCueText)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
@@ -54,7 +54,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueText)
+TEST_F(PayloadFormat, MultilineCueText)
 {
   loadVtt( "payload/payload-format/multiline-cue-text.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
@@ -68,7 +68,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueText)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueTextCR)
+TEST_F(PayloadFormat, MultilineCueTextCR)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-cr.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
@@ -82,7 +82,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueTextCR)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueTextCRLF)
+TEST_F(PayloadFormat, MultilineCueTextCRLF)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-crlf.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
@@ -97,7 +97,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueTextCRLF)
  * 50. Bad cue: Discard cue.
  * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewline)
+TEST_F(PayloadFormat, MultilineCueTextExtraNewline)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
@@ -112,7 +112,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewline)
  * 50. Bad cue: Discard cue.
  * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCR)
+TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCR)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-cr.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
@@ -127,7 +127,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCR)
  * 50. Bad cue: Discard cue.
  * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCRLF)
+TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
   ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
@@ -141,7 +141,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineCueTextExtraNewlineCRLF)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineMultipleCueTextTag)
+TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
 {
   loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt" );
 
@@ -181,7 +181,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineMultipleCueTextTag)
  cue text to be parsed: <i>Test Ampersand escape within i tag: &amp; </i>
  correct Ampersand Character Escape : within a cue i tag
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandWithinTag)
+TEST_F(PayloadFormat, AmpersandWithinTag)
 {
   loadVtt( "payload/escape-character/i-tag-with-ampersand.vtt", 1 );
 
@@ -207,7 +207,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandWithinTag)
  Cue Text to be Parsed: <b><i>Test Ampersand escape within i tag: &amp; </i></b>
  correct Ampersand Character Escape : cue b tag within a cue i tag
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandWithinMultipleTags)
+TEST_F(PayloadFormat, AmpersandWithinMultipleTags)
 {
   loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand.vtt", 1 );
 
@@ -236,7 +236,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandWithinMultipleTags)
  Cue Text to be Parsed: <b><i> some filler text </i></b> &amp;
  correct Ampersand Character Escape outside cue b tag within a cue i tag
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOutsideTwoTags)
+TEST_F(PayloadFormat, AmpersandOutsideTwoTags)
 {
   loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand-outside.vtt", 1 );
 
@@ -267,7 +267,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOutsideTwoTags)
  &amp;
  correct Ampersand Character Escape on new line after two encapsulated tags with class
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOnNewLineAfterTwoTagsWithClass)
+TEST_F(PayloadFormat, AmpersandOnNewLineAfterTwoTagsWithClass)
 {
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-class.vtt", 1 );
 
@@ -297,7 +297,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnNewLineAfterTwoTagsWithClass)
  Cue Text to be Parsed: <i.class> ampersand escape: &amp; </i>
  correct Ampersand Character Escape inside tag with a class
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandInsideOneTagWithClass)
+TEST_F(PayloadFormat, AmpersandInsideOneTagWithClass)
 {
   loadVtt( "payload/escape-character/ampersand-within-tag-with-class.vtt", 1 );
 
@@ -329,7 +329,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandInsideOneTagWithClass)
  &amp;
  correct Ampersand Character Escape outside two encapsulates tags
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandInsideTagWithSubclasses)
+TEST_F(PayloadFormat, AmpersandInsideTagWithSubclasses)
 {
   loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
 
@@ -359,7 +359,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandInsideTagWithSubclasses)
  correct Ampersand Character Escape on line after a tag with a class
  and subclass
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOnLineWithClassAndSubClass)
+TEST_F(PayloadFormat, AmpersandOnLineWithClassAndSubClass)
 {
   loadVtt( "payload/escape-character/ampersand-inside-tag-with-subclass.vtt", 1 );
 
@@ -396,7 +396,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnLineWithClassAndSubClass)
  correct Ampersand Character Escape on new line after a tag with a class
  and subclass
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOnNewlineWithClassAndSubclass)
+TEST_F(PayloadFormat, AmpersandOnNewlineWithClassAndSubclass)
 {
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
@@ -431,7 +431,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnNewlineWithClassAndSubclass)
  correct Ampersand Character Escape on line outsidetag with a class
  and subclass
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClassAndSubclass)
+TEST_F(PayloadFormat, AmpersandOnCurrlineWithClassAndSubclass)
 {
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
@@ -466,7 +466,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClassAndSubclass)
  correct Ampersand Character Escape on line outsidetag with a class
  and subclass
 */
-TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClass)
+TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
 {
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
@@ -493,7 +493,7 @@ TEST_F(PayloadFormat, DISABLED_AmpersandOnCurrlineWithClass)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCR)
+TEST_F(PayloadFormat, MultilineBasicCueTextCR)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt" );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
@@ -507,7 +507,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCR)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCRLF)
+TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt" );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
@@ -518,7 +518,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextCRLF)
  * The WebVTT parser algorithm is as follows:
  * [...] 50. Bad cue: Discard cue.
  */
-TEST_F(PayloadFormat, DISABLED_MultilineBasicCueTextExtraLine)
+TEST_F(PayloadFormat, MultilineBasicCueTextExtraLine)
 {
   loadVtt( "payload/payload-format/multiline-extra-line-terminator.vtt", 1);
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );

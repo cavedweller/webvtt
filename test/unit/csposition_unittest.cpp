@@ -191,7 +191,7 @@ TEST_F(CueSettingPosition, NoKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_NoValue)
+TEST_F(CueSettingPosition, NoValue)
 {
   loadVtt( "cue-settings/position/no-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -270,7 +270,7 @@ TEST_F(CueSettingPosition, BadDelimiter)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_BadKeyword)
+TEST_F(CueSettingPosition, BadKeyword)
 {
   loadVtt( "cue-settings/position/bad-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -342,7 +342,7 @@ TEST_F(CueSettingPosition, AsciiDigitBeyondLowBoundary)
  * If name is a case-sensitive match for "position"
  *  6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingPosition, DISABLED_PercentNegative)
+TEST_F(CueSettingPosition, PercentNegative)
 {
   loadVtt( "cue-settings/position/bad-pct-negative.vtt", 1 );
   const Error &err = getError( 0 );
@@ -366,7 +366,7 @@ TEST_F(CueSettingPosition, DISABLED_PercentNegative)
  * If name is a case-sensitive match for "position"
  *  6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingPosition, DISABLED_PercentOver100)
+TEST_F(CueSettingPosition, PercentOver100)
 {
   loadVtt( "cue-settings/position/bad-pct-over-100.vtt", 1 );
   const Error &err = getError( 0 );
@@ -395,7 +395,7 @@ TEST_F(CueSettingPosition, DISABLED_PercentOver100)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingPosition, DISABLED_UppercaseKeyword)
+TEST_F(CueSettingPosition, UppercaseKeyword)
 {
   loadVtt( "cue-settings/position/uppercase-keyword.vtt", 1 );
   const Error &err = getError( 0 );
