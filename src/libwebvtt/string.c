@@ -256,7 +256,7 @@ grow( webvtt_string *str, webvtt_uint need )
 
 WEBVTT_EXPORT int
 webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
-    webvtt_uint *pos, webvtt_uint len, int *truncate, webvtt_bool finish )
+    webvtt_uint *pos, webvtt_uint len, int *truncate, webvtt_bool finish, webvtt_bool retain_new_line )
 {
   int ret = 0;
   webvtt_string *str = src;
@@ -286,7 +286,9 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
     ++p;
   }
   /* Retain the new line character. */
-  p++;
+  if( retain_new_line ) {
+    p++;
+  }
 
   if( p < n || finish ) {
     ret = 1; /* indicate that we found EOL */

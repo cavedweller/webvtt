@@ -105,7 +105,7 @@ WEBVTT_EXPORT const webvtt_uint32 webvtt_string_capacity( const webvtt_string *s
  * collect a line of text (terminated by CR/LF/CRLF) from a buffer, without including the terminating character(s)
  */
 WEBVTT_EXPORT int webvtt_string_getline( webvtt_string *str, const webvtt_byte *buffer,
-    webvtt_uint *pos, webvtt_uint len, int *truncate, webvtt_bool finish );
+    webvtt_uint *pos, webvtt_uint len, int *truncate, webvtt_bool finish, webvtt_bool retain_new_line );
 
 /**
  * webvtt_string_putc
