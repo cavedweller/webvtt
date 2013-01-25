@@ -11,7 +11,7 @@ class PayloadTagFormat : public PayloadTest {};
  * Based on the WebVTT cue components specification as of October 3, 2012.
  * http://dev.w3.org/html5/webvtt/#webvtt-cue-components
  */
-TEST_F(PayloadTagFormat, DISABLED_MultipleCueTextTag)
+TEST_F(PayloadTagFormat, MultipleCueTextTag)
 {
   loadVtt( "payload/tag-format/multiple-cue-text-tag.vtt" );
   ASSERT_EQ( Node::Italic, getHeadOfCue( 0 )->child( 0 )->kind() );
@@ -28,7 +28,7 @@ Verifies that an incorrect class name cannot be used as a cue component.
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
 */
-TEST_F(PayloadTagFormat, DISABLED_BadTagName)
+TEST_F(PayloadTagFormat, BadTagName)
 {
   loadVtt( "payload/tag-format/incorrect-tag-name.vtt" );
   ASSERT_TRUE( getHeadOfCue( 0 )->childCount() == 3 );
@@ -43,7 +43,7 @@ TEST_F(PayloadTagFormat, DISABLED_BadTagName)
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
  */
-TEST_F(PayloadTagFormat, DISABLED_BadTagNesting)
+TEST_F(PayloadTagFormat, BadTagNesting)
 {
   loadVtt( "payload/tag-format/bad-tag-nesting.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -66,7 +66,7 @@ TEST_F(PayloadTagFormat, DISABLED_BadTagNesting)
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
  */
-TEST_F(PayloadTagFormat, DISABLED_EndTagNoBackSlashNoEndBrace)
+TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -90,7 +90,7 @@ TEST_F(PayloadTagFormat, DISABLED_EndTagNoBackSlashNoEndBrace)
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
  */
-TEST_F(PayloadTagFormat, DISABLED_EndTagNoEndBrace)
+TEST_F(PayloadTagFormat, EndTagNoEndBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -113,7 +113,7 @@ TEST_F(PayloadTagFormat, DISABLED_EndTagNoEndBrace)
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
  */
-TEST_F(PayloadTagFormat, DISABLED_EndTagNoStartBrace)
+TEST_F(PayloadTagFormat, EndTagNoStartBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-start-brace.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -136,7 +136,7 @@ TEST_F(PayloadTagFormat, DISABLED_EndTagNoStartBrace)
  *  Implications:
  *    1. Tags that are not closed properly are valid until the end of the current cue text.
  */
-TEST_F(PayloadTagFormat, DISABLED_MultiTagNoEndTag)
+TEST_F(PayloadTagFormat, MultiTagNoEndTag)
 {
   loadVtt( "payload/tag-format/multi-tag-no-end-tag.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -166,7 +166,7 @@ TEST_F(PayloadTagFormat, DISABLED_MultiTagNoEndTag)
  *
  * In this example the parser reads "iare</i" inside of the beginning "<" and ending ">" as the tag name.
  */
-TEST_F(PayloadTagFormat, DISABLED_StartTagNoEndBrace)
+TEST_F(PayloadTagFormat, StartTagNoEndBrace)
 {
   loadVtt( "payload/tag-format/start-tag-no-end-brace.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );
@@ -186,7 +186,7 @@ TEST_F(PayloadTagFormat, DISABLED_StartTagNoEndBrace)
  *
  * In this example the parser reads "are</i" after the whitespace as the annotation.
  */
-TEST_F(PayloadTagFormat, DISABLED_StartTagNoEndBraceSpace)
+TEST_F(PayloadTagFormat, StartTagNoEndBraceSpace)
 {
   loadVtt( "payload/tag-format/start-tag-no-end-brace-space.vtt" );
   const InternalNode *head = getHeadOfCue( 0 );

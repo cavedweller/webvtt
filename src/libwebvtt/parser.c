@@ -799,7 +799,7 @@ _next:
       int v;
       webvtt_uint old_pos = pos;
       if( v = webvtt_string_getline( SP->v.text, buffer, &pos,
-                                        len, 0, finish ) ) {
+                                        len, 0, finish, 0 ) ) {
         if( v < 0 ) {
           webvtt_release_string( SP->v.text );
           SP->type = V_NONE;
@@ -1088,13 +1088,13 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos, webvt
   int finished = 0;
   do {
     int v;
-    if( ( v = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finish ) ) ) {
+    if( ( v = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finish, 1 ) ) ) {
       if( v < 0 ) {
         status = WEBVTT_OUT_OF_MEMORY;
         goto _finish;
       }
 
-      if( self->line_buffer.d->text[ self->line_buffer.d->length - 1 ] == ASCII_LF ) {
+      if( self->line_buffer.d->length > 1 && self->line_buffer.d->text[ self->line_buffer.d->length - 1 ] == ASCII_LF ) {
         /**
          * finished
          */
@@ -1187,7 +1187,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          * we will and depending on our state, do something with it.
          */
         int ret;
-        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finished ) ) ) {
+        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finished, 0 ) ) ) {
           static const webvtt_byte separator[] = { ASCII_DASH, ASCII_DASH, ASCII_GT };
           if( ret < 0 ) {
             ERROR( WEBVTT_ALLOCATION_FAILED );

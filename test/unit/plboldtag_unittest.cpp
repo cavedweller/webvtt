@@ -9,7 +9,7 @@ class PayloadBoldTag : public PayloadTest {};
  *    2. Possible cue internal text representing the boldened text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadBoldTag, DISABLED_BoldTag)
+TEST_F(PayloadBoldTag, BoldTag)
 {
   loadVtt( "payload/b-tag/b-tag.vtt" );
 
@@ -27,7 +27,7 @@ TEST_F(PayloadBoldTag, DISABLED_BoldTag)
  *    2. Possible cue internal text representing the boldened text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadBoldTag, DISABLED_BoldTagAnnotation)
+TEST_F(PayloadBoldTag, BoldTagAnnotation)
 {
   loadVtt( "payload/b-tag/b-tag-annotation.vtt" );
 
@@ -51,7 +51,7 @@ TEST_F(PayloadBoldTag, DISABLED_BoldTagAnnotation)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadBoldTag, DISABLED_BoldTagSingleSubclass)
+TEST_F(PayloadBoldTag, BoldTagSingleSubclass)
 {
   loadVtt( "payload/b-tag/b-tag-single-subclass.vtt" );
 
@@ -80,7 +80,7 @@ TEST_F(PayloadBoldTag, DISABLED_BoldTagSingleSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadBoldTag, DISABLED_BoldTagMultiSubclass)
+TEST_F(PayloadBoldTag, BoldTagMultiSubclass)
 {
   loadVtt( "payload/b-tag/b-tag-multi-subclass.vtt" );
 

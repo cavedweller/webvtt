@@ -11,7 +11,7 @@ class CueIdArrow : public CueTest { };
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_MalformedArrows)
+TEST_F(CueIdArrow, MalformedArrows)
 {
   loadVtt( "cue-ids/arrows/malformed_arrows.vtt" );
 
@@ -28,7 +28,7 @@ TEST_F(CueIdArrow, DISABLED_MalformedArrows)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_Arrow) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, Arrow) //C++ exception: "std::bad_alloc"
 {
   loadVtt( "cue-ids/arrows/arrow.vtt" );
   const Error &err = getError( 0 );
@@ -48,7 +48,7 @@ TEST_F(CueIdArrow, DISABLED_Arrow) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_ExtraArrowhead) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, ExtraArrowhead) //C++ exception: "std::bad_alloc"
 {
   loadVtt( "cue-ids/arrows/extra_arrowhead.vtt" );
   const Error &err = getError( 0 );
@@ -68,7 +68,7 @@ TEST_F(CueIdArrow, DISABLED_ExtraArrowhead) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_ExtraMinusSign) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, ExtraMinusSign) //C++ exception: "std::bad_alloc"
 {
   loadVtt( "cue-ids/arrows/extra_minus_sign.vtt" );
   const Error &err = getError( 0 );
@@ -90,7 +90,7 @@ TEST_F(CueIdArrow, DISABLED_ExtraMinusSign) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_LongStringWithArrow) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, LongStringWithArrow) //C++ exception: "std::bad_alloc"
 {
   loadVtt( "cue-ids/arrows/long_string_with_arrow.vtt" );
   const Error &err = getError( 0 );

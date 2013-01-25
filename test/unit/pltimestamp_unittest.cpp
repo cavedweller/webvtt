@@ -5,7 +5,7 @@ class PayloadTimestampTag : public PayloadTest {};
  * Verifies that time stamp cue components are parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-timestamp (11/27/2012)
  */
-TEST_F(PayloadTimestampTag, DISABLED_TimestampTag)
+TEST_F(PayloadTimestampTag, TimestampTag)
 {
   loadVtt( "payload/timestamp/timestamp-tag.vtt", 1 );
 
@@ -19,7 +19,7 @@ TEST_F(PayloadTimestampTag, DISABLED_TimestampTag)
  * Verifies that multiple time stamp cue components are parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-timestamp (11/27/2012)
 */
-TEST_F(PayloadTimestampTag, DISABLED_MultipleTimestampTag)
+TEST_F(PayloadTimestampTag, MultipleTimestampTag)
 {
   loadVtt( "payload/timestamp/multiple-timestamp-tag.vtt", 1 );
   const TimeStampNode *timeStamp = getHeadOfCue( 0 )->child( 1 )->toTimeStampNode();

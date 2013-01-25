@@ -17,7 +17,7 @@ class FileStructure : public CueTest { };
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTNoBOM)
+TEST_F(FileStructure, WebVTTNoBOM)
 {
   loadVtt( "filestructure/webvtt-no-bom.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -35,7 +35,7 @@ TEST_F(FileStructure, DISABLED_WebVTTNoBOM)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTWithBOM)
+TEST_F(FileStructure, WebVTTWithBOM)
 {
   loadVtt( "filestructure/webvtt-with-bom.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -53,7 +53,7 @@ TEST_F(FileStructure, DISABLED_WebVTTWithBOM)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTSpace)
+TEST_F(FileStructure, WebVTTSpace)
 {
   loadVtt( "filestructure/webvtt-space.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -71,7 +71,7 @@ TEST_F(FileStructure, DISABLED_WebVTTSpace)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTTab)
+TEST_F(FileStructure, WebVTTTab)
 {
   loadVtt( "filestructure/webvtt-tab.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -90,7 +90,7 @@ TEST_F(FileStructure, DISABLED_WebVTTTab)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTTabText)
+TEST_F(FileStructure, WebVTTTabText)
 {
   loadVtt( "filestructure/webvtt-tab-text.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -109,7 +109,7 @@ TEST_F(FileStructure, DISABLED_WebVTTTabText)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_WebVTTSpaceText)
+TEST_F(FileStructure, WebVTTSpaceText)
 {
   loadVtt( "filestructure/webvtt-space-text.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -127,7 +127,7 @@ TEST_F(FileStructure, DISABLED_WebVTTSpaceText)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_TextBeforeHeader)
+TEST_F(FileStructure, TextBeforeHeader)
 {
   loadVtt( "filestructure/text-before-header.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() );
@@ -146,7 +146,7 @@ TEST_F(FileStructure, DISABLED_TextBeforeHeader)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_BlankFile)
+TEST_F(FileStructure, BlankFile)
 {
   loadVtt( "filestructure/blank-file.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -164,7 +164,7 @@ TEST_F(FileStructure, DISABLED_BlankFile)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_BlankFileWithBOM)
+TEST_F(FileStructure, BlankFileWithBOM)
 {
   loadVtt( "filestructure/blank-file-with-bom.vtt", 0 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -183,7 +183,7 @@ TEST_F(FileStructure, DISABLED_BlankFileWithBOM)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_TabAfterBOMBeforeHeader)
+TEST_F(FileStructure, TabAfterBOMBeforeHeader)
 {
   loadVtt( "filestructure/tab-after-bom-before-header.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
@@ -209,7 +209,7 @@ TEST_F(FileStructure, DISABLED_TabAfterBOMBeforeHeader)
  *     then set the already collected line flag and jump to the step labeled cue loop.
  * 15. If line is not the empty string, then jump back to the step labeled header.
  */
-TEST_F(FileStructure, DISABLED_HeaderNoNewLine)
+TEST_F(FileStructure, HeaderNoNewLine)
 {
   loadVtt( "filestructure/header-no-new-line.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
@@ -230,7 +230,7 @@ TEST_F(FileStructure, DISABLED_HeaderNoNewLine)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_NoPayloadText)
+TEST_F(FileStructure, NoPayloadText)
 {
   loadVtt( "filestructure/no-payload-text.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -248,7 +248,7 @@ TEST_F(FileStructure, DISABLED_NoPayloadText)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_MissingCueIdentifier)
+TEST_F(FileStructure, MissingCueIdentifier)
 {
   loadVtt( "filestructure/missing-cue-identifier.vtt", 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error: WEBVTT_CUE_INCOMPLETE.";
@@ -271,7 +271,7 @@ TEST_F(FileStructure, DISABLED_MissingCueIdentifier)
  *    TABULATION (tab) character, then abort these steps. The file does not start with the correct
  *    WebVTT file signature and was therefore not successfully processed.
  */
-TEST_F(FileStructure, DISABLED_BOMGarbageNoWebVTT)
+TEST_F(FileStructure, BOMGarbageNoWebVTT)
 {
   /* infinite loop within webvtt_parse_chunk:
    * token never appears to change from BADTOKEN
@@ -294,7 +294,7 @@ TEST_F(FileStructure, DISABLED_BOMGarbageNoWebVTT)
  * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_ExtraNewlinesAfterCue)
+TEST_F(FileStructure, ExtraNewlinesAfterCue)
 {
   loadVtt( "filestructure/extra-newlines-after-cue.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -305,7 +305,7 @@ TEST_F(FileStructure, DISABLED_ExtraNewlinesAfterCue)
  * between them will finish the parsing attempt gracefully.
  * From http://dev.w3.org/html5/webvtt/#parsing (12/10/2012)
  */
-TEST_F(FileStructure, DISABLED_MultiCueNoNewlineBetweenCues)
+TEST_F(FileStructure, MultiCueNoNewlineBetweenCues)
 {
   /* infinite loop in webvtt_parse_chunk
    * self->state is stuck in T_STARTTIME
@@ -321,7 +321,7 @@ TEST_F(FileStructure, DISABLED_MultiCueNoNewlineBetweenCues)
  * WebVTT cue text consists of zero or more WebVTT cue components, in any order,
  * each optionally separated from the next by a WebVTT line terminator.
  */
-TEST_F(FileStructure, DISABLED_MultiCueNoPayload)
+TEST_F(FileStructure, MultiCueNoPayload)
 {
   loadVtt( "filestructure/multi-cue-no-payload.vtt", 2 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -336,7 +336,7 @@ TEST_F(FileStructure, DISABLED_MultiCueNoPayload)
  * 6. If line is less than six characters long, then abort these steps. The file does not start
  * with the correct WebVTT file signature and was therefore not successfully processed.
  */
-TEST_F(FileStructure, DISABLED_NewlineBeforeWebVTT)
+TEST_F(FileStructure, NewlineBeforeWebVTT)
 {
   loadVtt( "filestructure/newline-before-webvtt.vtt", 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
@@ -352,7 +352,7 @@ TEST_F(FileStructure, DISABLED_NewlineBeforeWebVTT)
  * 50. Bad cue: Discard cue.
  * 51. Bad cue loop: If position is past the end of input, then jump to the step labeled end.
  */
-TEST_F(FileStructure, DISABLED_NewlineBetweenPayloadText)
+TEST_F(FileStructure, NewlineBetweenPayloadText)
 {
   loadVtt( "filestructure/newline-between-payload-text.vtt", 1 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
@@ -374,7 +374,7 @@ TEST_F(FileStructure, DISABLED_NewlineBetweenPayloadText)
  5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  6.  Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_NewLinesAtTheEnd)
+TEST_F(FileStructure, NewLinesAtTheEnd)
 {
   loadVtt( "filestructure/new_lines_at_end.vtt");
   ASSERT_EQ(0, errorCount()) << "This file should contain no errors.";
@@ -396,7 +396,7 @@ TEST_F(FileStructure, DISABLED_NewLinesAtTheEnd)
  5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  6.  Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_BOMGarbageData)
+TEST_F(FileStructure, BOMGarbageData)
 {
   loadVtt( "filestructure/bom_garbage_data.vtt");
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because it has garbage data";
@@ -417,7 +417,7 @@ TEST_F(FileStructure, DISABLED_BOMGarbageData)
  5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  6.  Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_BOMTabWebvtt)
+TEST_F(FileStructure, BOMTabWebvtt)
 {
   loadVtt( "filestructure/bom_tab_webvtt.vtt");
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because it contains a tab before WEBVTT";
@@ -438,7 +438,7 @@ TEST_F(FileStructure, DISABLED_BOMTabWebvtt)
  5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
  6.  Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, DISABLED_MissingNewLineBetweenCues)
+TEST_F(FileStructure, MissingNewLineBetweenCues)
 {
   loadVtt( "filestructure/missing_new_line_between_cues.vtt");
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because a blank line is missing between cues";

@@ -9,7 +9,7 @@ class PayloadClassTag : public PayloadTest {};
  *    2. Possible cue internal text representing the cue text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadClassTag, DISABLED_ClassTag)
+TEST_F(PayloadClassTag, ClassTag)
 {
   loadVtt( "payload/c-tag/c-tag.vtt" );
 
@@ -27,7 +27,7 @@ TEST_F(PayloadClassTag, DISABLED_ClassTag)
  *    2. Possible cue internal text representing the cue text.
  *    3. A cue span end tag.
  */
-TEST_F(PayloadClassTag, DISABLED_ClassTagAnnotation)
+TEST_F(PayloadClassTag, ClassTagAnnotation)
 {
   loadVtt( "payload/c-tag/c-tag-annotation.vtt" );
 
@@ -51,7 +51,7 @@ TEST_F(PayloadClassTag, DISABLED_ClassTagAnnotation)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadClassTag, DISABLED_ClassTagSingleSubclass)
+TEST_F(PayloadClassTag, ClassTagSingleSubclass)
 {
   loadVtt( "payload/c-tag/c-tag-single-subclass.vtt" );
 
@@ -80,7 +80,7 @@ TEST_F(PayloadClassTag, DISABLED_ClassTagSingleSubclass)
  *       non-whitespace characters representing the annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
-TEST_F(PayloadClassTag, DISABLED_ClassTagMultiSubclass)
+TEST_F(PayloadClassTag, ClassTagMultiSubclass)
 {
   loadVtt( "payload/c-tag/c-tag-multi-subclass.vtt" );
 

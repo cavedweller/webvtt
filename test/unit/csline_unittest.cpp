@@ -10,7 +10,7 @@ class CueSettingLine : public CueTest { };
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigit)
+TEST_F(CueSettingLine, ManyDigit)
 {
   loadVtt( "cue-settings/line/many-digit.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -27,7 +27,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigit)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitHighBoundary)
+TEST_F(CueSettingLine, ManyDigitHighBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -44,7 +44,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitLowBoundary)
+TEST_F(CueSettingLine, ManyDigitLowBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -61,7 +61,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitNegative)
+TEST_F(CueSettingLine, ManyDigitNegative)
 {
   loadVtt( "cue-settings/line/many-digit-negative.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -78,7 +78,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitNegative)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitNegativeHighBoundary)
+TEST_F(CueSettingLine, ManyDigitNegativeHighBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-negative-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -95,7 +95,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitNegativeHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitNegativeLowBoundary)
+TEST_F(CueSettingLine, ManyDigitNegativeLowBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-negative-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -112,7 +112,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitNegativeLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitPercentage)
+TEST_F(CueSettingLine, ManyDigitPercentage)
 {
   loadVtt( "cue-settings/line/many-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -129,7 +129,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitPercentage)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitPercentageHighBoundary)
+TEST_F(CueSettingLine, ManyDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -146,7 +146,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitPercentageHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_ManyDigitPercentageLowBoundary)
+TEST_F(CueSettingLine, ManyDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/line/many-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -163,7 +163,7 @@ TEST_F(CueSettingLine, DISABLED_ManyDigitPercentageLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigit)
+TEST_F(CueSettingLine, DoubleDigit)
 {
   loadVtt( "cue-settings/line/double-digit.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -180,7 +180,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigit)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitHighBoundary)
+TEST_F(CueSettingLine, DoubleDigitHighBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -197,7 +197,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitLowBoundary)
+TEST_F(CueSettingLine, DoubleDigitLowBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -214,7 +214,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitNegative)
+TEST_F(CueSettingLine, DoubleDigitNegative)
 {
   loadVtt( "cue-settings/line/double-digit-negative.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -231,7 +231,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitNegative)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitNegativeHighBoundary)
+TEST_F(CueSettingLine, DoubleDigitNegativeHighBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-negative-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -248,7 +248,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitNegativeHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitNegativeLowBoundary)
+TEST_F(CueSettingLine, DoubleDigitNegativeLowBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-negative-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -265,7 +265,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitNegativeLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentage)
+TEST_F(CueSettingLine, DoubleDigitPercentage)
 {
   loadVtt( "cue-settings/line/double-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -282,7 +282,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentage)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentageHighBoundary)
+TEST_F(CueSettingLine, DoubleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -299,7 +299,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentageHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentageLowBoundary)
+TEST_F(CueSettingLine, DoubleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/line/double-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -316,7 +316,7 @@ TEST_F(CueSettingLine, DISABLED_DoubleDigitPercentageLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigit)
+TEST_F(CueSettingLine, SingleDigit)
 {
   loadVtt( "cue-settings/line/single-digit.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -333,7 +333,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigit)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitHighBoundary)
+TEST_F(CueSettingLine, SingleDigitHighBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -350,7 +350,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitLowBoundary)
+TEST_F(CueSettingLine, SingleDigitLowBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -367,7 +367,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitNegative)
+TEST_F(CueSettingLine, SingleDigitNegative)
 {
   loadVtt( "cue-settings/line/single-digit-negative.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -384,7 +384,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitNegative)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitNegativeHighBoundary)
+TEST_F(CueSettingLine, SingleDigitNegativeHighBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-negative-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -401,7 +401,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitNegativeHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitNegativeLowBoundary)
+TEST_F(CueSettingLine, SingleDigitNegativeLowBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-negative-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -418,7 +418,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitNegativeLowBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitPercentage)
+TEST_F(CueSettingLine, SingleDigitPercentage)
 {
   loadVtt( "cue-settings/line/single-digit-pct.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -435,7 +435,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitPercentage)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitPercentageHighBoundary)
+TEST_F(CueSettingLine, SingleDigitPercentageHighBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-pct-high-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -452,7 +452,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitPercentageHighBoundary)
  * 8. Let cue's text track cue line position be number.
  * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
  */
-TEST_F(CueSettingLine, DISABLED_SingleDigitPercentageLowBoundary)
+TEST_F(CueSettingLine, SingleDigitPercentageLowBoundary)
 {
   loadVtt( "cue-settings/line/single-digit-pct-low-boundary.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -472,7 +472,7 @@ TEST_F(CueSettingLine, DISABLED_SingleDigitPercentageLowBoundary)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_BadKeyword)
+TEST_F(CueSettingLine, BadKeyword)
 {
   loadVtt( "cue-settings/line/bad-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -498,7 +498,7 @@ TEST_F(CueSettingLine, DISABLED_BadKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_NoKeyword)
+TEST_F(CueSettingLine, NoKeyword)
 {
   loadVtt( "cue-settings/line/no-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -525,7 +525,7 @@ TEST_F(CueSettingLine, DISABLED_NoKeyword)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_NoDelimiter)
+TEST_F(CueSettingLine, NoDelimiter)
 {
   loadVtt( "cue-settings/line/no-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -551,7 +551,7 @@ TEST_F(CueSettingLine, DISABLED_NoDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_BadDelimiter)
+TEST_F(CueSettingLine, BadDelimiter)
 {
   loadVtt( "cue-settings/line/bad-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -576,7 +576,7 @@ TEST_F(CueSettingLine, DISABLED_BadDelimiter)
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
  *  1. If value contains any characters other than U+002D HYPHEN-MINUS characters (-), U+0025 PERCENT SIGN characters (%), and ASCII digits, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingLine, DISABLED_BadValue)
+TEST_F(CueSettingLine, BadValue)
 {
   loadVtt( "cue-settings/line/bad-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -602,7 +602,7 @@ TEST_F(CueSettingLine, DISABLED_BadValue)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_NoValue)
+TEST_F(CueSettingLine, NoValue)
 {
   loadVtt( "cue-settings/line/no-value.vtt", 1 );
   const Error &err = getError( 0 );
@@ -627,7 +627,7 @@ TEST_F(CueSettingLine, DISABLED_NoValue)
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
  *  1. If value contains any characters other than U+002D HYPHEN-MINUS characters (-), U+0025 PERCENT SIGN characters (%), and ASCII digits, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingLine, DISABLED_BadValueSuffix)
+TEST_F(CueSettingLine, BadValueSuffix)
 {
   loadVtt( "cue-settings/line/bad-value-suffix.vtt", 1 );
   const Error &err = getError( 0 );
@@ -656,7 +656,7 @@ TEST_F(CueSettingLine, DISABLED_BadValueSuffix)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_WhitespaceDelimiter)
+TEST_F(CueSettingLine, WhitespaceDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -683,7 +683,7 @@ TEST_F(CueSettingLine, DISABLED_WhitespaceDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_BadWhitespaceBeforeDelimiter)
+TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-before-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -710,7 +710,7 @@ TEST_F(CueSettingLine, DISABLED_BadWhitespaceBeforeDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_BadWhitespaceAfterDelimiter)
+TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-after-delimiter.vtt", 1 );
   const Error &err = getError( 0 );
@@ -741,7 +741,7 @@ TEST_F(CueSettingLine, DISABLED_BadWhitespaceAfterDelimiter)
  * If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
-TEST_F(CueSettingLine, DISABLED_UppercaseKeyword)
+TEST_F(CueSettingLine, UppercaseKeyword)
 {
   loadVtt( "cue-settings/line/uppercase-keyword.vtt", 1 );
   const Error &err = getError( 0 );
@@ -767,7 +767,7 @@ TEST_F(CueSettingLine, DISABLED_UppercaseKeyword)
  * If name is a case-sensitive match for "line"
  *  7. If the last character in value is a U+0025 PERCENT SIGN character (%), but number is not in the range 0 = number = 100, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingLine, DISABLED_PercentNegative)
+TEST_F(CueSettingLine, PercentNegative)
 {
   loadVtt( "cue-settings/line/bad-pct-negative.vtt", 1 );
   const Error &err = getError( 0 );
@@ -793,7 +793,7 @@ TEST_F(CueSettingLine, DISABLED_PercentNegative)
  * If name is a case-sensitive match for "line"
  *  7. If the last character in value is a U+0025 PERCENT SIGN character (%), but number is not in the range 0 = number = 100, then jump to the step labeled next setting.
  */
-TEST_F(CueSettingLine, DISABLED_PercentOver100)
+TEST_F(CueSettingLine, PercentOver100)
 {
   loadVtt( "cue-settings/line/bad-pct-over-100.vtt", 1 );
   const Error &err = getError( 0 );
