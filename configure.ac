@@ -36,10 +36,6 @@ AC_PROG_SED
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
 
-# Check for valgrind, which we run with tests if possible
-AC_PATH_PROG(VALGRIND, valgrind, no)
-AM_CONDITIONAL(HAVE_VALGRIND, test "x$VALGRIND" != "xno")
-
 # Enable debugging (currently only gdb)
 AC_ARG_ENABLE([debug],
     AS_HELP_STRING([--enable-debug],[build with additional debugging code]),
@@ -79,24 +75,26 @@ AC_SUBST([GTEST_VERSION])
 AC_SUBST([GTEST_CPPFLAGS])
 AC_SUBST([GTEST_LIBS])
 
-# Check for valgrind if configuring with --enable-valgrind-testing.
-# NOTE: on OS X we also have to pass --dsymutil in order to get line number info.
+# Set up test enviroment if configuring with --enable-valgrind.
 VALGRIND_ENVIRONMENT=
-ac_enable_valgrind=no
-AC_ARG_ENABLE(valgrind-testing,
-     [  --enable-valgrind-testing     enable running tests under valgrind],
-     [ ac_enable_valgrind=yes ],
+AC_ARG_ENABLE(valgrind,
+     AS_HELP_STRING([--enable-valgrind],[run tests under valgrind]),
+     [ ac_enable_valgrind=$enableval ],
      [ ac_enable_valgrind=no] )
-
 if [ test "x${ac_enable_valgrind}" = xyes ]; then
-  AC_CHECK_PROG(HAVE_VALGRIND, valgrind, yes, no)
-  if [ test "x$HAVE_VALGRIND" = xyes ]; then
-    VALGRIND_TESTING="1"
+  AC_PATH_PROG(VALGRIND, [valgrind], no)
+  if [ test "x${VALGRIND}" != xno ]; then
+    VALGRIND_ENVIRONMENT="valgrind -q --leak-check=full --track-origins=yes --num-callers=50 --error-exitcode=1"
     if [ test -n $OSX ]; then
-      VALGRIND_ENVIRONMENT="valgrind -q --leak-check=full --track-origins=yes --num-callers=50 --error-exitcode=1 --dsymutil=yes"
+      # On OS X we have to pass --dsymutil in order to get line numbers.
+      VALGRIND_ENVIRONMENT="$VALGRIND_ENVIRONMENT --dsymutil=yes"
     else
-      VALGRIND_ENVIRONMENT="valgrind -q --leak-check=full --read-var-info=yes --track-origins=yes --num-callers=50 --error-exitcode=1"
+      # Report variable debug info except on OSX where it causes
+      # problems on earlier XCode versions of dsymutil
+      VALGRIND_ENVIRONMENT="$VALGRIND_ENVIRONMENT --read-var-info=yes"
     fi
+  else
+    AC_MSG_WARN([Cannot run tests under valgrind.])
   fi
 fi
 AC_SUBST([VALGRIND_ENVIRONMENT])
