@@ -109,7 +109,6 @@ AC_CHECK_HEADER([stdint.h],[],[])
 
 # Checks for library functions.
 AC_FUNC_ERROR_AT_LINE
-AC_FUNC_MALLOC
 AC_CHECK_FUNC([strerror],[AC_DEFINE([HAVE_STRERROR],[1],[Define if strerror() is available])])
 
 # Generate Makefiles
