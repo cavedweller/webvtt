@@ -87,7 +87,7 @@ extern "C" {
   typedef unsigned __int32 webvtt_uint32;
   typedef unsigned __int64 webvtt_uint64;
 # elif WEBVTT_CC_UNKNOWN
-#   warn "Unknown compiler. Compiler specific int-types probably broken!"
+#   warning "Unknown compiler. Compiler specific int-types probably broken!"
   typedef signed char webvtt_int8;
   typedef signed short webvtt_int16;
   typedef signed long webvtt_int32;
