@@ -4,30 +4,6 @@
 namespace WebVTT
 {
 
-InternalNode::InternalNode( webvtt_node *otherNode )
-  : Node( otherNode ) 
-{
-  Node *temp_node;
-  for( uint i = 0; i < otherNode->data.internal_data->length; i++ )
-  {
-    temp_node = NodeFactory::createNode( node->data.internal_data->children[i] );
-    children.push_back( temp_node );
-  }
-}
-
-const Node *Node::parent() const
-{
-  return parentNode;
-}
-
-const Node *InternalNode::child( uint index ) const
-{
-  if( index <= node->data.internal_data->length )
-  { return children.at(index); }
-  else
-  { return 0; }
-}
-
 const InternalNode *Node::toInternalNode() const
 {
   if( WEBVTT_IS_VALID_INTERNAL_NODE( this->kind() ) )
@@ -52,4 +28,31 @@ const TimeStampNode *Node::toTimeStampNode() const
   { throw "Invalid cast to TimeStampNode."; }
 }
 
+InternalNode::InternalNode( webvtt_node *otherNode )
+  : Node( otherNode )
+{
+  Node *temp_node;
+  for( uint i = 0; i < otherNode->data.internal_data->length; i++ ) {
+    temp_node = NodeFactory::createNode( node->data.internal_data->children[i] );
+    children.push_back( temp_node );
+  }
 }
+
+const Node *InternalNode::child( uint index ) const
+{
+  if( index <= node->data.internal_data->length )
+  { return children.at(index); }
+  else
+  { return 0; }
+}
+
+InternalNode::~InternalNode()
+{
+  for( NodeIterator it = lastNode(); it != firstNode(); --it )
+  {
+    delete *it;
+  }
+}
+
+}
+
