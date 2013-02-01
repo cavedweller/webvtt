@@ -1,7 +1,7 @@
 # Build Google Test from fused source file, see:
 # http://code.google.com/p/googletest/wiki/V1_6_AdvancedGuide#Fusing_Google_Test_Source_Files
 
-check_LTLIBRARIES = libgtest.la libgtest_main.la
+noinst_LTLIBRARIES = libgtest.la libgtest_main.la
 
 libgtest_la_SOURCES = gtest/gtest.h gtest-all.cc
 libgtest_la_CPPFLAGS = $(GTEST_CPPFLAGS) -I$(top_srcdir)/test/gtest

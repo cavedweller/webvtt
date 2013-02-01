@@ -116,7 +116,7 @@ TESTS = $(UNIT_TESTS)
 TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
                     $(VALGRIND_ENVIRONMENT)
 
-check_PROGRAMS = $(UNIT_TESTS)
+noinst_PROGRAMS = $(UNIT_TESTS)
 
 # gtest fragments
 EXTRA_DIST += cue_testfixture payload_testfixture test_parser
