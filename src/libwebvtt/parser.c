@@ -210,7 +210,7 @@ webvtt_delete_parser( webvtt_parser self )
 #define ENDIF }
 #define ELSE } else {
 
-static WEBVTT_INTERN int
+static int
 find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
 {
   while( *pos < len ) {
@@ -223,7 +223,7 @@ find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
   return -1;
 }
 
-static WEBVTT_INTERN void
+static void
 find_next_whitespace( const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint len )
 {
   webvtt_uint pos = *ppos;
@@ -267,7 +267,7 @@ find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbyte
 /**
  * More state stack helpers
  */
-static WEBVTT_INTERN webvtt_status
+static webvtt_status
 do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back, webvtt_uint state, void *data, webvtt_state_value_type type, webvtt_uint line, webvtt_uint column )
 {
   if( STACK_SIZE + 1 >= self->stack_alloc ) {
@@ -294,7 +294,7 @@ do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back, webvtt_uint st
   self->top->v.cue = ( webvtt_cue * )data;
   return WEBVTT_SUCCESS;
 }
-static WEBVTT_INTERN int
+static int
 do_pop( webvtt_parser self )
 {
   int count = self->top->back;
@@ -772,7 +772,7 @@ break
   return 0;
 }
 
-static WEBVTT_INTERN webvtt_status
+static webvtt_status
 parse_webvtt( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos,
               webvtt_uint len, webvtt_uint *mode, int finish )
 {
@@ -1080,7 +1080,7 @@ _finish:
   return status;
 }
 
-static WEBVTT_INTERN webvtt_status
+static webvtt_status
 read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len, webvtt_uint *mode, webvtt_bool finish )
 {
   webvtt_status status = WEBVTT_SUCCESS;
