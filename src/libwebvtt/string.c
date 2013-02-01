@@ -42,6 +42,7 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
     return WEBVTT_OUT_OF_MEMORY;
   }
 
+  d->refs.value = 1;
   d->alloc = alloc;
   d->length = 0;
   d->text = d->array;
