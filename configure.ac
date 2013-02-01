@@ -107,15 +107,9 @@ AM_CONDITIONAL([VALGRIND_TESTING], [test -n "$VALGRIND_ENVIRONMENT"])
 # 	if possible, and this can be done in <webvtt/util.h>
 AC_CHECK_HEADER([stdint.h],[],[])
 
-# 	We do however require some standard C headers
-AC_CHECK_HEADERS([stdlib.h string.h])
-
 # Checks for library functions.
 AC_FUNC_ERROR_AT_LINE
 AC_FUNC_MALLOC
-AC_CHECK_FUNC([memset],[],[AC_ERROR([missing function 'memset'])])
-AC_CHECK_FUNC([malloc],[],[AC_ERROR([missing function 'malloc'])])
-AC_CHECK_FUNC([free],[],[AC_ERROR([missing function 'free'])])
 AC_CHECK_FUNC([strerror],[AC_DEFINE([HAVE_STRERROR],[1],[Define if strerror() is available])])
 
 # Generate Makefiles
