@@ -78,7 +78,7 @@ extern "C" {
   typedef uint32_t webvtt_uint32;
   typedef uint64_t webvtt_uint64;
 # elif defined(_MSC_VER)
-  typ4edef signed __int8 webvtt_int8;
+  typedef signed __int8 webvtt_int8;
   typedef signed __int16 webvtt_int16;
   typedef signed __int32 webvtt_int32;
   typedef signed __int64 webvtt_int64;
