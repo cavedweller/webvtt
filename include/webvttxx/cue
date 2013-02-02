@@ -23,8 +23,6 @@ private:
   }
 
 public:
-  InternalNode *head;
-
   Cue( const Cue &other )
     : cue(other.cue) {
     webvtt_ref_cue( cue );
@@ -67,6 +65,9 @@ public:
   inline ~Cue() {
     if( cue ) {
       webvtt_release_cue(&cue);
+    }
+    if( head ) {
+      delete head;
     }
   }
 
@@ -120,6 +121,7 @@ public:
   inline bool isAlignedToRight() const { return alignment() == Right; }
 private:
   webvtt_cue *cue;
+  InternalNode *head;
 };
 
 }
