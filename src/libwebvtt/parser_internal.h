@@ -36,8 +36,6 @@ webvtt_token_t {
   COLON, /* ':' */
 } webvtt_token;
 
-
-
 typedef enum 
 webvtt_state_value_type_t {
   V_NONE,
@@ -50,9 +48,79 @@ webvtt_state_value_type_t {
   V_TOKEN,
 } webvtt_state_value_type;
 
+typedef enum
+webvtt_parse_mode_t {
+  M_WEBVTT = 0,
+  M_CUETEXT,
+  M_SKIP_CUE,
+  M_READ_LINE,
+} webvtt_parse_mode;
+
+
+typedef enum
+webvtt_parse_state_t {
+  /**
+   * WEBVTT parse states
+   */
+  T_INITIAL = 0,
+  T_TAG,
+  T_TAGCOMMENT,
+  T_EOL,
+  T_BODY,
+
+  T_CUEREAD, /* Read a line of text for a cue */
+  T_CUE, /* T_CUEID T_CUEPARAMS T_CUETEXT NEWLINE */
+  T_CUEID, /* T_LINE !~ SEPARATOR && LINE !~ ^NOTE NEWLINE */
+  T_CUEPARAMS, /* TIMESTAMP WHITESPACE? SEPARATOR WHITESPACE? T_CUESETTING* NEWLINE */
+  T_CUETEXT, /* T_LINE !~ SEPARATOR NEWLINE NEWLINE */
+
+  T_TIMESTAMP, /* This looked like a timestamp to the lexer, may or may not be valid. */
+
+  /**
+   * NOTE comments
+   */
+  T_COMMENT,
+
+  /**
+   * Cue times
+   */
+  T_FROM,
+  T_SEP_LEFT,
+  T_SEP,
+  T_SEP_RIGHT,
+  T_UNTIL,
+
+  /**
+   * Cue settings
+   */
+  T_PRECUESETTING,
+  T_CUESETTING,
+  T_CUESETTING_DELIMITER,
+  T_CUESETTING_VALUE,
+  T_SKIP_SETTING /* We have to skip a cue-setting because of an error. */
+
+  /**
+   * Cue text parse states
+   */
+} webvtt_parse_state;
+
+/**
+ * lexer state
+ */
+typedef enum
+webvtt_lexer_state_t {
+  L_START = 0, L_BOM0, L_BOM1, L_WEBVTT0, L_WEBVTT1, L_WEBVTT2, L_WEBVTT3, L_WEBVTT4, L_WEBVTT5, L_DASH0, L_SEP1,
+  L_DIGIT0, L_NEWLINE0, L_WHITESPACE, L_POSITION0, L_POSITION1, L_POSITION2, L_POSITION3, L_POSITION4, L_POSITION5,
+  L_POSITION6, L_ALIGN0, L_ALIGN1, L_ALIGN2, L_ALIGN3, L_L0, L_LINE1, L_LINE2, L_LINE3,
+  L_VERTICAL0, L_VERTICAL1, L_VERTICAL2, L_VERTICAL3, L_VERTICAL4, L_VERTICAL5, L_VERTICAL6, L_RL0,
+  L_S0, L_SIZE1, L_SIZE2, L_START1, L_START2, L_START3, L_MIDDLE0, L_MIDDLE1, L_MIDDLE2, L_MIDDLE3,
+  L_MIDDLE4, L_END0, L_END1, L_TIMESTAMP1, L_TIMESTAMP2, L_TIMESTAMP3, L_RIGHT1, L_RIGHT2,
+  L_RIGHT3, L_NOTE1, L_NOTE2, L_NOTE3, L_LEFT1, L_LEFT2,
+} webvtt_lexer_state;
+
 typedef struct
 webvtt_state {
-  webvtt_uint state;
+  webvtt_parse_state state;
   webvtt_token token;
   webvtt_state_value_type type;
   webvtt_uint back;
@@ -98,7 +166,7 @@ webvtt_parser_t {
   /**
    * 'mode' can have several states, it is not boolean.
    */
-  webvtt_uint mode;
+  webvtt_parse_mode mode;
 
   webvtt_state *top; /* Top parse state */
   webvtt_state astack[0x100];
@@ -116,7 +184,7 @@ webvtt_parser_t {
   /**
    * tokenizer
    */
-  webvtt_uint tstate;
+  webvtt_lexer_state tstate;
   webvtt_uint token_pos;
   webvtt_byte token[0x100];
 };
