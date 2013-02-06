@@ -48,8 +48,8 @@ public:
   inline StringList cssClasses() const { return StringList( node->data.internal_data->css_classes ); }
   inline uint childCount() const { return node->data.internal_data->length; }
   const Node *child( uint index ) const;
-  NodeIterator firstNode() const { children.begin(); }
-  NodeIterator lastNode() const { children.end(); }
+  NodeIterator firstNode() const { return children.begin(); }
+  NodeIterator lastNode() const { return children.end(); }
   ~InternalNode();
 private:
   std::vector<Node *> children;
