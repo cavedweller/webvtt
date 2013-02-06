@@ -1020,7 +1020,7 @@ _finish:
   return status;
 }
 
-static WEBVTT_INTERN webvtt_status
+static webvtt_status
 read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
 *ppos, webvtt_uint len, webvtt_parse_mode *mode, webvtt_bool finish )
 {
