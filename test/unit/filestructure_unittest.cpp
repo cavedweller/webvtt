@@ -338,7 +338,7 @@ TEST_F(FileStructure, MultiCueNoPayload)
  */
 TEST_F(FileStructure, NewlineBeforeWebVTT)
 {
-  loadVtt( "filestructure/newline-before-webvtt.vtt", 0 );
+  loadVtt( "filestructure/newline-before-webvtt.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
   assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
