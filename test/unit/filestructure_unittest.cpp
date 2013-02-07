@@ -310,7 +310,7 @@ TEST_F(FileStructure, MultiCueNoNewlineBetweenCues)
   /* infinite loop in webvtt_parse_chunk
    * self->state is stuck in T_STARTTIME
    */
-  loadVtt( "filestructure/multi-cue-no-newline-between-cues.vtt",true, 2 );
+  loadVtt( "filestructure/multi-cue-no-newline-between-cues.vtt", true, 2 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain no errors.";
   assertEquals( getError( 0 ), WEBVTT_EXPECTED_EOL 5, 1 );
 }
