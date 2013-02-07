@@ -421,8 +421,10 @@ TEST_F(FileStructure, BOMGarbageData)
  */
 TEST_F(FileStructure, BOMTabWebvtt)
 {
-  loadVtt( "filestructure/bom_tab_webvtt.vtt");
-  ASSERT_EQ(1, errorCount()) << "This file should fail the test because it contains a tab before WEBVTT";
+  loadVtt( "filestructure/bom_tab_webvtt.vtt", false, 0 );
+  ASSERT_EQ(1, errorCount()) << "This file should fail the test because it" <<
+    " contains a tab before WEBVTT";
+  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
