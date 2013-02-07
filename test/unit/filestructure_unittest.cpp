@@ -312,7 +312,7 @@ TEST_F(FileStructure, MultiCueNoNewlineBetweenCues)
    */
   loadVtt( "filestructure/multi-cue-no-newline-between-cues.vtt", true, 2 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain no errors.";
-  assertEquals( getError( 0 ), WEBVTT_EXPECTED_EOL 5, 1 );
+  assertEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 5, 1 );
 }
 
 /*
