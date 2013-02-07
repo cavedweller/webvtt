@@ -399,8 +399,9 @@ TEST_F(FileStructure, NewLinesAtTheEnd)
  */
 TEST_F(FileStructure, BOMGarbageData)
 {
-  loadVtt( "filestructure/bom_garbage_data.vtt");
+  loadVtt( "filestructure/bom_garbage_data.vtt", false );
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because it has garbage data";
+  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
