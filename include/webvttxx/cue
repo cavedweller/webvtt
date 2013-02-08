@@ -44,7 +44,7 @@ public:
     if( head ) {
       delete head;
     }
-    head = new InternalNode( *other.head );
+    head = other.head ? new InternalNode( *other.head ) : new InternalNode();
 
     return *this;
   }

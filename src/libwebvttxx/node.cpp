@@ -28,13 +28,10 @@ const TimeStampNode *Node::toTimeStampNode() const
   { throw "Invalid cast to TimeStampNode."; }
 }
 
-InternalNode::InternalNode( webvtt_node *otherNode )
-  : Node( otherNode )
+void InternalNode::createNodeList()
 {
-  Node *temp_node;
-  for( uint i = 0; i < otherNode->data.internal_data->length; i++ ) {
-    temp_node = NodeFactory::createNode( node->data.internal_data->children[i] );
-    children.push_back( temp_node );
+  for( uint i = 0; i < node->data.internal_data->length; i++ ) {
+    children.push_back( NodeFactory::createNode( node->data.internal_data->children[i] ) );
   }
 }
 

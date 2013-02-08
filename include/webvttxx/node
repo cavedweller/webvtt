@@ -26,15 +26,14 @@ public:
     Text = WEBVTT_TEXT,
     TimeStamp = WEBVTT_TIME_STAMP
   };
-  inline Node( webvtt_node *otherNode, Node *parent ) { node = otherNode; parentNode = parent; }
-  inline Node( webvtt_node *otherNode ) { node = otherNode; }
+  Node() { node = 0; }
+  Node( webvtt_node *otherNode ) : node( otherNode ) { }
   inline NodeKind kind() const { return (NodeKind)node->kind; }
   const InternalNode *toInternalNode() const;
   const TextNode *toTextNode() const;
   const TimeStampNode *toTimeStampNode() const;
   virtual ~Node() { /* Don't need to free the webvtt_node here as it will be freed when it's parent cue is freed. */ }
 protected:
-  Node *parentNode;
   webvtt_node *node;
 };
 
@@ -43,31 +42,34 @@ typedef std::vector<Node *>::const_iterator NodeIterator;
 class InternalNode : public Node
 {
 public:
-  InternalNode( webvtt_node *otherNode );
+  InternalNode() { }
+  InternalNode( webvtt_node *otherNode ) : Node( otherNode ) { createNodeList(); }
+  InternalNode( const InternalNode &otherNode ) : Node( otherNode.node ) { createNodeList(); }
   inline String annotation() const { return String( &node->data.internal_data->annotation ); }
   inline StringList cssClasses() const { return StringList( node->data.internal_data->css_classes ); }
   inline uint childCount() const { return node->data.internal_data->length; }
   const Node *child( uint index ) const;
-  NodeIterator firstNode() const { return children.begin(); }
-  NodeIterator lastNode() const { return children.end(); }
+  inline NodeIterator firstNode() const { return children.begin(); }
+  inline NodeIterator lastNode() const { return children.end(); }
   ~InternalNode();
 private:
+  void createNodeList();
   std::vector<Node *> children;
 };
 
 class TextNode : public Node
 {
 public:
-  inline TextNode( webvtt_node *otherNode )
-    : Node( otherNode ) { }
+  TextNode() { }
+  TextNode( webvtt_node *otherNode ) : Node( otherNode ) { }
   inline String content() const { return String( &node->data.text ); }
 };
 
 class TimeStampNode : public Node
 {
 public:
-  inline TimeStampNode( webvtt_node *otherNode )
-    : Node( otherNode ) { }
+  TimeStampNode() { }
+  TimeStampNode( webvtt_node *otherNode ) : Node( otherNode ) { }
   inline Timestamp timeStamp() const { return Timestamp( node->data.timestamp ); }
 };
 
