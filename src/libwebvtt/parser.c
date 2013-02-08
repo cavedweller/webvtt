@@ -107,7 +107,8 @@ cleanup_stack( webvtt_parser self )
          */
     }
     st->type = V_NONE;
-    st->line = st->column = st->v.value = st->token = 0;
+    st->line = st->column = st->token = 0;
+    st->v.cue = NULL;
     if( st > self->stack ) {
       --self->top;
     }
@@ -891,7 +892,7 @@ _recheck:
             ERROR_AT_COLUMN( WEBVTT_EXPECTED_EOL, 1 );
           }
           FRAMEUP( 1 )->state = 0;
-          FRAMEUP( 1 )->v.value = 0;
+          FRAMEUP( 1 )->v.cue = NULL;
         }
         if( token == NOTE ) {
           PUSH0( T_COMMENT, 0, V_NONE );
@@ -932,7 +933,7 @@ _recheck:
           };
 
           st->type = V_NONE;
-          st->v.value = 0;
+          st->v.cue = NULL;
 
           /**
            * The type should be V_TEXT. If it's not, somethings wrong.
