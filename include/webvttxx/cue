@@ -32,7 +32,7 @@ public:
     webvtt_ref_cue( other.cue );
     webvtt_cue *oldcue = 0;
     if( cue ) {
-      webvtt_cue *oldcue = cue;
+       oldcue = cue;
     }
     cue = other.cue;
     if( oldcue ) {
