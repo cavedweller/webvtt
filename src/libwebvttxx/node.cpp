@@ -30,8 +30,10 @@ const TimeStampNode *Node::toTimeStampNode() const
 
 void InternalNode::createNodeList()
 {
-  for( uint i = 0; i < node->data.internal_data->length; i++ ) {
-    children.push_back( NodeFactory::createNode( node->data.internal_data->children[i] ) );
+  if( node && node->data.internal_data ) {
+    for( uint i = 0; i < node->data.internal_data->length; i++ ) {
+      children.push_back( NodeFactory::createNode( node->data.internal_data->children[i] ) );
+    }
   }
 }
 
