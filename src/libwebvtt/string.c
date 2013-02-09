@@ -454,7 +454,7 @@ webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str )
 WEBVTT_EXPORT webvtt_bool
 webvtt_next_utf8( const webvtt_byte **begin, const webvtt_byte *end )
 {
-  webvtt_byte *p;
+  const webvtt_byte *p;
   if( !end || !begin || !*begin || !**begin || ( end <= *begin ) ) {
     /* Either begin is null, or end is null, or end <= begin */
     return 0;
@@ -474,7 +474,7 @@ webvtt_next_utf8( const webvtt_byte **begin, const webvtt_byte *end )
   } else if( ( ( *p & 0xFE ) == 0xFC ) && ( p + 6 ) < end ) {
     p += 6;
   } else if( ( *p & 0xC0 ) == 0x80 ) {
-    webvtt_byte *pc = p + 1;
+    const webvtt_byte *pc = p + 1;
     while( pc < end && ( ( *pc & 0xC0 ) == 0x80 ) ) {
       ++pc;
     }
@@ -493,7 +493,7 @@ webvtt_next_utf8( const webvtt_byte **begin, const webvtt_byte *end )
 WEBVTT_EXPORT webvtt_bool
 webvtt_prev_utf8( const webvtt_byte **end, const webvtt_byte *begin )
 {
-  webvtt_byte *p;
+  const webvtt_byte *p;
   if( !begin || !end || !*end || !**end || ( begin >= *end ) ) {
     /* Either begin is null, or end is null, or end <= begin */
     return 0;
@@ -501,7 +501,7 @@ webvtt_prev_utf8( const webvtt_byte **end, const webvtt_byte *begin )
 
   p = *end - 1;
   if( ( *p & 0xC0 ) == 0x80 ) {
-    webvtt_byte *pc = p - 1;
+    const webvtt_byte *pc = p - 1;
     while( pc > begin && ( ( *pc & 0xC0 ) == 0x80 ) ) {
       --pc;
     }
@@ -516,7 +516,7 @@ webvtt_prev_utf8( const webvtt_byte **end, const webvtt_byte *begin )
 WEBVTT_EXPORT webvtt_bool
 webvtt_skip_utf8( const webvtt_byte **begin, const webvtt_byte *end, int n_chars )
 {
-  webvtt_byte *first;
+  const webvtt_byte *first;
   if( !begin || !*begin || !end ) {
     return 0;
   }
@@ -561,28 +561,28 @@ webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end,
 
   if( *utf8 < 0x80 ) {
     return ( webvtt_uint32 )( *utf8 );
-  } else {
-    while( utf8 < end ) {
-      webvtt_byte ch = *utf8++;
-      if( need ) {
-        if( ( ch & 0xC0 ) == 0x80 ) {
-          uc = ( uc << 6 ) | ( ch & 0x3F );
-          if (!--need) {
-            int nc;
-            if ( !( nc = UTF_IS_NONCHAR( uc ) ) && uc > 0xFFFF && uc < 0x110000) {
-              /* Surrogate pair */
-              if( high_surrogate ) {
-                *high_surrogate = UTF_HIGH_SURROGATE( uc );
-              }
-              return UTF_LOW_SURROGATE( uc );
-             } else if ( ( uc < min ) || ( uc >= 0xD800 && uc <= 0xDFFF ) || nc || uc >= 0x110000) {
-               /* Non-character, overlong sequence, or utf16 surrogate */
-               return 0xFFFD;  
-             } else {
-               /* Non-surrogate */
-               return uc;
-             }
+  }
+  while( utf8 < end ) {
+    webvtt_byte ch = *utf8++;
+    if( need ) {
+      if( ( ch & 0xC0 ) == 0x80 ) {
+        uc = ( uc << 6 ) | ( ch & 0x3F );
+        if (!--need) {
+          int nc;
+          if ( !( nc = UTF_IS_NONCHAR( uc ) ) && uc > 0xFFFF && uc < 0x110000) {
+            /* Surrogate pair */
+            if( high_surrogate ) {
+              *high_surrogate = UTF_HIGH_SURROGATE( uc );
+            }
+            return UTF_LOW_SURROGATE( uc );
+          } else if ( ( uc < min ) || ( uc >= 0xD800 && uc <= 0xDFFF ) || nc || uc >= 0x110000) {
+            /* Non-character, overlong sequence, or utf16 surrogate */
+            return 0xFFFD;  
+          } else {
+            /* Non-surrogate */
+            return uc;
           }
+        }
       } else {
         if ( ( ch & 0xE0 ) == 0xE0 ) {
           uc = ch & 0x1f;
