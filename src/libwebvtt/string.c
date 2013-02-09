@@ -505,12 +505,16 @@ webvtt_prev_utf8( const webvtt_byte **end, const webvtt_byte *begin )
     while( pc > begin && ( ( *pc & 0xC0 ) == 0x80 ) ) {
       --pc;
     }
-    if( pc >= begin && ( ( *p & 0xC0 ) != 0x80 ) ) {
+    if( pc >= begin && ( ( *pc & 0xC0 ) != 0x80 ) ) {
       p = pc;
     }
   }
 
-  return 1;
+  if( *end != p ) {
+    *end = p;
+    return 1;
+  }
+  return 0;
 }
 
 WEBVTT_EXPORT webvtt_bool
