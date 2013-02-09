@@ -175,9 +175,9 @@ WEBVTT_EXPORT webvtt_bool webvtt_next_utf8( const webvtt_byte **begin,
   const webvtt_byte *end );
 
 /**
- * webvtt_next_utf8
+ * webvtt_prev_utf8
  *
- * move the 'prev' pointer to the beginning of the previous utf8 character
+ * move the 'end' pointer to the beginning of the previous utf8 character
  * sequence.
  */
 WEBVTT_EXPORT webvtt_bool webvtt_prev_utf8( const webvtt_byte **end,
