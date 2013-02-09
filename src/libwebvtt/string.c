@@ -500,17 +500,11 @@ webvtt_prev_utf8( const webvtt_byte **end, const webvtt_byte *begin )
   }
 
   p = *end - 1;
-  if( ( *p & 0xC0 ) == 0x80 ) {
-    const webvtt_byte *pc = p - 1;
-    while( pc > begin && ( ( *pc & 0xC0 ) == 0x80 ) ) {
-      --pc;
-    }
-    if( pc >= begin && ( ( *pc & 0xC0 ) != 0x80 ) ) {
-      p = pc;
-    }
+  while( p > begin && ( *p & 0xC0 ) == 0x80 ) {
+    --p;
   }
 
-  if( *end != p ) {
+  if( ( *p & 0xC0 ) != 0x80 ) {
     *end = p;
     return 1;
   }
