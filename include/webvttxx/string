@@ -48,6 +48,20 @@ public:
     webvtt_string_detach( &string );
   }
 
+  uint16 utf16At( int offset, uint16 &highSurrogate ) const {
+    const byte *b = text();
+    const byte *end = b + length();
+    if( webvtt_skip_utf8( &b, end, offset ) ) {
+      return webvtt_utf8_to_utf16( b, end, &highSurrogate );
+    }
+    return 0;
+  }
+
+  uint16 utf16At( int offset ) const {
+    uint16 high;
+    return utf16At( offset, high );
+  }
+
   inline const byte *text() const {
     return webvtt_string_text(&string);
   }

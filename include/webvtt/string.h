@@ -161,6 +161,48 @@ WEBVTT_EXPORT void webvtt_delete_stringlist( webvtt_stringlist **list );
  */
 WEBVTT_EXPORT webvtt_status webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str );
 
+/**
+ * Helper functions
+ */
+
+/**
+ * webvtt_next_utf8
+ *
+ * move the 'begin' pointer to the beginning of the next utf8 character
+ * sequence.
+ */
+WEBVTT_EXPORT webvtt_bool webvtt_next_utf8( const webvtt_byte **begin,
+  const webvtt_byte *end );
+
+/**
+ * webvtt_next_utf8
+ *
+ * move the 'prev' pointer to the beginning of the previous utf8 character
+ * sequence.
+ */
+WEBVTT_EXPORT webvtt_bool webvtt_prev_utf8( const webvtt_byte **end,
+  const webvtt_byte *begin );
+
+
+/**
+ * webvtt_skip_utf8
+ *
+ * move the 'begin' pointer to the beginning of the utf8 character
+ * 'n_chars' away.
+ *
+ * if 'end' is less than 'begin', will seek backwards.
+ */
+WEBVTT_EXPORT webvtt_bool webvtt_skip_utf8( const webvtt_byte **begin,
+  const webvtt_byte *end, int n_chars );
+
+/**
+ * webvtt_utf8_to_utf16
+ *
+ * return the utf16 value of a given character
+ */
+WEBVTT_EXPORT webvtt_uint16 webvtt_utf8_to_utf16( const webvtt_byte *utf8,
+  const webvtt_byte *end, webvtt_uint16 *high_surrogate );
+
 #if defined(__cplusplus) || defined(c_plusplus)
 }
 #endif
