@@ -175,16 +175,6 @@ WEBVTT_EXPORT webvtt_bool webvtt_next_utf8( const webvtt_byte **begin,
   const webvtt_byte *end );
 
 /**
- * webvtt_prev_utf8
- *
- * move the 'end' pointer to the beginning of the previous utf8 character
- * sequence.
- */
-WEBVTT_EXPORT webvtt_bool webvtt_prev_utf8( const webvtt_byte **end,
-  const webvtt_byte *begin );
-
-
-/**
  * webvtt_skip_utf8
  *
  * move the 'begin' pointer to the beginning of the utf8 character
@@ -202,6 +192,23 @@ WEBVTT_EXPORT webvtt_bool webvtt_skip_utf8( const webvtt_byte **begin,
  */
 WEBVTT_EXPORT webvtt_uint16 webvtt_utf8_to_utf16( const webvtt_byte *utf8,
   const webvtt_byte *end, webvtt_uint16 *high_surrogate );
+
+/**
+ * webvtt_utf8_count
+ *
+ * return the number of Unicode codepoints in a utf8 string
+ */
+WEBVTT_EXPORT int webvtt_utf8_count( const webvtt_byte *utf8,
+  const webvtt_byte *end );
+
+/**
+ * webvtt_utf8_length
+ *
+ * if 'utf8' points to a lead byte, return the length of the sequence.
+ * if 'utf8' is null, return 0.
+ * if 'utf8' points to a trail byte, return -1
+ */
+WEBVTT_EXPORT int webvtt_utf8_length( const webvtt_byte *utf8 );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

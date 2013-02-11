@@ -27,8 +27,11 @@ LIBS = \
 
 LDADD = $(LIBS)
 
+INTERNAL_TESTS = \
+  string_unittest
+
 FILESTRUCTURE_TESTS = \
-	filestructure_unittest
+  filestructure_unittest
 
 CUESETTINGS_TESTS = \
   csgeneric_unittest \
@@ -61,6 +64,7 @@ PAYLOAD_TESTS = \
   plrubytag_unittest
 
 UNIT_TESTS = \
+  $(INTERNAL_TESTS) \
   $(FILESTRUCTURE_TESTS) \
   $(CUESETTINGS_TESTS) \
   $(CUETIMES_TESTS) \
@@ -120,6 +124,8 @@ noinst_PROGRAMS = $(UNIT_TESTS)
 
 # gtest fragments
 EXTRA_DIST += cue_testfixture payload_testfixture test_parser
+
+string_unittest_SOURCES = string_unittest.cpp
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
