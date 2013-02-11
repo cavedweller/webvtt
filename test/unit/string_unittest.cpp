@@ -59,7 +59,7 @@ TEST(String,UTF8ToUTF16)
 /**
  * Test the webvtt_skip_utf8 routine
  */
-TEST(STRING,UTF8Skip)
+TEST(String,UTF8Skip)
 {
   const webvtt_byte *b = UTF8AnNyungHaSeYo + 0;
   ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 4 ) != 0 ) << "Failed to skip"
