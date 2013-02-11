@@ -36,7 +36,7 @@ do \
     status_var = returned_status; \
     goto dealloc; \
   } \
- 
+
 WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_type token_type )
 {
@@ -707,6 +707,9 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
             webvtt_attach_internal_node( current_node, temp_node );
             if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) )
             { current_node = temp_node; }
+          }
+          if( temp_node ) {
+            webvtt_release_node( temp_node );
           }
         }
         break;
