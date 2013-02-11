@@ -62,6 +62,38 @@ public:
     return utf16At( offset, high );
   }
 
+  uint32 utf32At( int offset ) const {
+    uint16 hi, lo = utf16At( offset, hi );
+    return toUtf32( lo, hi );
+  }
+
+  static bool isSurrogate( uint16 ch ) {
+    return ( ( ch & 0xF800 ) == 0xD800 );
+  }
+
+  static bool isSurrogate( uint32 ch ) {
+    return ( ch & 0xFFFFF800 ) == 0xD800;
+  }
+
+  static bool isSurrogteLead( uint16 ch ) {
+    return ( ch & 0x400 ) == 0;
+  }
+
+  static bool isSurrogateTrail( uint16 ch ) {
+    return ( ch & 0x400 ) != 0;
+  }
+
+  static uint32 toUtf32( uint16 low, uint16 high ) {
+    return ( uint32 )high << 10 + low - 0x35FDC00;
+  }
+
+  static uint32 toUtf32( uint16 ch ) {
+    if( !isSurrogate( ch ) ) {
+      return ( uint32 )ch;
+    }
+    return 0xFFFD;
+  }
+
   inline const byte *text() const {
     return webvtt_string_text(&string);
   }
@@ -72,6 +104,11 @@ public:
 
   inline uint capacity() const {
     return webvtt_string_capacity(&string);
+  }
+
+  /* Count of Unicode codepoints in string */
+  inline uint count() const {
+    return (uint)webvtt_utf8_count( text(), text() + length() );
   }
 
   inline String &append( byte ch ) {
