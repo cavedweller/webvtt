@@ -80,7 +80,7 @@ UNIT_TESTS = \
 #   make && make check
 KNOWN_VALGRIND_TEST_FAILURES =
 if VALGRIND_TESTING
-KNOWN_VALGRIND_TEST_FAILURES +=
+KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
 	cigeneral_unittest \
 	cilanguage_unittest \
