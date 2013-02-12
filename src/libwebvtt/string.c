@@ -594,7 +594,7 @@ webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end,
 }
 
 WEBVTT_EXPORT int
-webvtt_utf8_count( const webvtt_byte *utf8, const webvtt_byte *end )
+webvtt_utf8_chcount( const webvtt_byte *utf8, const webvtt_byte *end )
 {
   int n = 0;
   const webvtt_byte *p;

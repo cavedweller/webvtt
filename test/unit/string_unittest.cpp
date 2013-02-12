@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
-#include <webvtt/string.h>
+#include <webvttxx/string>
+
+using namespace WebVTT;
 
 /**
  * an-nyung ha-se-yo encoded in UTF8
@@ -31,11 +33,11 @@ TEST(String,UTF8CodepointLength)
 }
 
 /**
- * Test the webvtt_utf8_count routine
+ * Test the webvtt_utf8_chcount routine
  */
 TEST(String,UTF8CodepointCount)
 {
-  ASSERT_EQ( 5, webvtt_utf8_count( UTF8AnNyungHaSeYo, 0 ) )
+  ASSERT_EQ( 5, webvtt_utf8_chcount( UTF8AnNyungHaSeYo, 0 ) )
     << "Incorrectly counted UTF8 codepoints";
 }
 
@@ -62,11 +64,11 @@ TEST(String,UTF8ToUTF16)
 TEST(String,UTF8Skip)
 {
   const webvtt_byte *b = UTF8AnNyungHaSeYo + 0;
-  ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 4 ) != 0 ) << "Failed to skip"
+  ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 4 ) ) << "Failed to skip"
     << " characters";
   ASSERT_EQ( UTF8AnNyungHaSeYo + 12, b ) << "Didn't skip to correct"
     << " position";
-  ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 2 ) == 0 ) << "Skipped beyond"
+  ASSERT_FALSE( webvtt_skip_utf8( &b, 0, 2 ) ) << "Skipped beyond"
     << " end of string";
 }
 
@@ -77,8 +79,44 @@ TEST(String,UTF8Skip)
 TEST(String,UTF8SkipTrailing)
 {
   const webvtt_byte *b = UTF8AnNyungHaSeYo + 1;
-  ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 1 ) != 0 ) << "Failed to skip"
+  ASSERT_TRUE( webvtt_skip_utf8( &b, 0, 1 ) ) << "Failed to skip"
     << " character";
   ASSERT_EQ( b, UTF8AnNyungHaSeYo + 3 ) << "Skipped to incorrect"
     << " position";
 }
+
+/**
+ * Test that we're correctly detecting if a UTF16 code unit is a
+ * lead surrogate
+ */
+TEST(String,UTF16IsLeadSurrogate)
+{
+  webvtt_uint16 lead = 0xD843;
+  ASSERT_TRUE( String::isSurrogateLead( lead ) );
+  ASSERT_FALSE( String::isSurrogateTrail( lead ) );
+}
+
+/**
+ * Test that we're correctly detecting if a UTF16 code unit is a
+ * trail surrogate
+ */
+TEST(String,UTF16IsTrailSurrogate)
+{
+  webvtt_uint16 trail = 0xDC96;
+  ASSERT_TRUE( String::isSurrogateTrail( trail ) );
+  ASSERT_FALSE( String::isSurrogateLead( trail ) );
+}
+
+/**
+ * Test that we can correctly identify codepoints that require
+ * multiple UTF16 units.
+ */
+TEST(String,UTF32RequiresSurrogate)
+{
+  webvtt_uint32 surrogate = 0xD843DC96; /* U+20C96 */
+  webvtt_uint32 single = 0x00000489; /* U+0489 */
+  ASSERT_TRUE( String::requiresSurrogate( surrogate ) );
+  ASSERT_FALSE( String::requiresSurrogate( single ) );
+}
+
+

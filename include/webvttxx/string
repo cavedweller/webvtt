@@ -71,11 +71,11 @@ public:
     return ( ( ch & 0xF800 ) == 0xD800 );
   }
 
-  static bool isSurrogate( uint32 ch ) {
-    return ( ch & 0xFFFFF800 ) == 0xD800;
+  static bool requiresSurrogate( uint32 ch ) {
+    return ch >= 0x10000;
   }
 
-  static bool isSurrogteLead( uint16 ch ) {
+  static bool isSurrogateLead( uint16 ch ) {
     return ( ch & 0x400 ) == 0;
   }
 
@@ -107,8 +107,8 @@ public:
   }
 
   /* Count of Unicode codepoints in string */
-  inline uint count() const {
-    return (uint)webvtt_utf8_count( text(), text() + length() );
+  inline uint charCount() const {
+    return (uint)webvtt_utf8_chcount( text(), text() + length() );
   }
 
   inline String &append( byte ch ) {

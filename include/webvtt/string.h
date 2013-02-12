@@ -194,11 +194,12 @@ WEBVTT_EXPORT webvtt_uint16 webvtt_utf8_to_utf16( const webvtt_byte *utf8,
   const webvtt_byte *end, webvtt_uint16 *high_surrogate );
 
 /**
- * webvtt_utf8_count
+ * webvtt_utf8_chcount
  *
- * return the number of Unicode codepoints in a utf8 string
+ * return the number of Unicode characters (as opposed to units) 
+ * in a utf8 string
  */
-WEBVTT_EXPORT int webvtt_utf8_count( const webvtt_byte *utf8,
+WEBVTT_EXPORT int webvtt_utf8_chcount( const webvtt_byte *utf8,
   const webvtt_byte *end );
 
 /**
