@@ -6,7 +6,6 @@
 # include "timestamp"
 # include "string"
 # include "node"
-# include "nodefactory"
 
 namespace WebVTT
 {
@@ -19,14 +18,12 @@ private:
   Cue( webvtt_cue *pcue ) {
     webvtt_ref_cue(pcue);
     cue = pcue;
-    head = new InternalNode( pcue->node_head );
   }
 
 public:
   Cue( const Cue &other )
     : cue(other.cue) {
     webvtt_ref_cue( cue );
-    head = new InternalNode( *other.head );
   }
 
   Cue &operator=( const Cue &other ) {
@@ -40,11 +37,6 @@ public:
     if( oldcue ) {
       webvtt_release_cue( &oldcue );
     }
-
-    if( head ) {
-      delete head;
-    }
-    head = other.head ? new InternalNode( *other.head ) : new InternalNode();
 
     return *this;
   }
@@ -72,9 +64,6 @@ public:
     if( cue ) {
       webvtt_release_cue(&cue);
     }
-    if( head ) {
-      delete head;
-    }
   }
 
   inline Timestamp startTime() const {
@@ -89,8 +78,8 @@ public:
     return String(&cue->id);
   }
 
-  inline const Node *nodeHead() const {
-    return head;
+  inline const Node nodeHead() const {
+    return Node( cue->node_head );
   }
 
   /**
@@ -132,7 +121,6 @@ public:
   inline bool isAlignedToRight() const { return alignment() == Right; }
 private:
   webvtt_cue *cue;
-  InternalNode *head;
 };
 
 }

@@ -1,7 +1,7 @@
 #ifndef __WEBVTTXX_NODE__
 # define __WEBVTTXX_NODE__
 
-# include <vector>
+# include <stdexcept>
 # include <webvtt/cue.h>
 # include "string"
 # include "timestamp"
@@ -9,9 +9,6 @@
 namespace WebVTT
 {
 
-class InternalNode;
-class TimeStampNode;
-class TextNode;
 class Node
 {
 public:
@@ -24,58 +21,80 @@ public:
     RubyText = WEBVTT_RUBY_TEXT,
     Voice = WEBVTT_VOICE,
     Text = WEBVTT_TEXT,
-    TimeStamp = WEBVTT_TIME_STAMP
+    TimeStamp = WEBVTT_TIME_STAMP,
+    Head = WEBVTT_HEAD_NODE,
+    Empty = WEBVTT_EMPTY_NODE
   };
-  Node() { node = 0; }
-  Node( webvtt_node *otherNode ) : node( otherNode ) { }
-  inline NodeKind kind() const { return (NodeKind)node->kind; }
-  const InternalNode *toInternalNode() const;
-  const TextNode *toTextNode() const;
-  const TimeStampNode *toTimeStampNode() const;
-  virtual ~Node() { 
-  /**
-   * Don't need to free the webvtt_node here as it will be freed when it's
-   * parent cue is freed.
-   */
+
+  Node() { webvtt_init_node( &node ); }
+  Node( const Node &otherNode ) : node( otherNode.node ) { webvtt_ref_node( node ); }
+  Node( webvtt_node *pnode ) 
+  { 
+    if( pnode ) {
+      node = pnode;
+      webvtt_ref_node( node ); 
+    }
+    else {
+      webvtt_init_node( &node );
+    }
   }
-protected:
-  webvtt_node *node;
-};
+  ~Node() { webvtt_release_node( node ); }
 
-typedef std::vector<Node *>::const_iterator NodeIterator;
+  bool isEmpty() const { return kind() == Empty; }
+  NodeKind kind() const { return (NodeKind)node->kind; }
+  int childCount() const { return node->data.internal_data->length; }
 
-class InternalNode : public Node
-{
-public:
-  InternalNode() { }
-  InternalNode( webvtt_node *otherNode ) : Node( otherNode ) { createNodeList(); }
-  InternalNode( const InternalNode &otherNode ) : Node( otherNode.node ) { createNodeList(); }
-  inline String annotation() const { return String( &node->data.internal_data->annotation ); }
-  inline StringList cssClasses() const { return StringList( node->data.internal_data->css_classes ); }
-  inline uint childCount() const { return node->data.internal_data->length; }
-  const Node *child( uint index ) const;
-  inline NodeIterator firstNode() const { return children.begin(); }
-  inline NodeIterator lastNode() const { return children.end(); }
-  ~InternalNode();
+  Node operator[]( int index ) 
+  {
+    if( index < 0 || index >= childCount() ) {
+      throw std::out_of_range( "Node Node::operator[]: "
+        "index out of bounds" );
+    }
+    return Node( node->data.internal_data->children[ index ] );
+  }
+
+  const Node operator[]( int index ) const 
+  {
+    if( index < 0 || index >= childCount() ) {
+      throw std::out_of_range( "const Node::operator[] const: "
+        "index out of bounds" );
+    }
+    return Node( node->data.internal_data->children[ index ] );
+  }
+
+  const Timestamp timeStamp() const 
+  {
+    if( kind() != TimeStamp ) {
+      return Timestamp();
+    }
+    return Timestamp( node->data.timestamp ); 
+  }
+
+  const String text() const 
+  { 
+    if( kind() != Text ) {
+      return String();
+    }
+    return String( &node->data.text ); 
+  }
+
+  const String annotation() const 
+  { 
+    if( !node->data.internal_data ) {
+      return String();
+    }
+    return String( &node->data.internal_data->annotation ); 
+  }
+
+  const StringList cssClasses() const
+  { 
+    if( !node->data.internal_data->css_classes ) {
+      return StringList();
+    }
+    return StringList( node->data.internal_data->css_classes ); 
+  }
 private:
-  void createNodeList();
-  std::vector<Node *> children;
-};
-
-class TextNode : public Node
-{
-public:
-  TextNode() { }
-  TextNode( webvtt_node *otherNode ) : Node( otherNode ) { }
-  inline String content() const { return String( &node->data.text ); }
-};
-
-class TimeStampNode : public Node
-{
-public:
-  TimeStampNode() { }
-  TimeStampNode( webvtt_node *otherNode ) : Node( otherNode ) { }
-  inline Timestamp timeStamp() const { return Timestamp( node->data.timestamp ); }
+  webvtt_node *node;
 };
 
 }

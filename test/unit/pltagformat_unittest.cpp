@@ -14,8 +14,8 @@ class PayloadTagFormat : public PayloadTest {};
 TEST_F(PayloadTagFormat, MultipleCueTextTag)
 {
   loadVtt( "payload/tag-format/multiple-cue-text-tag.vtt" );
-  ASSERT_EQ( Node::Italic, getHeadOfCue( 0 )->child( 0 )->kind() );
-  ASSERT_EQ( Node::Bold, getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child( 0 )->kind() );
+  ASSERT_EQ( Node::Italic, getHeadOfCue( 0 )[ 0 ].kind() );
+  ASSERT_EQ( Node::Bold, getHeadOfCue( 0 )[ 0 ][ 0 ].kind() );
 }
 
 /*
@@ -31,7 +31,7 @@ Verifies that an incorrect class name cannot be used as a cue component.
 TEST_F(PayloadTagFormat, BadTagName)
 {
   loadVtt( "payload/tag-format/incorrect-tag-name.vtt" );
-  ASSERT_TRUE( getHeadOfCue( 0 )->childCount() == 3 );
+  ASSERT_EQ( 3, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -46,15 +46,15 @@ TEST_F(PayloadTagFormat, BadTagName)
 TEST_F(PayloadTagFormat, BadTagNesting)
 {
   loadVtt( "payload/tag-format/bad-tag-nesting.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
+  ASSERT_EQ( 2, head.childCount() );
 
-  const InternalNode *italicNode = head->child( 1 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, italicNode->kind() );
+  const Node italicNode = head[ 1 ];
+  ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_EQ( Node::Bold, italicNode->kind() );
-  ASSERT_EQ( Node::Text, italicNode->child( 0 )->kind() );
+  ASSERT_EQ( Node::Bold, italicNode.kind() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
 }
 
 /*
@@ -69,16 +69,16 @@ TEST_F(PayloadTagFormat, BadTagNesting)
 TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
+  ASSERT_EQ( 2, head.childCount() );
 
-  const InternalNode *italicNode = head->child( 1 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, italicNode->kind() );
+  const Node italicNode = head[ 1 ];
+  ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_TRUE( italicNode->childCount() == 3 );
-  ASSERT_EQ( Node::Text, italicNode->child( 0 )->kind() );
-  ASSERT_EQ( Node::Italic, italicNode->child( 1 )->kind() );
+  ASSERT_EQ( 3, italicNode.childCount() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
+  ASSERT_EQ( Node::Italic, italicNode[ 1 ].kind() );
 }
 
 /*
@@ -93,15 +93,15 @@ TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
 TEST_F(PayloadTagFormat, EndTagNoEndBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
+  ASSERT_EQ( 2, head.childCount() );
 
-  const InternalNode *italicNode = head->child( 1 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, italicNode->kind() );
+  const Node italicNode = head[ 1 ];
+  ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_TRUE( italicNode->childCount() == 1 );
-  ASSERT_EQ( Node::Text, italicNode->child( 0 )->kind() );
+  ASSERT_EQ( 1, italicNode.childCount() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
 }
 
 /*
@@ -116,15 +116,15 @@ TEST_F(PayloadTagFormat, EndTagNoEndBrace)
 TEST_F(PayloadTagFormat, EndTagNoStartBrace)
 {
   loadVtt( "payload/tag-format/end-tag-no-start-brace.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
+  ASSERT_EQ( 2, head.childCount() );
 
-  const InternalNode *italicNode = head->child( 1 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, italicNode->kind() );
+  const Node italicNode = head[ 1 ];
+  ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_TRUE( italicNode->childCount() == 1 );
-  ASSERT_EQ( Node::Text, italicNode->child( 0 )->kind() );
+  ASSERT_EQ( 1, italicNode.childCount() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
 }
 
 /*
@@ -139,21 +139,21 @@ TEST_F(PayloadTagFormat, EndTagNoStartBrace)
 TEST_F(PayloadTagFormat, MultiTagNoEndTag)
 {
   loadVtt( "payload/tag-format/multi-tag-no-end-tag.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
-  ASSERT_EQ( Node::Text, head->child( 0 )->kind() );
+  ASSERT_EQ( 2, head.childCount() );
+  ASSERT_EQ( Node::Text, head[ 0 ].kind() );
 
-  const InternalNode *italicNode0 = head->child( 1 )->toInternalNode();
+  const Node italicNode0 = head[ 1 ];
 
-  ASSERT_TRUE( italicNode0->childCount() == 2 );
-  ASSERT_EQ( Node::Italic, italicNode0->kind() );
-  ASSERT_EQ( Node::Text, italicNode0->child( 0 )->kind() );
+  ASSERT_EQ( 2, italicNode0.childCount() );
+  ASSERT_EQ( Node::Italic, italicNode0.kind() );
+  ASSERT_EQ( Node::Text, italicNode0[ 0 ].kind() );
 
-  const InternalNode *italicNode1 = italicNode0->child( 1 )->toInternalNode();
+  const Node italicNode1 = italicNode0[ 1 ];
 
-  ASSERT_EQ( Node::Italic, italicNode1->kind() );
-  ASSERT_EQ( Node::Text, italicNode1->child( 0 )->kind() );
+  ASSERT_EQ( Node::Italic, italicNode1.kind() );
+  ASSERT_EQ( Node::Text, italicNode1[ 0 ].kind() );
 }
 
 /*
@@ -169,11 +169,11 @@ TEST_F(PayloadTagFormat, MultiTagNoEndTag)
 TEST_F(PayloadTagFormat, StartTagNoEndBrace)
 {
   loadVtt( "payload/tag-format/start-tag-no-end-brace.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
-  ASSERT_EQ( Node::Text, head->child( 0 )->kind() );
-  ASSERT_EQ( Node::Text, head->child( 1 )->kind() );
+  ASSERT_EQ( 2, head.childCount() );
+  ASSERT_EQ( Node::Text, head[ 0 ].kind() );
+  ASSERT_EQ( Node::Text, head[ 1 ].kind() );
 }
 
 /*
@@ -189,13 +189,13 @@ TEST_F(PayloadTagFormat, StartTagNoEndBrace)
 TEST_F(PayloadTagFormat, StartTagNoEndBraceSpace)
 {
   loadVtt( "payload/tag-format/start-tag-no-end-brace-space.vtt" );
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head= getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 2 );
+  ASSERT_EQ( 2, head.childCount() );
 
-  const InternalNode *italicNode = head->child( 1 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, italicNode->kind() );
+  const Node italicNode = head[ 1 ];
+  ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_TRUE( italicNode->childCount() == 1 );
-  ASSERT_EQ( Node::Text, italicNode->child( 0 )->kind() );
+  ASSERT_EQ( 1, italicNode.childCount() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
 }

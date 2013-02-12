@@ -9,10 +9,10 @@ TEST_F(PayloadTimestampTag, TimestampTag)
 {
   loadVtt( "payload/timestamp/timestamp-tag.vtt", 1 );
 
-  const TimeStampNode *timeStamp = getHeadOfCue( 0 )->child( 1 )->toTimeStampNode();
+  const Node timeStamp = getHeadOfCue( 0 )[ 1 ];
 
-  ASSERT_EQ( Node::TimeStamp, timeStamp->kind() );
-  assertEquals( timeStamp->timeStamp(), 0, 12, 0 );
+  ASSERT_EQ( Node::TimeStamp, timeStamp.kind() );
+  assertEquals( timeStamp.timeStamp(), 0, 12, 0 );
 }
 
 /*
@@ -22,13 +22,13 @@ TEST_F(PayloadTimestampTag, TimestampTag)
 TEST_F(PayloadTimestampTag, MultipleTimestampTag)
 {
   loadVtt( "payload/timestamp/multiple-timestamp-tag.vtt", 1 );
-  const TimeStampNode *timeStamp = getHeadOfCue( 0 )->child( 1 )->toTimeStampNode();
+  const Node timeStamp0 = getHeadOfCue( 0 )[ 1 ];
 
-  ASSERT_EQ( Node::TimeStamp, timeStamp->kind() );
-  assertEquals( timeStamp->timeStamp(), 0, 12, 0 );
+  ASSERT_EQ( Node::TimeStamp, timeStamp0.kind() );
+  assertEquals( timeStamp0.timeStamp(), 0, 12, 0 );
 
-  timeStamp = getHeadOfCue( 0 )->child( 3 )->toTimeStampNode();
+  const Node timeStamp1 = getHeadOfCue( 0 )[ 3 ];
 
-  ASSERT_EQ( Node::TimeStamp, getHeadOfCue( 0 )->child( 3 )->kind() );
-  assertEquals( timeStamp->timeStamp(), 0, 13, 0 );
+  ASSERT_EQ( Node::TimeStamp, timeStamp1.kind() );
+  assertEquals( timeStamp1.timeStamp(), 0, 13, 0 );
 }

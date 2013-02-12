@@ -10,5 +10,4 @@ webvttxxinclude_HEADERS = \
   file_parser \
   string \
   timestamp \
-  node \
-  nodefactory
+  node 
