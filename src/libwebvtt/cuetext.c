@@ -29,14 +29,14 @@ do \
 #define CHECK_MEMORY_OP(status) \
   if( status != WEBVTT_SUCCESS ) \
     return status; \
- 
+
 #define CHECK_MEMORY_OP_JUMP(status_var, returned_status) \
   if( returned_status != WEBVTT_SUCCESS) \
   { \
     status_var = returned_status; \
     goto dealloc; \
   } \
- 
+
 WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_type token_type )
 {
@@ -52,7 +52,7 @@ webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string tag_name,
     webvtt_stringlist *css_classes, webvtt_string annotation )
 {
@@ -69,7 +69,7 @@ webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string t
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag_name )
 {
   webvtt_status status;
@@ -83,7 +83,7 @@ webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string text )
 {
   webvtt_status status;
@@ -97,7 +97,7 @@ webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string te
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_timestamp_token( webvtt_cuetext_token **token, webvtt_timestamp time_stamp )
 {
   webvtt_status status;
@@ -111,7 +111,7 @@ webvtt_create_cuetext_timestamp_token( webvtt_cuetext_token **token, webvtt_time
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN void 
+WEBVTT_INTERN void
 webvtt_delete_cuetext_token( webvtt_cuetext_token *token )
 {
   if( token ) {
@@ -133,7 +133,7 @@ webvtt_delete_cuetext_token( webvtt_cuetext_token *token )
   }
 }
 
-WEBVTT_INTERN void 
+WEBVTT_INTERN void
 webvtt_delete_cuetext_start_token( webvtt_cuetext_token *start_token )
 {
   webvtt_cuetext_start_token_data *start_token_data;
@@ -221,7 +221,7 @@ webvtt_get_node_kind_from_tag_name( webvtt_string *tag_name, webvtt_node_kind *k
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, webvtt_node *parent )
 {
   webvtt_node_kind kind;
@@ -250,7 +250,7 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, 
   }
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_data_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
@@ -265,7 +265,7 @@ webvtt_cuetext_tokenizer_data_state( webvtt_byte **position,
         } else {
           return WEBVTT_SUCCESS;
         }
-        break;  
+        break;
       case UTF8_NULL_BYTE:
         return WEBVTT_SUCCESS;
         break;
@@ -287,7 +287,7 @@ webvtt_cuetext_tokenizer_data_state( webvtt_byte **position,
 #define GT_ESCAPE_LENGTH      3
 #define RLM_ESCAPE_LENGTH     4
 #define LRM_ESCAPE_LENGTH     4
-#define NBSP_ESCAPE_LENGTH      5
+#define NBSP_ESCAPE_LENGTH    5
 
 webvtt_byte amp_escape[AMP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_A, UTF8_M, UTF8_P };
 webvtt_byte lt_escape[LT_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_T };
@@ -296,8 +296,8 @@ webvtt_byte rlm_escape[RLM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_R, UTF8_L, UT
 webvtt_byte lrm_escape[LRM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_R, UTF8_M };
 webvtt_byte nbsp_escape[NBSP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_N, UTF8_B, UTF8_S, UTF8_P };
 
-WEBVTT_INTERN webvtt_status 
-webvtt_cuetext_tokenizer_escape_state( webvtt_byte **position, 
+WEBVTT_INTERN webvtt_status
+webvtt_cuetext_tokenizer_escape_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
   webvtt_string buffer;
@@ -378,7 +378,7 @@ dealloc:
   return status;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_tag_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
@@ -414,7 +414,7 @@ webvtt_cuetext_tokenizer_tag_state( webvtt_byte **position,
   return WEBVTT_UNFINISHED;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_start_tag_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
@@ -444,7 +444,7 @@ webvtt_cuetext_tokenizer_start_tag_state( webvtt_byte **position,
   return WEBVTT_UNFINISHED;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_start_tag_class_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_stringlist *css_classes )
 {
@@ -477,7 +477,7 @@ dealloc:
   return status;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_start_tag_annotation_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *annotation )
 {
@@ -491,7 +491,7 @@ webvtt_cuetext_tokenizer_start_tag_annotation_state( webvtt_byte **position,
   return WEBVTT_UNFINISHED;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_end_tag_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
@@ -505,7 +505,7 @@ webvtt_cuetext_tokenizer_end_tag_state( webvtt_byte **position,
   return WEBVTT_UNFINISHED;
 }
 
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_time_stamp_tag_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
 {
@@ -523,7 +523,7 @@ webvtt_cuetext_tokenizer_time_stamp_tag_state( webvtt_byte **position,
  * Need to set up differently.
  * Get a status in order to return at end and release memeory.
  */
-WEBVTT_INTERN webvtt_status 
+WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
 {
   webvtt_cuetext_token_state token_state = DATA;

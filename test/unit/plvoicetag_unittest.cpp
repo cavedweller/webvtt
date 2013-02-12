@@ -2,12 +2,14 @@
 class PayloadVoiceTag : public PayloadTest {};
 
 /*
- * Verifies that a voice cue text tag that does not have an end tag is parsed correctly.
- * From http://dev.w3.org/html5/webvtt/#webvtt-cue-voice-span (11/27/2012)
+ * Verifies that a voice cue text tag that does not have an end tag is parsed
+ * correctly.  From http://dev.w3.org/html5/webvtt/#webvtt-cue-voice-span
+ * (11/27/2012)
  *  Voice tags consist of:
  *    1. A cue span start tag "v" that requires an annotation.
  *    2. Cue internal text representing the voice text.
- *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
+ *    3. A cue span end tag that can be ommitted for brevity if the voice span
+ *    is the only tag in this webvtt cue text sequence.
  */
 TEST_F(PayloadVoiceTag, VoiceTag)
 {
@@ -22,10 +24,12 @@ TEST_F(PayloadVoiceTag, VoiceTag)
 /*
  * Verifies that a voice cue text tag that has an end tag is parsed correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-voice-span (11/27/2012)
+ *
  *  Voice tags consist of:
  *    1. A cue span start tag "v" that requires an annotation.
  *    2. Cue internal text representing the voice text.
- *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
+ *    3. A cue span end tag that can be ommitted for brevity if the voice span
+ *       is the only tag in this webvtt cue text sequence.
  */
 TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
 {
@@ -39,12 +43,15 @@ TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
 }
 
 /*
- * Verifies that a voice cue text tag that has an annotation is parsed correctly and contains the annotation.
+ * Verifies that a voice cue text tag that has an annotation is parsed correctly
+ * and contains the annotation.
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-voice-span (11/27/2012)
  *  Voice tags consist of:
  *    1. A cue span start tag "v" that requires an annotation.
  *    2. Cue internal text representing the voice text.
- *    3. A cue span end tag that can be ommitted for brevity if the voice span is the only tag in this webvtt cue text sequence.
+ *    3. A cue span end tag that can be ommitted for brevity if the voice span
+ *       is the only tag in this webvtt cue text sequence.
  */
 TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 {
@@ -56,20 +63,25 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
   ASSERT_EQ( Node::Voice, head->child( 1 )->kind() );
 
   String expectedString = String( (const byte *)"Annotation", 10 );
-  ASSERT_EQ( expectedString.text(), head->child( 1 )->toInternalNode()->annotation().text() );
+  ASSERT_EQ( expectedString.text(), 
+    head->child( 1 )->toInternalNode()->annotation().text() );
 }
 
 /*
- * Verifies that a single subclass can be attached to a cue text voice start tag.
- * From http://dev.w3.org/html5/webvtt/#webvtt-cue-span-start-tag (11/27/2012)
+ * Verifies that a single subclass can be attached to a cue text voice start
+ * tag.
+ *
+ * From http://dev.w3.org/html5/webvtt/#webvtt-cue-span-start-tag
+ * (11/27/2012)
  *  Cue span start tags consist of the following:
  *    1. A "<" character representing the beginning of the start tag.
  *    2. The tag name.
- *    3. Zero or more the following sequence representing a subclasses of the start tag
- *      3.1. A full stop "." character.
- *      3.2. A sequence of non-whitespace characters.
- *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of
- *       non-whitespace characters representing the annotation.
+ *    3. Zero or more the following sequence representing a subclasses of the
+ *       start tag 3.1. A full stop "." character.
+ *       3.2. A sequence of non-whitespace characters.
+ *    4. If the start tag requires an annotation then a space or tab character
+ *       followed by a sequence of non-whitespace characters representing the
+ *       annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
 TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
@@ -89,16 +101,19 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
 }
 
 /*
- * Verifies that multiple subclasses can be attached to a cue text voice start tag.
+ * Verifies that multiple subclasses can be attached to a cue text voice start
+ * tag.
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-span-start-tag (11/27/2012)
  *  Cue span start tags consist of the following:
  *    1. A "<" character representing the beginning of the start tag.
  *    2. The tag name.
- *    3. Zero or more the following sequence representing a subclasses of the start tag
- *      3.1. A full stop "." character.
- *      3.2. A sequence of non-whitespace characters.
- *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of
- *       non-whitespace characters representing the annotation.
+ *    3. Zero or more the following sequence representing a subclasses of the
+ *       start tag 3.1. A full stop "." character.
+ *       3.2. A sequence of non-whitespace characters.
+ *    4. If the start tag requires an annotation then a space or tab character
+ *       followed by a sequence of non-whitespace characters representing the
+ *       annotation.
  *    5. A ">" character repsenting the end of the start tag.
  */
 TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)

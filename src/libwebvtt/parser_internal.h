@@ -36,7 +36,7 @@ webvtt_token_t {
   COLON, /* ':' */
 } webvtt_token;
 
-typedef enum 
+typedef enum
 webvtt_state_value_type_t {
   V_NONE,
   V_POINTER,

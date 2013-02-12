@@ -6,10 +6,10 @@
 class PayloadTest : public CueTest
 {
 protected:
-	const InternalNode * getHeadOfCue( uint index ) 
-	{
-		return getCue( index ).nodeHead()->toInternalNode();
-	}
+  const InternalNode * getHeadOfCue( uint index )
+  {
+    return getCue( index ).nodeHead()->toInternalNode();
+  }
 };
 
 #endif

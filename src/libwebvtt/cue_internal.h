@@ -9,7 +9,7 @@
 WEBVTT_INTERN webvtt_status webvtt_create_node( webvtt_node **node, webvtt_node_kind kind, webvtt_node *parent );
 WEBVTT_INTERN webvtt_status webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, webvtt_stringlist *css_classes, webvtt_string annotation );
 /**
- * We probably shouldn't have a 'head node' type. 
+ * We probably shouldn't have a 'head node' type.
  * We should just return a list of node trees...
  */
 WEBVTT_INTERN webvtt_status webvtt_create_head_node( webvtt_node **node );
@@ -38,7 +38,8 @@ enum {
   CUE_HAVE_LINE = (1 << 3),
   CUE_HAVE_ALIGN = (1 << 4),
 
-  CUE_HAVE_SETTINGS = (CUE_HAVE_VERTICAL | CUE_HAVE_SIZE | CUE_HAVE_POSITION | CUE_HAVE_LINE | CUE_HAVE_ALIGN),
+  CUE_HAVE_SETTINGS = (CUE_HAVE_VERTICAL | CUE_HAVE_SIZE
+    | CUE_HAVE_POSITION | CUE_HAVE_LINE | CUE_HAVE_ALIGN),
 
   CUE_HAVE_CUEPARAMS = 0x40000000,
   CUE_HAVE_ID = 0x80000000,

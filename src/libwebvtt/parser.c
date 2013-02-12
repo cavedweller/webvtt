@@ -905,7 +905,7 @@ _recheck:
             }
             goto _finish;
           }
-          if( WEBVTT_FAILED( status = webvtt_create_string_with_text( &tk, 
+          if( WEBVTT_FAILED( status = webvtt_create_string_with_text( &tk,
             self->token, self->token_pos ) ) ) {
             if( status == WEBVTT_OUT_OF_MEMORY ) {
               ERROR( WEBVTT_ALLOCATION_FAILED );
@@ -1096,7 +1096,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          * cuetext parser from cuetext.c
          */
         status = webvtt_parse_cuetext( self, SP->v.cue, &self->line_buffer, finished );
-        
+
         /**
          * return the cue to the user, if possible.
          */
