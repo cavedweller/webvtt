@@ -1,6 +1,6 @@
 #Install locations
 webvttxxincludedir = $(includedir)/webvttxx
-  
+
 #C++ bindings headers
 webvttxxinclude_HEADERS = \
   abstract_parser \

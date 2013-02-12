@@ -8,7 +8,7 @@ class CueTest : public ::testing::Test
 protected:
   CueTest() : parser(0) {}
   ~CueTest()
-  { 
+  {
     if( parser )
     {
       try
@@ -21,7 +21,7 @@ protected:
 	  }
     }
   }
-  
+
   /**
    * Added functions for ASSERT-ing timestamp equality in an easier way.
    */
@@ -34,19 +34,19 @@ protected:
     /* hack to avoid rounding error... */
     ASSERT_TRUE( millis == ts.milliseconds() || millis == ts.milliseconds() + 1 );
   }
-  
+
   inline void assertEquals( const Timestamp &ts, int minutes, int seconds, int millis )
   {
     return assertEquals( ts, 0, minutes, seconds, millis );
   }
-  
+
   inline void assertEquals( const Error &err, webvtt_error code, WebVTT::uint line, WebVTT::uint column )
   {
     ASSERT_EQ( code, err.error() );
     ASSERT_EQ( line, err.line() );
     ASSERT_EQ( column, err.column() );
   }
-  
+
   void setVtt( const char *relativeFilePath )
   {
     std::string filePath;
@@ -54,8 +54,8 @@ protected:
     // If TEST_FILE_DIR has not been set then that means we are probably
     // not executing from a make command. Therefore, just use the path
     // passed in.
-    filePath = std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) + 
-               std::string( "/" ) + relativeFilePath; 
+    filePath = std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) +
+               std::string( "/" ) + relativeFilePath;
 
     parser = new ItemStorageParser( filePath.c_str() );
   }
@@ -83,12 +83,12 @@ protected:
   {
     return parser->cueCount();
   }
-  
+
   WebVTT::uint errorCount() const
   {
     return parser->errorCount();
   }
-  
+
   const WebVTT::Cue& getCue( WebVTT::uint index )
   {
     try

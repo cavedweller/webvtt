@@ -93,10 +93,10 @@ WEBVTT_INTERN webvtt_status
 webvtt_create_node( webvtt_node **node, webvtt_node_kind kind, webvtt_node *parent )
 {
   webvtt_node *temp_node = (webvtt_node *)webvtt_alloc0(sizeof(*temp_node));
-  
+
   if( !temp_node )
-  { 
-    return WEBVTT_OUT_OF_MEMORY; 
+  {
+    return WEBVTT_OUT_OF_MEMORY;
   }
 
   temp_node->kind = kind;
@@ -117,7 +117,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_nod
   }
 
   node_data = (webvtt_internal_node_data *)webvtt_alloc0( sizeof(*node_data) );
-  
+
   if ( !node_data )
   {
     return WEBVTT_OUT_OF_MEMORY;
@@ -130,7 +130,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_nod
   node_data->alloc = 0;
 
   (*node)->data.internal_data = node_data;
-  
+
   return WEBVTT_SUCCESS;
 }
 

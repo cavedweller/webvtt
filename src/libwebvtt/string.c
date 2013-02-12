@@ -57,11 +57,11 @@ WEBVTT_EXPORT webvtt_status
 webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len )
 {
   webvtt_uint pos = 0;
-  
+
   if( !result && !init_text ) {
     return WEBVTT_INVALID_PARAM;
   }
-  
+
   /**
    * initialize the string by referencing empty_string
    */
@@ -70,7 +70,7 @@ webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_t
   /**
    * append the appropriate data to the empty string
    */
-  return webvtt_string_append( result, init_text, len );  
+  return webvtt_string_append( result, init_text, len );
 }
 
 /**
@@ -166,7 +166,7 @@ webvtt_string_text(const webvtt_string *str)
   {
     return 0;
   }
-  
+
   return str->d->text;
 }
 
@@ -177,7 +177,7 @@ webvtt_string_length(const webvtt_string *str)
   {
     return 0;
   }
-  
+
   return str->d->length;
 }
 
@@ -188,7 +188,7 @@ webvtt_string_capacity(const webvtt_string *str)
   {
     return 0;
   }
-  
+
   return str->d->alloc;
 }
 
@@ -209,10 +209,10 @@ grow( webvtt_string *str, webvtt_uint need )
     return WEBVTT_INVALID_PARAM;
   }
 
-  if( ( str->d->length + need ) <= str->d->alloc ) 
-  { 
+  if( ( str->d->length + need ) <= str->d->alloc )
+  {
     return WEBVTT_SUCCESS;
-  } 
+  }
 
   p = d = str->d;
   grow = sizeof( *d ) + ( sizeof( webvtt_byte ) * ( d->length + need ) );
@@ -330,7 +330,7 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
   if( WEBVTT_FAILED( result = webvtt_string_detach( str ) ) ) {
     return result;
   }
-  
+
   if( WEBVTT_SUCCESS( result == grow( str, 1 ) ) )
   {
     str->d->text[ str->d->length++ ] = to_append;
@@ -365,11 +365,11 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
 
   /* null-terminate string */
   str->d->text[ str->d->length ] = 0;
-  
+
   return result;
 }
 
-WEBVTT_EXPORT webvtt_status 
+WEBVTT_EXPORT webvtt_status
  webvtt_string_append_string( webvtt_string *str, const webvtt_string *other )
 {
   if( !str || !other ) {
