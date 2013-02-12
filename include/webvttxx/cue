@@ -26,11 +26,13 @@ public:
   Cue( const Cue &other )
     : cue(other.cue) {
     webvtt_ref_cue( cue );
+    head = new InternalNode( *other.head );
   }
 
   Cue &operator=( const Cue &other ) {
     webvtt_ref_cue( other.cue );
     webvtt_cue *oldcue = 0;
+    
     if( cue ) {
       oldcue = cue;
     }
@@ -38,7 +40,11 @@ public:
     if( oldcue ) {
       webvtt_release_cue( &oldcue );
     }
-    head = other.head;
+
+    if( head ) {
+      delete head;
+    }
+    head = other.head ? new InternalNode( *other.head ) : new InternalNode();
 
     return *this;
   }
