@@ -140,17 +140,17 @@ webvtt_copy_string( webvtt_string *left, const webvtt_string *right )
 {
   if( left ) {
     webvtt_string_data *d = left->d;
-    if( right ) {
+    if( right && right->d ) {
       left->d = right->d;
     } else {
       left->d = &empty_string;
     }
-    webvtt_deref( &left->d->refs );
-    if( webvtt_deref( &d->refs ) == 0 ) {
+    webvtt_ref( &left->d->refs );
+    if( d && ( webvtt_deref( &d->refs ) == 0 ) ) {
       /**
-       * We don't try to check if we're freeing a static string or not.
-       * Static strings should be initialized with a reference count of '1',
-       * and should be ref'd or deref'd properly.
+       * We don't try to check if we're freeing a static string or not.  Static
+       * strings should be initialized with a reference count of '1', and
+       * should be ref'd or deref'd properly.
        *
        * If this is difficult, use the C++ bindings!
        */
