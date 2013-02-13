@@ -50,10 +50,15 @@ TEST_F(PayloadEscapeCharacter, Ampersand)
 TEST_F(PayloadEscapeCharacter, LRM)
 {
   loadVtt( "payload/escape-character/lrm-escape-character.vtt", 1 );
-
-  const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_LEFT_TO_RIGHT, node->content().text()[0] );
+   
+    const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+    
+    enum { lrm = 0x200E };
+    /* verify that it is a TextNode */
+    ASSERT_EQ(Node::Text, node->kind());
+    
+    /* create a UTF8 representation of NBSP and compare with textnode */
+    ASSERT_EQ( lrm, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -65,8 +70,13 @@ TEST_F(PayloadEscapeCharacter, RLM)
   loadVtt( "payload/escape-character/rlm-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_RIGHT_TO_LEFT, node->content().text()[0] );
+  enum { rlm = 0x200F };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( rlm, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -79,8 +89,13 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
 
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[1] );
+    enum { Nbsp = 0x00A0 };
+    
+    /* verify that it is a TextNode */
+    ASSERT_EQ(Node::Text, node->kind());
+    
+    /* create a UTF8 representation of NBSP and compare with textnode */
+    ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -96,9 +111,13 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[1] );
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -115,8 +134,13 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCR)
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
 
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[1] );
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -132,9 +156,13 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCRLF)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-crlf.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[1] );
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -151,8 +179,13 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewline)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -170,7 +203,13 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCR)
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
 
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -187,8 +226,14 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCRLF)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline-crlf.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  ASSERT_EQ( UTF16_NO_BREAK_SPACE, node->content().text()[0] );
+    
+  enum { Nbsp = 0x00A0 };
+    
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -226,6 +271,10 @@ TEST_F(PayloadEscapeCharacter, NSP)
 {
   loadVtt( "payload/escape-character/space-character-escape-nsp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &nsp;", 34 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -247,6 +296,10 @@ TEST_F(PayloadEscapeCharacter, NBP)
   loadVtt( "payload/escape-character/space-character-escape-nbp.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+    
   String expectedText = String( (const byte *)"Test Space Character escape: &nbp", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -268,6 +321,10 @@ TEST_F(PayloadEscapeCharacter, BSP)
 {
   loadVtt( "payload/escape-character/space-character-escape-bsp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &bsp;", 34 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -288,6 +345,10 @@ TEST_F(PayloadEscapeCharacter, BP)
 {
   loadVtt( "payload/escape-character/space-character-escape-bp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &bp;", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -309,6 +370,10 @@ TEST_F(PayloadEscapeCharacter, B)
 {
   loadVtt( "payload/escape-character/space-character-escape-b.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &b;", 32 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -329,6 +394,10 @@ TEST_F(PayloadEscapeCharacter, S)
 {
   loadVtt( "payload/escape-character/space-character-escape-bsp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &s;", 32 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -349,6 +418,10 @@ TEST_F(PayloadEscapeCharacter, NS)
 {
   loadVtt( "payload/escape-character/space-character-escape-ns.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &ns;", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -369,6 +442,10 @@ TEST_F(PayloadEscapeCharacter, NP)
 {
   loadVtt( "payload/escape-character/space-character-escape-np.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &np", 32 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -389,6 +466,10 @@ TEST_F(PayloadEscapeCharacter, SP)
 {
   loadVtt( "payload/escape-character/space-character-escape-sp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &sp;", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -409,6 +490,10 @@ TEST_F(PayloadEscapeCharacter, P)
 {
   loadVtt( "payload/escape-character/space-character-escape-p.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &p;", 32 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -429,6 +514,10 @@ TEST_F(PayloadEscapeCharacter, BS)
 {
   loadVtt( "payload/escape-character/space-character-escape-bs.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &bs;", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -450,6 +539,10 @@ TEST_F(PayloadEscapeCharacter, NBS)
 {
   loadVtt( "payload/escape-character/space-character-escape-nbs.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &nbs;", 34 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -470,6 +563,10 @@ TEST_F(PayloadEscapeCharacter, NB)
 {
   loadVtt( "payload/escape-character/space-character-escape-nb.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &nb;", 33 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -490,6 +587,10 @@ TEST_F(PayloadEscapeCharacter, N)
 {
   loadVtt( "payload/escape-character/space-character-escape-n.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Space Character escape: &n;", 32 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -513,6 +614,10 @@ TEST_F(PayloadEscapeCharacter, LeftToRight)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-lr.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &lr;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -533,6 +638,10 @@ TEST_F(PayloadEscapeCharacter, L)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-l.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &l;", 40 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -553,6 +662,10 @@ TEST_F(PayloadEscapeCharacter, LM)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-lm.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &lm;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -573,6 +686,10 @@ TEST_F(PayloadEscapeCharacter, RM)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-rm.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &rm;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -593,6 +710,10 @@ TEST_F(PayloadEscapeCharacter, M)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-m.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &m;", 40 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -613,6 +734,10 @@ TEST_F(PayloadEscapeCharacter, R)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-r.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &r;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -633,6 +758,10 @@ TEST_F(PayloadEscapeCharacter, LM_LeftToRight)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-lm.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &lm;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -653,6 +782,10 @@ TEST_F(PayloadEscapeCharacter, RL)
 {
   loadVtt( "payload/escape-character/left-to-right-character-escape-rl.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Left to Right Character escape: &rl;", 41 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -675,6 +808,10 @@ TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &", 24 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -695,6 +832,10 @@ TEST_F(PayloadEscapeCharacter, A)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape-a.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &a;", 26 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -715,6 +856,10 @@ TEST_F(PayloadEscapeCharacter, AM)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape-a.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &am;", 27 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -735,6 +880,10 @@ TEST_F(PayloadEscapeCharacter, MP)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape-mp.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &mp;", 27 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -755,6 +904,10 @@ TEST_F(PayloadEscapeCharacter, P_Ampersand)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape-p.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &p;", 26 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -775,6 +928,10 @@ TEST_F(PayloadEscapeCharacter, AP)
 {
   loadVtt( "payload/escape-character/ampersand-character-escape-ap.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Ampersand escape: &ap;", 27 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -798,6 +955,10 @@ TEST_F(PayloadEscapeCharacter, LessThan)
 {
   loadVtt( "payload/escape-character/less-than-character-escape-l.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Less Than escape: &l;", 26);
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -818,6 +979,10 @@ TEST_F(PayloadEscapeCharacter, T)
 {
   loadVtt( "payload/escape-character/less-than-character-escape-t.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Less Than escape: &t;", 26 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -841,6 +1006,10 @@ TEST_F(PayloadEscapeCharacter, GreaterThan)
 {
   loadVtt( "payload/escape-character/greater-than-character-escape-g.vtt", 1 );
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"Test Greater Than escape: &g;", 29 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
