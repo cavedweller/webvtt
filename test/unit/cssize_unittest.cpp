@@ -170,7 +170,7 @@ TEST_F(CueSettingSize, NoDelimiter)
 TEST_F(CueSettingSize, NoKeyword)
 {
   loadVtt( "cue-settings/size/no-keyword.vtt",  1 );
-  ASSERT_EQUALS( 1, errorCount() ); 
+  ASSERT_EQ( 1, errorCount() ); 
 
   /**
    * Size should be 100 because the malformed setting should be skipped * and
