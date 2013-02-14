@@ -194,24 +194,27 @@ TEST_F(CueSettingVertical, NoKeyword)
  * Test that the parser does not allow a setting to end with a colon.
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
- * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
+ * 1. If setting does not contain a U+003A COLON character (:), or if the first
+ *    U+003A COLON character (:) in setting is either the first or last character
+ *    of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingVertical, NoValue)
 {
   loadVtt( "cue-settings/vertical/no-value.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQ( 1, errorCount() );
+
   /**
-   * Writing direction should be horizontal because the malformed setting should be skipped
-     * because horiztonal is default.
+   * Writing direction should be horizontal because the malformed setting should
+   * be skipped because horiztonal is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  ASSERT_TRUE( getCue( 0 ).isHorizontal() );
+ 
   /**
-   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_VERTICAL_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
 }
 
 /**
