@@ -12,6 +12,10 @@ TEST_F(PayloadEscapeCharacter, GT)
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
 
   String expectedText = String( (const byte *)">", 1 );
+
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   ASSERT_EQ( expectedText.text(), node->content().text() );
 }
 
@@ -24,6 +28,10 @@ TEST_F(PayloadEscapeCharacter, LT)
   loadVtt( "payload/escape-character/lt-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"<", 1 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -38,6 +46,10 @@ TEST_F(PayloadEscapeCharacter, Ampersand)
   loadVtt( "payload/escape-character/ampersand-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+   
+  /* verify that it is a TextNode */
+  ASSERT_EQ(Node::Text, node->kind());
+  
   String expectedText = String( (const byte *)"&", 1 );
 
   ASSERT_EQ( expectedText.text(), node->content().text() );
@@ -53,7 +65,6 @@ TEST_F(PayloadEscapeCharacter, LRM)
    
     const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
     
-    enum { lrm = 0x200E };
     /* verify that it is a TextNode */
     ASSERT_EQ(Node::Text, node->kind());
     
@@ -70,7 +81,6 @@ TEST_F(PayloadEscapeCharacter, RLM)
   loadVtt( "payload/escape-character/rlm-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-  enum { rlm = 0x200F };
     
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
@@ -88,8 +98,6 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
   loadVtt( "payload/escape-character/multiple-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-    enum { Nbsp = 0x00A0 };
     
     /* verify that it is a TextNode */
     ASSERT_EQ(Node::Text, node->kind());
@@ -111,8 +119,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-  enum { Nbsp = 0x00A0 };
-    
+
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
     
@@ -134,8 +141,6 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCR)
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
 
-  enum { Nbsp = 0x00A0 };
-    
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
     
@@ -156,8 +161,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCRLF)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-crlf.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-  enum { Nbsp = 0x00A0 };
-    
+
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
     
@@ -179,7 +183,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewline)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-  enum { Nbsp = 0x00A0 };
+
     
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
@@ -202,8 +206,6 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCR)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline-cr.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-
-  enum { Nbsp = 0x00A0 };
     
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
@@ -226,8 +228,6 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCRLF)
   loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline-crlf.vtt", 1 );
 
   const TextNode *node = getHeadOfCue( 0 )->child( 0 )->toTextNode();
-    
-  enum { Nbsp = 0x00A0 };
     
   /* verify that it is a TextNode */
   ASSERT_EQ(Node::Text, node->kind());
