@@ -690,7 +690,7 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
   loadVtt( "cue-settings/line/bad-whitespace-before-delimiter.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
   
-  ASSERT_TRUE( 68, getCue( 0 ).relativeLinePositionPercentage() );
+  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
   ASSERT_FALSE( getCue( 0 ).snapToLines() );
  
   /**
