@@ -140,7 +140,10 @@ TEST_F(CueSettingSize, TripleDigitPercentageLowBoundary)
  * Test that the parser requires a colon.
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
- * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
+ * 1. If setting does not contain a U+003A COLON character (:), or if
+ *   the first U+003A COLON character (:) in setting is either the first
+ *   or last character of setting, then jump to the step labeled next
+ *   setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingSize, NoDelimiter)
