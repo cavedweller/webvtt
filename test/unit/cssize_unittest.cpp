@@ -170,18 +170,19 @@ TEST_F(CueSettingSize, NoDelimiter)
 TEST_F(CueSettingSize, NoKeyword)
 {
   loadVtt( "cue-settings/size/no-keyword.vtt",  1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQUALS( 1, errorCount() ); 
+
   /**
-   * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * Size should be 100 because the malformed setting should be skipped * and
+   * 100 is default.
    */
   ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_MISSING_CUESETTING_KEYWORD error on the 25th
+   * column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 25, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_MISSING_CUESETTING_KEYWORD, 3, 25 );
 }
 
 /**
