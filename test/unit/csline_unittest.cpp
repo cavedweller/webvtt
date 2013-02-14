@@ -782,10 +782,10 @@ TEST_F(CueSettingLine, PercentNegative)
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 30th column of
-   * the 3rd line
+   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column
+   * of the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 30 );
+  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
 
 /**
