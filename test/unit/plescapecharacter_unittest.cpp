@@ -103,7 +103,7 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
     ASSERT_EQ(Node::Text, node->kind());
     
     /* create a UTF8 representation of NBSP and compare with textnode */
-    ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+    ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -124,7 +124,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -145,7 +145,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCR)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -166,7 +166,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCRLF)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -189,7 +189,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewline)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -211,7 +211,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCR)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
@@ -233,7 +233,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCRLF)
   ASSERT_EQ(Node::Text, node->kind());
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( Nbsp, node->content().utf16At( 0 ) );
+  ASSERT_EQ( nbsp, node->content().utf16At( 0 ) );
 }
 
 /*
