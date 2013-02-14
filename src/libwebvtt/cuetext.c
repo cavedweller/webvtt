@@ -604,17 +604,17 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
    * needs to be made.
    */
   if( token_state == DATA || token_state == ESCAPE ) {
-    return webvtt_create_cuetext_text_token( &(*token), result );
+    return webvtt_create_cuetext_text_token( token, result );
   } else if(token_state == TAG || token_state == START_TAG || token_state == START_TAG_CLASS ||
             token_state == START_TAG_ANNOTATION) {
-    return webvtt_create_cuetext_start_token( &(*token), result, css_classes, annotation );
+    return webvtt_create_cuetext_start_token( token, result, css_classes, annotation );
   } else if( token_state == END_TAG ) {
-    return webvtt_create_cuetext_end_token( &(*token), result );
+    return webvtt_create_cuetext_end_token( token, result );
   } else if( token_state == TIME_STAMP_TAG ) {
     /**
      * INCOMPLETE - Need to parse time stamp from token.
      */
-    return webvtt_create_cuetext_timestamp_token( &(*token), time_stamp );
+    return webvtt_create_cuetext_timestamp_token( token, time_stamp );
   } else {
     return WEBVTT_INVALID_TOKEN_STATE;
   }
