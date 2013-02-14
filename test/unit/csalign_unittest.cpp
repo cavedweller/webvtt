@@ -249,11 +249,10 @@ TEST_F(CueSettingAlign, UppercaseKeyword)
    */
   ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_MISSING_CUESETTING_DELIMITER, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
