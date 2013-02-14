@@ -3,6 +3,13 @@
 
 #include "test_parser"
 
+enum
+{
+ rlm = 0x200F,
+ lrm = 0x200E,
+ nbsp = 0x00A0
+};
+
 class CueTest : public ::testing::Test
 {
 protected:
