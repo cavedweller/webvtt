@@ -147,8 +147,7 @@ TEST_F(CueSettingSize, NoDelimiter)
 {
   loadVtt( "cue-settings/size/no-delimiter.vtt", 1 );
   ASSERT_EQ( 2, errorCount() );
-
-  const Error &err = getError( 0 );
+  
   /**
    * Size should be 100 because the malformed setting should be skipped * and
    * 100 is default.
