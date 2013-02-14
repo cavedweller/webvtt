@@ -707,26 +707,24 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
  * and that it requires a colon in the other setting.
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
- * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
- * 5. Next setting: Continue to the next token, if any.
+ * 1. If setting does not contain a U+003A COLON character (:), or if the first
+ *    U+003A COLON character (:) in setting is either the first or last character
+ *    of setting, then jump to the step labeled next setting.  5. Next setting:
+ *    Continue to the next token, if any.
  */
 TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-after-delimiter.vtt", 1 );
-  const Error &err = getError( 0 );
-  /**
-   * Line should be "auto" and snap-to-lines should be true
-     * because the malformed settinga should be skipped
-     * and "auto" and true are default.
-   */
-  ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
+  ASSERT_EQ( 1, errorCount() );
+ 
+  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() ); 
   ASSERT_FALSE( getCue( 0 ).snapToLines() );
+
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 30th column of
+   * the 3rd line
    */
-  ASSERT_EQ( WEBVTT_LINE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 30 );
 }
 
 /**
