@@ -146,18 +146,26 @@ TEST_F(CueSettingSize, TripleDigitPercentageLowBoundary)
 TEST_F(CueSettingSize, NoDelimiter)
 {
   loadVtt( "cue-settings/size/no-delimiter.vtt", 1 );
+  ASSERT_EQ( 2, errorCount() );
+
   const Error &err = getError( 0 );
   /**
-   * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * Size should be 100 because the malformed setting should be skipped * and
+   * 100 is default.
    */
   ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  
   /**
-   * We're expecting a WEBVTT_MISSING_CUESETTING_DELIMITER error on the 29th column of the 3rd line
+   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
+   * the 3rd line
    */
-  ASSERT_EQ( WEBVTT_MISSING_CUESETTING_DELIMITER, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 25, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+
+  /**
+   * We're expecting a WEBVTT_MISSING_CUESETTING_DELIMITER error on the 30th
+   * column of the 3rd line 
+   */
+  assertEquals( getError( 1 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 30 );
 }
 
 /**
