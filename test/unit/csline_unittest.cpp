@@ -744,20 +744,19 @@ TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
 TEST_F(CueSettingLine, UppercaseKeyword)
 {
   loadVtt( "cue-settings/line/uppercase-keyword.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQ( 1, errorCount() );
   /**
-   * Line should be "auto" and snap-to-lines should be true
-     * because the malformed settinga should be skipped
-     * and "auto" and true are default.
+   * Line should be "auto" and snap-to-lines should be true because the
+   * malformed settinga should be skipped and "auto" and true are default.
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-  ASSERT_FALSE( getCue( 0 ).snapToLines() );
+  ASSERT_TRUE( getCue( 0 ).snapToLines() );
+  
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 25, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
