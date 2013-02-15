@@ -40,28 +40,29 @@ TEST_F(CueSettingVertical, LR)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * 4. Run the appropriate substeps that apply for the value of name, as follows:
- * If name is a case-sensitive match for "vertical" ...
- * If name is a case-sensitive match for "line" ...
- * If name is a case-sensitive match for "position" ...
- * If name is a case-sensitive match for "size" ...
- * If name is a case-sensitive match for "align" ...
+ *    If name is a case-sensitive match for "vertical" ...
+ *    If name is a case-sensitive match for "line" ...
+ *    If name is a case-sensitive match for "position" ...
+ *    If name is a case-sensitive match for "size" ...
+ *    If name is a case-sensitive match for "align" ...
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingVertical, BadKeyword)
 {
   loadVtt( "cue-settings/vertical/bad-keyword.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQ( 1, errorCount() );
+
   /**
-   * Writing direction should be horizontal because the malformed setting should be skipped
-     * because horiztonal is default.
+   * Writing direction should be horizontal because the malformed setting should
+   * be skipped because horiztonal is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  ASSERT_EQ( true, getCue( 0 ).isHorizontal() );
+
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_INVALID_CUESETTING, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 25, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
