@@ -575,8 +575,8 @@ TEST_F(CueSettingLine, BadDelimiter)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
  *  1. If value contains any characters other than U+002D HYPHEN-MINUS
- *     characters (-), U+0025 PERCENT SIGN characters (%), and ASCII digits, then
- *     jump to the step labeled next setting.
+ *     characters (-), U+0025 PERCENT SIGN characters (%), and ASCII digits,
+ *     then jump to the step labeled next setting.
  */
 TEST_F(CueSettingLine, BadValue)
 {
@@ -588,10 +588,11 @@ TEST_F(CueSettingLine, BadValue)
    * malformed setting should be skipped and "auto" and true are default.
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-  ASSERT_TRUEE( getCue( 0 ).snapToLines() );
+  ASSERT_TRUE( getCue( 0 ).snapToLines() );
   
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
+   * line
    */
   assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
