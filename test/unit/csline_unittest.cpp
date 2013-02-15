@@ -40,9 +40,12 @@ TEST_F(CueSettingLine, ManyDigitHighBoundary)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
  * If name is a case-sensitive match for "line"
- *  6. Ignoring the trailing percent sign, if any, interpret value as a (potentially signed) integer, and let number be that number.
- * 8. Let cue's text track cue line position be number.
- * 9. If the last character in value is a U+0025 PERCENT SIGN character (%), then let cue's text track cue snap-to-lines flag be false. Otherwise, let it be true.
+ *   6. Ignoring the trailing percent sign, if any, interpret value as a
+ *      (potentially signed) integer, and let number be that number.
+ *   8. Let cue's text track cue line position be number.
+ *   9. If the last character in value is a U+0025 PERCENT SIGN character (%),
+ *      then let cue's text track cue snap-to-lines flag be false. Otherwise, let
+ *      it be true.
  */
 TEST_F(CueSettingLine, ManyDigitLowBoundary)
 {
