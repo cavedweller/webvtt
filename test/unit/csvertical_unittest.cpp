@@ -229,18 +229,18 @@ TEST_F(CueSettingVertical, NoDelimiter)
   ASSERT_EQ( 2, errorCount() );
 
   /**
-   * Writing direction should be right-to-left because the error is not critical
-   * in this test fixture.
+   * Writing direction should be the horizontal default because
+   * the error is not critical in this test fixture
    */
-  ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
+  ASSERT_TRUE( getCue( 0 ).isHorizontal() );
+  ASSERT_FALSE( getCue( 0 ).isVerticalRightToLeft() );
+  ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of
-   * the 3rd line, followed by a WEBVTT_MISSING_CUESETTING_DELIMITER on the 34th
-   * column of the 3rd line.
+   * Verify correct errors are thrown.
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
-  assertEquals( getError( 1 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 34 );
+  assertEquals( getError( 0 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 33 );
+  assertEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
 /**
