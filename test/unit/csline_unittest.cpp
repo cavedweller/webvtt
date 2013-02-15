@@ -552,7 +552,8 @@ TEST_F(CueSettingLine, NoDelimiter)
  * 1. If setting does not contain a U+003A COLON character (:), or if
  *    the first U+003A COLON character (:) in setting is either the first
  *    or last character of setting, then jump to the step labeled next
- *    setting.  5. Next setting: Continue to the next token, if any.
+ *    setting.
+ * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingLine, BadDelimiter)
 {
@@ -567,11 +568,10 @@ TEST_F(CueSettingLine, BadDelimiter)
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 29th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th
+   * column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 29, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
