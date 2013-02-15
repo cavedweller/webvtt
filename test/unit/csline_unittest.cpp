@@ -681,15 +681,18 @@ TEST_F(CueSettingLine, WhitespaceDelimiter)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
  * 1. If setting does not contain a U+003A COLON character (:), or if the first
- *    U+003A COLON character (:) in setting is either the first or last character
- *    of setting, then jump to the step labeled next setting.  5. Next setting:
- *    Continue to the next token, if any.
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
+ * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-before-delimiter.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
-  
+ 
+  /**
+   * line:68% -- snapToLines==false, linePositionPercentage==68
+   */ 
   ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
   ASSERT_FALSE( getCue( 0 ).snapToLines() );
  
