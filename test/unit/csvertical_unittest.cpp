@@ -219,8 +219,8 @@ TEST_F(CueSettingVertical, NoValue)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * 1. If setting does not contain a U+003A COLON character (:), or if the first
- *    U+003A COLON character (:) in setting is either the first or last character
- *    of setting, then jump to the step labeled next setting.
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingVertical, NoDelimiter)
@@ -235,7 +235,9 @@ TEST_F(CueSettingVertical, NoDelimiter)
   ASSERT_TRUE( getCue( 0 ).isVerticalRightToLeft() );
 
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of
+   * the 3rd line, followed by a WEBVTT_MISSING_CUESETTING_DELIMITER on the 34th
+   * column of the 3rd line.
    */
   assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
   assertEquals( getError( 1 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 34 );
