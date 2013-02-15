@@ -164,7 +164,9 @@ TEST_F(CueSettingSize, NoDelimiter)
  * Test that the parser does not allow a setting to start with a colon.
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
- * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
+ * 1. If setting does not contain a U+003A COLON character (:), or if the first
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingSize, NoKeyword)
@@ -173,8 +175,8 @@ TEST_F(CueSettingSize, NoKeyword)
   ASSERT_EQ( 1, errorCount() ); 
 
   /**
-   * Size should be 100 because the malformed setting should be skipped * and
-   * 100 is default.
+   * Size should be 100 because the malformed setting should be skipped and 100
+   * is default.
    */
   ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
 
