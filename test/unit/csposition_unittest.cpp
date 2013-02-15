@@ -165,8 +165,8 @@ TEST_F(CueSettingPosition, NoDelimiter)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * 1. If setting does not contain a U+003A COLON character (:), or if the first
- *    U+003A COLON character (:) in setting is either the first or last character
- *    of setting, then jump to the step labeled next setting.
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingPosition, NoKeyword)
@@ -175,13 +175,14 @@ TEST_F(CueSettingPosition, NoKeyword)
   ASSERT_EQ( 1, errorCount() );
 
   /**
-   * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * Position should be 50 because the malformed setting should be skipped and
+   * 50 is default.
    */
   ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
 
   /**
-   * We're expecting a WEBVTT_MISSING_CUESETTING_KEYWORD error on the 25th column of the 3rd line
+   * We're expecting a WEBVTT_MISSING_CUESETTING error on the 25th column of the
+   * 3rd line
    */
   assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
