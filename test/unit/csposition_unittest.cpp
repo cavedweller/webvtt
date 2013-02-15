@@ -181,7 +181,7 @@ TEST_F(CueSettingPosition, NoKeyword)
   ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
 
   /**
-   * We're expecting a WEBVTT_MISSING_CUESETTING error on the 25th column of the
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
   assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
