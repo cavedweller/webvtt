@@ -80,7 +80,7 @@ TEST_F(CueSettingVertical, BadDelimiter)
   
   /**
    * Writing direction should be horizontal because the malformed setting should
-   * be skipped because horiztonal is default.
+   * be skipped, and horizontal is default.
    */
   ASSERT_TRUE( getCue( 0 ).isHorizontal() );
   
