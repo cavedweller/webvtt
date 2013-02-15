@@ -70,9 +70,9 @@ TEST_F(CueSettingVertical, BadKeyword)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * 1. If setting does not contain a U+003A COLON character (:), or if the first
- *    U+003A COLON character (:) in setting is either the first or last character
- *    of setting, then jump to the step labeled next setting.
- * 5. Next setting: Continue to the next token, if any.
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
+ *  5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingVertical, BadDelimiter)
 {
@@ -80,14 +80,13 @@ TEST_F(CueSettingVertical, BadDelimiter)
   ASSERT_EQ( 1, errorCount() );
 
   /**
-   * Writing direction should be horizontal because the malformed setting should
-   * be skipped because horiztonal is default.
+   * Writing direction should be horizontal because the malformed setting
+   * should be skipped, and horizontal is default.
    */
   ASSERT_TRUE( getCue( 0 ).isHorizontal() );
 
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
-   * 3rd line
+   * Parsing should fail.
    */
   assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
