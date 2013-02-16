@@ -1154,6 +1154,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
         break;
       }
     }
+    webvtt_uint_skipwhite( b, &pos, len );
   }
 
   if( finished ) {

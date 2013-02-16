@@ -579,7 +579,7 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
     }
 
     if( token_state == START_TAG_ANNOTATION ) {
-      webvtt_skipwhite( position );
+      webvtt_byte_skipwhite( position );
     }
   }
 
@@ -729,7 +729,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
         }
         break;
     }
-    webvtt_skipwhite( &position );
+    webvtt_byte_skipwhite( &position );
   }
 
   return WEBVTT_SUCCESS;
