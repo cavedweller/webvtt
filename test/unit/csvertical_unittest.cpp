@@ -287,24 +287,27 @@ TEST_F(CueSettingVertical, UppercaseKeyword)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * 4. Run the appropriate substeps that apply for the value of name, as follows:
- * If name is a case-sensitive match for "vertical"
- * 1. If value is a case-sensitive match for the string "rl", ...
- * 2. Otherwise, if value is a case-sensitive match for the string "lr", ...
+ *    If name is a case-sensitive match for "vertical"
+ *    1. If value is a case-sensitive match for the string "rl", ...
+ *    2. Otherwise, if value is a case-sensitive match for the string "lr", ...
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingVertical, UppercaseValue)
 {
   loadVtt( "cue-settings/vertical/uppercase-value.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQ( 1, errorCount() );
+
   /**
-   * Writing direction should be horizontal because the malformed setting should be skipped
-     * because horiztonal is default.
+   * Writing direction should be horizontal because the malformed setting should
+   * be skipped because horiztonal is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).isHorizontal() );
+  ASSERT_TRUE( getCue( 0 ).isHorizontal() );
+  ASSERT_FALSE( getCue( 0 ).isVerticalRightToLeft() );
+  ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
+  
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_UNEXPECTED_WHITESPACE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
 }
