@@ -184,15 +184,23 @@ find_next_whitespace( const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint 
 /**
  * basic strnstr-ish routine
  */
-WEBVTT_INTERN int
-find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen )
+static int
+find_bytes( const webvtt_byte *buffer, webvtt_uint len,
+    const webvtt_byte *sbytes, webvtt_uint slen )
 {
+  // check params for integrity
+  if( !buffer || len < 1 || !sbytes || slen < 1 ) {
+    return 0;
+  }
+
   webvtt_uint slen2 = slen - 1;
-  do {
+  while( len-- >= slen && *buffer ){
     if( *buffer == *sbytes && memcmp( buffer + 1, sbytes + 1, slen2 ) == 0 ) {
       return 1;
     }
-  } while( len-- >= slen && *buffer++ );
+    buffer++;
+  }
+
   return 0;
 }
 
