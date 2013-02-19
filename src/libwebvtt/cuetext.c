@@ -5,6 +5,8 @@
 #include "cue_internal.h"
 #include "string_internal.h"
 
+static void webvtt_skipwhite( webvtt_byte **position );
+
 #ifdef min
 # undef min
 #endif
@@ -37,6 +39,19 @@ do \
     status_var = returned_status; \
     goto dealloc; \
   } \
+
+/**
+ * This will only work on null-terminated strings, remember that!
+ */
+static void
+webvtt_skipwhite( webvtt_byte **position )
+{
+  webvtt_byte *p = *position;
+  while( *p && webvtt_iswhite(*p) ) {
+    ++p;
+  }
+  *position = p;
+}
 
 WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_type token_type )

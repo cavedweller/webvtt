@@ -26,6 +26,7 @@
 #define MALFORMED_TIME ((webvtt_timestamp_t)-1.0)
 
 static int find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
+static webvtt_status webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len );
 static webvtt_int64 parse_int( const webvtt_byte **pb, int *pdigits );
 static int parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *result );
 
@@ -164,6 +165,18 @@ find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
     }
   }
   return -1;
+}
+
+static webvtt_status
+webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
+{
+  if( !buffer || !pos ) {
+    return WEBVTT_INVALID_PARAM;
+  }
+
+  for( ; *pos < len && webvtt_iswhite( buffer[ *pos ] ); (*pos)++ );
+
+  return WEBVTT_SUCCESS;
 }
 
 static void
@@ -1153,6 +1166,9 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
         }
         break;
       }
+    }
+    if( WEBVTT_FAILED( status = webvtt_skipwhite( b, &pos, len ) ) ) {
+      return status;
     }
   }
 
