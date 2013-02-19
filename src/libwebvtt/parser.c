@@ -170,11 +170,13 @@ find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
 static webvtt_status
 webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
 {
-  if( !buffer || !pos || *pos < 0 ) {
+  if( !buffer || !pos ) {
     return WEBVTT_INVALID_PARAM;
   }
 
-  for( ; webvtt_iswhite( buffer[ *pos ] ) && *pos < len; (*pos)++ );
+  if( *pos < len ) {
+    for( ; webvtt_iswhite( buffer[ *pos ] ) && *pos < len; (*pos)++ );
+  }
 
   return WEBVTT_SUCCESS;
 }
