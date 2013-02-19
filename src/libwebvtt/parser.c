@@ -174,9 +174,7 @@ webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
     return WEBVTT_INVALID_PARAM;
   }
 
-  if( *pos < len ) {
-    for( ; webvtt_iswhite( buffer[ *pos ] ) && *pos < len; (*pos)++ );
-  }
+  for( ; *pos < len && webvtt_iswhite( buffer[ *pos ] ); (*pos)++ );
 
   return WEBVTT_SUCCESS;
 }
