@@ -5,6 +5,8 @@
 #include "cue_internal.h"
 #include "string_internal.h"
 
+static void webvtt_skipwhite( webvtt_byte **position );
+
 #ifdef min
 # undef min
 #endif
@@ -37,6 +39,19 @@ do \
     status_var = returned_status; \
     goto dealloc; \
   } \
+
+/**
+ * This will only work on null-terminated strings, remember that!
+ */
+static void
+webvtt_skipwhite( webvtt_byte **position )
+{
+  webvtt_byte *p = *position;
+  while( *p && webvtt_iswhite(*p) ) {
+    ++p;
+  }
+  *position = p;
+}
 
 WEBVTT_INTERN webvtt_status
 webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_type token_type )
@@ -579,7 +594,7 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
     }
 
     if( token_state == START_TAG_ANNOTATION ) {
-      webvtt_byte_skipwhite( position );
+      webvtt_skipwhite( position );
     }
   }
 
@@ -729,7 +744,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
         }
         break;
     }
-    webvtt_byte_skipwhite( &position );
+    webvtt_skipwhite( &position );
   }
 
   return WEBVTT_SUCCESS;

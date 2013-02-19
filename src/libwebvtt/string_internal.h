@@ -105,24 +105,5 @@ webvtt_iswhite( webvtt_byte ch )
            || ( ch == UTF8_TAB ) || ( ch == UTF8_SPACE ) ) ;
 }
 
-/**
- * This will only work on null-terminated strings, remember that!
- */
-static __WEBVTT_STRING_INLINE void
-webvtt_byte_skipwhite( webvtt_byte **position )
-{
-  webvtt_byte *p = *position;
-  while( *p && webvtt_iswhite(*p) ) {
-    ++p;
-  }
-  *position = p;
-}
-
-static __WEBVTT_STRING_INLINE void
-webvtt_uint_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
-{
-  for( ; webvtt_iswhite( buffer[ *pos ] ) && *pos < len; (*pos)++ );
-}
-
 # undef __WEBVTT_STRING_INLINE
 #endif
