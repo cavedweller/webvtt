@@ -35,7 +35,7 @@ webvtt_create_cue( webvtt_cue **pcue )
   cue->settings.position = 50;
   cue->settings.size = 100;
   cue->settings.align = WEBVTT_ALIGN_MIDDLE;
-  cue->settings.line.no = WEBVTT_AUTO;
+  cue->settings.line = WEBVTT_AUTO;
   cue->settings.vertical = WEBVTT_HORIZONTAL;
 
   *pcue = cue;

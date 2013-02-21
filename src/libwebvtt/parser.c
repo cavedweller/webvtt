@@ -669,8 +669,8 @@ break
           case INTEGER: {
             const webvtt_byte *t = self->token;
             webvtt_int64 v = parse_int( &t, &digits );
-            cue->settings.line_is_relative = 0;
-            cue->settings.line.no = ( webvtt_int )v;
+            cue->snap_to_lines = 1;
+            cue->settings.line = ( int )v;
             SETST( CP_CS0 );
             SV( LINE );
           }
@@ -681,7 +681,8 @@ break
             if( v < 0 ) {
               BV( POSITION );
             }
-            cue->settings.line.relative_position = ( webvtt_uint )v;
+            cue->snap_to_lines = 0;
+            cue->settings.line = ( int )v;
             SETST( CP_CS0 );
             SV( LINE );
           }
