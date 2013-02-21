@@ -121,11 +121,7 @@ WEBVTT_EXPORT void webvtt_release_node( webvtt_node *node );
 typedef struct
 webvtt_cue_settings_t {
   webvtt_vertical_type vertical;
-  webvtt_bool line_is_relative;
-  union {
-    webvtt_int no; /* line.no */
-    webvtt_uint relative_position; /* line.relative_position */
-  } line;
+  int line;
   webvtt_uint position;
   webvtt_uint size;
   webvtt_align_type align;

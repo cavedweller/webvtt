@@ -106,9 +106,13 @@ public:
   }
 
   inline Direction direction() const { return (Direction)cue->settings.vertical; }
-  inline float relativeLinePosition() const { return ( 1.f / 100.f ) * (float)cue->settings.line.relative_position; }
-  inline uint relativeLinePositionPercentage() const { return cue->settings.line.relative_position; }
-  inline int lineNumber() const { return cue->settings.line.no; }
+  inline float relativeLinePosition() const {
+    return ( 1.f / 100.f ) * static_cast<float>(
+      relativeLinePositionPercentage()
+    );
+  }
+  inline uint relativeLinePositionPercentage() const { return static_cast<uint>( cue->settings.line ); }
+  inline int lineNumber() const { return cue->settings.line; }
   inline float textPosition() const { return ( 1.f / 100.f ) * (float)cue->settings.position; }
   inline uint textPositionPercentage() const { return cue->settings.position; }
   inline float size() const { return ( 1.f / 100.f ) * (float)cue->settings.size; }
@@ -119,7 +123,7 @@ public:
   inline bool isVertical() const { return orientation() == Vertical; }
   inline bool isVerticalLeftToRight() const { return direction() == LeftToRight; }
   inline bool isVerticalRightToLeft() const { return direction() == RightToLeft; }
-  inline bool isRelativeLinePosition() const { return !!(cue->settings.line_is_relative); }
+  inline bool isRelativeLinePosition() const { return !snapToLines(); }
   inline bool isLinePositionAuto() const { return relativeLinePositionPercentage() == WEBVTT_AUTO; }
   inline bool isAlignedToStart() const { return alignment() == Start; }
   inline bool isAlignedToMiddle() const { return alignment() == Middle; }
