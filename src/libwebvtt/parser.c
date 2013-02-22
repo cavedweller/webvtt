@@ -28,7 +28,6 @@
 static int find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
 static webvtt_status webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len );
 static webvtt_int64 parse_int( const webvtt_byte **pb, int *pdigits );
-static int parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *result );
 
 WEBVTT_EXPORT webvtt_status
 webvtt_create_parser( webvtt_cue_fn on_read,
@@ -341,7 +340,7 @@ _recheck:
           ERROR_AT_COLUMN( WEBVTT_UNEXPECTED_WHITESPACE, self->column );
           unexpected_whitespace = 1;
         } else if( token == TIMESTAMP )
-          if( !parse_timestamp( self, self->token, &cue->from ) ) {
+          if( !parse_timestamp( self->token, &cue->from ) ) {
             ERROR_AT_COLUMN(
               ( BAD_TIMESTAMP( cue->from )
                 ? WEBVTT_EXPECTED_TIMESTAMP
@@ -365,7 +364,7 @@ _recheck:
         if( token == WHITESPACE ) {
           /* no problem, just ignore it and continue */
         } else if( token == TIMESTAMP )
-          if( !parse_timestamp( self, self->token, &cue->until ) ) {
+          if( !parse_timestamp( self->token, &cue->until ) ) {
             ERROR_AT_COLUMN(
               ( BAD_TIMESTAMP( cue->until )
                 ? WEBVTT_EXPECTED_TIMESTAMP
@@ -1239,8 +1238,8 @@ parse_int( const webvtt_byte **pb, int *pdigits )
  * Turn the token of a TIMESTAMP tag into something useful, and returns non-zero
  * returns 0 if it fails
  */
-static int
-parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *result )
+WEBVTT_INTERN int
+parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result )
 {
   webvtt_int64 tmp;
   int have_hours = 0;
