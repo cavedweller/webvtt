@@ -5,20 +5,6 @@
 
 #define _ERROR(X) do { if( skip_error == 0 ) { ERROR(X); } } while(0)
 
-/**
- * ASCII characters
- */
-#define  ASCII_PERIOD (0x2E)
-#define  ASCII_CR     (0x0D)
-#define  ASCII_LF     (0x0A)
-#define  ASCII_SPACE  (0x20)
-#define  ASCII_TAB    (0x09)
-#define  ASCII_DASH   (0x2D)
-#define  ASCII_GT     (0x3E)
-
-#define ASCII_DASH (0x2D)
-#define ASCII_COLON  (0x3A)
-
 #define MSECS_PER_HOUR (3600000)
 #define MSECS_PER_MINUTE (60000)
 #define MSECS_PER_SECOND (1000)
@@ -158,7 +144,7 @@ static int
 find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
 {
   while( *pos < len ) {
-    if( buffer[ *pos ] == ASCII_CR || buffer[ *pos ] == ASCII_LF ) {
+    if( buffer[ *pos ] == UTF8_CARRIAGE_RETURN || buffer[ *pos ] == UTF8_LINE_FEED ) {
       return 1;
     } else {
       ( *pos )++;
@@ -185,7 +171,7 @@ find_next_whitespace( const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint 
   webvtt_uint pos = *ppos;
   while( pos < len ) {
     webvtt_byte c = buffer[pos];
-    if( c == ASCII_CR || c == ASCII_LF || c == ASCII_SPACE || c == ASCII_TAB ) {
+    if( c == UTF8_CARRIAGE_RETURN || c == UTF8_LINE_FEED || c == UTF8_SPACE || c == UTF8_TAB ) {
       break;
     }
 
@@ -346,7 +332,7 @@ _recheck:
               ( BAD_TIMESTAMP( cue->from )
                 ? WEBVTT_EXPECTED_TIMESTAMP
                 : WEBVTT_MALFORMED_TIMESTAMP ), last_column  );
-            if( !ASCII_ISDIGIT( self->token[self->token_pos - 1] ) ) {
+            if( !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
               while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             }
             if( BAD_TIMESTAMP( cue->from ) )
@@ -370,7 +356,7 @@ _recheck:
               ( BAD_TIMESTAMP( cue->until )
                 ? WEBVTT_EXPECTED_TIMESTAMP
                 : WEBVTT_MALFORMED_TIMESTAMP ), last_column  );
-            if( !ASCII_ISDIGIT( self->token[self->token_pos - 1] ) ) {
+            if( !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
               while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             }
             if( BAD_TIMESTAMP( cue->until ) )
@@ -954,7 +940,7 @@ _recheck:
           webvtt_state *st = FRAMEUP( 1 );
           webvtt_string *text = st->v.text;
           static const webvtt_byte separator[] = {
-            ASCII_DASH, ASCII_DASH, ASCII_GT
+            UTF8_HYPHEN_MINUS, UTF8_HYPHEN_MINUS, UTF8_GREATER_THAN
           };
 
           st->type = V_NONE;
@@ -1061,17 +1047,17 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
         goto _finish;
       }
 
-      if( self->line_buffer.d->length > 1 && self->line_buffer.d->text[ self->line_buffer.d->length - 1 ] == ASCII_LF ) {
+      if( self->line_buffer.d->length > 1 && self->line_buffer.d->text[ self->line_buffer.d->length - 1 ] == UTF8_LINE_FEED ) {
         /**
          * finished
          */
         finished = 1;
       }
-      webvtt_string_putc( &self->line_buffer, ASCII_LF );
+      webvtt_string_putc( &self->line_buffer, UTF8_LINE_FEED );
 
       if( pos < len ) {
-        if( b[pos] == ASCII_CR ) {
-          if( len - pos >= 2 && b[pos + 1] == ASCII_LF ) {
+        if( b[pos] == UTF8_CARRIAGE_RETURN ) {
+          if( len - pos >= 2 && b[pos + 1] == UTF8_LINE_FEED ) {
             ++pos;
           }
           ++pos;
@@ -1158,7 +1144,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          */
         int ret;
         if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finished, 0 ) ) ) {
-          static const webvtt_byte separator[] = { ASCII_DASH, ASCII_DASH, ASCII_GT };
+          static const webvtt_byte separator[] = { UTF8_HYPHEN_MINUS, UTF8_HYPHEN_MINUS, UTF8_GREATER_THAN };
           if( ret < 0 ) {
             ERROR( WEBVTT_ALLOCATION_FAILED );
             return WEBVTT_OUT_OF_MEMORY;
@@ -1215,13 +1201,13 @@ parse_int( const webvtt_byte **pb, int *pdigits )
   const webvtt_byte *b = *pb;
   while( *b ) {
     webvtt_byte ch = *b;
-    if( ASCII_ISDIGIT( ch ) ) {
+    if( webvtt_isdigit( ch ) ) {
       /**
        * Digit character, carry on
        */
-      result = result * 10 + ( ch - ASCII_0 );
+      result = result * 10 + ( ch - UTF8_DIGIT_ZERO );
       ++digits;
-    } else if( mul == 1 && digits == 0 && ch == ASCII_DASH ) {
+    } else if( mul == 1 && digits == 0 && ch == UTF8_HYPHEN_MINUS ) {
       mul = -1;
     } else {
       break;
@@ -1247,7 +1233,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
   int digits;
   int malformed = 0;
   webvtt_int64 v[4];
-  if ( !ASCII_ISDIGIT( *b ) ) {
+  if ( !webvtt_isdigit( *b ) ) {
     goto _malformed;
   }
 
@@ -1263,12 +1249,12 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
   }
 
   /* fail if missing colon ':' character */
-  if ( !*b || *b++ != ASCII_COLON ) {
+  if ( !*b || *b++ != UTF8_COLON ) {
     malformed = 1;
   }
 
   /* fail if end of data reached, or byte is not an ASCII digit */
-  if ( !*b || !ASCII_ISDIGIT( *b ) ) {
+  if ( !*b || !webvtt_isdigit( *b ) ) {
     malformed = 1;
   }
 
@@ -1280,11 +1266,11 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
 
   /* if we already know there's an hour component, or if the next byte is a 
      colon ':', read the next value */
-  if ( have_hours || ( *b == ASCII_COLON ) ) {
-    if( *b++ != ASCII_COLON ) {
+  if ( have_hours || ( *b == UTF8_COLON ) ) {
+    if( *b++ != UTF8_COLON ) {
       goto _malformed;
     }
-    if( !*b || !ASCII_ISDIGIT( *b ) ) {
+    if( !*b || !webvtt_isdigit( *b ) ) {
       malformed = 1;
     }
     v[2] = parse_int( &b, &digits );
@@ -1300,7 +1286,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
 
   /* collect the manditory seconds-frac component. fail if there is no FULL_STOP
      '.' or if there is no ascii digit following it */
-  if( *b++ != ASCII_PERIOD || !ASCII_ISDIGIT( *b ) ) {
+  if( *b++ != UTF8_FULL_STOP || !webvtt_isdigit( *b ) ) {
     goto _malformed;
   }
   v[3] = parse_int( &b, &digits );
