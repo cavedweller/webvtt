@@ -1,3 +1,4 @@
+
 #include "payload_testfixture"
 class PayloadUnderlineTag : public PayloadTest {};
 
@@ -13,10 +14,10 @@ TEST_F(PayloadUnderlineTag, UnderlineTag)
 {
   loadVtt( "payload/u-tag/u-tag.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Underline, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
 }
 
 /*
@@ -31,11 +32,11 @@ TEST_F(PayloadUnderlineTag, UnderlineAnnotation)
 {
   loadVtt( "payload/u-tag/u-tag-annotation.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Underline, head->child( 1 )->kind() );
-  ASSERT_TRUE( head->child( 1 )->toInternalNode()->annotation().text() == NULL );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
+  ASSERT_TRUE( head[ 1 ].annotation().isEmpty() );
 }
 
 /*
@@ -55,16 +56,16 @@ TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
 {
   loadVtt( "payload/u-tag/u-tag-single-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Underline, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
 /*
@@ -84,16 +85,16 @@ TEST_F(PayloadUnderlineTag, UnderlineTagMultiSubclass)
 {
   loadVtt( "payload/u-tag/u-tag-multi-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Underline, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
   ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );

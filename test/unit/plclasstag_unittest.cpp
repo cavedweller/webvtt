@@ -13,10 +13,10 @@ TEST_F(PayloadClassTag, ClassTag)
 {
   loadVtt( "payload/c-tag/c-tag.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Class, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 }
 
 /*
@@ -31,11 +31,11 @@ TEST_F(PayloadClassTag, ClassTagAnnotation)
 {
   loadVtt( "payload/c-tag/c-tag-annotation.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Class, head->child( 1 )->kind() );
-  ASSERT_TRUE( head->child( 1 )->toInternalNode()->annotation().text() == NULL );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Class, head[ 1 ].kind() );
+  ASSERT_TRUE( head[ 1 ].annotation().isEmpty() );
 }
 
 /*
@@ -45,7 +45,7 @@ TEST_F(PayloadClassTag, ClassTagAnnotation)
  *    1. A "<" character representing the beginning of the start tag.
  *    2. The tag name.
  *    3. Zero or more the following sequence representing a subclasses of the start tag
- *      3.1. A full stop "." character.
+ *      3.1. A full stop "." character.ΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩ
  *      3.2. A sequence of non-whitespace characters.
  *    4. If the start tag requires an annotation then a space or tab character followed by a sequence of
  *       non-whitespace characters representing the annotation.
@@ -55,15 +55,15 @@ TEST_F(PayloadClassTag, ClassTagSingleSubclass)
 {
   loadVtt( "payload/c-tag/c-tag-single-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Class, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
+  ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
@@ -84,16 +84,16 @@ TEST_F(PayloadClassTag, ClassTagMultiSubclass)
 {
   loadVtt( "payload/c-tag/c-tag-multi-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Class, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
   ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );

@@ -8,7 +8,7 @@ class PayloadFormat : public PayloadTest {};
 TEST_F(PayloadFormat, BasicCueText)
 {
   loadVtt( "payload/payload-format/basic-cue-text.vtt", 1 );
-  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
 /*
@@ -18,7 +18,7 @@ TEST_F(PayloadFormat, BasicCueText)
 TEST_F(PayloadFormat, MultipleCueTextTag)
 {
   loadVtt( "payload/payload-format/multiple-cue-tag.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
+  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -29,7 +29,7 @@ TEST_F(PayloadFormat, MultipleCueTextTag)
 TEST_F(PayloadFormat, MultipleCueTextTagTogether)
 {
   loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 5 );
+  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -43,7 +43,7 @@ TEST_F(PayloadFormat, MultipleCueTextTagTogether)
 TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
-  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
 /*
@@ -57,7 +57,7 @@ TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
 TEST_F(PayloadFormat, MultilineCueText)
 {
   loadVtt( "payload/payload-format/multiline-cue-text.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -71,7 +71,7 @@ TEST_F(PayloadFormat, MultilineCueText)
 TEST_F(PayloadFormat, MultilineCueTextCR)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-cr.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -85,7 +85,7 @@ TEST_F(PayloadFormat, MultilineCueTextCR)
 TEST_F(PayloadFormat, MultilineCueTextCRLF)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-crlf.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 4 );
+  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -100,7 +100,7 @@ TEST_F(PayloadFormat, MultilineCueTextCRLF)
 TEST_F(PayloadFormat, MultilineCueTextExtraNewline)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -115,7 +115,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewline)
 TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCR)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-cr.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -130,7 +130,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCR)
 TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
 {
   loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
-  ASSERT_TRUE( getHeadOfCue( 0 )->toInternalNode()->childCount() == 2 );
+  ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -145,14 +145,14 @@ TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
 {
   loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt" );
 
-  const InternalNode *node = getHeadOfCue( 0 );
-  ASSERT_EQ( Node::Underline, node->kind() );
+  const Node node0 = getHeadOfCue( 0 );
+  ASSERT_EQ( Node::Underline, node0.kind() );
 
-  node = node->child( 0 )->toInternalNode();
-  ASSERT_EQ( Node::Italic, node->kind() );
+  const Node node1 = node0[ 0 ];
+  ASSERT_EQ( Node::Italic, node1.kind() );
 
-  node = node->child( 0 )->toInternalNode();
-  ASSERT_EQ( Node::Bold, node->kind() );
+  const Node node2 = node1[ 0 ];
+  ASSERT_EQ( Node::Bold, node2.kind() );
 }
 
 /*
@@ -185,15 +185,15 @@ TEST_F(PayloadFormat, AmpersandWithinTag)
 {
   loadVtt( "payload/escape-character/i-tag-with-ampersand.vtt", 1 );
 
-  const InternalNode *node = getHeadOfCue(0);
+  const Node node = getHeadOfCue(0);
 
   /* Check to see if the Italic node has been correctly formed */
-  ASSERT_EQ( Node::Italic, node->kind() );
+  ASSERT_EQ( Node::Italic, node.kind() );
 
   /* verify the text within the i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
   String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp;", 40 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  Version:
@@ -212,17 +212,17 @@ TEST_F(PayloadFormat, AmpersandWithinMultipleTags)
   loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand.vtt", 1 );
 
   /* verify bold tag */
-  const InternalNode *boldTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Bold, boldTag->kind() );
+  const Node boldTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Bold, boldTag.kind() );
 
   /* verify italic tag within bold tag */
-  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0)[ 0 ];
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify the text within the italic tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child(0)->toInternalNode()->child(0)->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ][ 0 ];
   String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp; ", 40 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  Version:
@@ -241,17 +241,17 @@ TEST_F(PayloadFormat, AmpersandOutsideTwoTags)
   loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand-outside.vtt", 1 );
 
   /* verify bold tag */
-  const InternalNode *boldTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Bold, boldTag->kind() );
+  const Node boldTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Bold, boldTag.kind() );
 
   /* verify italic tag within bold tag */
-  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0)[ 0 ];
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify the escape character text within the i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  Version:
@@ -272,18 +272,18 @@ TEST_F(PayloadFormat, AmpersandOnNewLineAfterTwoTagsWithClass)
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-class.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify the escape character text within i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  Version:
@@ -302,18 +302,18 @@ TEST_F(PayloadFormat, AmpersandInsideOneTagWithClass)
   loadVtt( "payload/escape-character/ampersand-within-tag-with-class.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify escape character text within i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toInternalNode()->child( 0 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
   String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  WebVTT Specification Version:
@@ -334,17 +334,17 @@ TEST_F(PayloadFormat, AmpersandInsideTagWithSubclasses)
   loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
 
   /* verify bold tag */
-  const InternalNode *boldTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Bold, boldTag->kind() );
+  const Node boldTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Bold, boldTag.kind() );
 
   /* verify italic tag within bold tag */
-  const InternalNode *italicTag = getHeadOfCue(0)->child(0)->toInternalNode();
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0)[ 0 ];
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify character escape outside i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  WebVTT Specification Version:
@@ -364,11 +364,11 @@ TEST_F(PayloadFormat, AmpersandOnLineWithClassAndSubClass)
   loadVtt( "payload/escape-character/ampersand-inside-tag-with-subclass.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
@@ -377,9 +377,9 @@ TEST_F(PayloadFormat, AmpersandOnLineWithClassAndSubClass)
   ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify escape character text within i tag*/
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 0 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 0 ];
   String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  WebVTT Specification Version:
@@ -401,11 +401,11 @@ TEST_F(PayloadFormat, AmpersandOnNewlineWithClassAndSubclass)
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
@@ -414,9 +414,9 @@ TEST_F(PayloadFormat, AmpersandOnNewlineWithClassAndSubclass)
   ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify character escape outside i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  WebVTT Specification Version:
@@ -436,11 +436,11 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClassAndSubclass)
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
@@ -449,9 +449,9 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClassAndSubclass)
   ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
 
   /* verify character escape outside i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 /*
  WebVTT Specification Version:
@@ -471,18 +471,18 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
   loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
 
   /* verify italic tag */
-  const InternalNode *italicTag = getHeadOfCue(0);
-  ASSERT_EQ(Node::Italic, italicTag->kind() );
+  const Node italicTag = getHeadOfCue(0);
+  ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue(0)->child(0)->toInternalNode()->cssClasses();
+  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
   ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
 
   /* verify character escape outside i tag */
-  const TextNode *textNode = getHeadOfCue( 0 )->child( 1 )->toTextNode();
+  const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode->content().text() );
+  ASSERT_EQ( expectedText.text(), textNode.text().text() );
 }
 
 /*
@@ -496,7 +496,7 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
 TEST_F(PayloadFormat, MultilineBasicCueTextCR)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt" );
-  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
 /*
@@ -510,7 +510,7 @@ TEST_F(PayloadFormat, MultilineBasicCueTextCR)
 TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt" );
-  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
 /* Verifies that cue text with a malformed line terminator is still parsed correctly.
@@ -521,5 +521,5 @@ TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
 TEST_F(PayloadFormat, MultilineBasicCueTextExtraLine)
 {
   loadVtt( "payload/payload-format/multiline-extra-line-terminator.vtt", 1);
-  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )->child( 0 )->kind() );
+  ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }

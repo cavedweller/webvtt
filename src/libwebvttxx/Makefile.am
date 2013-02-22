@@ -7,7 +7,7 @@ BUILT_SOURCES = $(top_builddir)/include/webvtt/webvtt-config.h
 $(top_builddir)/include/webvtt/webvtt-config.h: $(top_builddir)/config.h
 	@cat $< | sed "s/#define \([[:alpha:]_]\{1,\}\)/#define WEBVTT_\1/" > $@
 
-WEBVTTXX_SOURCES = abstract_parser.cpp file_parser.cpp node.cpp nodefactory.cpp $(top_builddir)/include/webvtt/webvtt-config.h
+WEBVTTXX_SOURCES = abstract_parser.cpp file_parser.cpp $(top_builddir)/include/webvtt/webvtt-config.h
 WEBVTTXX_CFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include
 
 libwebvttxx_la_LDFLAGS = -no-undefined -shared

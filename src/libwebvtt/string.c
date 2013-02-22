@@ -24,6 +24,11 @@ webvtt_init_string( webvtt_string *result )
   }
 }
 
+WEBVTT_EXPORT webvtt_uint
+webvtt_string_is_empty( const webvtt_string *str ) {
+  return str->d == &empty_string || webvtt_string_length( str ) == 0 ? 1 : 0;
+}
+
 /**
  * Allocate new string.
  */

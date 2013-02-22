@@ -48,6 +48,10 @@ public:
     webvtt_string_detach( &string );
   }
 
+  inline bool isEmpty() const {
+    return webvtt_string_is_empty( &string ) == 1;
+  }
+
   uint16 utf16At( int offset, uint16 &highSurrogate ) const {
     const byte *b = text();
     const byte *end = b + length();

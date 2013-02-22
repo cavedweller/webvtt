@@ -42,7 +42,10 @@ webvtt_node_kind_t {
   WEBVTT_TEXT = 256 | WEBVTT_NODE_LEAF,
   WEBVTT_TIME_STAMP = 257 | WEBVTT_NODE_LEAF,
 
-  WEBVTT_NODE_LEAF_END = 257
+  WEBVTT_NODE_LEAF_END = 257,
+
+  /* An empty initial state for a node */
+  WEBVTT_EMPTY_NODE = 258
 } webvtt_node_kind;
 
 /**
@@ -115,6 +118,7 @@ webvtt_internal_node_data_t {
   webvtt_node **children;
 } webvtt_internal_node_data;
 
+WEBVTT_EXPORT void webvtt_init_node( webvtt_node **node );
 WEBVTT_EXPORT void webvtt_ref_node( webvtt_node *node );
 WEBVTT_EXPORT void webvtt_release_node( webvtt_node *node );
 

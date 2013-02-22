@@ -15,10 +15,10 @@ TEST_F(PayloadVoiceTag, VoiceTag)
 {
   loadVtt( "payload/v-tag/v-tag.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 1 );
-  ASSERT_EQ( Node::Voice, head->child( 0 )->kind() );
+  ASSERT_EQ( 1, head.childCount() );
+  ASSERT_EQ( Node::Voice, head[ 0 ].kind() );
 }
 
 /*
@@ -35,11 +35,11 @@ TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
 {
   loadVtt( "payload/v-tag/v-tag-internal-text.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 1 );
-  ASSERT_EQ( Node::Voice, head->child( 0 )->kind() );
-  ASSERT_TRUE( head->child( 0 )->toInternalNode()->childCount() == 1 );
+  ASSERT_EQ( 1, head.childCount() );
+  ASSERT_EQ( Node::Voice, head[ 0 ].kind() );
+  ASSERT_TRUE( head[ 0 ].childCount() == 1 );
 }
 
 /*
@@ -57,14 +57,13 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 {
   loadVtt( "payload/v-tag/v-tag-annotation.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Voice, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
   String expectedString = String( (const byte *)"Annotation", 10 );
-  ASSERT_EQ( expectedString.text(), 
-    head->child( 1 )->toInternalNode()->annotation().text() );
+  ASSERT_EQ( expectedString.text(), head[ 1 ].annotation().text() );
 }
 
 /*
@@ -88,16 +87,16 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
 {
   loadVtt( "payload/v-tag/v-tag-single-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Voice, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
 }
 
 /*
@@ -120,16 +119,16 @@ TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
 {
   loadVtt( "payload/v-tag/v-tag-multi-subclass.vtt" );
 
-  const InternalNode *head = getHeadOfCue( 0 );
+  const Node head = getHeadOfCue( 0 );
 
-  ASSERT_TRUE( head->childCount() == 3 );
-  ASSERT_EQ( Node::Voice, head->child( 1 )->kind() );
+  ASSERT_EQ( 3, head.childCount() );
+  ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
-  StringList cssClasses = head->child( 1 )->toInternalNode()->cssClasses();
+  StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( (const byte *)"class", 5 );
 
-  ASSERT_TRUE( cssClasses.length() == 1 );
-  ASSERT_EQ(  expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
 
   expectedString = String( (const byte *)"subclass", 8 );
   ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );

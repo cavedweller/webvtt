@@ -27,6 +27,14 @@ webvtt_string_t {
 WEBVTT_EXPORT void webvtt_init_string( webvtt_string *result );
 
 /**
+ * webvtt_string_is_empty
+ * 
+ * return whether or not the string is empty
+ * qualifications for it being empty are it equaling &empty_string or its length equaling 0
+ */
+WEBVTT_EXPORT webvtt_uint webvtt_string_is_empty( const webvtt_string *str );
+
+/**
  * webvtt_create_string
  *
  * allocate a new string object with an initial capacity of 'alloc'
