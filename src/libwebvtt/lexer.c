@@ -480,7 +480,7 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
    * If we got here, we've reached the end of the buffer.
    * We therefore can attempt to finish up
    */
-  if( finish ) {
+  if( finish && self->token_pos ) {
     switch( self->tstate ) {
       case L_DIGIT0:
         RETURN(INTEGER)
@@ -489,10 +489,8 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
       case L_WHITESPACE:
         RETURN(WHITESPACE)
       default:
-        if(self->token_pos) {
-          RESET
-          return BADTOKEN;
-        }
+        RESET
+        return BADTOKEN;
     }
   }
   return *pos == length || self->token_pos ? UNFINISHED : BADTOKEN;
