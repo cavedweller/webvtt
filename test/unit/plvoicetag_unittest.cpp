@@ -63,7 +63,7 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
   ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
   String expectedString = String( (const byte *)"Annotation", 10 );
-  ASSERT_EQ( expectedString.text(), head[ 1 ].annotation().text() );
+  ASSERT_EQ( expectedString.utf8(), head[ 1 ].annotation().utf8() );
 }
 
 /*
@@ -96,7 +96,7 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 }
 
 /*
@@ -128,8 +128,8 @@ TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
   String expectedString = String( (const byte *)"class", 5 );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 0 ).text() );
+  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 
   expectedString = String( (const byte *)"subclass", 8 );
-  ASSERT_EQ( expectedString.text(), cssClasses.stringAt( 1 ).text() );
+  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
 }

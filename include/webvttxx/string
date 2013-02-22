@@ -53,7 +53,7 @@ public:
   }
 
   uint16 utf16At( int offset, uint16 &highSurrogate ) const {
-    const byte *b = text();
+    const byte *b = utf8();
     const byte *end = b + length();
     if( webvtt_skip_utf8( &b, end, offset ) ) {
       return webvtt_utf8_to_utf16( b, end, &highSurrogate );
@@ -98,7 +98,7 @@ public:
     return 0xFFFD;
   }
 
-  inline const byte *text() const {
+  inline const byte *utf8() const {
     return webvtt_string_text(&string);
   }
 
@@ -112,7 +112,7 @@ public:
 
   /* Count of Unicode codepoints in string */
   inline uint charCount() const {
-    return (uint)webvtt_utf8_chcount( text(), text() + length() );
+    return (uint)webvtt_utf8_chcount( utf8(), utf8() + length() );
   }
 
   inline String &append( byte ch ) {
@@ -125,7 +125,7 @@ public:
 
   inline String &append( const String &other, int len = -1 ) {
     webvtt_status status;
-    if( WEBVTT_FAILED(status = webvtt_string_append( &string, other.text(), len < 0 ? other.length() : (uint)len ) ) ) {
+    if( WEBVTT_FAILED(status = webvtt_string_append( &string, other.utf8(), len < 0 ? other.length() : (uint)len ) ) ) {
       // TODO: Throw exception on errors
     }
     return *this;
