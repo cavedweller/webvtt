@@ -3,10 +3,6 @@
 # include <webvtt/parser.h>
 # include "string_internal.h"
 
-#define ASCII_0 (0x30)
-#define ASCII_9 (0x39)
-#define ASCII_ISDIGIT(c) ( ((c) >= ASCII_0) && ((c) <= ASCII_9) )
-
 typedef enum
 webvtt_token_t {
   BADTOKEN = -2,

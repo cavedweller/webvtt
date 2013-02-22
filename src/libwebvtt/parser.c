@@ -332,7 +332,7 @@ _recheck:
               ( BAD_TIMESTAMP( cue->from )
                 ? WEBVTT_EXPECTED_TIMESTAMP
                 : WEBVTT_MALFORMED_TIMESTAMP ), last_column  );
-            if( !ASCII_ISDIGIT( self->token[self->token_pos - 1] ) ) {
+            if( !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
               while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             }
             if( BAD_TIMESTAMP( cue->from ) )
@@ -356,7 +356,7 @@ _recheck:
               ( BAD_TIMESTAMP( cue->until )
                 ? WEBVTT_EXPECTED_TIMESTAMP
                 : WEBVTT_MALFORMED_TIMESTAMP ), last_column  );
-            if( !ASCII_ISDIGIT( self->token[self->token_pos - 1] ) ) {
+            if( !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
               while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             }
             if( BAD_TIMESTAMP( cue->until ) )
@@ -1200,11 +1200,11 @@ parse_int( const webvtt_byte **pb, int *pdigits )
   const webvtt_byte *b = *pb;
   while( *b ) {
     webvtt_byte ch = *b;
-    if( ASCII_ISDIGIT( ch ) ) {
+    if( webvtt_isdigit( ch ) ) {
       /**
        * Digit character, carry on
        */
-      result = result * 10 + ( ch - ASCII_0 );
+      result = result * 10 + ( ch - UTF8_DIGIT_ZERO );
       ++digits;
     } else if( mul == 1 && digits == 0 && ch == UTF8_HYPHEN_MINUS ) {
       mul = -1;
@@ -1232,7 +1232,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
   int digits;
   int malformed = 0;
   webvtt_int64 v[4];
-  if ( !ASCII_ISDIGIT( *b ) ) {
+  if ( !webvtt_isdigit( *b ) ) {
     goto _malformed;
   }
 
@@ -1253,7 +1253,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
   }
 
   /* fail if end of data reached, or byte is not an ASCII digit */
-  if ( !*b || !ASCII_ISDIGIT( *b ) ) {
+  if ( !*b || !webvtt_isdigit( *b ) ) {
     malformed = 1;
   }
 
@@ -1269,7 +1269,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
     if( *b++ != UTF8_COLON ) {
       goto _malformed;
     }
-    if( !*b || !ASCII_ISDIGIT( *b ) ) {
+    if( !*b || !webvtt_isdigit( *b ) ) {
       malformed = 1;
     }
     v[2] = parse_int( &b, &digits );
@@ -1285,7 +1285,7 @@ parse_timestamp( webvtt_parser self, const webvtt_byte *b, webvtt_timestamp *res
 
   /* collect the manditory seconds-frac component. fail if there is no FULL_STOP
      '.' or if there is no ascii digit following it */
-  if( *b++ != UTF8_FULL_STOP || !ASCII_ISDIGIT( *b ) ) {
+  if( *b++ != UTF8_FULL_STOP || !webvtt_isdigit( *b ) ) {
     goto _malformed;
   }
   v[3] = parse_int( &b, &digits );
