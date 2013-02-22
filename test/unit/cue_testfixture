@@ -5,9 +5,9 @@
 
 enum
 {
- rlm = 0x200F,
- lrm = 0x200E,
- nbsp = 0x00A0
+ RLM = 0x200F,
+ LRM = 0x200E,
+ NBSP = 0x00A0
 };
 
 class CueTest : public ::testing::Test
