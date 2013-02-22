@@ -152,7 +152,17 @@ extern "C" {
     WEBVTT_INVALID_TAG_NAME = -7,
     WEBVTT_INVALID_TOKEN_TYPE = -8,
     WEBVTT_INVALID_TOKEN_STATE = -9,
-    WEBVTT_FAIL = -10 /* This is not very specific! */
+    WEBVTT_FAIL = -10, /* This is not very specific! */
+
+    /**
+     * A failure that requires the parser to completely skip beyond a cue.
+     */ 
+    WEBVTT_SKIP_CUE = -11,
+
+    /**
+     * A failure that results in the parser ignoring a cuesetting.
+     */
+    WEBVTT_SKIP_CUESETTING = -12,
   };
 
   typedef enum webvtt_status_t webvtt_status;
