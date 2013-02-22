@@ -5,6 +5,10 @@
 
 #define _ERROR(X) do { if( skip_error == 0 ) { ERROR(X); } } while(0)
 
+static const webvtt_byte separator[] = {
+  UTF8_HYPHEN_MINUS, UTF8_HYPHEN_MINUS, UTF8_GREATER_THAN
+};
+
 #define MSECS_PER_HOUR (3600000)
 #define MSECS_PER_MINUTE (60000)
 #define MSECS_PER_SECOND (1000)
@@ -939,9 +943,6 @@ _recheck:
           webvtt_cue *cue = SP->v.cue;
           webvtt_state *st = FRAMEUP( 1 );
           webvtt_string *text = st->v.text;
-          static const webvtt_byte separator[] = {
-            UTF8_HYPHEN_MINUS, UTF8_HYPHEN_MINUS, UTF8_GREATER_THAN
-          };
 
           st->type = V_NONE;
           st->v.cue = NULL;
@@ -1144,7 +1145,6 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          */
         int ret;
         if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finished, 0 ) ) ) {
-          static const webvtt_byte separator[] = { UTF8_HYPHEN_MINUS, UTF8_HYPHEN_MINUS, UTF8_GREATER_THAN };
           if( ret < 0 ) {
             ERROR( WEBVTT_ALLOCATION_FAILED );
             return WEBVTT_OUT_OF_MEMORY;
