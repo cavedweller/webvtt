@@ -223,10 +223,10 @@ webvtt_attach_internal_node( webvtt_node *current, webvtt_node *to_attach )
 {
   webvtt_node **arr, **old;
 
-  if( !current || !to_attach ) {
+  if( !current || !to_attach || !current->data.internal_data ) {
     return WEBVTT_INVALID_PARAM;
   }
-
+  
   if( current->data.internal_data->length + 1 >= ( current->data.internal_data->alloc / 3 ) * 2 ) {
     webvtt_node **arr = 0;
 	  webvtt_node **old = 0;
