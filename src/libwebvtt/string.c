@@ -14,13 +14,9 @@ static webvtt_string_data empty_string = {
 WEBVTT_EXPORT void
 webvtt_init_string( webvtt_string *result )
 {
-  if( result && result->d != &empty_string ) {
-    webvtt_string_data *d = result->d;
+  if( result ) {
     result->d = &empty_string;
     webvtt_ref( &result->d->refs );
-    if( d && ( webvtt_deref( &d->refs ) == 0 ) ) {
-      webvtt_free( d );
-    }
   }
 }
 
@@ -164,16 +160,6 @@ webvtt_copy_string( webvtt_string *left, const webvtt_string *right )
       left->d = &empty_string;
     }
     webvtt_ref( &left->d->refs );
-    if( d && ( webvtt_deref( &d->refs ) == 0 ) ) {
-      /**
-       * We don't try to check if we're freeing a static string or not.  Static
-       * strings should be initialized with a reference count of '1', and
-       * should be ref'd or deref'd properly.
-       *
-       * If this is difficult, use the C++ bindings!
-       */
-      webvtt_free( d );
-    }
   }
 }
 
