@@ -160,9 +160,9 @@ extern "C" {
     WEBVTT_SKIP_CUE = -11,
 
     /**
-     * A failure that results in the parser ignoring a cuesetting.
+     * Parser should move to the next cuesetting.
      */
-    WEBVTT_SKIP_CUESETTING = -12,
+    WEBVTT_NEXT_CUESETTING = -12,
   };
 
   typedef enum webvtt_status_t webvtt_status;
