@@ -912,7 +912,7 @@ _recheck:
           PUSH0( T_COMMENT, 0, V_NONE );
         } else if( token != NEWLINE ) {
           webvtt_cue *cue = 0;
-	  webvtt_string tk = { 0 };
+          webvtt_string tk = { 0 };
           if( WEBVTT_FAILED( status = webvtt_create_cue( &cue ) ) ) {
             if( status == WEBVTT_OUT_OF_MEMORY ) {
               ERROR( WEBVTT_ALLOCATION_FAILED );
