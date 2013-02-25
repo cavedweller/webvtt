@@ -61,7 +61,7 @@ TEST_F(PayloadClassTag, ClassTagSingleSubclass)
   ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ(  expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
@@ -90,11 +90,11 @@ TEST_F(PayloadClassTag, ClassTagMultiSubclass)
   ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 
-  expectedString = String( (const byte *)"subclass", 8 );
+  expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
 }

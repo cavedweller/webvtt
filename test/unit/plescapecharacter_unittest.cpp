@@ -11,7 +11,7 @@ TEST_F(PayloadEscapeCharacter, GT)
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
-  String expectedText = String( (const byte *)">", 1 );
+  String expectedText = String( ">" );
 
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
@@ -32,7 +32,7 @@ TEST_F(PayloadEscapeCharacter, LT)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"<", 1 );
+  String expectedText = String( "<" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -50,7 +50,7 @@ TEST_F(PayloadEscapeCharacter, Ampersand)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"&", 1 );
+  String expectedText = String( "&" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -274,7 +274,7 @@ TEST_F(PayloadEscapeCharacter, NSP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &nsp;", 34 );
+  String expectedText = String( "Test Space Character escape: &nsp;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -299,7 +299,7 @@ TEST_F(PayloadEscapeCharacter, NBP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
     
-  String expectedText = String( (const byte *)"Test Space Character escape: &nbp", 33 );
+  String expectedText = String( "Test Space Character escape: &nbp" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 
@@ -324,7 +324,7 @@ TEST_F(PayloadEscapeCharacter, BSP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &bsp;", 34 );
+  String expectedText = String( "Test Space Character escape: &bsp;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -348,7 +348,7 @@ TEST_F(PayloadEscapeCharacter, BP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &bp;", 33 );
+  String expectedText = String( "Test Space Character escape: &bp;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 
@@ -373,7 +373,7 @@ TEST_F(PayloadEscapeCharacter, B)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &b;", 32 );
+  String expectedText = String( "Test Space Character escape: &b;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -397,7 +397,7 @@ TEST_F(PayloadEscapeCharacter, S)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &s;", 32 );
+  String expectedText = String( "Test Space Character escape: &s;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -421,7 +421,7 @@ TEST_F(PayloadEscapeCharacter, NS)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &ns;", 33 );
+  String expectedText = String( "Test Space Character escape: &ns;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -445,7 +445,7 @@ TEST_F(PayloadEscapeCharacter, NP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &np", 32 );
+  String expectedText = String( "Test Space Character escape: &np" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -469,7 +469,7 @@ TEST_F(PayloadEscapeCharacter, SP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &sp;", 33 );
+  String expectedText = String( "Test Space Character escape: &sp;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -493,7 +493,7 @@ TEST_F(PayloadEscapeCharacter, P)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &p;", 32 );
+  String expectedText = String( "Test Space Character escape: &p;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -517,7 +517,7 @@ TEST_F(PayloadEscapeCharacter, BS)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &bs;", 33 );
+  String expectedText = String( "Test Space Character escape: &bs;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -542,7 +542,7 @@ TEST_F(PayloadEscapeCharacter, NBS)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &nbs;", 34 );
+  String expectedText = String( "Test Space Character escape: &nbs;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -566,7 +566,7 @@ TEST_F(PayloadEscapeCharacter, NB)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &nb;", 33 );
+  String expectedText = String( "Test Space Character escape: &nb;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -590,7 +590,7 @@ TEST_F(PayloadEscapeCharacter, N)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Space Character escape: &n;", 32 );
+  String expectedText = String( "Test Space Character escape: &n;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -617,7 +617,7 @@ TEST_F(PayloadEscapeCharacter, LeftToRight)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &lr;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &lr;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -641,7 +641,7 @@ TEST_F(PayloadEscapeCharacter, L)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &l;", 40 );
+  String expectedText = String( "Test Left to Right Character escape: &l;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -665,7 +665,7 @@ TEST_F(PayloadEscapeCharacter, LM)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &lm;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &lm;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -689,7 +689,7 @@ TEST_F(PayloadEscapeCharacter, RM)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &rm;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &rm;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -713,7 +713,7 @@ TEST_F(PayloadEscapeCharacter, M)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &m;", 40 );
+  String expectedText = String( "Test Left to Right Character escape: &m;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -737,7 +737,7 @@ TEST_F(PayloadEscapeCharacter, R)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &r;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &r;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -761,7 +761,7 @@ TEST_F(PayloadEscapeCharacter, LM_LeftToRight)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &lm;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &lm;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -785,7 +785,7 @@ TEST_F(PayloadEscapeCharacter, RL)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Left to Right Character escape: &rl;", 41 );
+  String expectedText = String( "Test Left to Right Character escape: &rl;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -811,7 +811,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &", 24 );
+  String expectedText = String( "Test Ampersand escape: &" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -835,7 +835,7 @@ TEST_F(PayloadEscapeCharacter, A)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &a;", 26 );
+  String expectedText = String( "Test Ampersand escape: &a;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -859,7 +859,7 @@ TEST_F(PayloadEscapeCharacter, AM)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &am;", 27 );
+  String expectedText = String( "Test Ampersand escape: &am;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -883,7 +883,7 @@ TEST_F(PayloadEscapeCharacter, MP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &mp;", 27 );
+  String expectedText = String( "Test Ampersand escape: &mp;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -907,7 +907,7 @@ TEST_F(PayloadEscapeCharacter, P_Ampersand)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &p;", 26 );
+  String expectedText = String( "Test Ampersand escape: &p;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -931,7 +931,7 @@ TEST_F(PayloadEscapeCharacter, AP)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Ampersand escape: &ap;", 27 );
+  String expectedText = String( "Test Ampersand escape: &ap;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -958,7 +958,7 @@ TEST_F(PayloadEscapeCharacter, LessThan)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Less Than escape: &l;", 26);
+  String expectedText = String( "Test Less Than escape: &l;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -982,7 +982,7 @@ TEST_F(PayloadEscapeCharacter, T)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Less Than escape: &t;", 26 );
+  String expectedText = String( "Test Less Than escape: &t;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }
@@ -1009,7 +1009,7 @@ TEST_F(PayloadEscapeCharacter, GreaterThan)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
   
-  String expectedText = String( (const byte *)"Test Greater Than escape: &g;", 29 );
+  String expectedText = String( "Test Greater Than escape: &g;" );
 
   ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
 }

@@ -110,7 +110,7 @@ TEST_F(PayloadRubyTag, RubyTagSingleSubclass)
   ASSERT_EQ( Node::Ruby, head[ 1 ].kind() );
 
   StringList cssClasses =  head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
@@ -125,12 +125,12 @@ TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
   ASSERT_EQ( Node::Ruby, head[ 1 ].kind() );
 
   StringList cssClasses =  head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 
-  expectedString = String( (const byte *)"subclass", 8 );
+  expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
 }
 
@@ -156,7 +156,7 @@ TEST_F(PayloadRubyTag, RubyTextTagSingleSubclass)
   ASSERT_EQ( Node::RubyText, head[ 1 ][ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ][ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
@@ -171,11 +171,11 @@ TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
   ASSERT_EQ( Node::RubyText, head[ 1 ][ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ][ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 
-  expectedString = String( (const byte *)"subclass", 8 );
+  expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
 }
