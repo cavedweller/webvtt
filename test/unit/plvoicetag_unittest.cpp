@@ -64,6 +64,7 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 
   String expectedString = String( "Annotation" );
   ASSERT_EQ( expectedString.utf8(), head[ 1 ].annotation().utf8() );
+  assertEquals( expectedString, head[ 1 ].annotation() );
 }
 
 /*
@@ -96,7 +97,7 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -128,8 +129,9 @@ TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 
   expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
 }

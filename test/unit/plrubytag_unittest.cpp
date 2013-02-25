@@ -113,7 +113,7 @@ TEST_F(PayloadRubyTag, RubyTagSingleSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 }
 
 TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
@@ -128,10 +128,11 @@ TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 
   expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
 }
 
 /*
@@ -159,7 +160,7 @@ TEST_F(PayloadRubyTag, RubyTextTagSingleSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 }
 
 TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
@@ -174,8 +175,9 @@ TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 
   expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
 }

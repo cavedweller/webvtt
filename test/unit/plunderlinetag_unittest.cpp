@@ -65,7 +65,7 @@ TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -94,8 +94,9 @@ TEST_F(PayloadUnderlineTag, UnderlineTagMultiSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
 
   expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
+  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
 }
