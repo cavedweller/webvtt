@@ -6,12 +6,14 @@ extern "C" {
 #endif
 
 # if defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
-#   include "webvtt-config-win32.h"
+#   if !WEBVTT_NO_CONFIG_H
+#     include "webvtt-config-win32.h"
+#   endif
 #   define WEBVTT_OS_WIN32 1
 #   if defined(_WIN64)
 #     define WEBVTT_OS_WIN64 1
 #   endif
-# else
+# elif !WEBVTT_NO_CONFIG_H
 #   include <webvtt/webvtt-config.h>
 # endif
 
