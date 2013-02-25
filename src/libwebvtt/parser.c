@@ -90,7 +90,7 @@ cleanup_stack( webvtt_parser self )
         webvtt_release_cue( &st->v.cue );
         break;
       case V_TEXT:
-        webvtt_release_string( st->v.text );
+        webvtt_release_string( &st->v.text );
         break;
         /**
          * TODO: Clean up cuetext nodes as well.
@@ -753,10 +753,10 @@ _next:
     if( SP->state == T_CUEREAD ) {
       int v;
       webvtt_uint old_pos = pos;
-      if( v = webvtt_string_getline( SP->v.text, buffer, &pos,
+      if( v = webvtt_string_getline( &SP->v.text, buffer, &pos,
                                         len, 0, finish, 0 ) ) {
         if( v < 0 ) {
-          webvtt_release_string( SP->v.text );
+          webvtt_release_string( &SP->v.text );
           SP->type = V_NONE;
           POP();
           ERROR( WEBVTT_ALLOCATION_FAILED );
@@ -912,7 +912,7 @@ _recheck:
           PUSH0( T_COMMENT, 0, V_NONE );
         } else if( token != NEWLINE ) {
           webvtt_cue *cue = 0;
-		  webvtt_string tk = { 0 };
+          webvtt_string tk = { 0 };
           if( WEBVTT_FAILED( status = webvtt_create_cue( &cue ) ) ) {
             if( status == WEBVTT_OUT_OF_MEMORY ) {
               ERROR( WEBVTT_ALLOCATION_FAILED );
@@ -928,7 +928,8 @@ _recheck:
             goto _finish;
           }
           PUSH0( T_CUE, cue, V_CUE );
-          PUSH0( T_CUEREAD, &tk, V_TEXT );
+          PUSH0( T_CUEREAD, 0, V_TEXT );
+          SP->v.text.d = tk.d;
         }
         break;
 
@@ -941,7 +942,7 @@ _recheck:
            */
           webvtt_cue *cue = SP->v.cue;
           webvtt_state *st = FRAMEUP( 1 );
-          webvtt_string *text = st->v.text;
+          webvtt_string text = st->v.text;
 
           st->type = V_NONE;
           st->v.cue = NULL;
@@ -951,7 +952,7 @@ _recheck:
            *
            * TODO: Add debug assertion
            */
-          if( find_bytes( webvtt_string_text( text ), webvtt_string_length( text ), separator,
+          if( find_bytes( webvtt_string_text( &text ), webvtt_string_length( &text ), separator,
                           sizeof( separator ) ) ) {
             /* It's not a cue id, we found '-->'. It can't be a second
                cueparams line, because if we had it, we would be in
@@ -959,17 +960,17 @@ _recheck:
             int v;
             /* backup the column */
             self->column = 1;
-            if( ( v = parse_cueparams( self, webvtt_string_text( text ),
-                                       webvtt_string_length( text ), cue ) ) < 0 ) {
+            if( ( v = parse_cueparams( self, webvtt_string_text( &text ),
+                                       webvtt_string_length( &text ), cue ) ) < 0 ) {
               if( v == WEBVTT_PARSE_ERROR ) {
                 status = WEBVTT_PARSE_ERROR;
                 goto _finish;
               }
-              webvtt_release_string( text );
+              webvtt_release_string( &text );
               *mode = M_SKIP_CUE;
               goto _finish;
             } else {
-              webvtt_release_string( text );
+              webvtt_release_string( &text );
               cue->flags |= CUE_HAVE_CUEPARAMS;
               *mode = M_CUETEXT;
               goto _finish;
@@ -982,22 +983,22 @@ _recheck:
                * have one. It seems to be cuetext, which is occurring
                * before cue-params
                */
-              webvtt_release_string( text );
+              webvtt_release_string( &text );
               ERROR( WEBVTT_CUE_INCOMPLETE );
               *mode = M_SKIP_CUE;
               goto _finish;
             } else {
-              self->column += webvtt_string_length( text );
+              self->column += webvtt_string_length( &text );
               if( WEBVTT_FAILED( status = webvtt_string_append(
-                                            &cue->id, webvtt_string_text( text ), webvtt_string_length( text ) ) ) ) {
-                webvtt_release_string( text );
+                                            &cue->id, webvtt_string_text( &text ), webvtt_string_length( &text ) ) ) ) {
+                webvtt_release_string( &text );
                 ERROR( WEBVTT_ALLOCATION_FAILED );
               }
 
               cue->flags |= CUE_HAVE_ID;
             }
           }
-          webvtt_release_string( text );
+          webvtt_release_string( &text );
           self->popped = 0;
         } else {
           webvtt_cue *cue = SP->v.cue;

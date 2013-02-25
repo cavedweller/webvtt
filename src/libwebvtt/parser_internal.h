@@ -131,7 +131,7 @@ webvtt_state {
     /**
      * string value
      */
-    webvtt_string *text;
+    webvtt_string text;
 
     /**
      * The cuetext parser is not currently using the state stack, and
