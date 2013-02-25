@@ -11,7 +11,7 @@ class PayloadItalicTag : public PayloadTest {};
  */
 TEST_F(PayloadItalicTag, ItalicTag)
 {
-  loadVtt( "payload/i-tag/i-tag.vtt" );
+  loadVtt( "payload/i-tag/i-tag.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -29,7 +29,7 @@ TEST_F(PayloadItalicTag, ItalicTag)
  */
 TEST_F(PayloadItalicTag, ItalicAnnotation)
 {
-  loadVtt( "payload/i-tag/i-tag-annotation.vtt" );
+  loadVtt( "payload/i-tag/i-tag-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -53,7 +53,7 @@ TEST_F(PayloadItalicTag, ItalicAnnotation)
  */
 TEST_F(PayloadItalicTag, ItalicTagSingleSubclass)
 {
-  loadVtt( "payload/i-tag/i-tag-single-subclass.vtt" );
+  loadVtt( "payload/i-tag/i-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -82,7 +82,7 @@ TEST_F(PayloadItalicTag, ItalicTagSingleSubclass)
  */
 TEST_F(PayloadItalicTag, ItalicTagMultiSubclass)
 {
-  loadVtt( "payload/i-tag/i-tag-multi-subclass.vtt" );
+  loadVtt( "payload/i-tag/i-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 

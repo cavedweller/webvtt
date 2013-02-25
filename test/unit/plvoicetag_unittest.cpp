@@ -13,7 +13,7 @@ class PayloadVoiceTag : public PayloadTest {};
  */
 TEST_F(PayloadVoiceTag, VoiceTag)
 {
-  loadVtt( "payload/v-tag/v-tag.vtt" );
+  loadVtt( "payload/v-tag/v-tag.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -33,7 +33,7 @@ TEST_F(PayloadVoiceTag, VoiceTag)
  */
 TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
 {
-  loadVtt( "payload/v-tag/v-tag-internal-text.vtt" );
+  loadVtt( "payload/v-tag/v-tag-internal-text.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -55,7 +55,7 @@ TEST_F(PayloadVoiceTag, VoiceInternalTextTag)
  */
 TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 {
-  loadVtt( "payload/v-tag/v-tag-annotation.vtt" );
+  loadVtt( "payload/v-tag/v-tag-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -85,7 +85,7 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
  */
 TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
 {
-  loadVtt( "payload/v-tag/v-tag-single-subclass.vtt" );
+  loadVtt( "payload/v-tag/v-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -117,7 +117,7 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
  */
 TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
 {
-  loadVtt( "payload/v-tag/v-tag-multi-subclass.vtt" );
+  loadVtt( "payload/v-tag/v-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
