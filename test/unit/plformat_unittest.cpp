@@ -193,7 +193,7 @@ TEST_F(PayloadFormat, AmpersandWithinTag)
   /* verify the text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
   String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp;", 40 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  Version:
@@ -222,7 +222,7 @@ TEST_F(PayloadFormat, AmpersandWithinMultipleTags)
   /* verify the text within the italic tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ][ 0 ];
   String expectedText = String( (const byte *)"Test Ampersand escape within i tag: &amp; ", 40 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  Version:
@@ -251,7 +251,7 @@ TEST_F(PayloadFormat, AmpersandOutsideTwoTags)
   /* verify the escape character text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  Version:
@@ -278,12 +278,12 @@ TEST_F(PayloadFormat, AmpersandOnNewLineAfterTwoTagsWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify the escape character text within i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  Version:
@@ -308,12 +308,12 @@ TEST_F(PayloadFormat, AmpersandInsideOneTagWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify escape character text within i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
   String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  WebVTT Specification Version:
@@ -344,7 +344,7 @@ TEST_F(PayloadFormat, AmpersandInsideTagWithSubclasses)
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  WebVTT Specification Version:
@@ -370,16 +370,16 @@ TEST_F(PayloadFormat, AmpersandOnLineWithClassAndSubClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
+  ASSERT_EQ(cssSubClassExpected.utf8(), cssClass.stringAt(1).utf8());
 
   /* verify escape character text within i tag*/
   const Node textNode = getHeadOfCue( 0 )[ 0 ];
   String expectedText = String( (const byte *)" ampersand escape: &amp; ", 25 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  WebVTT Specification Version:
@@ -407,16 +407,16 @@ TEST_F(PayloadFormat, AmpersandOnNewlineWithClassAndSubclass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
+  ASSERT_EQ(cssSubClassExpected.utf8(), cssClass.stringAt(1).utf8());
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)"&amp;", 5 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  WebVTT Specification Version:
@@ -442,16 +442,16 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClassAndSubclass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify subclass within the i tag */
   String cssSubClassExpected = String((const byte *)"subclass", 8);
-  ASSERT_EQ(cssSubClassExpected.text(), cssClass.stringAt(1).text());
+  ASSERT_EQ(cssSubClassExpected.utf8(), cssClass.stringAt(1).utf8());
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 /*
  WebVTT Specification Version:
@@ -477,12 +477,12 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
   String cssClassExpected = String((const byte *)"class", 5);
-  ASSERT_EQ(cssClassExpected.text(), cssClass.stringAt(0).text());
+  ASSERT_EQ(cssClassExpected.utf8(), cssClass.stringAt(0).utf8());
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
   String expectedText = String( (const byte *)" &amp;", 6 );
-  ASSERT_EQ( expectedText.text(), textNode.text().text() );
+  ASSERT_EQ( expectedText.utf8(), textNode.text().utf8() );
 }
 
 /*
