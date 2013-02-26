@@ -44,6 +44,7 @@ webvtt_create_parser( webvtt_cue_fn on_read,
   p->error = on_error;
   p->column = p->line = 1;
   p->userdata = userdata;
+  p->finished = 0;
   *ppout = p;
 
   return WEBVTT_SUCCESS;
@@ -118,6 +119,51 @@ cleanup_stack( webvtt_parser self )
     self->stack_alloc = sizeof( self->astack ) / sizeof( *( self->astack ) );
     webvtt_free( pst );
   }
+}
+
+/**
+ *
+ */
+WEBVTT_EXPORT webvtt_status 
+webvtt_finish_parsing( webvtt_parser self ) 
+{
+  webvtt_status status = WEBVTT_SUCCESS;
+  
+  if( !self->finished ) {
+    self->finished = 1;
+    
+    switch( self->mode ) {
+      /**
+       * We've left off parsing cue settings and are not in the empty state,
+       * return WEBVTT_CUE_INCOMPLETE.
+       */
+      case M_WEBVTT:
+        if( self->top->type != V_NONE ) {
+          ERROR( WEBVTT_CUE_INCOMPLETE );
+        }
+        break;
+      /** 
+       * We've left off on trying to read in a cue text.
+       * Parse the partial cue text read and pass the cue back to the 
+       * application if possible.
+       */
+      case M_CUETEXT:
+        status = webvtt_parse_cuetext( self, self->top->v.cue, 
+                                       &self->line_buffer, self->finished );
+        webvtt_release_string( &self->line_buffer );
+        finish_cue( self, &self->top->v.cue );
+        break;
+      case M_SKIP_CUE:
+        /* Nothing to do here. */
+        break;
+      case M_READ_LINE:
+        /* Nothing to do here. */
+        break;
+    }
+    cleanup_stack( self );
+  }
+  
+  return status;
 }
 
 WEBVTT_EXPORT void
@@ -1081,7 +1127,7 @@ _finish:
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, webvtt_bool finished )
+webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
 {
   webvtt_status status;
   webvtt_uint pos = 0;
@@ -1090,7 +1136,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
   while( pos < len ) {
     switch( self->mode ) {
       case M_WEBVTT:
-        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len, &self->mode, finished ) ) ) {
+        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len, &self->mode, self->finished ) ) ) {
           return status;
         }
         break;
@@ -1099,7 +1145,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
         /**
          * read in cuetext
          */
-        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len, &self->mode, finished ) ) ) {
+        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len, &self->mode, self->finished ) ) ) {
           if( status == WEBVTT_UNFINISHED ) {
             /* Make an exception here, because this isn't really a failure. */
             return WEBVTT_SUCCESS;
@@ -1110,7 +1156,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          * Once we've successfully read the cuetext into line_buffer, call the
          * cuetext parser from cuetext.c
          */
-        status = webvtt_parse_cuetext( self, SP->v.cue, &self->line_buffer, finished );
+        status = webvtt_parse_cuetext( self, SP->v.cue, &self->line_buffer, self->finished );
 
         /**
          * return the cue to the user, if possible.
@@ -1131,7 +1177,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
         break;
 
       case M_SKIP_CUE:
-        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len, &self->mode, finished ) ) ) {
+        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len, &self->mode, self->finished ) ) ) {
           return status;
         }
         webvtt_release_string( &self->line_buffer );
@@ -1144,7 +1190,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
          * we will and depending on our state, do something with it.
          */
         int ret;
-        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, finished, 0 ) ) ) {
+        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, self->finished, 0 ) ) ) {
           if( ret < 0 ) {
             ERROR( WEBVTT_ALLOCATION_FAILED );
             return WEBVTT_OUT_OF_MEMORY;
@@ -1159,25 +1205,6 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len, web
     }
   }
 
-  if( finished ) {
-    /**
-     * If we've finished parsing, we should hand our cue over to the user, 
-     * if we have one.
-     */
-    if( SP->type == V_CUE ) {
-      if( !( SP->v.cue->flags & CUE_HAVE_CUEPARAMS ) ) {
-        ERROR( WEBVTT_CUE_INCOMPLETE );
-      }
-
-      finish_cue( self, &SP->v.cue );
-    }
-
-    switch( SP->state ) {
-      case T_CUEID:
-        ERROR( WEBVTT_CUE_INCOMPLETE );
-        break;
-    }
-  }
   return WEBVTT_SUCCESS;
 }
 

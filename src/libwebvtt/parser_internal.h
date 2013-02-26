@@ -158,7 +158,8 @@ webvtt_parser_t {
   webvtt_cue_fn read;
   webvtt_error_fn error;
   void *userdata;
-
+  webvtt_bool finished;
+  
   /**
    * 'mode' can have several states, it is not boolean.
    */
