@@ -119,4 +119,33 @@ TEST(String,UTF32RequiresSurrogate)
   ASSERT_FALSE( String::requiresSurrogate( single ) );
 }
 
+/**
+ * Test that we correctly report that a string is empty.
+ */
+TEST(String,IsEmpty)
+{
+  const webvtt_byte ne[] = "Not empty!";
+  webvtt_string str = { 0 };
+  webvtt_init_string( &str );
+  ASSERT_TRUE( webvtt_string_is_empty( &str ) );
+  webvtt_release_string( &str );
+  webvtt_create_string( 0, &str );
+  ASSERT_TRUE( webvtt_string_is_empty( &str ) );
+  webvtt_string_append( &str, ne, sizeof( ne ) );
+  ASSERT_FALSE( webvtt_string_is_empty( &str ) );
+  webvtt_release_string( &str );
+}
 
+/**
+ * Test that we correctly report that a string is empty using the C++
+ * bindings.
+ */
+TEST(String,IsEmptyCXX)
+{
+  String str;
+  ASSERT_TRUE( str.isEmpty() );
+  str = String( "" );
+  ASSERT_TRUE( str.isEmpty() );
+  str.append( "Not Empty!" ); 
+  ASSERT_FALSE( str.isEmpty() );
+}
