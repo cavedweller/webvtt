@@ -172,9 +172,7 @@ extern "C" {
   /**
    * Macros to filter out webvtt status returns.
    */
-
-#define WEBVTT_SUCCESS(status) ( (status) == WEBVTT_SUCCESS )
-#define WEBVTT_FAILED(status) ( (status) != WEBVTT_SUCCESS )
+# define WEBVTT_FAILED(status) ( (status) != WEBVTT_SUCCESS )
 
   struct
   webvtt_refcount_t {

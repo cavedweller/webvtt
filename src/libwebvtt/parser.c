@@ -1074,7 +1074,7 @@ _finish:
    * If we didn't encounter 2 successive EOLs, and it's not the final buffer in
    * the file, notify the caller.
    */
-  if( pos >= len && WEBVTT_SUCCESS( status ) && !finished ) {
+  if( pos >= len && !WEBVTT_FAILED( status ) && !finished ) {
     status = WEBVTT_UNFINISHED;
   }
   return status;
