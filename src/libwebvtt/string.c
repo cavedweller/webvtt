@@ -359,10 +359,9 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint32 len )
+webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len )
 {
   webvtt_status result;
-  webvtt_uint size;
 
   if( !str || !buffer ) {
     return WEBVTT_INVALID_PARAM;
@@ -371,18 +370,20 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
     webvtt_init_string( str );
   }
 
-  size = str->d->length + len;
-
-  /**
-   * Ensure that we have at least 'len' characters available.
-   */
-  if( size && !WEBVTT_FAILED( result = grow( str, size ) ) ) {
-    memcpy( str->d->text, buffer, size );
-	str->d->length += size;
+  if( len < 0 ) {
+    len = strlen( buffer );
   }
 
-  /* null-terminate string */
-  str->d->text[ str->d->length ] = 0;
+  if( len == 0 ) {
+    return WEBVTT_SUCCESS;
+  }
+
+  if( !WEBVTT_FAILED( result = grow( str, str->d->length + len ) ) ) {
+    memcpy( str->d->text + str->d->length, buffer, len );
+    str->d->length += len;
+    /* null-terminate string */
+    str->d->text[ str->d->length ] = 0;
+  }
 
   return result;
 }
