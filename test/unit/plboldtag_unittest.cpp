@@ -11,10 +11,10 @@ class PayloadBoldTag : public PayloadTest {};
  */
 TEST_F(PayloadBoldTag, BoldTag)
 {
-  loadVtt( "payload/b-tag/b-tag.vtt" );
+  loadVtt( "payload/b-tag/b-tag.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
-  
+
   ASSERT_EQ( 3, head.childCount() );
   ASSERT_EQ( Node::Bold, head[ 1 ].kind() );
 }
@@ -29,7 +29,7 @@ TEST_F(PayloadBoldTag, BoldTag)
  */
 TEST_F(PayloadBoldTag, BoldTagAnnotation)
 {
-  loadVtt( "payload/b-tag/b-tag-annotation.vtt" );
+  loadVtt( "payload/b-tag/b-tag-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -53,7 +53,7 @@ TEST_F(PayloadBoldTag, BoldTagAnnotation)
  */
 TEST_F(PayloadBoldTag, BoldTagSingleSubclass)
 {
-  loadVtt( "payload/b-tag/b-tag-single-subclass.vtt" );
+  loadVtt( "payload/b-tag/b-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -82,7 +82,7 @@ TEST_F(PayloadBoldTag, BoldTagSingleSubclass)
  */
 TEST_F(PayloadBoldTag, BoldTagMultiSubclass)
 {
-  loadVtt( "payload/b-tag/b-tag-multi-subclass.vtt" );
+  loadVtt( "payload/b-tag/b-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 

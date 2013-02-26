@@ -11,7 +11,7 @@ class PayloadClassTag : public PayloadTest {};
  */
 TEST_F(PayloadClassTag, ClassTag)
 {
-  loadVtt( "payload/c-tag/c-tag.vtt" );
+  loadVtt( "payload/c-tag/c-tag.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -29,7 +29,7 @@ TEST_F(PayloadClassTag, ClassTag)
  */
 TEST_F(PayloadClassTag, ClassTagAnnotation)
 {
-  loadVtt( "payload/c-tag/c-tag-annotation.vtt" );
+  loadVtt( "payload/c-tag/c-tag-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -53,7 +53,7 @@ TEST_F(PayloadClassTag, ClassTagAnnotation)
  */
 TEST_F(PayloadClassTag, ClassTagSingleSubclass)
 {
-  loadVtt( "payload/c-tag/c-tag-single-subclass.vtt" );
+  loadVtt( "payload/c-tag/c-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -82,7 +82,7 @@ TEST_F(PayloadClassTag, ClassTagSingleSubclass)
  */
 TEST_F(PayloadClassTag, ClassTagMultiSubclass)
 {
-  loadVtt( "payload/c-tag/c-tag-multi-subclass.vtt" );
+  loadVtt( "payload/c-tag/c-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 

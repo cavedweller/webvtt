@@ -12,7 +12,7 @@ class PayloadUnderlineTag : public PayloadTest {};
  */
 TEST_F(PayloadUnderlineTag, UnderlineTag)
 {
-  loadVtt( "payload/u-tag/u-tag.vtt" );
+  loadVtt( "payload/u-tag/u-tag.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -30,7 +30,7 @@ TEST_F(PayloadUnderlineTag, UnderlineTag)
  */
 TEST_F(PayloadUnderlineTag, UnderlineAnnotation)
 {
-  loadVtt( "payload/u-tag/u-tag-annotation.vtt" );
+  loadVtt( "payload/u-tag/u-tag-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -54,7 +54,7 @@ TEST_F(PayloadUnderlineTag, UnderlineAnnotation)
  */
 TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
 {
-  loadVtt( "payload/u-tag/u-tag-single-subclass.vtt" );
+  loadVtt( "payload/u-tag/u-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -83,7 +83,7 @@ TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
  */
 TEST_F(PayloadUnderlineTag, UnderlineTagMultiSubclass)
 {
-  loadVtt( "payload/u-tag/u-tag-multi-subclass.vtt" );
+  loadVtt( "payload/u-tag/u-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 

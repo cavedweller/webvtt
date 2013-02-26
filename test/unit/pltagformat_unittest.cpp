@@ -13,7 +13,7 @@ class PayloadTagFormat : public PayloadTest {};
  */
 TEST_F(PayloadTagFormat, MultipleCueTextTag)
 {
-  loadVtt( "payload/tag-format/multiple-cue-text-tag.vtt" );
+  loadVtt( "payload/tag-format/multiple-cue-text-tag.vtt", 1 );
   ASSERT_EQ( Node::Italic, getHeadOfCue( 0 )[ 0 ].kind() );
   ASSERT_EQ( Node::Bold, getHeadOfCue( 0 )[ 0 ][ 0 ].kind() );
 }
@@ -30,7 +30,7 @@ Verifies that an incorrect class name cannot be used as a cue component.
 */
 TEST_F(PayloadTagFormat, BadTagName)
 {
-  loadVtt( "payload/tag-format/incorrect-tag-name.vtt" );
+  loadVtt( "payload/tag-format/incorrect-tag-name.vtt", 1 );
   ASSERT_EQ( 3, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -45,7 +45,7 @@ TEST_F(PayloadTagFormat, BadTagName)
  */
 TEST_F(PayloadTagFormat, BadTagNesting)
 {
-  loadVtt( "payload/tag-format/bad-tag-nesting.vtt" );
+  loadVtt( "payload/tag-format/bad-tag-nesting.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -68,7 +68,7 @@ TEST_F(PayloadTagFormat, BadTagNesting)
  */
 TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
 {
-  loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt.vtt" );
+  loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -92,7 +92,7 @@ TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
  */
 TEST_F(PayloadTagFormat, EndTagNoEndBrace)
 {
-  loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt.vtt" );
+  loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -115,7 +115,7 @@ TEST_F(PayloadTagFormat, EndTagNoEndBrace)
  */
 TEST_F(PayloadTagFormat, EndTagNoStartBrace)
 {
-  loadVtt( "payload/tag-format/end-tag-no-start-brace.vtt" );
+  loadVtt( "payload/tag-format/end-tag-no-start-brace.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -138,7 +138,7 @@ TEST_F(PayloadTagFormat, EndTagNoStartBrace)
  */
 TEST_F(PayloadTagFormat, MultiTagNoEndTag)
 {
-  loadVtt( "payload/tag-format/multi-tag-no-end-tag.vtt" );
+  loadVtt( "payload/tag-format/multi-tag-no-end-tag.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -168,7 +168,7 @@ TEST_F(PayloadTagFormat, MultiTagNoEndTag)
  */
 TEST_F(PayloadTagFormat, StartTagNoEndBrace)
 {
-  loadVtt( "payload/tag-format/start-tag-no-end-brace.vtt" );
+  loadVtt( "payload/tag-format/start-tag-no-end-brace.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -188,7 +188,7 @@ TEST_F(PayloadTagFormat, StartTagNoEndBrace)
  */
 TEST_F(PayloadTagFormat, StartTagNoEndBraceSpace)
 {
-  loadVtt( "payload/tag-format/start-tag-no-end-brace-space.vtt" );
+  loadVtt( "payload/tag-format/start-tag-no-end-brace-space.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );

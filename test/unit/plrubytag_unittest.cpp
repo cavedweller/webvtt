@@ -23,7 +23,7 @@ class PayloadRubyTag : public PayloadTest {};
  */
 TEST_F(PayloadRubyTag, ValidRuby)
 {
-  loadVtt( "payload/ruby-tag/ruby-cue-component.vtt");
+  loadVtt( "payload/ruby-tag/ruby-cue-component.vtt", 1 );
 
   const Node head0 = getHeadOfCue( 0 );
 
@@ -33,7 +33,7 @@ TEST_F(PayloadRubyTag, ValidRuby)
 
 TEST_F(PayloadRubyTag, RubyAnnotation)
 {
-  loadVtt( "payload/ruby-tag/ruby-annotation.vtt", 1);
+  loadVtt( "payload/ruby-tag/ruby-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -43,7 +43,7 @@ TEST_F(PayloadRubyTag, RubyAnnotation)
 
 TEST_F(PayloadRubyTag, RubyTextAnnotation)
 {
-  loadVtt( "payload/ruby-tag/ruby-text-annotation.vtt" );
+  loadVtt( "payload/ruby-tag/ruby-text-annotation.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -52,7 +52,7 @@ TEST_F(PayloadRubyTag, RubyTextAnnotation)
 
 TEST_F(PayloadRubyTag, NoRubyBaseText)
 {
-  loadVtt( "payload/ruby-tag/no-base-text.vtt");
+  loadVtt( "payload/ruby-tag/no-base-text.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -103,7 +103,7 @@ TEST_F(PayloadRubyTag, NoRubyText)
  */
 TEST_F(PayloadRubyTag, RubyTagSingleSubclass)
 {
-  loadVtt( "payload/ruby-tag/ruby-tag-single-subclass.vtt" );
+  loadVtt( "payload/ruby-tag/ruby-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -118,7 +118,7 @@ TEST_F(PayloadRubyTag, RubyTagSingleSubclass)
 
 TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
 {
-  loadVtt( "payload/ruby-tag/ruby-tag-multi-subclass.vtt" );
+  loadVtt( "payload/ruby-tag/ruby-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -149,7 +149,7 @@ TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
  */
 TEST_F(PayloadRubyTag, RubyTextTagSingleSubclass)
 {
-  loadVtt( "payload/ruby-tag/ruby-text-tag-single-subclass.vtt" );
+  loadVtt( "payload/ruby-tag/ruby-text-tag-single-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 
@@ -164,7 +164,7 @@ TEST_F(PayloadRubyTag, RubyTextTagSingleSubclass)
 
 TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
 {
-  loadVtt( "payload/ruby-tag/ruby-text-tag-multi-subclass.vtt" );
+  loadVtt( "payload/ruby-tag/ruby-text-tag-multi-subclass.vtt", 1 );
 
   const Node head = getHeadOfCue( 0 );
 

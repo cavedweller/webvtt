@@ -143,7 +143,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
  */
 TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
 {
-  loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt" );
+  loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt", 1 );
 
   const Node node0 = getHeadOfCue( 0 );
   ASSERT_EQ( Node::Underline, node0.kind() );
@@ -495,7 +495,7 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
  */
 TEST_F(PayloadFormat, MultilineBasicCueTextCR)
 {
-  loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt" );
+  loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
@@ -509,7 +509,7 @@ TEST_F(PayloadFormat, MultilineBasicCueTextCR)
  */
 TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
 {
-  loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt" );
+  loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
