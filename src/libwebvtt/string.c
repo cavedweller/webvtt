@@ -349,7 +349,7 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
     return result;
   }
 
-  if( WEBVTT_SUCCESS( result == grow( str, 1 ) ) )
+  if( !WEBVTT_FAILED( result == grow( str, 1 ) ) )
   {
     str->d->text[ str->d->length++ ] = to_append;
     str->d->text[ str->d->length ] = 0;
@@ -376,7 +376,7 @@ webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint
   /**
    * Ensure that we have at least 'len' characters available.
    */
-  if( size && WEBVTT_SUCCESS( result = grow( str, size ) ) ) {
+  if( size && !WEBVTT_FAILED( result = grow( str, size ) ) ) {
     memcpy( str->d->text, buffer, size );
 	str->d->length += size;
   }
