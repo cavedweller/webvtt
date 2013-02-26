@@ -131,7 +131,7 @@ WEBVTT_EXPORT webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte 
  *
  * if 'len' is < 0, then buffer is expected to be null-terminated.
  */
-WEBVTT_EXPORT webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint32 len );
+WEBVTT_EXPORT webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len );
 
 /**
  * webvtt_string_appendstr

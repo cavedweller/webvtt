@@ -122,20 +122,46 @@ public:
     return (uint)webvtt_utf8_chcount( utf8(), utf8() + length() );
   }
 
+  inline String &append( byte ch, webvtt_status &result ) {
+    result = webvtt_string_putc( &string, ch );
+    return *this;
+  }
+
   inline String &append( byte ch ) {
-    webvtt_status status;
-    if( WEBVTT_FAILED(status = webvtt_string_putc( &string, ch ) ) ) {
-      // TODO: Throw exception on errors
-    }
+    webvtt_status ignored;
+    return append( ch, ignored );
+  }
+
+  inline String &append( const char *str, webvtt_status &result ) {
+    result = webvtt_string_append( &string,
+      reinterpret_cast<const byte *>( str ), -1 );
+    return *this;
+  }
+
+  inline String &append( const char *str, int len, webvtt_status &result ) {
+    result = webvtt_string_append( &string,
+      reinterpret_cast<const byte *>( str ), len );
+    return *this;
+  }
+
+  inline String &append( const char *str, int len = -1 ) {
+    webvtt_status ignored;
+    return append( str, len, ignored );
+  }
+
+  inline String &append( const String &other, webvtt_status &result ) {
+    result = webvtt_string_append( &string, other.utf8(), -1 );
+    return *this;
+  }
+
+  inline String &append( const String &other, int len, webvtt_status &result ) {
+    result = webvtt_string_append( &string, other.utf8(), len );
     return *this;
   }
 
   inline String &append( const String &other, int len = -1 ) {
-    webvtt_status status;
-    if( WEBVTT_FAILED(status = webvtt_string_append( &string, other.utf8(), len < 0 ? other.length() : (uint)len ) ) ) {
-      // TODO: Throw exception on errors
-    }
-    return *this;
+    webvtt_status ignored;
+    return append( other, len, ignored );
   }
 
 private:
