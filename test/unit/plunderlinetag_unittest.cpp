@@ -62,7 +62,7 @@ TEST_F(PayloadUnderlineTag, UnderlineTagSingleSubclass)
   ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
@@ -91,11 +91,11 @@ TEST_F(PayloadUnderlineTag, UnderlineTagMultiSubclass)
   ASSERT_EQ( Node::Underline, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( (const byte *)"class", 5 );
+  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 0 ).utf8() );
 
-  expectedString = String( (const byte *)"subclass", 8 );
+  expectedString = String( "subclass" );
   ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
 }

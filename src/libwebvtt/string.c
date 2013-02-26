@@ -63,10 +63,24 @@ webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_t
 {
   webvtt_uint pos = 0;
 
-  if( !result && !init_text ) {
+  if( !result ) {
     return WEBVTT_INVALID_PARAM;
   }
+  
+  if( !init_text ) {
+    webvtt_init_string( result );
+    return WEBVTT_SUCCESS;
+  }
 
+  if( len < 0 ) {
+    len = strlen( init_text );
+  }
+  
+  if( len == 0 ) {
+    webvtt_init_string( result );
+    return WEBVTT_SUCCESS;
+  }
+  
   /**
    * initialize the string by referencing empty_string
    */
