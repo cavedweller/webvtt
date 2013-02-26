@@ -192,9 +192,7 @@ TEST_F(PayloadFormat, AmpersandWithinTag)
 
   /* verify the text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
-
-  String expectedText = String( "Test Ampersand escape within i tag: &amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "Test Ampersand escape within i tag: &amp;", textNode.text() );
 }
 /*
  Version:
@@ -222,9 +220,7 @@ TEST_F(PayloadFormat, AmpersandWithinMultipleTags)
 
   /* verify the text within the italic tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ][ 0 ];
-
-  String expectedText = String( "Test Ampersand escape within i tag: &amp; " );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "Test Ampersand escape within i tag: &amp; ", textNode.text() );
 }
 /*
  Version:
@@ -252,9 +248,7 @@ TEST_F(PayloadFormat, AmpersandOutsideTwoTags)
 
   /* verify the escape character text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-
-  String expectedText = String( " &amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( " &amp;", textNode.text() );
 }
 /*
  Version:
@@ -280,14 +274,11 @@ TEST_F(PayloadFormat, AmpersandOnNewLineAfterTwoTagsWithClass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-
-  String cssClassExpected = String( "class" );
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify the escape character text within i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  String expectedText = String( "&amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "&amp;", textNode.text() );
 }
 /*
  Version:
@@ -311,14 +302,11 @@ TEST_F(PayloadFormat, AmpersandInsideOneTagWithClass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-
-  String cssClassExpected = String( "class");
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify escape character text within i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
-  String expectedText = String( " ampersand escape: &amp; " );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( " ampersand escape: &amp; ", textNode.text() );
 }
 /*
  WebVTT Specification Version:
@@ -348,9 +336,7 @@ TEST_F(PayloadFormat, AmpersandInsideTagWithSubclasses)
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-
-  String expectedText = String( "&amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "&amp;", textNode.text() );
 }
 /*
  WebVTT Specification Version:
@@ -375,17 +361,14 @@ TEST_F(PayloadFormat, AmpersandOnLineWithClassAndSubClass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  String cssClassExpected = String( "class");
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  String cssSubClassExpected = String( "subclass" );
-  assertEquals( cssSubClassExpected, cssClass.stringAt(1) );
+  assertEquals( "subclass", cssClass.stringAt(1) );
 
   /* verify escape character text within i tag*/
   const Node textNode = getHeadOfCue( 0 )[ 0 ];
-  String expectedText = String( " ampersand escape: &amp; " );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( " ampersand escape: &amp; ", textNode.text() );
 }
 /*
  WebVTT Specification Version:
@@ -412,17 +395,14 @@ TEST_F(PayloadFormat, AmpersandOnNewlineWithClassAndSubclass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  String cssClassExpected = String( "class" );
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  String cssSubClassExpected = String( "subclass" );
-  assertEquals( cssSubClassExpected, cssClass.stringAt(1) );
+  assertEquals( "subclass", cssClass.stringAt(1) );
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  String expectedText = String( "&amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "&amp;", textNode.text() );
 }
 /*
  WebVTT Specification Version:
@@ -447,17 +427,14 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClassAndSubclass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  String cssClassExpected = String( "class" );
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  String cssSubClassExpected = String( "subclass" );
-  assertEquals( cssSubClassExpected, cssClass.stringAt(1) );
+  assertEquals( "subclass", cssClass.stringAt(1) );
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  String expectedText = String( " &amp;" );
-  assertEquals( expectedText, textNode.text() );
+  assertEquals( "&amp;", textNode.text() );
 }
 /*
  WebVTT Specification Version:
@@ -482,13 +459,11 @@ TEST_F(PayloadFormat, AmpersandOnCurrlineWithClass)
 
   /* verify class inside italic tag*/
   StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  String cssClassExpected = String( "class" );
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( "class", cssClass.stringAt(0) );
 
   /* verify character escape outside i tag */
   const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  String expectedText = String( " &amp;" );
-  assertEquals( cssClassExpected, cssClass.stringAt(0) );
+  assertEquals( " &amp;", cssClass.stringAt(0) );
 }
 
 /*

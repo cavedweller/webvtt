@@ -34,6 +34,11 @@ protected:
     ASSERT_STREQ( reinterpret_cast<const char *>( one.utf8() ), reinterpret_cast<const char *>( two.utf8() ) );
   }
   
+  void assertEquals( const char *one, const String &two ) 
+  {
+    ASSERT_STREQ( one, reinterpret_cast<const char*>( two.utf8() ) );  
+  }
+  
   /**
    * Added functions for ASSERT-ing timestamp equality in an easier way.
    */

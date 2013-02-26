@@ -61,10 +61,9 @@ TEST_F(PayloadItalicTag, ItalicTagSingleSubclass)
   ASSERT_EQ( Node::Italic, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
+  assertEquals( "class", cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -93,9 +92,6 @@ TEST_F(PayloadItalicTag, ItalicTagMultiSubclass)
   String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
-
-  expectedString = String( "subclass" );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
-  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
+  assertEquals( "class", cssClasses.stringAt( 0 ) );
+  assertEquals( "subclass", cssClasses.stringAt( 1 ) );
 }

@@ -61,10 +61,7 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 
   ASSERT_EQ( 3, head.childCount() );
   ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
-
-  String expectedString = String( "Annotation" );
-  ASSERT_EQ( expectedString.utf8(), head[ 1 ].annotation().utf8() );
-  assertEquals( expectedString, head[ 1 ].annotation() );
+  assertEquals( "Annotation", head[ 1 ].annotation() );
 }
 
 /*
@@ -94,10 +91,9 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
   ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
+  assertEquals( "class", cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -126,12 +122,8 @@ TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
   ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  String expectedString = String( "class" );
 
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( expectedString, cssClasses.stringAt( 0 ) );
-
-  expectedString = String( "subclass" );
-  ASSERT_EQ( expectedString.utf8(), cssClasses.stringAt( 1 ).utf8() );
-  assertEquals( expectedString, cssClasses.stringAt( 1 ) );
+  assertEquals( "class", cssClasses.stringAt( 0 ) );
+  assertEquals( "subclass", cssClasses.stringAt( 1 ) );
 }
