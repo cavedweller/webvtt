@@ -166,7 +166,6 @@ webvtt_delete_cuetext_start_token( webvtt_cuetext_token *start_token )
     if( webvtt_string_length (&start_token->tag_name) ) {
       webvtt_release_string( &start_token->tag_name );
     }
-    webvtt_free( start_token );
   }
 }
 
@@ -177,7 +176,6 @@ webvtt_delete_cuetext_end_token( webvtt_cuetext_token *end_token )
     if( end_token->tag_name.d ) {
       webvtt_release_string( &end_token->tag_name );
     }
-    webvtt_free( end_token );
   }
 }
 
@@ -188,7 +186,6 @@ webvtt_delete_cuetext_text_token( webvtt_cuetext_token *text_token )
     if( text_token->text.d ) {
       webvtt_release_string( &text_token->text );
     }
-    webvtt_free( text_token );
   }
 }
 
