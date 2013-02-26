@@ -78,9 +78,9 @@ webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string t
     return status;
   }
 
-  (*token)->tag_name = tag_name;
+  webvtt_copy_string( &(*token)->tag_name, &tag_name );
   (*token)->start_token_data->css_classes = css_classes;
-  (*token)->start_token_data->annotations = annotation;
+  webvtt_copy_string( &(*token)->start_token_data->annotations, &annotation );
 
   return WEBVTT_SUCCESS;
 }
@@ -94,8 +94,8 @@ webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag
     return status;
   }
 
-  (*token)->tag_name = tag_name;
-
+  webvtt_copy_string( &(*token)->tag_name, &tag_name );
+  
   return WEBVTT_SUCCESS;
 }
 
@@ -108,7 +108,7 @@ webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string te
     return status;
   }
 
-  (*token)->text = text;
+  webvtt_copy_string( &(*token)->text, &text);
 
   return WEBVTT_SUCCESS;
 }
@@ -551,14 +551,14 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
   webvtt_timestamp time_stamp = 0;
   webvtt_status status = WEBVTT_UNFINISHED;
 
-  webvtt_create_string( 10, &result );
-  webvtt_create_string( 10, &annotation );
-  webvtt_create_stringlist( &css_classes );
-
   if( !position ) {
     return WEBVTT_INVALID_PARAM;
   }
 
+  webvtt_create_string( 10, &result );
+  webvtt_create_string( 10, &annotation );
+  webvtt_create_stringlist( &css_classes );
+  
   /**
    * Loop while the tokenizer is not finished.
    * Based on the state of the tokenizer enter a function to handle that
@@ -600,39 +600,38 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
 
   if( **position == UTF8_GREATER_THAN )
   { (*position)++; }
-
-  /**
-   * If we have not recieved a webvtt success then that means we should not
-   * create a token and therefore we need to deallocate result, annotation, and
-   * css classes now because no token/node struct will take care of deallocation
-   * later in the parser.
-   */
-  if( status != WEBVTT_SUCCESS ) {
-    webvtt_release_string( &result );
-    webvtt_release_string( &annotation );
+  
+  if( status == WEBVTT_SUCCESS ) {
+    /**
+     * The state that the tokenizer left off on will tell us what kind of token
+     * needs to be made.
+     */
+    if( token_state == DATA || token_state == ESCAPE ) {
+      status = webvtt_create_cuetext_text_token( token, result );
+    } else if(token_state == TAG || token_state == START_TAG || token_state == START_TAG_CLASS ||
+              token_state == START_TAG_ANNOTATION) {
+      status = webvtt_create_cuetext_start_token( token, result, css_classes, annotation );
+    } else if( token_state == END_TAG ) {
+      status = webvtt_create_cuetext_end_token( token, result );
+    } else if( token_state == TIME_STAMP_TAG ) {
+      parse_timestamp( webvtt_string_text( &result ), &time_stamp );
+      status = webvtt_create_cuetext_timestamp_token( token, time_stamp );
+    } else {
+      status = WEBVTT_INVALID_TOKEN_STATE;
+    }
+  }
+  else {
+    /**
+     * Delete string list now as we will not be creating a token that will take
+     * ownership over it.
+     */
     webvtt_delete_stringlist( &css_classes );
-    return status;
   }
-
-  /**
-   * The state that the tokenizer left off on will tell us what kind of token
-   * needs to be made.
-   */
-  if( token_state == DATA || token_state == ESCAPE ) {
-    return webvtt_create_cuetext_text_token( token, result );
-  } else if(token_state == TAG || token_state == START_TAG || token_state == START_TAG_CLASS ||
-            token_state == START_TAG_ANNOTATION) {
-    return webvtt_create_cuetext_start_token( token, result, css_classes, annotation );
-  } else if( token_state == END_TAG ) {
-    return webvtt_create_cuetext_end_token( token, result );
-  } else if( token_state == TIME_STAMP_TAG ) {
-    parse_timestamp( webvtt_string_text( &result ), &time_stamp );
-    return webvtt_create_cuetext_timestamp_token( token, time_stamp );
-  } else {
-    return WEBVTT_INVALID_TOKEN_STATE;
-  }
-
-  return WEBVTT_SUCCESS;
+  
+  webvtt_release_string( &result );
+  webvtt_release_string( &annotation );
+  
+  return status;
 }
 
 /**
@@ -728,22 +727,27 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
            * also set current to the newly created node if it is an internal
            * node type.
            */
-          if( webvtt_create_node_from_token( token, &temp_node, current_node ) != WEBVTT_SUCCESS )
-            /* Do something here? */
-          { continue; }
+          if( webvtt_create_node_from_token( token, &temp_node, current_node ) != WEBVTT_SUCCESS ) { 
+            /* Do something here? */ 
+          }
           else {
             webvtt_attach_internal_node( current_node, temp_node );
-            if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) )
-            { current_node = temp_node; }
-          }
-          if( temp_node ) {
+            /* Release the node as attach internal node increases the count. */
             webvtt_release_node( temp_node );
+            
+            if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) { 
+              current_node = temp_node; 
+            }
           }
         }
         break;
     }
     webvtt_skipwhite( &position );
   }
-
+  
+  if( token ) {
+    webvtt_delete_cuetext_token( token );
+  }
+  
   return WEBVTT_SUCCESS;
 }

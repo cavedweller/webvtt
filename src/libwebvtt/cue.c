@@ -156,7 +156,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_nod
   }
 
   node_data->css_classes = css_classes;
-  node_data->annotation = annotation;
+  webvtt_copy_string( &node_data->annotation, &annotation );
   node_data->children = NULL;
   node_data->length = 0;
   node_data->alloc = 0;
@@ -203,7 +203,7 @@ webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_st
     return status;
   }
 
-  (*node)->data.text = text;
+  webvtt_copy_string( &(*node)->data.text, &text );
 
   return WEBVTT_SUCCESS;
 
