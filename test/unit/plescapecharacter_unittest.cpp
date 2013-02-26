@@ -11,12 +11,9 @@ TEST_F(PayloadEscapeCharacter, GT)
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
-  String expectedText = String( ">" );
-
   /* verify that it is a Node */
-  ASSERT_EQ( Node::Text, node.kind() );
-  
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  ASSERT_EQ( Node::Text, node.kind() );  
+  assertEquals( ">", node.text() );
 }
 
 /*
@@ -31,10 +28,7 @@ TEST_F(PayloadEscapeCharacter, LT)
 
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "<" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "<", node.text() );
 }
 
 /*
@@ -49,10 +43,7 @@ TEST_F(PayloadEscapeCharacter, Ampersand)
    
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "&" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "&", node.text() );
 }
 
 /*
@@ -273,10 +264,7 @@ TEST_F(PayloadEscapeCharacter, NSP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &nsp;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &nsp;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -298,10 +286,7 @@ TEST_F(PayloadEscapeCharacter, NBP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-    
-  String expectedText = String( "Test Space Character escape: &nbp" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &nbp", node.text() );
 
 }
 /*
@@ -323,10 +308,7 @@ TEST_F(PayloadEscapeCharacter, BSP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &bsp;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &bsp;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -347,10 +329,7 @@ TEST_F(PayloadEscapeCharacter, BP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &bp;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &bp;", node.text() );
 
 }
 /*
@@ -372,10 +351,7 @@ TEST_F(PayloadEscapeCharacter, B)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &b;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &b;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -396,10 +372,7 @@ TEST_F(PayloadEscapeCharacter, S)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &s;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &s;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -420,10 +393,7 @@ TEST_F(PayloadEscapeCharacter, NS)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &ns;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &ns;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -444,10 +414,7 @@ TEST_F(PayloadEscapeCharacter, NP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &np" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &np", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -468,10 +435,7 @@ TEST_F(PayloadEscapeCharacter, SP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &sp;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &sp;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -492,10 +456,7 @@ TEST_F(PayloadEscapeCharacter, P)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &p;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &p;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -516,10 +477,7 @@ TEST_F(PayloadEscapeCharacter, BS)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &bs;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &bs;", node.text() );
 }
 
 /*
@@ -541,10 +499,7 @@ TEST_F(PayloadEscapeCharacter, NBS)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &nbs;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &nbs;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -565,10 +520,7 @@ TEST_F(PayloadEscapeCharacter, NB)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &nb;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &nb;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -589,10 +541,7 @@ TEST_F(PayloadEscapeCharacter, N)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Space Character escape: &n;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Space Character escape: &n;", node.text() );
 }
 
 /* Testing Left-To-Right Character Escape */
@@ -616,10 +565,7 @@ TEST_F(PayloadEscapeCharacter, LeftToRight)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &lr;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &lr;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -640,10 +586,7 @@ TEST_F(PayloadEscapeCharacter, L)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &l;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &l;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -664,10 +607,7 @@ TEST_F(PayloadEscapeCharacter, LM)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &lm;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &lm;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -688,10 +628,7 @@ TEST_F(PayloadEscapeCharacter, RM)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &rm;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &rm;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -712,10 +649,7 @@ TEST_F(PayloadEscapeCharacter, M)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &m;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &m;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -736,10 +670,7 @@ TEST_F(PayloadEscapeCharacter, R)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &r;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &r;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -760,10 +691,7 @@ TEST_F(PayloadEscapeCharacter, LM_LeftToRight)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &lm;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &lm;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -784,10 +712,7 @@ TEST_F(PayloadEscapeCharacter, RL)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Left to Right Character escape: &rl;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Left to Right Character escape: &rl;", node.text() );
 }
 
 /* Test Ampersand Character Escape */
@@ -810,10 +735,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -834,10 +756,7 @@ TEST_F(PayloadEscapeCharacter, A)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &a;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &a;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -858,10 +777,7 @@ TEST_F(PayloadEscapeCharacter, AM)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &am;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &am;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -882,10 +798,7 @@ TEST_F(PayloadEscapeCharacter, MP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &mp;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &mp;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -906,10 +819,7 @@ TEST_F(PayloadEscapeCharacter, P_Ampersand)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &p;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &p;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -930,10 +840,7 @@ TEST_F(PayloadEscapeCharacter, AP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Ampersand escape: &ap;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Ampersand escape: &ap;", node.text() );
 }
 
 /* Test Less Than Character Escape */
@@ -957,10 +864,7 @@ TEST_F(PayloadEscapeCharacter, LessThan)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Less Than escape: &l;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Less Than escape: &l;", node.text() );
 }
 /*
  WebVTT Specification Version:
@@ -981,10 +885,7 @@ TEST_F(PayloadEscapeCharacter, T)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Less Than escape: &t;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Less Than escape: &t;", node.text() );
 }
 
 /* Test Greater Than Escape Character */
@@ -1008,8 +909,5 @@ TEST_F(PayloadEscapeCharacter, GreaterThan)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  
-  String expectedText = String( "Test Greater Than escape: &g;" );
-
-  ASSERT_EQ( expectedText.utf8(), node.text().utf8() );
+  assertEquals( "Test Greater Than escape: &g;", node.text() );
 }
