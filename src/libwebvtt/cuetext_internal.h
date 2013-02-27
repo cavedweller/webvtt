@@ -83,10 +83,7 @@ WEBVTT_INTERN webvtt_status webvtt_create_cuetext_timestamp_token( webvtt_cuetex
 /**
  * Routines for deleting cue text tokens.
  */
-WEBVTT_INTERN void webvtt_delete_cuetext_token( webvtt_cuetext_token *token );
-WEBVTT_INTERN void webvtt_delete_cuetext_start_token( webvtt_cuetext_token *token );
-WEBVTT_INTERN void webvtt_delete_cuetext_end_token( webvtt_cuetext_token *token);
-WEBVTT_INTERN void webvtt_delete_cuetext_text_token( webvtt_cuetext_token *token );
+WEBVTT_INTERN void webvtt_delete_cuetext_token( webvtt_cuetext_token **token );
 
 /**
  * Converts the textual representation of a node kind into a particular kind.

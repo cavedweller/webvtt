@@ -128,65 +128,41 @@ webvtt_create_cuetext_timestamp_token( webvtt_cuetext_token **token, webvtt_time
 }
 
 WEBVTT_INTERN void
-webvtt_delete_cuetext_token( webvtt_cuetext_token *token )
+webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
 {
-  if( token ) {
-    switch( token->token_type ) {
-      case START_TOKEN:
-        webvtt_delete_cuetext_start_token( token );
-        break;
-      case END_TOKEN:
-        webvtt_delete_cuetext_end_token( token );
-        break;
-      case TEXT_TOKEN:
-        webvtt_delete_cuetext_text_token( token );
-        break;
-      case TIME_STAMP_TOKEN:
-        /* Not implemented because it does not use dynamic memory allocation. */
-        break;
-    }
-    webvtt_free( token );
+  webvtt_cuetext_start_token_data *data;
+  webvtt_cuetext_token *t;
+  
+  if( !token ) {
+    return;
   }
-}
-
-WEBVTT_INTERN void
-webvtt_delete_cuetext_start_token( webvtt_cuetext_token *start_token )
-{
-  webvtt_cuetext_start_token_data *start_token_data;
-
-  if( start_token ) {
-
-    start_token_data = start_token->start_token_data;
-    webvtt_delete_stringlist( &start_token_data->css_classes );
-
-    if( webvtt_string_length( &start_token_data->annotations ) ) {
-      webvtt_release_string( &start_token_data->annotations );
-    }
-
-    if( webvtt_string_length (&start_token->tag_name) ) {
-      webvtt_release_string( &start_token->tag_name );
-    }
+  if( !*token ) {
+    return;
+  }  
+  t = *token;
+  
+  /** 
+   * Note that time stamp tokens do not need to free any internal data because 
+   * they do not allocate anything. 
+   */
+  switch( t->token_type ) {
+    case START_TOKEN:
+      if( t->start_token_data ) {
+        data = t->start_token_data;
+        webvtt_delete_stringlist( &data->css_classes );
+        webvtt_release_string( &data->annotations );
+        webvtt_release_string( &t->tag_name );
+      }
+      break;
+    case END_TOKEN:
+      webvtt_release_string( &t->tag_name );
+      break;
+    case TEXT_TOKEN:
+      webvtt_release_string( &t->text );
+      break;
   }
-}
-
-WEBVTT_INTERN void
-webvtt_delete_cuetext_end_token( webvtt_cuetext_token *end_token )
-{
-  if( end_token ) {
-    if( end_token->tag_name.d ) {
-      webvtt_release_string( &end_token->tag_name );
-    }
-  }
-}
-
-WEBVTT_INTERN void
-webvtt_delete_cuetext_text_token( webvtt_cuetext_token *text_token )
-{
-  if( text_token ) {
-    if( text_token->text.d ) {
-      webvtt_release_string( &text_token->text );
-    }
-  }
+  webvtt_free( t );
+  *token = 0;
 }
 
 /**
@@ -675,7 +651,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
    */
   while( *position != UTF8_NULL_BYTE ) {
 
-    webvtt_delete_cuetext_token( token );
+    webvtt_delete_cuetext_token( &token );
 
     /* Step 7. */
     switch( webvtt_cuetext_tokenizer( &position, &token ) ) {
@@ -742,9 +718,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
     webvtt_skipwhite( &position );
   }
   
-  if( token ) {
-    webvtt_delete_cuetext_token( token );
-  }
+  webvtt_delete_cuetext_token( &token );
   
   return WEBVTT_SUCCESS;
 }
