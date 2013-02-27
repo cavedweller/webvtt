@@ -317,7 +317,7 @@ TEST_F(CueIdLanguage, LongStringThai) //currently truncating characters below th
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdLanguage, DISABLED_LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit and/or hanging
+TEST_F(CueIdLanguage, LongStringMultipleLanguages) //currently truncating characters below the 65535 byte limit and/or hanging
 {
   loadVtt( "cue-ids/languages/long_string_multiple_languages.vtt" );
 
