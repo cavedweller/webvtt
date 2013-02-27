@@ -69,25 +69,19 @@ webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string tag_name,
-    webvtt_stringlist *css_classes, webvtt_string annotation )
+webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string *tag_name,
+    webvtt_stringlist *css_classes, webvtt_string *annotation )
 {
   webvtt_status status;
-  webvtt_cuetext_start_token_data *sd;
+  webvtt_cuetext_start_token_data sd;
   
   if( WEBVTT_FAILED( status = webvtt_create_cuetext_token( token, START_TOKEN ) ) ) {
     return status;
   }
   
-  sd = (webvtt_cuetext_start_token_data *)webvtt_alloc0( sizeof( *sd ) );
-  
-  if( !sd ) {
-    return WEBVTT_OUT_OF_MEMORY;
-  }
-  
-  webvtt_copy_string( &(*token)->tag_name, &tag_name );
-  webvtt_copy_stringlist( &sd->css_classes, css_classes );
-  webvtt_copy_string( &sd->annotations, &annotation );
+  webvtt_copy_string( &(*token)->tag_name, tag_name );
+  webvtt_copy_stringlist( &sd.css_classes, css_classes );
+  webvtt_copy_string( &sd.annotations, annotation );
   
   (*token)->start_token_data = sd;
     
@@ -95,7 +89,7 @@ webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string t
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag_name )
+webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string *tag_name )
 {
   webvtt_status status;
 
@@ -103,13 +97,13 @@ webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag
     return status;
   }
 
-  webvtt_copy_string( &(*token)->tag_name, &tag_name );
+  webvtt_copy_string( &(*token)->tag_name, tag_name );
   
   return WEBVTT_SUCCESS;
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string text )
+webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string *text )
 {
   webvtt_status status;
 
@@ -117,7 +111,7 @@ webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string te
     return status;
   }
 
-  webvtt_copy_string( &(*token)->text, &text);
+  webvtt_copy_string( &(*token)->text, text);
 
   return WEBVTT_SUCCESS;
 }
@@ -139,7 +133,7 @@ webvtt_create_cuetext_timestamp_token( webvtt_cuetext_token **token, webvtt_time
 WEBVTT_INTERN void
 webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
 {
-  webvtt_cuetext_start_token_data *data;
+  webvtt_cuetext_start_token_data data;
   webvtt_cuetext_token *t;
   
   if( !token ) {
@@ -156,12 +150,10 @@ webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
    */
   switch( t->token_type ) {
     case START_TOKEN:
-      if( t->start_token_data ) {
-        data = t->start_token_data;
-        webvtt_release_stringlist( &data->css_classes );
-        webvtt_release_string( &data->annotations );
-        webvtt_release_string( &t->tag_name );
-      }
+      data = t->start_token_data;
+      webvtt_release_stringlist( &data.css_classes );
+      webvtt_release_string( &data.annotations );
+      webvtt_release_string( &t->tag_name );
       break;
     case END_TOKEN:
       webvtt_release_string( &t->tag_name );
@@ -230,14 +222,14 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, 
 
   switch ( token->token_type ) {
     case( TEXT_TOKEN ):
-      return webvtt_create_text_leaf_node( node, parent, token->text );
+      return webvtt_create_text_leaf_node( node, parent, &token->text );
       break;
     case( START_TOKEN ):
 
       CHECK_MEMORY_OP( webvtt_get_node_kind_from_tag_name( &token->tag_name, &kind) );
 
       return webvtt_create_internal_node( node, parent, kind,
-        token->start_token_data->css_classes, token->start_token_data->annotations );
+        token->start_token_data.css_classes, &token->start_token_data.annotations );
 
       break;
     case ( TIME_STAMP_TOKEN ):
@@ -589,12 +581,12 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
      * needs to be made.
      */
     if( token_state == DATA || token_state == ESCAPE ) {
-      status = webvtt_create_cuetext_text_token( token, result );
+      status = webvtt_create_cuetext_text_token( token, &result );
     } else if(token_state == TAG || token_state == START_TAG || token_state == START_TAG_CLASS ||
               token_state == START_TAG_ANNOTATION) {
-      status = webvtt_create_cuetext_start_token( token, result, css_classes, annotation );
+      status = webvtt_create_cuetext_start_token( token, &result, css_classes, &annotation );
     } else if( token_state == END_TAG ) {
-      status = webvtt_create_cuetext_end_token( token, result );
+      status = webvtt_create_cuetext_end_token( token, &result );
     } else if( token_state == TIME_STAMP_TAG ) {
       parse_timestamp( webvtt_string_text( &result ), &time_stamp );
       status = webvtt_create_cuetext_timestamp_token( token, time_stamp );
