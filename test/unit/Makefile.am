@@ -83,7 +83,6 @@ if VALGRIND_TESTING
 KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
 	cigeneral_unittest \
-	cilanguage_unittest \
 	cilineendings_unittest \
 	csposition_unittest
 endif

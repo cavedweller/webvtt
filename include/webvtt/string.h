@@ -145,6 +145,7 @@ WEBVTT_EXPORT webvtt_status webvtt_string_append_string( webvtt_string *str, con
  */
 struct
 webvtt_stringlist_t {
+  struct webvtt_refcount_t refs;
   webvtt_uint alloc;
   webvtt_uint length;
   webvtt_string *items;
@@ -158,11 +159,25 @@ webvtt_stringlist_t {
 WEBVTT_EXPORT webvtt_status webvtt_create_stringlist( webvtt_stringlist **result );
 
 /**
- * webvtt_delete_stringlist
+ * webvtt_ref_stringlist
  *
- * release each listed string, and delete the stringlist object.
+ * Increase the ref count of the stringlist
  */
-WEBVTT_EXPORT void webvtt_delete_stringlist( webvtt_stringlist **list );
+WEBVTT_EXPORT void webvtt_ref_stringlist( webvtt_stringlist *list );
+
+/**
+ * webvtt_copy_stringlist
+ *
+ * create a copy shallow of right from left
+ */
+WEBVTT_EXPORT void webvtt_copy_stringlist( webvtt_stringlist **left, webvtt_stringlist *right );
+
+/**
+ * webvtt_release_stringlist
+ *
+ * Decrease the ref count of the stringlist and delete it if the ref count is 0
+ */
+WEBVTT_EXPORT void webvtt_release_stringlist( webvtt_stringlist **list );
 
 /**
  * webvtt_stringlist_push

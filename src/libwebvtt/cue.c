@@ -155,7 +155,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_nod
     return WEBVTT_OUT_OF_MEMORY;
   }
 
-  node_data->css_classes = css_classes;
+  webvtt_copy_stringlist( &node_data->css_classes, css_classes );
   webvtt_copy_string( &node_data->annotation, &annotation );
   node_data->children = NULL;
   node_data->length = 0;
@@ -222,7 +222,7 @@ webvtt_release_node( webvtt_node *node )
     if( WEBVTT_IS_VALID_LEAF_NODE( node->kind ) ) {
         webvtt_release_string( &node->data.text );
     } else if( WEBVTT_IS_VALID_INTERNAL_NODE( node->kind ) && node->data.internal_data ) {
-      webvtt_delete_stringlist( &node->data.internal_data->css_classes );
+      webvtt_release_stringlist( &node->data.internal_data->css_classes );
       webvtt_release_string( &node->data.internal_data->annotation );
       for( i = 0; i < node->data.internal_data->length; i++ ) {
         webvtt_release_node( *(node->data.internal_data->children + i) );
