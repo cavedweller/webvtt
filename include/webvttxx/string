@@ -179,7 +179,7 @@ public:
   {
     if( stringList && i <= stringList->length ) {
       return String( &stringList->items[ i ] );
-	}
+    }
     return String();
   }
 

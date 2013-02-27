@@ -79,7 +79,7 @@ webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string t
   }
 
   webvtt_copy_string( &(*token)->tag_name, &tag_name );
-  (*token)->start_token_data->css_classes = css_classes;
+  webvtt_copy_stringlist( &(*token)->start_token_data->css_classes, css_classes );
   webvtt_copy_string( &(*token)->start_token_data->annotations, &annotation );
 
   return WEBVTT_SUCCESS;
@@ -149,7 +149,7 @@ webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
     case START_TOKEN:
       if( t->start_token_data ) {
         data = t->start_token_data;
-        webvtt_delete_stringlist( &data->css_classes );
+        webvtt_release_stringlist( &data->css_classes );
         webvtt_release_string( &data->annotations );
         webvtt_release_string( &t->tag_name );
       }
@@ -593,14 +593,8 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
       status = WEBVTT_INVALID_TOKEN_STATE;
     }
   }
-  else {
-    /**
-     * Delete string list now as we will not be creating a token that will take
-     * ownership over it.
-     */
-    webvtt_delete_stringlist( &css_classes );
-  }
   
+  webvtt_release_stringlist( &css_classes );
   webvtt_release_string( &result );
   webvtt_release_string( &annotation );
   

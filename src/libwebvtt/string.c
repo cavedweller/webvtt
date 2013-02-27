@@ -401,29 +401,53 @@ webvtt_create_stringlist( webvtt_stringlist **result )
   if( !list ) {
     return WEBVTT_OUT_OF_MEMORY;
   }
-
+  list->alloc = 0;
+  list->length = 0;
+  webvtt_ref_stringlist( list );
+  
   *result = list;
 
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_EXPORT void
-webvtt_delete_stringlist( webvtt_stringlist **list )
+WEBVTT_EXPORT void 
+webvtt_ref_stringlist( webvtt_stringlist *list ) 
 {
+  if( list ) {
+    webvtt_ref( &list->refs );
+  }
+}
+
+WEBVTT_EXPORT void 
+webvtt_copy_stringlist( webvtt_stringlist **left, webvtt_stringlist *right )
+{
+  if( !left || !right ) {
+    return;
+  }
+  *left = right;
+  webvtt_ref_stringlist( *left );
+}
+WEBVTT_EXPORT void
+webvtt_release_stringlist( webvtt_stringlist **list )
+{
+  webvtt_stringlist *l;
   webvtt_uint i;
 
-  if( list && *list ) {
-    webvtt_stringlist *l = *list;
-
-    *list = 0;
+  if( !list || !*list ) {
+    return;
+  }
+  l = *list;
+  
+  if( webvtt_deref( &l->refs ) == 0 ) {
     if( l->items ) {
       for( i = 0; i < l->length; i++ ) {
-        webvtt_release_string( &l->items[i] );
+        webvtt_release_string( &l->items[ i ] );
       }
-      webvtt_free( l->items );
+      webvtt_free( l->items );      
     }
     webvtt_free( l );
   }
+  *list = 0;
 }
 
 WEBVTT_EXPORT webvtt_status
