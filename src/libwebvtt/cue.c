@@ -141,7 +141,7 @@ webvtt_create_node( webvtt_node **node, webvtt_node_kind kind, webvtt_node *pare
 
 WEBVTT_INTERN webvtt_status
 webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_node_kind kind, 
-  webvtt_stringlist *css_classes, webvtt_string annotation )
+  webvtt_stringlist *css_classes, webvtt_string *annotation )
 {
   webvtt_status status;
   webvtt_internal_node_data *node_data;
@@ -156,7 +156,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent, webvtt_nod
   }
 
   webvtt_copy_stringlist( &node_data->css_classes, css_classes );
-  webvtt_copy_string( &node_data->annotation, &annotation );
+  webvtt_copy_string( &node_data->annotation, annotation );
   node_data->children = NULL;
   node_data->length = 0;
   node_data->alloc = 0;
@@ -173,7 +173,7 @@ webvtt_create_head_node( webvtt_node **node )
   webvtt_string temp_annotation;
 
   webvtt_init_string( &temp_annotation );
-  if( WEBVTT_FAILED( status = webvtt_create_internal_node( node, NULL, WEBVTT_HEAD_NODE, NULL, temp_annotation ) ) ) {
+  if( WEBVTT_FAILED( status = webvtt_create_internal_node( node, NULL, WEBVTT_HEAD_NODE, NULL, &temp_annotation ) ) ) {
     return status;
   }
 
@@ -195,7 +195,7 @@ webvtt_create_time_stamp_leaf_node( webvtt_node **node, webvtt_node *parent, web
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_string text )
+webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_string *text )
 {
   webvtt_status status;
 
@@ -203,7 +203,7 @@ webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_st
     return status;
   }
 
-  webvtt_copy_string( &(*node)->data.text, &text );
+  webvtt_copy_string( &(*node)->data.text, text );
 
   return WEBVTT_SUCCESS;
 

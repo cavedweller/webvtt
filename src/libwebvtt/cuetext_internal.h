@@ -43,21 +43,6 @@ webvtt_cuetext_token_state_t {
 };
 
 /**
- * Contains a void pointer to a concrete token as well as a token type enum that
- * identifies what kind of token it is.
- */
-struct
-webvtt_cuetext_token_t {
-  webvtt_cuetext_token_type token_type;
-  webvtt_string tag_name; // Only used for start token and end token types.
-  union {
-    webvtt_string text;
-    webvtt_timestamp time_stamp;
-    webvtt_cuetext_start_token_data *start_token_data;
-  };
-};
-
-/**
  * Represents a start tag in the cue text.
  * These take the form of <[TAG_NAME].[CLASSES] [POSSIBLE_ANNOTATION]> in the
  * cue text.
@@ -69,14 +54,29 @@ webvtt_cuetext_start_token_data_t {
 };
 
 /**
+ * Contains a void pointer to a concrete token as well as a token type enum that
+ * identifies what kind of token it is.
+ */
+struct
+webvtt_cuetext_token_t {
+  webvtt_cuetext_token_type token_type;
+  webvtt_string tag_name; // Only used for start token and end token types.
+  union {
+    webvtt_string text;
+    webvtt_timestamp time_stamp;
+    webvtt_cuetext_start_token_data start_token_data;
+  };
+};
+
+/**
  * Routines for creating cue text tokens.
  * Sets the passed token to the new token.
  */
 WEBVTT_INTERN webvtt_status webvtt_create_cuetext_token( webvtt_cuetext_token **token, webvtt_cuetext_token_type token_type );
-WEBVTT_INTERN webvtt_status webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string tag_name,
-    webvtt_stringlist *css_classes, webvtt_string annotation );
-WEBVTT_INTERN webvtt_status webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string tag_name );
-WEBVTT_INTERN webvtt_status webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string text );
+WEBVTT_INTERN webvtt_status webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string *tag_name,
+    webvtt_stringlist *css_classes, webvtt_string *annotation );
+WEBVTT_INTERN webvtt_status webvtt_create_cuetext_end_token( webvtt_cuetext_token **token, webvtt_string *tag_name );
+WEBVTT_INTERN webvtt_status webvtt_create_cuetext_text_token( webvtt_cuetext_token **token, webvtt_string *text );
 WEBVTT_INTERN webvtt_status webvtt_create_cuetext_timestamp_token( webvtt_cuetext_token **token,
     webvtt_timestamp time_stamp );
 
