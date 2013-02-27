@@ -73,15 +73,24 @@ webvtt_create_cuetext_start_token( webvtt_cuetext_token **token, webvtt_string t
     webvtt_stringlist *css_classes, webvtt_string annotation )
 {
   webvtt_status status;
-
+  webvtt_cuetext_start_token_data *sd;
+  
   if( WEBVTT_FAILED( status = webvtt_create_cuetext_token( token, START_TOKEN ) ) ) {
     return status;
   }
-
+  
+  sd = (webvtt_cuetext_start_token_data *)webvtt_alloc0( sizeof( *sd ) );
+  
+  if( !sd ) {
+    return WEBVTT_OUT_OF_MEMORY;
+  }
+  
   webvtt_copy_string( &(*token)->tag_name, &tag_name );
-  webvtt_copy_stringlist( &(*token)->start_token_data->css_classes, css_classes );
-  webvtt_copy_string( &(*token)->start_token_data->annotations, &annotation );
-
+  webvtt_copy_stringlist( &sd->css_classes, css_classes );
+  webvtt_copy_string( &sd->annotations, &annotation );
+  
+  (*token)->start_token_data = sd;
+    
   return WEBVTT_SUCCESS;
 }
 
