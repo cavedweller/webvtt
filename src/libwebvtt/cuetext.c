@@ -319,7 +319,10 @@ webvtt_cuetext_tokenizer_data_state( webvtt_byte **position,
 #define RLM_ESCAPE_LENGTH     4
 #define LRM_ESCAPE_LENGTH     4
 #define NBSP_ESCAPE_LENGTH    5
-
+#define RLM_REPLACE_LENGTH    3
+#define LRM_REPLACE_LENGTH    3
+#define NBSP_REPLACE_LENGTH   2
+ 
 webvtt_byte amp_escape[AMP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_A, UTF8_M, UTF8_P };
 webvtt_byte lt_escape[LT_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_T };
 webvtt_byte gt_escape[GT_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_G, UTF8_T };
@@ -327,6 +330,13 @@ webvtt_byte rlm_escape[RLM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_R, UTF8_L, UT
 webvtt_byte lrm_escape[LRM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_R, UTF8_M };
 webvtt_byte nbsp_escape[NBSP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_N, UTF8_B, UTF8_S, UTF8_P };
 
+webvtt_byte rlm_replace[RLM_REPLACE_LENGTH] = { UTF8_RIGHT_TO_LEFT_1, 
+    UTF8_RIGHT_TO_LEFT_2, UTF8_RIGHT_TO_LEFT_3 };
+webvtt_byte lrm_replace[LRM_REPLACE_LENGTH] = { UTF8_LEFT_TO_RIGHT_1,
+  UTF8_LEFT_TO_RIGHT_2, UTF8_LEFT_TO_RIGHT_3 };
+webvtt_byte nbsp_replace[NBSP_REPLACE_LENGTH] = { UTF8_NO_BREAK_SPACE_1,
+  UTF8_NO_BREAK_SPACE_2 };
+  
 WEBVTT_INTERN webvtt_status
 webvtt_cuetext_tokenizer_escape_state( webvtt_byte **position,
   webvtt_cuetext_token_state *token_state, webvtt_string *result )
@@ -375,11 +385,11 @@ webvtt_cuetext_tokenizer_escape_state( webvtt_byte **position,
       } else if( memcmp( webvtt_string_text(&buffer), gt_escape, min(webvtt_string_length(&buffer), GT_ESCAPE_LENGTH) ) == 0 ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_GREATER_THAN ) );
       } else if( memcmp( webvtt_string_text(&buffer), rlm_escape, min(webvtt_string_length(&buffer), RLM_ESCAPE_LENGTH) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_RIGHT_TO_LEFT ) );
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, rlm_replace, RLM_REPLACE_LENGTH ) );
       } else if( memcmp( webvtt_string_text(&buffer), lrm_escape, min(webvtt_string_length(&buffer), LRM_ESCAPE_LENGTH) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_LEFT_TO_RIGHT ) );
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, lrm_replace, LRM_REPLACE_LENGTH ) );
       } else if( memcmp( webvtt_string_text(&buffer), nbsp_escape, min(webvtt_string_length(&buffer), NBSP_ESCAPE_LENGTH) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_NO_BREAK_SPACE ) );
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, nbsp_replace, NBSP_REPLACE_LENGTH ) );
       } else {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append_string( result, &buffer ) );
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, **position ) );
@@ -694,7 +704,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
    * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
    */
   while( *position != UTF8_NULL_BYTE ) {
-
+    
     webvtt_delete_cuetext_token( &token );
 
     /* Step 7. */
