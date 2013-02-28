@@ -91,7 +91,7 @@ TEST_F(PayloadItalicTag, ItalicTagMultiSubclass)
   StringList cssClasses = head[ 1 ].cssClasses();
   String expectedString = String( "class" );
 
-  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( 2, cssClasses.length() );
   assertEquals( "class", cssClasses.stringAt( 0 ) );
   assertEquals( "subclass", cssClasses.stringAt( 1 ) );
 }
