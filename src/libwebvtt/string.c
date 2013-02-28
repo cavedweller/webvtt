@@ -551,7 +551,7 @@ webvtt_skip_utf8( const webvtt_byte **begin, const webvtt_byte *end, int n_chars
     return 0;
   }
 
-  if( n_chars <= 0 ) {
+  if( n_chars < 0 ) {
     return 0;
   }
 
