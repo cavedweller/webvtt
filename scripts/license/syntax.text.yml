@@ -1,0 +1,6 @@
+text:
+  ext: ['', '.txt']
+  comment:
+    open: ''
+    close: '\n'
+    prefix: ''
