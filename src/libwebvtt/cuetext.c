@@ -194,6 +194,20 @@ webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
 }
 
 /**
+ * Definitions for tag names that accept annotationsm
+ */
+#define V_TAG_LENGTH 1
+
+webvtt_byte v_tag[V_TAG_LENGTH] = { UTF8_V };
+
+WEBVTT_INTERN int
+tag_accepts_annotation( webvtt_string *tag_name )
+{
+  return memcmp( webvtt_string_text( tag_name ), v_tag,
+    min(webvtt_string_length( tag_name ), V_TAG_LENGTH) ) == 0;
+}
+
+/**
  * Definitions for tag tokens that are more then one character long.
  */
 #define RUBY_TAG_LENGTH 4
@@ -611,6 +625,14 @@ webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
       status = webvtt_create_cuetext_text_token( token, &result );
     } else if(token_state == TAG || token_state == START_TAG || token_state == START_TAG_CLASS ||
               token_state == START_TAG_ANNOTATION) {
+      /**
+      * If the tag does not accept an annotation then release the current 
+      * annotation and intialize annotation to a safe empty state
+      */
+      if( !tag_accepts_annotation( &result ) ) {
+        webvtt_release_string( &annotation );
+        webvtt_init_string( &annotation );
+      }
       status = webvtt_create_cuetext_start_token( token, &result, css_classes, &annotation );
     } else if( token_state == END_TAG ) {
       status = webvtt_create_cuetext_end_token( token, &result );

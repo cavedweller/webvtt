@@ -108,6 +108,11 @@ WEBVTT_INTERN webvtt_status webvtt_create_cuetext_timestamp_token( webvtt_cuetex
     webvtt_timestamp time_stamp );
 
 /**
+ * Returns true if the passed tag matches a tag name that accepts an annotation.
+ */
+WEBVTT_INTERN int tag_accepts_annotation( webvtt_string *tag_name );
+
+/**
  * Routines for deleting cue text tokens.
  */
 WEBVTT_INTERN void webvtt_delete_cuetext_token( webvtt_cuetext_token **token );
