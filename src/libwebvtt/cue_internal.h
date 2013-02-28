@@ -46,7 +46,7 @@ WEBVTT_INTERN webvtt_status webvtt_create_text_leaf_node( webvtt_node **node, we
 /**
  * Attaches a node to the internal node list of another node.
  */
-WEBVTT_INTERN webvtt_status webvtt_attach_internal_node( webvtt_node *current, webvtt_node *to_attach );
+WEBVTT_INTERN webvtt_status webvtt_attach_internal_node( webvtt_node *parent, webvtt_node *to_attach );
 
 /**
  * Private cue flags

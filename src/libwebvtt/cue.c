@@ -254,6 +254,7 @@ webvtt_release_node( webvtt_node *node )
       for( i = 0; i < node->data.internal_data->length; i++ ) {
         webvtt_release_node( *(node->data.internal_data->children + i) );
       }
+      webvtt_free( node->data.internal_data->children );
       webvtt_free( node->data.internal_data );
     }
     webvtt_free( node );
@@ -262,31 +263,49 @@ webvtt_release_node( webvtt_node *node )
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_attach_internal_node( webvtt_node *current, webvtt_node *to_attach )
+webvtt_attach_internal_node( webvtt_node *parent, webvtt_node *to_attach )
 {
-  webvtt_node **arr, **old;
-
-  if( !current || !to_attach || !current->data.internal_data ) {
+  webvtt_node **next = 0;
+  webvtt_internal_node_data *nd = 0;
+  
+  if( !parent || !to_attach || !parent->data.internal_data ) {
     return WEBVTT_INVALID_PARAM;
   }
+  nd = parent->data.internal_data;
   
-  if( current->data.internal_data->length + 1 >= ( current->data.internal_data->alloc / 3 ) * 2 ) {
-    webvtt_node **arr = 0;
-	  webvtt_node **old = 0;
-    current->data.internal_data->alloc = current->data.internal_data->alloc ? current->data.internal_data->alloc * 2 : 8;
-    *arr = (webvtt_node *)webvtt_alloc0( sizeof(webvtt_node) * (current->data.internal_data->alloc));
+  if( nd->alloc == 0 ) {
+    next = (webvtt_node **)webvtt_alloc0( sizeof( webvtt_node * ) * 8 );
+    
+    if( !next ) {
+      return WEBVTT_OUT_OF_MEMORY;
+    }
+    
+    nd->children = next;
+    nd->alloc = 8;
+  }
+  
+  if( nd->length + 1 >= ( nd->alloc / 3 ) * 2 ) {
 
-    if( !arr ) {
+    next = (webvtt_node **)webvtt_alloc0( sizeof( *next ) * nd->alloc * 2 );
+    
+    if( !next ) {
+      return WEBVTT_OUT_OF_MEMORY;
+    }
+    
+    *next = (webvtt_node *)webvtt_alloc0( sizeof( webvtt_node ) * nd->length );
+
+    if( !*next ) {
+      webvtt_free( next );
       return WEBVTT_OUT_OF_MEMORY;
     }
 
-    old = current->data.internal_data->children;
-    memcpy( arr, old, current->data.internal_data->length * sizeof(webvtt_node) );
-    current->data.internal_data->children = arr;
-    webvtt_free( old );
+    nd->alloc *= 2;
+    memcpy( next, nd->children, nd->length * sizeof( webvtt_node ) );
+    webvtt_free( nd->children );
+    nd->children = next;
   }
 
-  current->data.internal_data->children[current->data.internal_data->length++] = to_attach;
+  nd->children[ nd->length++ ] = to_attach;
   webvtt_ref_node( to_attach );
 
   return WEBVTT_SUCCESS;
