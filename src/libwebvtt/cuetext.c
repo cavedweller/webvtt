@@ -257,7 +257,7 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, 
 {
   webvtt_node_kind kind;
 
-  if( !token || !node || !*node || !parent ) {
+  if( !token || !node || !parent ) {
     return WEBVTT_INVALID_PARAM;
   }
 

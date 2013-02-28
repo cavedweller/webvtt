@@ -84,7 +84,12 @@ KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
 	cigeneral_unittest \
 	cilineendings_unittest \
-	csposition_unittest
+	csposition_unittest \
+	plboldtag_unittest \
+	plitalictag_unittest \
+	plclasstag_unittest \
+	plunderlinetag_unittest \
+	plvoicetag_unittest
 endif
 
 # Tests we expect to fail (i.e., known-fails)
@@ -101,16 +106,11 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      ctgenstructure_unittest \
 	      cuetimes_unittest \
 	      filestructure_unittest \
-	      plboldtag_unittest \
-	      plclasstag_unittest \
 	      plescapecharacter_unittest \
 	      plformat_unittest \
-	      plitalictag_unittest \
 	      plrubytag_unittest \
 	      pltagformat_unittest \
-	      pltimestamp_unittest \
-	      plunderlinetag_unittest \
-	      plvoicetag_unittest
+	      pltimestamp_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
