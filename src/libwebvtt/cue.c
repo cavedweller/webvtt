@@ -226,7 +226,7 @@ webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_st
 {
   webvtt_status status;
 
-  if( WEBVTT_FAILED( status = webvtt_create_node( node, WEBVTT_TIME_STAMP, parent ) ) ) {
+  if( WEBVTT_FAILED( status = webvtt_create_node( node, WEBVTT_TEXT, parent ) ) ) {
     return status;
   }
 
