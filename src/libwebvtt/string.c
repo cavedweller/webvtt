@@ -291,7 +291,7 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
     ++p;
   }
   /* Retain the new line character. */
-  if( retain_new_line ) {
+  if( p < n && retain_new_line ) {
     p++;
   }
 
