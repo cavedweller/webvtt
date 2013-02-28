@@ -335,7 +335,7 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
     return result;
   }
 
-  if( !WEBVTT_FAILED( result == grow( str, 1 ) ) )
+  if( !WEBVTT_FAILED( result = grow( str, 1 ) ) )
   {
     str->d->text[ str->d->length++ ] = to_append;
     str->d->text[ str->d->length ] = 0;
