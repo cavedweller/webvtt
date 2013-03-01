@@ -263,12 +263,13 @@ static int
 find_bytes( const webvtt_byte *buffer, webvtt_uint len,
     const webvtt_byte *sbytes, webvtt_uint slen )
 {
+  webvtt_uint slen2;
   // check params for integrity
   if( !buffer || len < 1 || !sbytes || slen < 1 ) {
     return 0;
   }
 
-  webvtt_uint slen2 = slen - 1;
+  slen2 = slen - 1;
   while( len-- >= slen && *buffer ){
     if( *buffer == *sbytes && memcmp( buffer + 1, sbytes + 1, slen2 ) == 0 ) {
       return 1;
