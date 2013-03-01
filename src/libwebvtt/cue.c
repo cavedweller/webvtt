@@ -248,7 +248,7 @@ webvtt_release_node( webvtt_node **node )
   n = *node;
 
   if( webvtt_deref( &n->refs )  == 0 ) {
-    if( WEBVTT_IS_VALID_LEAF_NODE( n->kind ) ) {
+    if( n->kind == WEBVTT_TEXT ) {
         webvtt_release_string( &n->data.text );
     } else if( WEBVTT_IS_VALID_INTERNAL_NODE( n->kind ) && n->data.internal_data ) {
       webvtt_release_stringlist( &n->data.internal_data->css_classes );
