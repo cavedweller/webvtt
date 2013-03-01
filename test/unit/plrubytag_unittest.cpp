@@ -72,20 +72,26 @@ TEST_F(PayloadRubyTag, NoRubyTextTag)
 
 TEST_F(PayloadRubyTag, NoRubyText)
 {
-  loadVtt( "payload/ruby-tag/no-ruby-text.vtt", 2 );
+  loadVtt( "payload/ruby-tag/no-ruby-text.vtt", 1 );
 
   const Node head0 = getHeadOfCue( 0 );
-  const Node head1 = getHeadOfCue( 1 );
 
   ASSERT_EQ( Node::Ruby, head0[ 1 ].kind() );
   ASSERT_EQ( Node::Text, head0[ 1 ][ 0 ].kind() );
   ASSERT_EQ( Node::RubyText, head0[ 1 ][ 1 ].kind() );
   ASSERT_EQ( head0[ 1 ][ 1 ].childCount(), 0 );
+}
 
-  ASSERT_EQ( Node::Ruby, head1[ 1 ].kind() );
-  ASSERT_EQ( Node::Text, head1[ 1 ][ 0 ].kind() );
-  ASSERT_EQ( Node::RubyText, head1[ 1 ][ 1 ].kind() );
-  ASSERT_EQ( head1[ 1 ][ 1 ].childCount(), 0 );
+TEST_F(PayloadRubyTag, NoRubyTextNoEndRubTextBrace) 
+{
+  loadVtt( "payload/ruby-tag/no-ruby-text-no-end-ruby-text-tag.vtt", 1 );
+  
+  const Node head = getHeadOfCue( 0 );
+  
+  ASSERT_EQ( Node::Ruby, head[ 1 ].kind() );
+  ASSERT_EQ( Node::Text, head[ 1 ][ 0 ].kind() );
+  ASSERT_EQ( Node::RubyText, head[ 1 ][ 1 ].kind() );
+  ASSERT_EQ( head[ 1 ][ 1 ].childCount(), 0 );
 }
 
 /*
