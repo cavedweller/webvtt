@@ -7,7 +7,7 @@ class PayloadTimestampTag : public PayloadTest {};
  */
 TEST_F(PayloadTimestampTag, TimestampTag)
 {
-  loadVtt( "payload/timestamp/timestamp-tag.vtt", 1 );
+  loadVtt( "payload/timestamp-tag/timestamp-tag.vtt", 1 );
 
   const Node timeStamp = getHeadOfCue( 0 )[ 1 ];
 
@@ -21,7 +21,7 @@ TEST_F(PayloadTimestampTag, TimestampTag)
 */
 TEST_F(PayloadTimestampTag, MultipleTimestampTag)
 {
-  loadVtt( "payload/timestamp/multiple-timestamp-tag.vtt", 1 );
+  loadVtt( "payload/timestamp-tag/multiple-timestamp-tag.vtt", 1 );
   const Node timeStamp0 = getHeadOfCue( 0 )[ 1 ];
 
   ASSERT_EQ( Node::TimeStamp, timeStamp0.kind() );
