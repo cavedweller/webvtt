@@ -85,7 +85,7 @@ webvtt_release_cue( webvtt_cue **pcue )
     *pcue = 0;
     if( webvtt_deref( &cue->refs ) == 0 ) {
       webvtt_release_string( &cue->id );
-      webvtt_release_node( cue->node_head );
+      webvtt_release_node( &cue->node_head );
       webvtt_free( cue );
     }
   }
@@ -137,7 +137,7 @@ webvtt_init_node( webvtt_node **node )
 {
   if( *node != &empty_node ) {
     if( node && *node ) { 
-      webvtt_release_node( *node );
+      webvtt_release_node( node );
     }
     *node = &empty_node;
     webvtt_ref_node( *node );
@@ -237,29 +237,31 @@ webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_st
 }
 
 WEBVTT_EXPORT void 
-webvtt_release_node( webvtt_node *node )
+webvtt_release_node( webvtt_node **node )
 {
   webvtt_uint i;
-
-  if( !node ) {
+  webvtt_node *n;
+  
+  if( !node || !*node ) {
     return;
   }
+  n = *node;
 
-  if( webvtt_deref( &node->refs )  == 0 ) {
-    if( WEBVTT_IS_VALID_LEAF_NODE( node->kind ) ) {
-        webvtt_release_string( &node->data.text );
-    } else if( WEBVTT_IS_VALID_INTERNAL_NODE( node->kind ) && node->data.internal_data ) {
-      webvtt_release_stringlist( &node->data.internal_data->css_classes );
-      webvtt_release_string( &node->data.internal_data->annotation );
-      for( i = 0; i < node->data.internal_data->length; i++ ) {
-        webvtt_release_node( *(node->data.internal_data->children + i) );
+  if( webvtt_deref( &n->refs )  == 0 ) {
+    if( WEBVTT_IS_VALID_LEAF_NODE( n->kind ) ) {
+        webvtt_release_string( &n->data.text );
+    } else if( WEBVTT_IS_VALID_INTERNAL_NODE( n->kind ) && n->data.internal_data ) {
+      webvtt_release_stringlist( &n->data.internal_data->css_classes );
+      webvtt_release_string( &n->data.internal_data->annotation );
+      for( i = 0; i < n->data.internal_data->length; i++ ) {
+        webvtt_release_node( n->data.internal_data->children + i );
       }
-      webvtt_free( node->data.internal_data->children );
-      webvtt_free( node->data.internal_data );
+      webvtt_free( n->data.internal_data->children );
+      webvtt_free( n->data.internal_data );
     }
-    webvtt_free( node );
+    webvtt_free( n );
   }
-  node = 0;
+  *node = 0;
 }
 
 WEBVTT_INTERN webvtt_status

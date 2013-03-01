@@ -147,7 +147,7 @@ webvtt_internal_node_data_t {
 
 WEBVTT_EXPORT void webvtt_init_node( webvtt_node **node );
 WEBVTT_EXPORT void webvtt_ref_node( webvtt_node *node );
-WEBVTT_EXPORT void webvtt_release_node( webvtt_node *node );
+WEBVTT_EXPORT void webvtt_release_node( webvtt_node **node );
 
 typedef struct
 webvtt_cue_settings_t {

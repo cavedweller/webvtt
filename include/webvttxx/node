@@ -65,7 +65,7 @@ public:
       webvtt_init_node( &node );
     }
   }
-  ~Node() { webvtt_release_node( node ); }
+  ~Node() { webvtt_release_node( &node ); }
 
   bool isEmpty() const { return kind() == Empty; }
   NodeKind kind() const { return (NodeKind)node->kind; }

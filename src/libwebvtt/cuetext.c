@@ -261,6 +261,15 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, 
     return WEBVTT_INVALID_PARAM;
   }
 
+  /** 
+   * We've recieved a node that is not null.
+   * In order to prevent memory leaks caused by overwriting a node which the 
+   * caller has not released return unsuccessful.
+   */
+  if( *node ) {
+    return WEBVTT_UNSUCCESSFUL;
+  }
+  
   switch ( token->token_type ) {
     case( TEXT_TOKEN ):
       return webvtt_create_text_leaf_node( node, parent, &token->text );
@@ -749,12 +758,13 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
           }
           else {
             webvtt_attach_internal_node( current_node, temp_node );
-            /* Release the node as attach internal node increases the count. */
-            webvtt_release_node( temp_node );
             
             if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) { 
               current_node = temp_node; 
             }
+            
+            /* Release the node as attach internal node increases the count. */
+            webvtt_release_node( &temp_node );
           }
         }
         break;
