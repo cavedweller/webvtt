@@ -52,9 +52,8 @@ TEST_F(PayloadTagFormat, BadTagNesting)
 
   const Node italicNode = head[ 1 ];
   ASSERT_EQ( Node::Italic, italicNode.kind() );
-
-  ASSERT_EQ( Node::Bold, italicNode.kind() );
-  ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
+  ASSERT_EQ( Node::Bold, italicNode[ 0 ].kind() );
+  ASSERT_EQ( Node::Text, italicNode[ 0 ][ 0 ].kind() );
 }
 
 /*
