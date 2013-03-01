@@ -15,7 +15,7 @@ TEST_F(PayloadTagFormat, MultipleCueTextTag)
 {
   loadVtt( "payload/tag-format/multiple-cue-text-tag.vtt", 1 );
   ASSERT_EQ( Node::Italic, getHeadOfCue( 0 )[ 0 ].kind() );
-  ASSERT_EQ( Node::Bold, getHeadOfCue( 0 )[ 0 ][ 0 ].kind() );
+  ASSERT_EQ( Node::Bold, getHeadOfCue( 0 )[ 0 ][ 1 ].kind() );
 }
 
 /*
