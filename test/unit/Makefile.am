@@ -109,7 +109,6 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      plescapecharacter_unittest \
 	      plformat_unittest \
 	      plrubytag_unittest \
-	      pltagformat_unittest \
 	      pltimestamp_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:

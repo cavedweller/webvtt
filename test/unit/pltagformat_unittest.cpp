@@ -67,7 +67,7 @@ TEST_F(PayloadTagFormat, BadTagNesting)
  */
 TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
 {
-  loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt.vtt", 1 );
+  loadVtt( "payload/tag-format/end-tag-no-back-slash-no-end-brace.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
@@ -75,7 +75,7 @@ TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
   const Node italicNode = head[ 1 ];
   ASSERT_EQ( Node::Italic, italicNode.kind() );
 
-  ASSERT_EQ( 3, italicNode.childCount() );
+  ASSERT_EQ( 2, italicNode.childCount() );
   ASSERT_EQ( Node::Text, italicNode[ 0 ].kind() );
   ASSERT_EQ( Node::Italic, italicNode[ 1 ].kind() );
 }
@@ -91,7 +91,7 @@ TEST_F(PayloadTagFormat, EndTagNoBackSlashNoEndBrace)
  */
 TEST_F(PayloadTagFormat, EndTagNoEndBrace)
 {
-  loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt.vtt", 1 );
+  loadVtt( "payload/tag-format/end-tag-no-end-brace.vtt", 1 );
   const Node head= getHeadOfCue( 0 );
 
   ASSERT_EQ( 2, head.childCount() );
