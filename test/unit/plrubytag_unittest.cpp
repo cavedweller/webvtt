@@ -27,7 +27,7 @@ TEST_F(PayloadRubyTag, ValidRuby)
 
   const Node head0 = getHeadOfCue( 0 );
 
-  ASSERT_EQ( Node::Ruby, head0[ 0 ].kind() );
+  ASSERT_EQ( Node::Ruby, head0[ 1 ].kind() );
   ASSERT_EQ( Node::RubyText, head0[ 1 ][ 1 ].kind() );
 }
 
