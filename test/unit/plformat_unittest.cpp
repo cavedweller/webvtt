@@ -29,7 +29,7 @@ TEST_F(PayloadFormat, MultipleCueTextTag)
 TEST_F(PayloadFormat, MultipleCueTextTagTogether)
 {
   loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
-  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
+  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
