@@ -515,9 +515,11 @@ webvtt_cuetext_tokenizer_start_tag_class_state( webvtt_byte **position,
       return WEBVTT_SUCCESS;
     } else if( **position == UTF8_GREATER_THAN || **position == UTF8_NULL_BYTE ) {
       CHECK_MEMORY_OP_JUMP( status, webvtt_stringlist_push( css_classes, &buffer ) );
+      webvtt_release_string( &buffer );
       return WEBVTT_SUCCESS;
     } else if( **position == UTF8_FULL_STOP ) {
       CHECK_MEMORY_OP_JUMP( status, webvtt_stringlist_push( css_classes, &buffer ) );
+      webvtt_release_string( &buffer );
       CHECK_MEMORY_OP( webvtt_create_string( 1, &buffer ) );
     } else {
       CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( &buffer, **position ) );

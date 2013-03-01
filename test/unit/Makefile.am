@@ -84,13 +84,7 @@ KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
 	cigeneral_unittest \
 	cilineendings_unittest \
-	csposition_unittest \
-	plboldtag_unittest \
-	plitalictag_unittest \
-	plclasstag_unittest \
-	plunderlinetag_unittest \
-	plrubytag_unittest \
-	plvoicetag_unittest
+	csposition_unittest
 endif
 
 # Tests we expect to fail (i.e., known-fails)
