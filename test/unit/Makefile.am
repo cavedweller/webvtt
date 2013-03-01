@@ -89,6 +89,7 @@ KNOWN_VALGRIND_TEST_FAILURES += \
 	plitalictag_unittest \
 	plclasstag_unittest \
 	plunderlinetag_unittest \
+	plrubytag_unittest \
 	plvoicetag_unittest
 endif
 

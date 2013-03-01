@@ -173,7 +173,7 @@ TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
 
   StringList cssClasses = head[ 1 ][ 1 ].cssClasses();
 
-  ASSERT_EQ( 1, cssClasses.length() );
+  ASSERT_EQ( 2, cssClasses.length() );
   assertEquals( "class", cssClasses.stringAt( 0 ) );
   assertEquals( "subclass", cssClasses.stringAt( 1 ) );
 }
