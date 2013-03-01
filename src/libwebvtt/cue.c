@@ -293,16 +293,9 @@ webvtt_attach_internal_node( webvtt_node *parent, webvtt_node *to_attach )
     if( !next ) {
       return WEBVTT_OUT_OF_MEMORY;
     }
-    
-    *next = (webvtt_node *)webvtt_alloc0( sizeof( webvtt_node ) * nd->length );
-
-    if( !*next ) {
-      webvtt_free( next );
-      return WEBVTT_OUT_OF_MEMORY;
-    }
 
     nd->alloc *= 2;
-    memcpy( next, nd->children, nd->length * sizeof( webvtt_node ) );
+    memcpy( next, nd->children, nd->length * sizeof( webvtt_node * ) );
     webvtt_free( nd->children );
     nd->children = next;
   }
