@@ -102,8 +102,7 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      cuetimes_unittest \
 	      filestructure_unittest \
 	      plescapecharacter_unittest \
-	      plformat_unittest \
-	      pltimestamp_unittest
+	      plformat_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
