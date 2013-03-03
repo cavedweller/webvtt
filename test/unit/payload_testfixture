@@ -6,7 +6,7 @@
 class PayloadTest : public CueTest
 {
 protected:
-  const Node getHeadOfCue( uint index )
+  const Node getHeadOfCue( WebVTT::uint index )
   {
     return getCue( index ).nodeHead();
   }
