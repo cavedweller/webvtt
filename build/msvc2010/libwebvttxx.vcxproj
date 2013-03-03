@@ -90,8 +90,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\libwebvttxx\abstract_parser.cpp" />
     <ClCompile Include="..\..\src\libwebvttxx\file_parser.cpp" />
-    <ClCompile Include="..\..\src\libwebvttxx\node.cpp" />
-    <ClCompile Include="..\..\src\libwebvttxx\nodefactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
