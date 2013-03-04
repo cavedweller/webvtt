@@ -41,4 +41,5 @@ webvttinclude_HEADERS = \
   error.h \
   parser.h \
   string.h \
-  util.h
+  util.h \
+  node.h
