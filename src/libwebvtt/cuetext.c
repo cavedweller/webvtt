@@ -193,28 +193,11 @@ webvtt_delete_cuetext_token( webvtt_cuetext_token **token )
   *token = 0;
 }
 
-/**
- * Definitions for tag names that accept annotationsm
- */
-#define V_TAG_LENGTH 1
-
-webvtt_byte v_tag[V_TAG_LENGTH] = { UTF8_V };
-
 WEBVTT_INTERN int
 tag_accepts_annotation( webvtt_string *tag_name )
 {
-  return memcmp( webvtt_string_text( tag_name ), v_tag,
-    min(webvtt_string_length( tag_name ), V_TAG_LENGTH) ) == 0;
+  return webvtt_string_is_equal( tag_name, "v", 1 );
 }
-
-/**
- * Definitions for tag tokens that are more then one character long.
- */
-#define RUBY_TAG_LENGTH 4
-#define RUBY_TEXT_TAG_LENGTH 2
-
-webvtt_byte ruby_tag[RUBY_TAG_LENGTH] = { UTF8_R, UTF8_U, UTF8_B, UTF8_Y };
-webvtt_byte rt_tag[RUBY_TEXT_TAG_LENGTH] = { UTF8_R, UTF8_T };
 
 WEBVTT_INTERN webvtt_status
 webvtt_get_node_kind_from_tag_name( webvtt_string *tag_name, webvtt_node_kind *kind )
@@ -241,9 +224,9 @@ webvtt_get_node_kind_from_tag_name( webvtt_string *tag_name, webvtt_node_kind *k
         *kind = WEBVTT_VOICE;
         break;
     }
-  } else if( memcmp( webvtt_string_text(tag_name), ruby_tag, min(webvtt_string_length(tag_name), RUBY_TAG_LENGTH) ) == 0 ) {
+  } else if( webvtt_string_is_equal( tag_name, "ruby", 4 ) ) {
     *kind = WEBVTT_RUBY;
-  } else if( memcmp( webvtt_string_text(tag_name), rt_tag, min(webvtt_string_length(tag_name), RUBY_TEXT_TAG_LENGTH) ) == 0 ) {
+  } else if( webvtt_string_is_equal( tag_name, "rt", 2 ) ) {
     *kind = WEBVTT_RUBY_TEXT;
   } else {
     return WEBVTT_INVALID_TAG_NAME;
@@ -319,26 +302,12 @@ webvtt_cuetext_tokenizer_data_state( webvtt_byte **position,
 }
 
 /**
- * Definitions for valid escape values.
- * The semicolon is implicit in the comparison.
+ * Definitions for escape sequence replacement strings.
  */
-#define AMP_ESCAPE_LENGTH     4
-#define LT_ESCAPE_LENGTH      3
-#define GT_ESCAPE_LENGTH      3
-#define RLM_ESCAPE_LENGTH     4
-#define LRM_ESCAPE_LENGTH     4
-#define NBSP_ESCAPE_LENGTH    5
 #define RLM_REPLACE_LENGTH    3
 #define LRM_REPLACE_LENGTH    3
 #define NBSP_REPLACE_LENGTH   2
  
-webvtt_byte amp_escape[AMP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_A, UTF8_M, UTF8_P };
-webvtt_byte lt_escape[LT_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_T };
-webvtt_byte gt_escape[GT_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_G, UTF8_T };
-webvtt_byte rlm_escape[RLM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_R, UTF8_L, UTF8_M };
-webvtt_byte lrm_escape[LRM_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_L, UTF8_R, UTF8_M };
-webvtt_byte nbsp_escape[NBSP_ESCAPE_LENGTH] = { UTF8_AMPERSAND, UTF8_N, UTF8_B, UTF8_S, UTF8_P };
-
 webvtt_byte rlm_replace[RLM_REPLACE_LENGTH] = { UTF8_RIGHT_TO_LEFT_1, 
     UTF8_RIGHT_TO_LEFT_2, UTF8_RIGHT_TO_LEFT_3 };
 webvtt_byte lrm_replace[LRM_REPLACE_LENGTH] = { UTF8_LEFT_TO_RIGHT_1,
@@ -387,17 +356,17 @@ webvtt_cuetext_tokenizer_escape_state( webvtt_byte **position,
      * the interpretation to result and change the state to DATA.
      */
     else if( **position == UTF8_SEMI_COLON ) {
-      if( memcmp( webvtt_string_text(&buffer), amp_escape, min(webvtt_string_length(&buffer), AMP_ESCAPE_LENGTH ) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_AMPERSAND ) );
-      } else if( memcmp( webvtt_string_text(&buffer), lt_escape, min(webvtt_string_length(&buffer), LT_ESCAPE_LENGTH ) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_LESS_THAN ) );
-      } else if( memcmp( webvtt_string_text(&buffer), gt_escape, min(webvtt_string_length(&buffer), GT_ESCAPE_LENGTH) ) == 0 ) {
-        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, UTF8_GREATER_THAN ) );
-      } else if( memcmp( webvtt_string_text(&buffer), rlm_escape, min(webvtt_string_length(&buffer), RLM_ESCAPE_LENGTH) ) == 0 ) {
+      if( webvtt_string_is_equal( &buffer, "&amp", 4 ) ) {
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '&' ) );
+      } else if( webvtt_string_is_equal( &buffer, "&lt", 3 ) ) {
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '<' ) );
+      } else if( webvtt_string_is_equal( &buffer, "&gt", 3 ) ) {
+        CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '>' ) );
+      } else if( webvtt_string_is_equal( &buffer, "&rlm", 4 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, rlm_replace, RLM_REPLACE_LENGTH ) );
-      } else if( memcmp( webvtt_string_text(&buffer), lrm_escape, min(webvtt_string_length(&buffer), LRM_ESCAPE_LENGTH) ) == 0 ) {
+      } else if( webvtt_string_is_equal( &buffer, "&lrm", 4 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, lrm_replace, LRM_REPLACE_LENGTH ) );
-      } else if( memcmp( webvtt_string_text(&buffer), nbsp_escape, min(webvtt_string_length(&buffer), NBSP_ESCAPE_LENGTH) ) == 0 ) {
+      } else if( webvtt_string_is_equal( &buffer, "&nbsp", 5 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, nbsp_replace, NBSP_REPLACE_LENGTH ) );
       } else {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append_string( result, &buffer ) );

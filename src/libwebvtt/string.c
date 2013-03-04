@@ -370,6 +370,15 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
   return result;
 }
 
+WEBVTT_EXPORT webvtt_bool
+webvtt_string_is_equal( webvtt_string *str, webvtt_byte *to_compare, webvtt_uint len )
+{
+  if( !str || !to_compare || webvtt_string_length( str ) != len ) {
+    return 0;
+  }
+  return memcmp( webvtt_string_text( str ), to_compare, len ) == 0;
+}
+
 WEBVTT_EXPORT webvtt_status
 webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len )
 {
