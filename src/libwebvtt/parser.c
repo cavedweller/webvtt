@@ -1385,3 +1385,31 @@ _malformed:
   *result = 0xFFFFFFFFFFFFFFFF;
   return 0;
 }
+
+WEBVTT_INTERN webvtt_bool
+token_in_list( webvtt_token token, const webvtt_token list[] )
+{
+  int i = 0;
+  webvtt_token t;
+  while( ( t = list[ i++ ] ) != 0 ) {
+    if( token == t ) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+WEBVTT_INTERN int
+find_token( webvtt_token token, const webvtt_token list[] )
+{
+  int i = 0;
+  webvtt_token t;
+  while( ( t = list[ i ] ) != 0 ) {
+    webvtt_token masked = t & TF_TOKEN_MASK;
+    if( token == masked ) {
+      return i;
+    }
+    ++i;
+  }
+  return -1;
+}
