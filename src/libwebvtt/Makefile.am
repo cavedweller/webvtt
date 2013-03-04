@@ -32,9 +32,9 @@ BUILT_SOURCES = $(top_builddir)/include/webvtt/webvtt-config.h
 $(top_builddir)/include/webvtt/webvtt-config.h: $(top_builddir)/config.h
 	@cat $< | sed "s/#define \([[:alpha:]_]\{1,\}\)/#define WEBVTT_\1/" > $@
 
-WEBVTT_SOURCES = alloc.c cue.c cuetext.c error.c lexer.c parser.c string.c \
-		 node.c node_internal.h \
-		 cue_internal.h cuetext_internal.h \
+WEBVTT_SOURCES = alloc.c cue.c cuetext.c error.c lexer.c \
+		 node.c parser.c string.c \
+		 cue_internal.h cuetext_internal.h node_internal.h \
 		 parser_internal.h string_internal.h \
 		 $(top_builddir)/include/webvtt/webvtt-config.h
 WEBVTT_CFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include

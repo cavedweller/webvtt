@@ -196,7 +196,13 @@ extern "C" {
     /*
      * Match is not found in a search query
      */
-     WEBVTT_NO_MATCH_FOUND = -13
+     WEBVTT_NO_MATCH_FOUND = -13,
+
+    /**
+     * Thrown when assertions fail and FATAL_ASSERTION
+     * is not defined.
+     */
+    WEBVTT_FAILED_ASSERTION = -14,
   };
 
   typedef enum webvtt_status_t webvtt_status;
