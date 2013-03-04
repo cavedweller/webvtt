@@ -180,7 +180,6 @@ WEBVTT_EXPORT void
 webvtt_copy_string( webvtt_string *left, const webvtt_string *right )
 {
   if( left ) {
-    webvtt_string_data *d = left->d;
     if( right && right->d ) {
       left->d = right->d;
     } else {
