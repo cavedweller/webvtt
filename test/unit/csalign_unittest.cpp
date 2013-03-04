@@ -183,24 +183,26 @@ TEST_F(CueSettingAlign, NoValue)
  * Test that the parser requires a colon.
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/27/2012):
- * 1. If setting does not contain a U+003A COLON character (:), or if the first U+003A COLON character (:) in setting is either the first or last character of setting, then jump to the step labeled next setting.
+ * 1. If setting does not contain a U+003A COLON character (:), or if the first
+ *    U+003A COLON character (:) in setting is either the first or last
+ *    character of setting, then jump to the step labeled next setting.
  * 5. Next setting: Continue to the next token, if any.
  */
 TEST_F(CueSettingAlign, BadDelimiter)
 {
   loadVtt( "cue-settings/align/bad-delimiter.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_EQ( 1, errorCount() );
+ 
   /**
    * Align should be "middle" because the malformed setting should be skipped
-     * and "middle" is default.
+   * and "middle" is default.
    */
   ASSERT_TRUE( getCue( 0 ).isAlignedToMiddle() );
+
   /**
-   * We're expecting a WEBVTT_INVALID_CUESETTING_DELIMITER error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_INVALID_CUESETTING_DELIMITER, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
