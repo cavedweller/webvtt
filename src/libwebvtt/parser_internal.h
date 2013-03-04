@@ -29,6 +29,26 @@
 # define __INTERN_PARSER_H__
 # include <webvtt/parser.h>
 # include "string_internal.h"
+# ifndef NDEBUG
+#   define NDEBUG
+# endif
+
+# ifdef FATAL_ASSERTION
+#   undef NDEBUG
+#   include <assert.h>
+# else
+#   ifdef BREAK_ON_ASSERTION
+#     undef NDEBUG
+#     if WEBVTT_OS_WIN32
+        /**
+         * Needed for DebugBreak
+         */
+#       define WIN32_LEAN_AND_MEAN
+#       include <windows.h>
+#     endif
+static void break_on_assert();
+#   endif
+# endif
 
 typedef enum
 webvtt_token_t {
@@ -266,6 +286,38 @@ WEBVTT_INTERN int find_token( webvtt_token search_for,
   const webvtt_token token_list[] );
 
 #define BAD_TIMESTAMP(ts) ( ( ts ) == 0xFFFFFFFFFFFFFFFF )
+
+#ifdef FATAL_ASSERTION
+#  define SAFE_ASSERT(condition) assert(condition)
+#  define DIE_IF(condition) assert( !(condition) )
+#else
+#  ifdef BREAK_ON_ASSERTION
+static void
+break_on_assert(void) {
+#if WEBVTT_OS_WIN32
+  DebugBreak();
+#else
+  volatile int *ptr = (volatile int *)0;
+  *ptr = 1;
+#endif
+}
+#    define SAFE_ASSERT(condition) \
+if( !(condition) ) { \
+  break_on_assert(); \
+  return WEBVTT_FAILED_ASSERTION; \
+}
+#    define DIE_IF(condition) \
+if( (condition) ) { \
+  break_on_assert(); \
+}
+#  else
+#    define SAFE_ASSERT(condition) \
+if( !(condition) ) { \
+  return WEBVTT_FAILED_ASSERTION; \
+}
+#    define DIE_IF(condition)
+#  endif
+#endif
 
 #define ERROR_AT(errno, line, column) \
 do \
