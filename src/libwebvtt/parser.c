@@ -42,7 +42,7 @@ static const webvtt_byte separator[] = {
 #define BUFFER (self->buffer + self->position)
 #define MALFORMED_TIME ((webvtt_timestamp_t)-1.0)
 
-static int find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
+static webvtt_status find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
 static webvtt_status webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len );
 static webvtt_int64 parse_int( const webvtt_byte **pb, int *pdigits );
 
@@ -259,25 +259,25 @@ find_next_whitespace( const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint 
 /**
  * basic strnstr-ish routine
  */
-static int
+static webvtt_status
 find_bytes( const webvtt_byte *buffer, webvtt_uint len,
     const webvtt_byte *sbytes, webvtt_uint slen )
 {
   webvtt_uint slen2;
   // check params for integrity
   if( !buffer || len < 1 || !sbytes || slen < 1 ) {
-    return 0;
+    return WEBVTT_INVALID_PARAM;
   }
 
   slen2 = slen - 1;
   while( len-- >= slen && *buffer ){
     if( *buffer == *sbytes && memcmp( buffer + 1, sbytes + 1, slen2 ) == 0 ) {
-      return 1;
+      return WEBVTT_SUCCESS;
     }
     buffer++;
   }
 
-  return 0;
+  return WEBVTT_NO_MATCH_FOUND;
 }
 
 /**
@@ -1027,7 +1027,7 @@ _recheck:
            * TODO: Add debug assertion
            */
           if( find_bytes( webvtt_string_text( &text ), webvtt_string_length( &text ), separator,
-                          sizeof( separator ) ) ) {
+                          sizeof( separator ) ) == WEBVTT_SUCCESS) {
             /* It's not a cue id, we found '-->'. It can't be a second
                cueparams line, because if we had it, we would be in
                a different state. */

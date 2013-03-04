@@ -192,6 +192,11 @@ extern "C" {
      * Parser should move to the next cuesetting.
      */
     WEBVTT_NEXT_CUESETTING = -12,
+
+    /*
+     * Match is not found in a search query
+     */
+     WEBVTT_NO_MATCH_FOUND = -13
   };
 
   typedef enum webvtt_status_t webvtt_status;
