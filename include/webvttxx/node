@@ -29,7 +29,7 @@
 # define __WEBVTTXX_NODE__
 
 # include <stdexcept>
-# include <webvtt/cue.h>
+# include <webvtt/node.h>
 # include "string"
 # include "timestamp"
 
