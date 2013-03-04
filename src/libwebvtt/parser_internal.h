@@ -217,6 +217,54 @@ WEBVTT_INTERN webvtt_token webvtt_lex( webvtt_parser self, const webvtt_byte *bu
 WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *pba, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 WEBVTT_INTERN int parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result );
 
+/** 
+ * Flags which can apply additional meaning to a token. find_token() will
+ * test for only the actual token and ignore the additional flags.
+ */
+typedef
+enum webvtt_token_flags_t
+{
+  /* Number can be positive */
+  TF_POSITIVE = 0x80000000,
+
+  /* Number can be negative */
+  TF_NEGATIVE = 0x40000000,
+  /* (token & TF_SIGN_MASK) == combination of TF_POSITIVE and
+     TF_NEGATIVE, which indicate what values a number token is allowed
+     to be */
+  TF_SIGN_MASK = ( TF_POSITIVE | TF_NEGATIVE ),
+
+  /* (token & TF_FLAGS_MASK) == webvtt_token_flags value
+     that is being asked for */
+  TF_FLAGS_MASK = TF_SIGN_MASK,
+
+  /* (token & TF_TOKEN_MASK) == webvtt_token value */
+  TF_TOKEN_MASK = ( 0xFFFFFFFF & ~TF_FLAGS_MASK ),
+} webvtt_token_flags;
+
+/**
+ * Return non-zero if a token is found in a NULL-terminated array of tokens, or
+ * zero if not.
+ *
+ * Unlike find_token(), token_in_list() does not make use of
+ * webvtt_token_flags and thus requiers an exact match.
+ */
+WEBVTT_INTERN webvtt_bool token_in_list( webvtt_token search_for,
+  const webvtt_token token_list[] );
+
+/**
+ * Return the index of a token in a NULL-terminated array of tokens,
+ * or -1 if the token is not found.
+ *
+ * find_token() will search for an occurrence of `token' in a list
+ * where webvtt_token_flags are used. For instance, if the list of
+ * tokens contains { TF_POSITIVE | INTEGER, TF_POSITIVE | PERCENTAGE,
+ * 0 }, find_token() will return a match for INTEGER or PERCENTAGE if
+ * either is searched for.
+ */
+WEBVTT_INTERN int find_token( webvtt_token search_for,
+  const webvtt_token token_list[] );
+
 #define BAD_TIMESTAMP(ts) ( ( ts ) == 0xFFFFFFFFFFFFFFFF )
 
 #define ERROR_AT(errno, line, column) \
