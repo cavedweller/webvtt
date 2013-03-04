@@ -171,7 +171,6 @@ extern "C" {
 
   enum
   webvtt_status_t {
-    WEBVTT_MATCH_FOUND = 1,
     WEBVTT_SUCCESS = 0,
     WEBVTT_UNFINISHED = -1,
     WEBVTT_PARSE_ERROR = -2,

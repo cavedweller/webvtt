@@ -272,7 +272,7 @@ find_bytes( const webvtt_byte *buffer, webvtt_uint len,
   slen2 = slen - 1;
   while( len-- >= slen && *buffer ){
     if( *buffer == *sbytes && memcmp( buffer + 1, sbytes + 1, slen2 ) == 0 ) {
-      return WEBVTT_MATCH_FOUND;
+      return WEBVTT_SUCCESS;
     }
     buffer++;
   }
@@ -1027,7 +1027,7 @@ _recheck:
            * TODO: Add debug assertion
            */
           if( find_bytes( webvtt_string_text( &text ), webvtt_string_length( &text ), separator,
-                          sizeof( separator ) ) == WEBVTT_MATCH_FOUND ) {
+                          sizeof( separator ) ) == WEBVTT_SUCCESS) {
             /* It's not a cue id, we found '-->'. It can't be a second
                cueparams line, because if we had it, we would be in
                a different state. */
