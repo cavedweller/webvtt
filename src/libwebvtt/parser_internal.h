@@ -219,18 +219,18 @@ WEBVTT_INTERN int parse_timestamp( const webvtt_byte *b, webvtt_timestamp *resul
 
 #define BAD_TIMESTAMP(ts) ( ( ts ) == 0xFFFFFFFFFFFFFFFF )
 
-#define ERROR(Code) \
+#define ERROR_AT(errno, line, column) \
 do \
 { \
-  if( !self->error || self->error(self->userdata,self->line,self->column,Code) < 0 ) \
+  if( !self->error \
+    || self->error( (self->userdata), (line), (column), (errno) ) < 0 ) { \
     return WEBVTT_PARSE_ERROR; \
+  } \
 } while(0)
 
-#define ERROR_AT_COLUMN(Code,Column) \
-do \
-{ \
-  if( !self->error || self->error(self->userdata,self->line,(Column),Code) < 0 ) \
-    return WEBVTT_PARSE_ERROR; \
-} while(0)
+#define ERROR(error) \
+  ERROR_AT( (error), (self->line), (self->column) )
 
+#define ERROR_AT_COLUMN(error, column) \
+  ERROR_AT( (error), (self->line), (column) )
 #endif
