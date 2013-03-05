@@ -414,7 +414,7 @@ TEST_F(PayloadEscapeCharacter, NP)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  assertEquals( "Test Space Character escape: &np", node.text() );
+  assertEquals( "Test Space Character escape: &np;", node.text() );
 }
 /*
  WebVTT Specification Version:
