@@ -506,6 +506,33 @@ bad_value_eol:
   return WEBVTT_NEXT_CUESETTING;
 }
 
+WEBVTT_INTERN webvtt_status
+webvtt_parse_align( webvtt_parser self, webvtt_cue *cue, const
+webvtt_byte *text,
+  webvtt_uint *pos, webvtt_uint len )
+{
+  webvtt_uint last_line = self->line;
+  webvtt_uint last_column = self->column;
+  webvtt_status v;
+  webvtt_uint vc;
+  webvtt_token values[] = { START, MIDDLE, END, LEFT, RIGHT, 0 };
+  if( ( v = webvtt_parse_cuesetting( self, text, pos, len,
+    WEBVTT_ALIGN_BAD_VALUE, ALIGN, values, &vc ) ) > 0 ) {
+    if( cue->flags & CUE_HAVE_ALIGN ) {
+      ERROR_AT( WEBVTT_ALIGN_ALREADY_SET, last_line, last_column );
+    }
+    cue->flags |= CUE_HAVE_ALIGN;
+    switch( values[ v-1 ] ) {
+      case START: cue->settings.align = WEBVTT_ALIGN_START; break;
+      case MIDDLE: cue->settings.align = WEBVTT_ALIGN_MIDDLE; break;
+      case END: cue->settings.align = WEBVTT_ALIGN_END; break;
+      case LEFT: cue->settings.align = WEBVTT_ALIGN_LEFT; break;
+      case RIGHT: cue->settings.align = WEBVTT_ALIGN_RIGHT; break;
+    }
+  }
+  return v >= 0 ? WEBVTT_SUCCESS : v;
+}
+
 WEBVTT_INTERN int
 parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
                  webvtt_uint len, webvtt_cue *cue )
@@ -516,6 +543,8 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
   webvtt_uint baddelim = 0;
   webvtt_uint pos = 0;
   webvtt_token last_token = 0;
+  webvtt_uint last_line = self->line;
+
   enum cp_state {
     CP_T1, CP_T2, CP_T3, CP_T4, CP_T5, /* 'start' cuetime, whitespace1,
                    'separator', whitespace2, 'end' cuetime */
@@ -547,6 +576,8 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
   while( pos < len ) {
     webvtt_uint last_column = self->column;
     webvtt_token token = webvtt_lex( self, buffer, &pos, len, 1 );
+    webvtt_uint tlen = self->token_pos;
+    self->token_pos = 0;
 _recheck:
     switch( state ) {
         /* start timestamp */
@@ -677,7 +708,27 @@ else if( !have_ws ) \
             break;
           case ALIGN:
             CHKDELIM have_ws = 0;
-            SETST( CP_A1 );
+            if( ( pos ) < len && buffer[ pos ] != 0x3A ) {
+              webvtt_error e = WEBVTT_INVALID_CUESETTING;
+              if( buffer[ pos ] == 0x20 || buffer[ pos ] == 0x09 ) {
+                e = WEBVTT_UNEXPECTED_WHITESPACE;
+              }
+              ERROR_AT( e, last_line, last_column );
+              goto skip_align;
+            } else {
+              webvtt_status status;
+              pos -= tlen; /* Required for parse_align() */
+              self->column = last_column; /* Reset for parse_align() */
+              status = webvtt_parse_align( self, cue, buffer, &pos, len );
+              if( status == WEBVTT_INVALID_CUESETTING ) {
+                ERROR_AT( WEBVTT_INVALID_CUESETTING, last_line, last_column );
+              }
+skip_align:
+              while( pos < len && !webvtt_iswhite( buffer[ pos ] ) ) {
+                ++pos;
+              }
+              continue;    
+            }
             break;
           case SIZE:
             CHKDELIM have_ws = 0;
