@@ -1323,7 +1323,12 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
         goto _finish;
       }
 
-      if( self->line_buffer.d->length > 1 && self->line_buffer.d->text[ self->line_buffer.d->length - 1 ] == UTF8_LINE_FEED ) {
+      /**
+       * We've encountered a line without any cuetext on it, i.e. there is no 
+       * newline character and len is 0 or there is and len is 1, therefore, the
+       * cue text is finished.
+       */
+      if( self->line_buffer.d->length <= 1 ) {
         /**
          * finished
          */
