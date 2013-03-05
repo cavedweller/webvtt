@@ -92,7 +92,6 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      ciarrow_unittest \
 	      cigeneral_unittest \
 	      cilineendings_unittest \
-	      csalign_unittest \
 	      csgeneric_unittest \
 	      csline_unittest \
 	      csposition_unittest \
