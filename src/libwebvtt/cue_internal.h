@@ -44,6 +44,12 @@ enum {
 
   CUE_HAVE_CUEPARAMS = 0x40000000,
   CUE_HAVE_ID = 0x80000000,
+  CUE_HEADER_MASK = CUE_HAVE_CUEPARAMS|CUE_HAVE_ID,
 };
+
+static webvtt_bool
+cue_is_incomplete( const webvtt_cue *cue ) {
+  return !cue || ( cue->flags & CUE_HEADER_MASK ) == CUE_HAVE_ID;
+}
 
 #endif
