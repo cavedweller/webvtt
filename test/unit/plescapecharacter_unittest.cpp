@@ -772,7 +772,7 @@ TEST_F(PayloadEscapeCharacter, A)
 */
 TEST_F(PayloadEscapeCharacter, AM)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-a.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-character-escape-am.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
