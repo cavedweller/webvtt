@@ -33,19 +33,11 @@
 #   define NDEBUG
 # endif
 
-# ifdef FATAL_ASSERTION
+# if defined(FATAL_ASSERTION)
 #   undef NDEBUG
 #   include <assert.h>
 # else
-#   ifdef BREAK_ON_ASSERTION
-#     undef NDEBUG
-#     if WEBVTT_OS_WIN32
-        /**
-         * Needed for DebugBreak
-         */
-#       define WIN32_LEAN_AND_MEAN
-#       include <windows.h>
-#     endif
+#   if defined(BREAK_ON_ASSERTION) && !WEBVTT_OS_WIN32
 static void break_on_assert();
 #   endif
 # endif
@@ -295,6 +287,8 @@ WEBVTT_INTERN int find_token( webvtt_token search_for,
 static void
 break_on_assert(void) {
 #if WEBVTT_OS_WIN32
+  /* __declspec(dllimport) should work for cross compiling gcc as well */
+  __declspec(dllimport) void __stdcall DebugBreak( void );
   DebugBreak();
 #else
   volatile int *ptr = (volatile int *)0;
