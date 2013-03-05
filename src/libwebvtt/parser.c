@@ -695,9 +695,6 @@ else if( !have_ws ) \
           case WHITESPACE:
             have_ws = last_column;
             break;
-          case COLON:
-            ERROR_AT_COLUMN( WEBVTT_MISSING_CUESETTING_KEYWORD, last_column );
-            break;
           case VERTICAL:
             CHKDELIM have_ws = 0;
             SETST( CP_V1 );
@@ -741,12 +738,14 @@ skip_align:
           default:
             if( have_ws ) {
               ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );
-              while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             } else if( token == BADTOKEN ) {
               /* it was a bad delimiter... */
               if( !baddelim ) {
                 baddelim = last_column;
               }
+              ++pos;
+            }
+            while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) {
               ++pos;
             }
         }
