@@ -39,12 +39,12 @@ WEBVTT_INTERN webvtt_status webvtt_create_internal_node( webvtt_node **node, web
  * We should just return a list of node trees...
  */
 WEBVTT_INTERN webvtt_status webvtt_create_head_node( webvtt_node **node );
-WEBVTT_INTERN webvtt_status webvtt_create_time_stamp_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_timestamp time_stamp );
-WEBVTT_INTERN webvtt_status webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_string *text );
+WEBVTT_INTERN webvtt_status webvtt_create_timestamp_node( webvtt_node **node, webvtt_node *parent, webvtt_timestamp time_stamp );
+WEBVTT_INTERN webvtt_status webvtt_create_text_node( webvtt_node **node, webvtt_node *parent, webvtt_string *text );
 
 /**
  * Attaches a node to the internal node list of another node.
  */
-WEBVTT_INTERN webvtt_status webvtt_attach_internal_node( webvtt_node *parent, webvtt_node *to_attach );
+WEBVTT_INTERN webvtt_status webvtt_attach_node( webvtt_node *parent, webvtt_node *to_attach );
 
 #endif
