@@ -591,7 +591,7 @@ _recheck:
               ( BAD_TIMESTAMP( cue->from )
                 ? WEBVTT_EXPECTED_TIMESTAMP
                 : WEBVTT_MALFORMED_TIMESTAMP ), last_column  );
-            if( !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
+            if( self->token_pos && !webvtt_isdigit( self->token[self->token_pos - 1] ) ) {
               while( pos < len && buffer[pos] != 0x09 && buffer[pos] != 0x20 ) { ++pos; }
             }
             if( BAD_TIMESTAMP( cue->from ) )
@@ -1219,6 +1219,13 @@ _recheck:
           webvtt_state *st = FRAMEUP( 1 );
           webvtt_string text = st->v.text;
 
+          /* FIXME: guard inconsistent state */
+          if (!cue) {
+            ERROR( WEBVTT_PARSE_ERROR );
+            status = WEBVTT_PARSE_ERROR;
+            goto _finish;
+          }
+
           st->type = V_NONE;
           st->v.cue = NULL;
 
@@ -1252,7 +1259,7 @@ _recheck:
             }
           } else {
             /* It is a cue-id */
-            if( cue->flags & CUE_HAVE_ID ) {
+            if( cue && cue->flags & CUE_HAVE_ID ) {
               /**
                * This isn't actually a cue-id, because we already
                * have one. It seems to be cuetext, which is occurring
