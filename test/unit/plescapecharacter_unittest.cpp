@@ -735,7 +735,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
   
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
-  assertEquals( "Test Ampersand escape: &", node.text() );
+  assertEquals( "Test Ampersand Special Character: &", node.text() );
 }
 /*
  WebVTT Specification Version:
