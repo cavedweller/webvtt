@@ -119,7 +119,7 @@ webvtt_create_head_node( webvtt_node **node )
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_time_stamp_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_timestamp time_stamp )
+webvtt_create_timestamp_node( webvtt_node **node, webvtt_node *parent, webvtt_timestamp time_stamp )
 {
   webvtt_status status;
 
@@ -133,7 +133,7 @@ webvtt_create_time_stamp_leaf_node( webvtt_node **node, webvtt_node *parent, web
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_create_text_leaf_node( webvtt_node **node, webvtt_node *parent, webvtt_string *text )
+webvtt_create_text_node( webvtt_node **node, webvtt_node *parent, webvtt_string *text )
 {
   webvtt_status status;
 
@@ -176,7 +176,7 @@ webvtt_release_node( webvtt_node **node )
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_attach_internal_node( webvtt_node *parent, webvtt_node *to_attach )
+webvtt_attach_node( webvtt_node *parent, webvtt_node *to_attach )
 {
   webvtt_node **next = 0;
   webvtt_internal_node_data *nd = 0;
