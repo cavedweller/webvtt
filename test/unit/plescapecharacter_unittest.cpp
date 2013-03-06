@@ -945,11 +945,11 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinTag)
   const Node node = getHeadOfCue(0);
 
   /* Check to see if the Italic node has been correctly formed */
-  ASSERT_EQ( Node::Italic, node.kind() );
+  ASSERT_EQ( Node::Italic, node[ 0 ].kind() );
 
   /* verify the text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
-  assertEquals( "Test Ampersand escape within i tag: &amp;", textNode.text() );
+  assertEquals( "Test Ampersand escape within i tag: &", textNode.text() );
 }
 /*
  Version:
