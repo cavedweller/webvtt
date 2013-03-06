@@ -1324,9 +1324,9 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
       }
 
       /**
-       * We've encountered a line without any cuetext on it, i.e. there is no 
-       * newline character and len is 0 or there is and len is 1, therefore, the
-       * cue text is finished.
+       * We've encountered a line without any cuetext on it, i.e. there is no
+       * newline character and len is 0 or there is and len is 1, therefore,
+       * the cue text is finished.
        */
       if( self->line_buffer.d->length <= 1 ) {
         /**
