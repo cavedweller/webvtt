@@ -1341,17 +1341,6 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
          */
         finished = 1;
       }
-
-      if( pos < len ) {
-        if( b[pos] == UTF8_CARRIAGE_RETURN ) {
-          if( len - pos >= 2 && b[pos + 1] == UTF8_LINE_FEED ) {
-            ++pos;
-          }
-          ++pos;
-        } else {
-          ++pos;
-        }
-      }
     }
   } while( pos < len && !finished );
 _finish:
