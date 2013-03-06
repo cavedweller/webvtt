@@ -131,9 +131,24 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
   ASSERT_EQ( Node::Text, node.kind() );
     
   /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( 5, node.text().length() );
   ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
+  ASSERT_EQ( NBSP, node.text().utf16At( 3 ) );
 }
 
+TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterText)
+{
+  loadVtt( "payload/escape-character/multiline-multiple-escape-character-text.vtt", 1 );
+
+  const Node node = getHeadOfCue( 0 )[ 0 ];
+
+  /* verify that it is a Node */
+  ASSERT_EQ( Node::Text, node.kind() );
+
+  /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
+  assertEquals( "\xC2\xA0\n" "Anyone out there?\n" "\xC2\xA0\n", node.text() );
+}
 /*
  * Verifies that multiple escape characters on multiple lines are parsed.
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
