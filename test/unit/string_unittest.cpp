@@ -25,6 +25,37 @@ const webvtt_uint16 UTF16AnNyungHaSeYo[] =
 };
 
 /**
+ * string_getline boundary condition
+ */
+TEST(String,GetLine)
+{
+  WebVTT::uint pos = 0;
+  webvtt_string str;
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", -1 );
+  webvtt_string_getline( &str, (const webvtt_byte *)"ld! This is a test! Yup\n",
+    &pos, -1,  0, 1, 0 );
+  ASSERT_EQ( 32, webvtt_string_length( &str ) );
+  ASSERT_STREQ( "Hello World! This is a test! Yup",
+    (const char *)webvtt_string_text( &str ) );
+}
+
+/**
+ * string_append boundary condition
+ */
+TEST(String,Append)
+{
+  WebVTT::uint pos = 0;
+  webvtt_string str;
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", -1 );
+  webvtt_string_append( &str, (const webvtt_byte *)"ld! This is a test! Yup",
+    -1 );
+  ASSERT_EQ( 32, webvtt_string_length( &str ) );
+  ASSERT_STREQ( "Hello World! This is a test! Yup",
+    (const char *)webvtt_string_text( &str ) );
+}
+
+
+/**
  * Test the webvtt_utf8_length routine
  */
 TEST(String,UTF8CodepointLength)
