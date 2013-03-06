@@ -29,6 +29,41 @@ protected:
     }
   }
 
+  // Assert that we're using the default alignment for this cue
+  void assertDefaultAlignSetting( const Cue &cue ) {
+    ASSERT_TRUE( cue.isAlignedToMiddle() );
+  }
+
+  // Assert that we're using the default line position for this cue
+  void assertDefaultLineSetting( const Cue &cue ) {
+    ASSERT_TRUE( cue.isLinePositionAuto() );
+    ASSERT_TRUE( cue.snapToLines() );
+  }
+
+  // Assert that we're using the default text position for this cue
+  void assertDefaultPositionSetting( const Cue &cue ) {
+    ASSERT_EQ( 50, cue.textPositionPercentage() );
+  }
+
+  // Assert that we're using the default size for this cue
+  void assertDefaultSizeSetting( const Cue &cue ) {
+    ASSERT_EQ( 100, cue.sizePercentage() );
+  }
+
+  // Assert that we're using the default direction for this cue
+  void assertDefaultVerticalSetting( const Cue &cue ) {
+    ASSERT_TRUE( cue.isHorizontal() );
+  }
+
+  // Assert that we haven't accepted any cuesettings for this cue
+  void assertDefaultCueSettings( const Cue &cue ) {
+    assertDefaultAlignSetting( cue );
+    assertDefaultLineSetting( cue );
+    assertDefaultPositionSetting( cue );
+    assertDefaultSizeSetting( cue );
+    assertDefaultVerticalSetting( cue );
+  }
+
   void assertEquals( const String &one, const String &two )
   {
     ASSERT_STREQ( reinterpret_cast<const char *>( one.utf8() ), reinterpret_cast<const char *>( two.utf8() ) );

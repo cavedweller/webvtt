@@ -687,7 +687,7 @@ TEST_F(CueSettingLine, WhitespaceDelimiter)
    * of the 3rd line.
    */
   assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
-  assertEquals( getError( 1 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 30 );
+  assertEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
 }
 
 /**
@@ -708,8 +708,7 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
   /**
    * line:68% -- snapToLines==false, linePositionPercentage==68
    */ 
-  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
-  ASSERT_FALSE( getCue( 0 ).snapToLines() );
+  assertDefaultLineSetting( getCue( 0 ) );
  
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
