@@ -115,7 +115,9 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
   ASSERT_EQ( Node::Text, node.kind() );
     
   /* create a UTF8 representation of NBSP and compare with textnode */
+  ASSERT_EQ( 5, node.text().length() );
   ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
+  ASSERT_EQ( NBSP, node.text().utf16At( 3 ) );
 }
 
 /*
