@@ -1341,7 +1341,6 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
          */
         finished = 1;
       }
-      webvtt_string_putc( &self->line_buffer, UTF8_LINE_FEED );
 
       if( pos < len ) {
         if( b[pos] == UTF8_CARRIAGE_RETURN ) {
