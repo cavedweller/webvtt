@@ -331,7 +331,7 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
       /* truncate. */
       (*truncate)++;
     } else {
-      if( grow( str, len ) == WEBVTT_OUT_OF_MEMORY ) {
+      if( grow( str, len + 1 ) == WEBVTT_OUT_OF_MEMORY ) {
         ret = -1;
       }
       d = str->d;
