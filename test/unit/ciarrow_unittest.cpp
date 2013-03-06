@@ -28,7 +28,7 @@ TEST_F(CueIdArrow, MalformedArrows)
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_Arrow) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, Arrow)
 {
   loadVtt( "cue-ids/arrows/arrow.vtt" );
   const Error &err = getError( 0 );
@@ -48,7 +48,7 @@ TEST_F(CueIdArrow, DISABLED_Arrow) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_ExtraArrowhead) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, ExtraArrowhead)
 {
   loadVtt( "cue-ids/arrows/extra_arrowhead.vtt" );
   const Error &err = getError( 0 );
@@ -68,7 +68,7 @@ TEST_F(CueIdArrow, DISABLED_ExtraArrowhead) //C++ exception: "std::bad_alloc"
  *
  * Note: A WebVTT cue identifier can be used to reference a specific cue, for example from script or CSS.
  */
-TEST_F(CueIdArrow, DISABLED_ExtraMinusSign) //C++ exception: "std::bad_alloc"
+TEST_F(CueIdArrow, ExtraMinusSign)
 {
   loadVtt( "cue-ids/arrows/extra_minus_sign.vtt" );
   const Error &err = getError( 0 );
