@@ -45,6 +45,10 @@ static const webvtt_byte separator[] = {
 static webvtt_status find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
 static webvtt_status webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len );
 static webvtt_int64 parse_int( const webvtt_byte **pb, int *pdigits );
+static void skip_spacetab( const webvtt_byte *text, webvtt_uint *pos,
+  webvtt_uint len, webvtt_uint *column );
+static void skip_until_white( const webvtt_byte *text, webvtt_uint *pos,
+  webvtt_uint len, webvtt_uint *column );
 
 WEBVTT_EXPORT webvtt_status
 webvtt_create_parser( webvtt_cue_fn on_read,
@@ -229,6 +233,45 @@ find_newline( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
   return -1;
 }
 
+static void
+skip_spacetab( const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len,
+  webvtt_uint *column )
+{
+  webvtt_uint c = 0;
+  if( !column ) {
+    column = &c;
+  }
+  while( *pos < len ) {
+    webvtt_byte ch = text[ *pos ];
+    if( ch == 0x20 || ch == 0x09 ) {
+      ++( *pos );
+      ++( *column );
+    } else {
+      break;
+    }
+  }
+}
+
+static void
+skip_until_white( const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len,
+  webvtt_uint *column )
+{
+  webvtt_uint c = 0;
+  if( !column ) {
+    column = &c;
+  }
+  while( *pos < len ) {
+    webvtt_byte ch = text[ *pos ];
+    if( ch == 0x20 || ch == 0x09 || ch == 0x0A || ch == 0x0D ) {
+      break;
+    } else {
+      int length = webvtt_utf8_length( text + *pos );
+      *pos += length;
+      ++( *column );
+    }
+  }
+}
+
 static webvtt_status
 webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
 {
@@ -398,15 +441,28 @@ webvtt_parse_cuesetting( webvtt_parser self, const webvtt_byte *text,
               return WEBVTT_NEXT_CUESETTING;
             }
             if( *pos < len ) {
+              webvtt_uint column = last_column;
               webvtt_byte ch = text[ *pos ];
-              if( ch != 0x3A && ch != 0x20 && ch != 0x09 && ch != 0x0A
-                && ch != 0x0D ) {
-                ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );
-                goto skip_param;
+              if( ch != 0x3A ) {
+                webvtt_error e = WEBVTT_INVALID_CUESETTING;
+                if( ch == 0x20 || ch == 0x09 ) {
+                  column = self->column;
+                  e = WEBVTT_UNEXPECTED_WHITESPACE;
+                  skip_spacetab( text, pos, len, &self->column );
+                  if( text[ *pos ] == 0x3A ) {
+                    skip_until_white( text, pos, len, &self->column );
+                  }
+                } else {
+                  skip_until_white( text, pos, len, &self->column );
+                }
+                ERROR_AT_COLUMN( e, column );
+              } else {
+                mode = P_COLON;
+                keyword_column = last_column;
               }
+            } else {
+              ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );     
             }
-            mode = P_COLON;
-            keyword_column = last_column;
             break;
           case WHITESPACE:
             break;
@@ -750,55 +806,32 @@ else if( !have_ws ) \
             SETST( CP_P1 );
             break;
           case ALIGN:
-            CHKDELIM have_ws = 0;
-            if( ( pos ) < len && buffer[ pos ] != 0x3A ) {
-              webvtt_error e = WEBVTT_INVALID_CUESETTING;
-              if( buffer[ pos ] == 0x20 || buffer[ pos ] == 0x09 ) {
-                e = WEBVTT_UNEXPECTED_WHITESPACE;
-              }
-              ERROR_AT( e, last_line, last_column );
-              goto skip_setting;
-            } else {
-              webvtt_status status;
-              pos -= tlen; /* Required for parse_align() */
-              self->column = last_column; /* Reset for parse_align() */
-              status = webvtt_parse_align( self, cue, buffer, &pos, len );
-              if( status == WEBVTT_INVALID_CUESETTING ) {
-                ERROR_AT( WEBVTT_INVALID_CUESETTING, last_line, last_column );
-              }
-skip_setting:
-              while( pos < len && !webvtt_iswhite( buffer[ pos ] ) ) {
-                ++pos;
-              }
-              continue;    
+          {
+            webvtt_status status;
+            pos -= tlen; /* Required for parse_align() */
+            self->column = last_column; /* Reset for parse_align() */
+            status = webvtt_parse_align( self, cue, buffer, &pos, len );
+            if( status == WEBVTT_PARSE_ERROR ) {
+              return WEBVTT_PARSE_ERROR;
             }
-            break;
+          }
+          break;
+
           case SIZE:
             CHKDELIM have_ws = 0;
             SETST( CP_S1 );
             break;
           case LINE:
-            CHKDELIM have_ws = 0;
-             if( ( pos ) < len && buffer[ pos ] != 0x3A ) {
-              webvtt_error e = WEBVTT_INVALID_CUESETTING;
-              if( buffer[ pos ] == 0x20 || buffer[ pos ] == 0x09 ) {
-                e = WEBVTT_UNEXPECTED_WHITESPACE;
-              }
-              ERROR_AT( e, last_line, last_column );
-              goto skip_setting;
-            } else {
-              webvtt_status status;
-              pos -= tlen; /* Required for parse_align() */
-              self->column = last_column; /* Reset for parse_align() */
-              status = webvtt_parse_line( self, cue, buffer, &pos, len );
-              if( WEBVTT_FAILED( status ) ) {
-                if( status == WEBVTT_INVALID_CUESETTING ) {
-                  ERROR_AT( WEBVTT_INVALID_CUESETTING, last_line, last_column );
-                }
-                goto skip_setting;
-              }
+          {
+            webvtt_status status;
+            pos -= tlen; /* Required for parse_align() */
+            self->column = last_column; /* Reset for parse_align() */
+            status = webvtt_parse_line( self, cue, buffer, &pos, len );
+            if( status == WEBVTT_PARSE_ERROR ) {
+              return WEBVTT_PARSE_ERROR;
             }
-            break;
+          }
+          break;
           default:
             if( have_ws ) {
               ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );
