@@ -374,6 +374,7 @@ webvtt_escape_state( webvtt_byte **position, webvtt_token_state *token_state,
       }
 
       *token_state = DATA;
+      status = WEBVTT_UNFINISHED;
     }
     /**
      * Character is alphanumeric. This means we are in the body of the escape
@@ -390,6 +391,7 @@ webvtt_escape_state( webvtt_byte **position, webvtt_token_state *token_state,
     else {
       CHECK_MEMORY_OP_JUMP( status, webvtt_string_append_string( result, &buffer ) );
       CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, **position ) );
+      status = WEBVTT_UNFINISHED;
       *token_state = DATA;
     }
   }
