@@ -24,6 +24,16 @@ const webvtt_uint16 UTF16AnNyungHaSeYo[] =
   0xC548, 0xB155, 0xD558, 0xC138, 0xC694, 0x0000
 };
 
+TEST(String,CreateWithText)
+{
+  webvtt_string str;
+  webvtt_create_string_with_text( &str,
+    (const webvtt_byte *)"Hello World", -1 );
+  ASSERT_EQ( 11, webvtt_string_length( &str ) );
+  ASSERT_STREQ( "Hello World", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
 /**
  * string_getline boundary condition
  */
