@@ -40,7 +40,7 @@ TEST_F(PayloadFormat, MultipleCueTextTagTogether)
  *    2. LF (U+000A)
  *    3. CRLF pair
  */
-TEST_F(PayloadFormat, DISABLED_MultilineBasicCueText)
+TEST_F(PayloadFormat, MultilineBasicCueText)
 {
   loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
