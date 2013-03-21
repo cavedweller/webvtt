@@ -70,7 +70,7 @@ AC_ARG_ENABLE([gprof],
 	AS_HELP_STRING([--enable-gprof],[build with gprof profiling engine]),
 	[CFLAGS='-pg'; AC_DEFINE([GPROF],[1],[Defined if using gprof profiling engine])])
 
-warn_CFLAGS="-Wall -Wno-extra-portability"
+warn_CFLAGS="-Wall -Wextra"
 save_CFLAGS=$CFLAGS
 CFLAGS="$CFLAGS $warn_CFLAGS"
 AC_MSG_CHECKING([if ${CC} supports ${warn_CFLAGS}])
