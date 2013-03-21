@@ -640,7 +640,7 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
                  webvtt_uint len, webvtt_cue *cue )
 {
   int digits;
-  int have_ws = 0;
+  webvtt_uint have_ws = 0;
   int unexpected_whitespace = 0;
   webvtt_uint baddelim = 0;
   webvtt_uint pos = 0;
