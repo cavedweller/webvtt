@@ -176,19 +176,15 @@ webvtt_delete_token( webvtt_cuetext_token **token )
    * Note that time stamp tokens do not need to free any internal data because 
    * they do not allocate anything. 
    */
-  switch( t->token_type ) {
-    case START_TOKEN:
-      data = t->start_token_data;
-      webvtt_release_stringlist( &data.css_classes );
-      webvtt_release_string( &data.annotations );
-      webvtt_release_string( &t->tag_name );
-      break;
-    case END_TOKEN:
-      webvtt_release_string( &t->tag_name );
-      break;
-    case TEXT_TOKEN:
-      webvtt_release_string( &t->text );
-      break;
+  if( t->token_type == START_TOKEN ) {
+    data = t->start_token_data;
+    webvtt_release_stringlist( &data.css_classes );
+    webvtt_release_string( &data.annotations );
+    webvtt_release_string( &t->tag_name );
+  } else if( t->token_type == END_TOKEN ) {
+    webvtt_release_string( &t->tag_name );
+  } else if( t->token_type == TEXT_TOKEN ) {
+    webvtt_release_string( &t->text );
   }
   webvtt_free( t );
   *token = 0;
@@ -687,71 +683,66 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
    * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
    */
   while( *position != UTF8_NULL_BYTE ) {
-    
+    webvtt_status status = WEBVTT_SUCCESS; 
     webvtt_delete_token( &token );
 
     /* Step 7. */
-    switch( webvtt_cuetext_tokenizer( &position, &token ) ) {
-      case( WEBVTT_UNFINISHED ):
-        /* Error here. */
-        break;
-        /* Step 8. */
-      case( WEBVTT_SUCCESS ):
-
+    if( WEBVTT_FAILED( status = webvtt_cuetext_tokenizer( &position, 
+                                                          &token ) ) ) {
+      /* Error here. */
+    } else {
+      /* Succeeded... Process token */
+      if( token->token_type == END_TOKEN ) {
         /**
          * If we've found an end token which has a valid end token tag name and
          * a tag name that is equal to the current node then set current to the
          * parent of current.
          */
-        if( token->token_type == END_TOKEN ) {
+       if( current_node->kind == WEBVTT_HEAD_NODE ) {
           /**
            * We have encountered an end token but we are at the top of the list
            * and thus have not encountered any start tokens yet, throw away the
            * token.
            */
-          if( current_node->kind == WEBVTT_HEAD_NODE ) {
-            continue;
-          }
+          continue;
+        }
 
+        if( webvtt_node_kind_from_tag_name( &token->tag_name, &kind ) == WEBVTT_INVALID_TAG_NAME ) {
           /**
            * We have encountered an end token but it is not in a format that is
            * supported, throw away the token.
            */
-          if( webvtt_node_kind_from_tag_name( &token->tag_name, &kind ) == WEBVTT_INVALID_TAG_NAME ) {
-            continue;
-          }
+          continue;
+        }
 
+        if( current_node->kind == kind ) {
           /**
            * We have encountered an end token and it matches the start token of
            * the node that we are currently on. Move back up the list of nodes
            * and continue parsing.
            */
-          if( current_node->kind == kind ) {
-            current_node = current_node->parent;
-          }
-        } else {
-
-          /**
-           * Attempt to create a valid node from the token.
-           * If successful then attach the node to the current nodes list and
-           * also set current to the newly created node if it is an internal
-           * node type.
-           */
-          if( webvtt_create_node_from_token( token, &temp_node, current_node ) != WEBVTT_SUCCESS ) { 
-            /* Do something here? */ 
-          }
-          else {
-            webvtt_attach_node( current_node, temp_node );
-            
-            if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) { 
-              current_node = temp_node; 
-            }
-            
-            /* Release the node as attach internal node increases the count. */
-            webvtt_release_node( &temp_node );
-          }
+          current_node = current_node->parent;
         }
-        break;
+      } else {
+        /**
+         * Attempt to create a valid node from the token.
+         * If successful then attach the node to the current nodes list and
+         * also set current to the newly created node if it is an internal
+         * node type.
+         */
+        if( webvtt_create_node_from_token( token, &temp_node, current_node ) != WEBVTT_SUCCESS ) { 
+          /* Do something here? */ 
+        } else {
+          webvtt_attach_node( current_node, temp_node );
+
+          if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) { 
+            current_node = temp_node; 
+          }
+            
+          /* Release the node as attach internal node increases the count. */
+          webvtt_release_node( &temp_node );
+        }
+      }
     }
     webvtt_skipwhite( &position );
   }
