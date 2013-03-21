@@ -129,6 +129,8 @@ cleanup_stack( webvtt_parser self )
          * Eventually the cuetext parser will probably be making use
          * of this stack, and will need to manage it well also.
          */
+      default:
+        break;
     }
     st->type = V_NONE;
     st->line = st->column = st->token = 0;
@@ -529,11 +531,14 @@ get_value:
               if( ( flags & TF_SIGN_MASK ) != TF_SIGN_MASK ) {
                 const webvtt_byte p = self->token[ 0 ];
                 if( ( ( flags & TF_NEGATIVE ) && p != UTF8_HYPHEN_MINUS )
-                  || ( ( flags & TF_POSITIVE ) && p == UTF8_HYPHEN_MINUS
-) ) {
+                  || ( ( flags & TF_POSITIVE ) && p == UTF8_HYPHEN_MINUS ) ) {
                   goto bad_value;
                 }
               }
+              break;
+
+            default: /* Currently, other types don't need these checks */
+              break;
           }
           return i + 1;
         } else {
@@ -571,20 +576,18 @@ webvtt_byte *text,
   webvtt_uint last_column = self->column;
   webvtt_status v;
   webvtt_uint vc;
-  webvtt_token values[] = { START, MIDDLE, END, LEFT, RIGHT, 0 };
+  webvtt_token tokens[] = { START, MIDDLE, END, LEFT, RIGHT, 0 };
+  webvtt_align_type values[] = {
+    WEBVTT_ALIGN_START, WEBVTT_ALIGN_MIDDLE, WEBVTT_ALIGN_END,
+    WEBVTT_ALIGN_LEFT, WEBVTT_ALIGN_RIGHT
+  };
   if( ( v = webvtt_parse_cuesetting( self, text, pos, len,
-    WEBVTT_ALIGN_BAD_VALUE, ALIGN, values, &vc ) ) > 0 ) {
+    WEBVTT_ALIGN_BAD_VALUE, ALIGN, tokens, &vc ) ) > 0 ) {
     if( cue->flags & CUE_HAVE_ALIGN ) {
       ERROR_AT( WEBVTT_ALIGN_ALREADY_SET, last_line, last_column );
     }
     cue->flags |= CUE_HAVE_ALIGN;
-    switch( values[ v - 1 ] ) {
-      case START: cue->settings.align = WEBVTT_ALIGN_START; break;
-      case MIDDLE: cue->settings.align = WEBVTT_ALIGN_MIDDLE; break;
-      case END: cue->settings.align = WEBVTT_ALIGN_END; break;
-      case LEFT: cue->settings.align = WEBVTT_ALIGN_LEFT; break;
-      case RIGHT: cue->settings.align = WEBVTT_ALIGN_RIGHT; break;
-    }
+    cue->settings.align = values[ v - 1 ];
   }
   return v >= 0 ? WEBVTT_SUCCESS : v;
 }
@@ -741,6 +744,12 @@ _recheck:
             break;
           case WHITESPACE:
             SETST( CP_T3 );
+            break;
+
+          case UNFINISHED: /* should never happen */
+            break;
+
+          default: /* Syntax error */
             break;
         }
         break;
@@ -1056,6 +1065,8 @@ break
 #undef HV
 #undef SV
 #undef WS
+      default: /* Shouldn't happen */
+        break;
     }
     self->token_pos = 0;
     last_token = token;
@@ -1086,6 +1097,8 @@ break
           break;
         case CP_L2:
           e = WEBVTT_LINE_BAD_VALUE;
+          break;
+        default:
           break;
       }
       ERROR( e );
@@ -1164,6 +1177,10 @@ _next:
     }
 _recheck:
     switch( SP->state ) {
+      default:
+        /* Should never happen */
+        break;
+
       case T_INITIAL:
         /**
          * In the initial state:
@@ -1255,6 +1272,9 @@ _recheck:
              */
           case NEWLINE:
             SP->state = T_FROM;
+            break;
+
+          default:
             break;
         }
 
@@ -1413,8 +1433,8 @@ _finish:
 }
 
 static webvtt_status
-read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint
-*ppos, webvtt_uint len, webvtt_parse_mode *mode, webvtt_bool finish )
+read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
+              webvtt_uint len, webvtt_parse_mode *mode, webvtt_bool finish )
 {
   webvtt_status status = WEBVTT_SUCCESS;
   webvtt_uint pos = *ppos;
