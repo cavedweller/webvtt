@@ -661,6 +661,16 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
   webvtt_cuetext_token *token;
   webvtt_node_kind kind;
 
+  /**
+   *  TODO: Use these parameters! 'finished' isn't really important
+   * here, but 'self' certainly is as it lets us report syntax errors.
+   *
+   * However, for the time being we can trick the compiler into not
+   * warning us about unused variables by doing this.
+   */
+  ( void )self;
+  ( void )finished;
+
   if( !cue ) {
     return WEBVTT_INVALID_PARAM;
   }
