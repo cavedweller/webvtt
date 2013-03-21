@@ -371,7 +371,8 @@ webvtt_string_putc( webvtt_string *str, webvtt_byte to_append )
 }
 
 WEBVTT_EXPORT webvtt_bool
-webvtt_string_is_equal( webvtt_string *str, webvtt_byte *to_compare, webvtt_uint len )
+webvtt_string_is_equal( const webvtt_string *str, const webvtt_byte *to_compare,
+                        webvtt_uint len )
 {
   if( !str || !to_compare || webvtt_string_length( str ) != len ) {
     return 0;
