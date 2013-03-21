@@ -70,17 +70,8 @@ AC_ARG_ENABLE([gprof],
 	AS_HELP_STRING([--enable-gprof],[build with gprof profiling engine]),
 	[CFLAGS='-pg'; AC_DEFINE([GPROF],[1],[Defined if using gprof profiling engine])])
 
-warn_CFLAGS="-Wall -Wextra"
-save_CFLAGS=$CFLAGS
-CFLAGS="$CFLAGS $warn_CFLAGS"
-AC_MSG_CHECKING([if ${CC} supports ${warn_CFLAGS}])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([char foo;])], [
-  AC_MSG_RESULT([yes])
-  EXTRA_WARNS=$warn_CFLAGS
-], [
-  AC_MSG_RESULT([no])
-])
-CFLAGS="$save_CFLAGS $EXTRA_WARNS"
+# Additional CFLAGS
+CFLAGS="$CFLAGS -Wall -Wextra"
 
 # Checks for libraries.
 # * Check for pthreads library.
