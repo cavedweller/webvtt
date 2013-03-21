@@ -200,7 +200,7 @@ webvtt_string_text(const webvtt_string *str)
   return str->d->text;
 }
 
-WEBVTT_EXPORT const webvtt_uint32
+WEBVTT_EXPORT webvtt_uint32
 webvtt_string_length(const webvtt_string *str)
 {
   if( !str || !str->d )
@@ -211,7 +211,7 @@ webvtt_string_length(const webvtt_string *str)
   return str->d->length;
 }
 
-WEBVTT_EXPORT const webvtt_uint32
+WEBVTT_EXPORT webvtt_uint32
 webvtt_string_capacity(const webvtt_string *str)
 {
   if( !str || !str->d )
