@@ -126,14 +126,14 @@ WEBVTT_EXPORT const webvtt_byte *webvtt_string_text( const webvtt_string *str );
  *
  * return the length of a strings text
  */
-WEBVTT_EXPORT const webvtt_uint32 webvtt_string_length( const webvtt_string *str );
+WEBVTT_EXPORT webvtt_uint32 webvtt_string_length( const webvtt_string *str );
 
 /**
  * webvtt_string_capacity
  *
  * return the current capacity of a string
  */
-WEBVTT_EXPORT const webvtt_uint32 webvtt_string_capacity( const webvtt_string *str );
+WEBVTT_EXPORT webvtt_uint32 webvtt_string_capacity( const webvtt_string *str );
 
 /**
  * webvtt_string_getline
