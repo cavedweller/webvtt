@@ -29,6 +29,7 @@
 #include <string.h>
 #include "parser_internal.h"
 #include "cuetext_internal.h"
+#include "node_internal.h"
 #include "cue_internal.h"
 #include "string_internal.h"
 
