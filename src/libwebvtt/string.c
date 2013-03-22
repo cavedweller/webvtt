@@ -84,8 +84,6 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
 WEBVTT_EXPORT webvtt_status
 webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len )
 {
-  webvtt_uint pos = 0;
-
   if( !result ) {
     return WEBVTT_INVALID_PARAM;
   }

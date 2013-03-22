@@ -647,8 +647,6 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
   int unexpected_whitespace = 0;
   webvtt_uint baddelim = 0;
   webvtt_uint pos = 0;
-  webvtt_token last_token = 0;
-  webvtt_uint last_line = self->line;
 
   enum cp_state {
     CP_T1, CP_T2, CP_T3, CP_T4, CP_T5, /* 'start' cuetime, whitespace1,
@@ -672,10 +670,9 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
     CP_L2,
   };
 
-  enum cp_state last_state = CP_T1;
   enum cp_state state = CP_T1;
 
-#define SETST(X) do { baddelim = 0; last_state = state; state = (X); } while( 0 )
+#define SETST(X) do { baddelim = 0; state = (X); } while( 0 )
 
   self->token_pos = 0;
   while( pos < len ) {
@@ -1069,7 +1066,6 @@ break
         break;
     }
     self->token_pos = 0;
-    last_token = token;
   }
   /**
    * If we didn't finish in a good state...
@@ -1119,17 +1115,14 @@ parse_webvtt( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos,
   webvtt_status status = WEBVTT_SUCCESS;
   webvtt_token token;
   webvtt_uint pos = *ppos;
-  int settings_delimiter = 0;
   int skip_error = 0;
-  int settings_whitespace = 0;
 
   while( pos < len ) {
-    webvtt_uint last_column, last_line, last_pos;
+    webvtt_uint last_column, last_line;
     skip_error = 0;
 _next:
     last_column = self->column;
     last_line = self->line;
-    last_pos = pos;
 
     /**
      * If we're in certain states, we don't want to get a token and just
@@ -1137,7 +1130,6 @@ _next:
      */
     if( SP->state == T_CUEREAD ) {
       int v;
-      webvtt_uint old_pos = pos;
       if( v = webvtt_string_getline( &SP->v.text, buffer, &pos,
                                         len, 0, finish, 0 ) ) {
         if( v < 0 ) {
