@@ -44,7 +44,7 @@ AM_CONDITIONAL(OSX,test x$osx = xtrue)
 AM_CONDITIONAL(WIN32,test x$win32 = xtrue)
 
 AC_CONFIG_MACRO_DIR([build/autoconf])
-AM_INIT_AUTOMAKE([1.10 -Wall -Wno-extra-portability foreign subdir-objects])
+AM_INIT_AUTOMAKE([1.10 foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/libwebvtt/alloc.c])
 AC_CONFIG_HEADERS([config.h])
 
@@ -69,6 +69,9 @@ AC_ARG_ENABLE([debug],
 AC_ARG_ENABLE([gprof],
 	AS_HELP_STRING([--enable-gprof],[build with gprof profiling engine]),
 	[CFLAGS='-pg'; AC_DEFINE([GPROF],[1],[Defined if using gprof profiling engine])])
+
+# Additional CFLAGS
+CFLAGS="$CFLAGS -Wall -Wextra"
 
 # Checks for libraries.
 # * Check for pthreads library.
