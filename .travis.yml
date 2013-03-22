@@ -19,4 +19,4 @@ script:
   - "${ANALYSIS} ${ANALYSIS_ARGS} ${BUILD}"
 
 notifications:
-  irc: "irc.freenode.net#seneca"
+  irc: "irc.freenode.net#seneca-webvtt"
