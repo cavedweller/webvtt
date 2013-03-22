@@ -156,7 +156,6 @@ webvtt_lex_word( webvtt_parser self, webvtt_string *str, const webvtt_byte *buff
 {
   webvtt_status status = WEBVTT_SUCCESS;
   webvtt_uint pos = *ppos;
-  int d = 0;
   if( !str ) {
     return WEBVTT_INVALID_PARAM;
   }
