@@ -460,7 +460,6 @@ webvtt_parse_cuesetting( webvtt_parser self, const webvtt_byte *text,
             ERROR_AT( WEBVTT_INVALID_CUESETTING, last_line,
               last_column );
             *pos = *pos + tp + 1;
- skip_param:
             while( *pos < len && text[ *pos ] != 0x20
               && text[ *pos ] != 0x09 ) {
               if( text[ *pos ] == 0x0A || text[ *pos ] == 0x0D ) {
@@ -1105,7 +1104,6 @@ parse_webvtt( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos,
   while( pos < len ) {
     webvtt_uint last_column, last_line;
     skip_error = 0;
-_next:
     last_column = self->column;
     last_line = self->line;
 
