@@ -286,21 +286,6 @@ webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
   return WEBVTT_SUCCESS;
 }
 
-static void
-find_next_whitespace( const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint len )
-{
-  webvtt_uint pos = *ppos;
-  while( pos < len ) {
-    webvtt_byte c = buffer[pos];
-    if( c == UTF8_CARRIAGE_RETURN || c == UTF8_LINE_FEED || c == UTF8_SPACE || c == UTF8_TAB ) {
-      break;
-    }
-
-    ++pos;
-  }
-  *ppos = pos;
-}
-
 /**
  * basic strnstr-ish routine
  */
