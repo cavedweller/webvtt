@@ -105,6 +105,10 @@ public:
     return String(&cue->id);
   }
 
+  inline String body() const {
+    return String( &cue->body );
+  }
+
   inline const Node nodeHead() const {
     return Node( cue->node_head );
   }
