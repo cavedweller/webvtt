@@ -5,7 +5,7 @@ AM_CPPFLAGS = \
   -I$(top_srcdir)/include \
   -I$(top_srcdir)/src/libwebvtt \
   -I$(top_srcdir)/test/gtest \
-  -I$(top_srcdir)/src
+  -I$(top_srcdir)/src \
   $(GTEST_CPPFLAGS)
 
 AM_CXXFLAGS = $(AM_CPPFLAGS) $(CXXFLAGS)
