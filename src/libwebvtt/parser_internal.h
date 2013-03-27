@@ -156,6 +156,7 @@ webvtt_lexer_state_t {
 typedef struct
 webvtt_state {
   webvtt_parse_state state;
+  webvtt_uint flags; /* Defaults to 0 when pushed */
   webvtt_token token;
   webvtt_state_value_type type;
   webvtt_uint back;
