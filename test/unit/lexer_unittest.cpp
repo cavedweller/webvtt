@@ -90,6 +90,37 @@ TEST_F(Lexer,LexNewLineCRXX)
 }
 
 /**
+ * Test that we correctly identify a LF not that the end of a string.
+ */
+TEST_F(Lexer,LexNewLineLFXX)
+{
+  webvtt_uint pos = 0;
+  ASSERT_EQ( NEWLINE, lex_newline( "\nx", pos ) );
+  ASSERT_EQ( 1, pos );
+}
+
+/**
+ * Test that we correctly identify a LF followed by CR.
+ */
+TEST_F(Lexer,LexNewLineLFCR)
+{
+  webvtt_uint pos = 0;
+  ASSERT_EQ( NEWLINE, lex_newline( "\n\r", pos ) );
+  ASSERT_EQ( 1, pos );
+}
+
+
+/**
+ * Test that we return end-of-buffer as a newline.
+ */
+TEST_F(Lexer,LexNewLineEOL)
+{
+  webvtt_uint pos = 0;
+  ASSERT_EQ( NEWLINE, lex_newline( "", pos ) );
+  ASSERT_EQ( 0, pos );
+}
+
+/**
  * Test that we correctly return BADTOKEN and backup appropriately when we don't
  * encounter a CR or LF
  */
