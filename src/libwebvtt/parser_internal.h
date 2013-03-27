@@ -228,6 +228,12 @@ webvtt_parser_t {
 
 WEBVTT_INTERN webvtt_token webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *pba, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
+
+/* Tokenize newline sequence, without incrementing 'self->line'. Returns
+ * BAD_TOKEN when a newline sequence is not found. */
+WEBVTT_INTERN webvtt_token webvtt_lex_newline( webvtt_parser self, const
+  webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
+
 WEBVTT_INTERN int parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result );
 
 /** 
