@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
+#include <string>
 extern "C" {
 #include <libwebvtt/lexer.c>
 }
-#include <string>
 
 class Lexer : public ::testing::Test
 {
