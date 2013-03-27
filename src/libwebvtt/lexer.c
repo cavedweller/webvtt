@@ -192,6 +192,76 @@ _finished:
   return status;
 }
 
+/**
+ * webvtt_lex_newline
+ *
+ * Get newline sequence in re-entrant fashion. self->tstate must be
+ * L_START or L_NEWLINE0 for this function to behave correctly.
+ */
+WEBVTT_INTERN webvtt_token
+webvtt_lex_newline( webvtt_parser self, const
+  webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length,
+  webvtt_bool finish )
+{
+  webvtt_uint p = *pos;
+
+  /* Ensure that we've got a valid token-state for this use-case. */
+  DIE_IF( self->tstate != L_START && self->tstate != L_NEWLINE0 );
+
+  if( finish && ( *pos >= length ) ) {
+    /* If pos >= length, it's and 'finish' is set, it's an automatic EOL */
+  }
+
+  while( *pos < length ) {
+    webvtt_byte c = buffer[ p++ ];
+    self->token[ self->token_pos++ ] = c;
+    self->token[ self->token_pos ] = 0;
+    self->bytes++;
+
+    switch( self->tstate ) {
+      case L_START:
+        if( c == UTF8_LINE_FEED ) {
+          *pos = p;
+          return NEWLINE;
+        } else if( c == UTF8_CARRIAGE_RETURN ) {
+          self->tstate = L_NEWLINE0;
+        } else {
+          goto backup;
+        }
+        break;
+      case L_NEWLINE0:
+        if( c == UTF8_LINE_FEED ) {
+          *pos = p;
+          return NEWLINE;
+        } else {
+          goto backup;
+        }
+        break;
+
+      default:
+        /* This should never happen if the function is called correctly
+	 * (EG immediately following a successful call to webvtt_string_getline)
+         */
+       goto backup;
+    }
+  }
+  if( self->tstate == L_NEWLINE0 ) {
+    return UNFINISHED;
+  } else {
+    /* This branch should never occur, if the function is used properly. */
+    return BADTOKEN;
+  }
+backup:
+  self->token[ --self->token_pos ] = 0;
+  --self->bytes;
+  *pos = --p;
+  if( self->tstate == L_NEWLINE0 ) {
+    self->tstate = L_START;
+    return NEWLINE;
+  }
+  return BADTOKEN;
+}
+
 WEBVTT_INTERN webvtt_token
 webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish )
 {
