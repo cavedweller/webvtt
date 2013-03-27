@@ -208,11 +208,7 @@ webvtt_lex_newline( webvtt_parser self, const
   /* Ensure that we've got a valid token-state for this use-case. */
   DIE_IF( self->tstate != L_START && self->tstate != L_NEWLINE0 );
 
-  if( finish && ( *pos >= length ) ) {
-    /* If pos >= length, it's and 'finish' is set, it's an automatic EOL */
-  }
-
-  while( *pos < length ) {
+  while( p < length ) {
     webvtt_byte c = buffer[ p++ ];
     self->token[ self->token_pos++ ] = c;
     self->token[ self->token_pos ] = 0;
@@ -239,16 +235,25 @@ webvtt_lex_newline( webvtt_parser self, const
         break;
 
       default:
-        /* This should never happen if the function is called correctly
-	 * (EG immediately following a successful call to webvtt_string_getline)
+        /**
+         * This should never happen if the function is called correctly
+         * (EG immediately following a successful call to webvtt_string_getline)
          */
        goto backup;
     }
   }
+
+  *pos = p;
+  if( finish && ( p >= length ) ) {
+    /* If pos >= length, it's and 'finish' is set, it's an automatic EOL */
+    return NEWLINE;
+  }
+
   if( self->tstate == L_NEWLINE0 ) {
     return UNFINISHED;
   } else {
     /* This branch should never occur, if the function is used properly. */
+    *pos = --p;
     return BADTOKEN;
   }
 backup:
