@@ -343,6 +343,7 @@ do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back, webvtt_uint st
   }
   ++self->top;
   self->top->state = state;
+  self->top->flags = 0;
   self->top->type = type;
   self->top->token = ( webvtt_token )token;
   self->top->line = line;
