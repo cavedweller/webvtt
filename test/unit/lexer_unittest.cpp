@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+extern "C" {
 #include <libwebvtt/lexer.c>
+}
 #include <string>
 
 class Lexer : public ::testing::Test
