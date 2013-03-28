@@ -29,8 +29,9 @@ LIBS = \
 LDADD = $(LIBS)
 
 INTERNAL_TESTS = \
-  string_unittest \
-  lexer_unittest
+  lexer_unittest \
+  readcuetext_unittest \
+  string_unittest
 
 FILESTRUCTURE_TESTS = \
   filestructure_unittest
@@ -116,8 +117,9 @@ noinst_PROGRAMS = $(UNIT_TESTS)
 EXTRA_DIST += cue_testfixture payload_testfixture test_parser
 
 # Utility unit tests
-string_unittest_SOURCES = string_unittest.cpp
 lexer_unittest_SOURCES = lexer_unittest.cpp
+readcuetext_unittest_SOURCES = readcuetext_unittest.cpp
+string_unittest_SOURCES = string_unittest.cpp
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
