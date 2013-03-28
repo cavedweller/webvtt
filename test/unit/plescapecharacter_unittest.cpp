@@ -980,7 +980,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinTag)
 */
 TEST_F(PayloadEscapeCharacter, AmpersandWithinMultipleTags)
 {
-  loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand.vtt", 1 );
+  loadVtt( "payload/escape-character/i-within-b-tag-with-ampersand.vtt", 1 );
 
   /* verify bold tag */
   const Node boldTag = getHeadOfCue(0);
@@ -1008,7 +1008,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinMultipleTags)
 */
 TEST_F(PayloadEscapeCharacter, AmpersandOutsideTwoTags)
 {
-  loadVtt( "payload/escape-character/i-tag-within-b-tag-with-ampersand-outside.vtt", 1 );
+  loadVtt( "payload/escape-character/i-within-b-tag-with-ampersand-outside.vtt", 1 );
 
   /* verify bold tag */
   const Node boldTag = getHeadOfCue(0);
@@ -1066,7 +1066,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewLineAfterTwoTagsWithClass)
 */
 TEST_F(PayloadEscapeCharacter, AmpersandInsideOneTagWithClass)
 {
-  loadVtt( "payload/escape-character/ampersand-within-tag-with-class.vtt", 1 );
+  loadVtt( "payload/escape-character/ampersand-inside-tag-with-class.vtt", 1 );
 
   /* verify italic tag */
   const Node italicTag = getHeadOfCue(0);
