@@ -57,7 +57,7 @@ TEST_F(ReadCuetext,SingleLineLFLF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\n\n", pos ) );
   EXPECT_EQ( 9, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -68,7 +68,7 @@ TEST_F(ReadCuetext,SingleLineCRCR)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\r\r", pos ) );
   EXPECT_EQ( 9, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -80,7 +80,7 @@ TEST_F(ReadCuetext,SingleLineCRCRXX)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\r\rxx", pos ) );
   EXPECT_EQ( 9, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -91,7 +91,7 @@ TEST_F(ReadCuetext,SingleLineCRLFCRLF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\r\n\r\n", pos ) );
   EXPECT_EQ( 11, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -102,7 +102,7 @@ TEST_F(ReadCuetext,SingleLineEOF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText", pos ) );
   EXPECT_EQ( 7, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -113,7 +113,7 @@ TEST_F(ReadCuetext,MultiLineLFLF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\nLine2\n\n", pos ) );
   EXPECT_EQ( 15, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -124,7 +124,7 @@ TEST_F(ReadCuetext,MultiLineCRCR)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\nLine2\r\r", pos ) );
   EXPECT_EQ( 15, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -136,7 +136,7 @@ TEST_F(ReadCuetext,MultiLineCRCRXX)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\nLine2\r\rxx", pos ) );
   EXPECT_EQ( 15, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -147,7 +147,7 @@ TEST_F(ReadCuetext,MultiLineCRLFCRLF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\nLine2\r\n\r\n", pos ) );
   EXPECT_EQ( 17, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -158,7 +158,7 @@ TEST_F(ReadCuetext,MultiLineEOF)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\nLine2", pos ) );
   EXPECT_EQ( 13, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -172,7 +172,7 @@ TEST_F(ReadCuetext,MultiBuffersCRLF)
   pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "\nLine2", pos ) );
   EXPECT_EQ( 6, pos );
-  EXPECT_EQ( "CueText\nLine2\n", cuetext() );
+  EXPECT_EQ( "CueText\nLine2", cuetext() );
 }
 
 /**
@@ -186,7 +186,7 @@ TEST_F(ReadCuetext,MultiBuffersSingleLine)
   pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( " is grrrrrrrrrrrrreat!", pos ) );
   EXPECT_EQ( 22, pos );
-  EXPECT_EQ( "CueText is grrrrrrrrrrrrreat!\n", cuetext() );
+  EXPECT_EQ( "CueText is grrrrrrrrrrrrreat!", cuetext() );
 }
 
 /**
@@ -201,7 +201,7 @@ TEST_F(ReadCuetext,MultiBuffersSingleLineSplitEOL)
  pos = 0;
  ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "\n", pos ) );
  EXPECT_EQ( 1, pos );
- EXPECT_EQ( "CueText\n", cuetext() );
+ EXPECT_EQ( "CueText", cuetext() );
 }
 
 /**
@@ -215,7 +215,7 @@ TEST_F(ReadCuetext,MultiBuffersMultiLine)
   pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "is grrrrrrrrrrrrreat!", pos ) );
   EXPECT_EQ( 21, pos );
-  EXPECT_EQ( "CueText\nis grrrrrrrrrrrrreat!\n", cuetext() );
+  EXPECT_EQ( "CueText\nis grrrrrrrrrrrrreat!", cuetext() );
 }
 
 /**
@@ -230,6 +230,6 @@ TEST_F(ReadCuetext,FinishedOnCueTimesSeparator)
   webvtt_uint pos = 0;
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\n-->", pos ) );
   EXPECT_EQ( 11, pos );
-  EXPECT_EQ( "CueText\n", cuetext() );
+  EXPECT_EQ( "CueText", cuetext() );
 }
 

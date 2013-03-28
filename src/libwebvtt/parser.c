@@ -1463,8 +1463,8 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
       int v;
       if( ( v = webvtt_string_getline( &self->line_buffer, b, &pos, len,
                                        &self->truncate, finish, 0 ) ) ) {
-        if( v < 0 || WEBVTT_FAILED( status = webvtt_string_putc(
-                                    &self->line_buffer, '\n' ) ) ) {
+        if( v < 0 || WEBVTT_FAILED( webvtt_string_putc( &self->line_buffer,
+                                                        '\n' ) ) ) {
           status = WEBVTT_OUT_OF_MEMORY;
           goto _finish;
         }
@@ -1474,12 +1474,15 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
     if( flags ) {
       webvtt_token token = webvtt_lex_newline( self, b, &pos, len, finish );
       if( token == NEWLINE ) {
+        /* Remove the '\n' that we appended to determine that we're in state 1
+         */
+        self->line_buffer.d->text[ --self->line_buffer.d->length ] = 0;
         /**
          * We've encountered a line without any cuetext on it, i.e. there is no
          * newline character and len is 0 or there is and len is 1, therefore,
          * the cue text is finished.
          */
-        if( self->line_buffer.d->length == 1 ) {
+        if( self->line_buffer.d->length == 0 ) {
           webvtt_release_string( &self->line_buffer );
           finished = 1;
         } else if( find_bytes( webvtt_string_text( &self->line_buffer ),
@@ -1501,6 +1504,12 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
            * If it's not the end of a cue, simply append it to the cue's payload
            * text.
            */
+          if( webvtt_string_length( &cue->body ) &&
+              WEBVTT_FAILED( webvtt_string_putc( &cue->body, '\n' ) ) ) {
+            printf( "\nFailed to append string to cue->body!\n\n" );
+            status = WEBVTT_OUT_OF_MEMORY;
+            goto _finish;
+          }
           webvtt_string_append_string( &cue->body, &self->line_buffer );
           webvtt_release_string( &self->line_buffer );
           flags = 0;
