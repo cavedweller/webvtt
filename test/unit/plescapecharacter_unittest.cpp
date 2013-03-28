@@ -113,10 +113,13 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
     ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
 }
 
-/*
+/**
  * Verifies that multiple escape characters on multiple lines are parsed.
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *
+ * Cue text text consists of one or more cue text components optionally
+ * separated by a single line terminator which can be:
  *    1. CR (U+000D)
  *    2. LF (U+000A)
  *    3. CRLF pair
@@ -124,16 +127,19 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
 {
   loadVtt( "payload/escape-character/multiline-multiple-escape-character.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LT( 0, head.childCount() );
 
-  const Node node = getHeadOfCue( 0 )[ 0 ];
+  const Node node = head[0];
 
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind() );
     
   /* create a UTF8 representation of NBSP and compare with textnode */
-  ASSERT_EQ( 5, node.text().length() );
-  ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
-  ASSERT_EQ( NBSP, node.text().utf16At( 3 ) );
+  ASSERT_LE( 5, node.text().length() );
+  EXPECT_EQ( 5, node.text().length() );
+  EXPECT_EQ( NBSP, node.text().utf16At( 0 ) );
+  EXPECT_EQ( NBSP, node.text().utf16At( 2 ) );
 }
 
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterText)
@@ -147,7 +153,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterText)
 
   /* create a UTF8 representation of NBSP and compare with textnode */
   ASSERT_EQ( NBSP, node.text().utf16At( 0 ) );
-  assertEquals( "\xC2\xA0\n" "Anyone out there?\n" "\xC2\xA0\n", node.text() );
+  assertEquals( "\xC2\xA0\n" "Anyone out there?\n" "\xC2\xA0", node.text() );
 }
 /*
  * Verifies that multiple escape characters on multiple lines are parsed.
@@ -964,276 +970,325 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinTag)
 
   /* verify the text within the i tag */
   const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
-  assertEquals( "Test Ampersand escape within i tag: &", textNode.text() );
+  assertEquals( "Test Ampersand escape within i tag: & ", textNode.text() );
 }
-/*
- Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
- Relates To:
- Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed: <b><i>Test Ampersand escape within i tag: &amp; </i></b>
- correct Ampersand Character Escape : cue b tag within a cue i tag
-*/
+/**
+ * Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed: <b><i>Test Ampersand escape within i tag: &amp;
+ *                        </i></b>
+ * correct Ampersand Character Escape : cue b tag within a cue i tag
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandWithinMultipleTags)
 {
   loadVtt( "payload/escape-character/i-within-b-tag-with-ampersand.vtt", 1 );
+  const Node head = getHeadOfCue(0);
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify bold tag */
-  const Node boldTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Bold, boldTag.kind() );
+  const Node boldTag = head[0];
+  EXPECT_EQ( Node::Bold, boldTag.kind() );
+  ASSERT_LT( 0, boldTag.childCount() );
 
   /* verify italic tag within bold tag */
-  const Node italicTag = getHeadOfCue(0)[ 0 ];
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = boldTag[ 0 ];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
+  ASSERT_LT( 0, italicTag.childCount() );
   /* verify the text within the italic tag */
-  const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ][ 0 ];
-  assertEquals( "Test Ampersand escape within i tag: &amp; ", textNode.text() );
+  const Node textNode = italicTag[0];
+  expectEquals( "Test Ampersand escape within i tag: & ", textNode.text() );
 }
-/*
- Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed: <b><i> some filler text </i></b> &amp;
- correct Ampersand Character Escape outside cue b tag within a cue i tag
-*/
+/**
+ * Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed: <b><i> some filler text </i></b> &amp;
+ * correct Ampersand Character Escape outside cue b tag within a cue i tag
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOutsideTwoTags)
 {
-  loadVtt( "payload/escape-character/i-within-b-tag-with-ampersand-outside.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "i-within-b-tag-with-ampersand-outside.vtt", 1 );
+  const Node head = getHeadOfCue(0);
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify bold tag */
-  const Node boldTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Bold, boldTag.kind() );
+  const Node boldTag = head[0];
+  EXPECT_EQ( Node::Bold, boldTag.kind() );
+  ASSERT_LT( 0, boldTag.childCount() );
 
   /* verify italic tag within bold tag */
-  const Node italicTag = getHeadOfCue(0)[ 0 ];
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = boldTag[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
+  ASSERT_LT( 1, head.childCount() );
   /* verify the escape character text within the i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( " &amp;", textNode.text() );
+  const Node textNode = head[ 1 ];
+  expectEquals( " &", textNode.text() );
 }
-/*
- Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
- Relates To:
- Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed:
- <i.class> Some Filler Text </i>
- &amp;
- correct Ampersand Character Escape on new line after two encapsulated tags with class
-*/
+/**
+ * Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed: <i.class> Some Filler Text </i>
+ *                        &amp;
+ * correct Ampersand Character Escape on new line after two encapsulated tags
+ * with class
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOnNewLineAfterTwoTagsWithClass)
 {
-  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-class.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "ampersand-outside-tag-on-newline-with-class.vtt", 1 );
+  const Node head = getHeadOfCue(0);
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = head[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
 
+  ASSERT_LT( 1, head.childCount() );
   /* verify the escape character text within i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( "&amp;", textNode.text() );
+  const Node textNode = head[ 1 ];
+  expectEquals( "& ", textNode.text() );
 }
-/*
- Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed: <i.class> ampersand escape: &amp; </i>
- correct Ampersand Character Escape inside tag with a class
-*/
+/**
+ * Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed: <i.class> ampersand escape: &amp; </i>
+ * correct Ampersand Character Escape inside tag with a class
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandInsideOneTagWithClass)
 {
   loadVtt( "payload/escape-character/ampersand-inside-tag-with-class.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = head[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
+
+  ASSERT_LT( 0, italicTag.childCount() );
 
   /* verify escape character text within i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 0 ][ 0 ];
-  assertEquals( " ampersand escape: &amp; ", textNode.text() );
+  const Node textNode = italicTag[ 0 ];
+  expectEquals( " ampersand escape: & ", textNode.text() );
 }
-/*
- WebVTT Specification Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed:
- <b><i> some filler text </i></b>
- &amp;
- correct Ampersand Character Escape outside two encapsulates tags
-*/
+/**
+ * WebVTT Specification Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed:
+ * <b><i> some filler text </i></b>
+ * &amp;
+ * correct Ampersand Character Escape outside two encapsulates tags
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandInsideTagWithSubclasses)
 {
   loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify bold tag */
-  const Node boldTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Bold, boldTag.kind() );
+  const Node boldTag = head[0];
+  EXPECT_EQ( Node::Bold, boldTag.kind() );
+  ASSERT_LT( 0, boldTag.childCount() );
 
   /* verify italic tag within bold tag */
-  const Node italicTag = getHeadOfCue(0)[ 0 ];
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = boldTag[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
+  ASSERT_LT( 1, head.childCount() );
 
   /* verify character escape outside i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( "&amp;", textNode.text() );
+  const Node textNode = head[ 1 ];
+  expectEquals( "&", textNode.text() );
 }
-/*
- WebVTT Specification Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
- Relates To:
- Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text to be Parsed: <i.class.subclass> ampersand escape: &amp; </i>
- correct Ampersand Character Escape on line after a tag with a class
- and subclass
-*/
+/**
+ * WebVTT Specification Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text to be Parsed: <i.class.subclass> ampersand escape: &amp; </i>
+ * correct Ampersand Character Escape on line after a tag with a class
+ * and subclass
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOnLineWithClassAndSubClass)
 {
-  loadVtt( "payload/escape-character/ampersand-inside-tag-with-subclass.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "ampersand-inside-tag-with-subclass.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = head[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  assertEquals( "subclass", cssClass.stringAt(1) );
+  expectEquals( "subclass", cssClass.stringAt(1) );
+
+  ASSERT_LT( 0, italicTag.childCount() );
 
   /* verify escape character text within i tag*/
-  const Node textNode = getHeadOfCue( 0 )[ 0 ];
-  assertEquals( " ampersand escape: &amp; ", textNode.text() );
+  const Node textNode = italicTag[ 0 ];
+  expectEquals( " ampersand escape: & ", textNode.text() );
 }
-/*
- WebVTT Specification Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text To be Parsed:
- <i.class.subclass> Some Filler Text </i>
- &amp;
- correct Ampersand Character Escape on new line after a tag with a class
- and subclass
-*/
+/**
+ * WebVTT Specification Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text To be Parsed:
+ * <i.class.subclass> Some Filler Text </i>
+ * &amp;
+ * correct Ampersand Character Escape on new line after a tag with a class
+ * and subclass
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOnNewlineWithClassAndSubclass)
 {
-  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = head[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
-  /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  /* verify class inside italic tag */
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  assertEquals( "subclass", cssClass.stringAt(1) );
+  expectEquals( "subclass", cssClass.stringAt(1) );
 
+  ASSERT_LT( 1, head.childCount() );
   /* verify character escape outside i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( "&amp;", textNode.text() );
+  const Node textNode = head[ 1 ];
+  expectEquals( "& ", textNode.text() );
 }
-/*
- WebVTT Specification Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text To be Parsed: <i.class.subclass> Some Filler Text </i> &amp;
- correct Ampersand Character Escape on line outsidetag with a class
- and subclass
-*/
+/**
+ * WebVTT Specification Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text To be Parsed: <i.class.subclass> Some Filler Text </i> &amp;
+ * correct Ampersand Character Escape on line outside tag with a class
+ * and subclass
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
 {
-  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  const Node head = getHeadOfCue(0);
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
+  const Node italicTag = head[0];
   ASSERT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
 
   /* verify subclass within the i tag */
-  assertEquals( "subclass", cssClass.stringAt(1) );
+  expectEquals( "subclass", cssClass.stringAt(1) );
 
+  ASSERT_LT( 1, head.childCount() );
   /* verify character escape outside i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( "&amp;", textNode.text() );
+  const Node textNode = head[1];
+  expectEquals( "& ", textNode.text() );
 }
-/*
- WebVTT Specification Version:
- WebVTT - Living Standard Last Updated 2 October 2012
 
-  Relates To:
-  Cue Text Escape Characters and Cue Text Tags:
- http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
-
- Description:
- Cue Text To be Parsed: <i.class> Some Filler Text </i> &amp;
- correct Ampersand Character Escape on line outsidetag with a class
- and subclass
-*/
+/**
+ * WebVTT Specification Version:
+ * WebVTT - Living Standard Last Updated 2 October 2012
+ *
+ * Relates To:
+ * Cue Text Escape Characters and Cue Text Tags:
+ * http://dev.w3.org/html5/webvtt/#webvtt-cue-text-parsing-rules
+ *
+ * Description:
+ * Cue Text To be Parsed: <i.class> Some Filler Text </i> &amp;
+ * correct Ampersand Character Escape on line outside tag with a class
+ * and subclass
+ */
 TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
 {
-  loadVtt( "payload/escape-character/ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  loadVtt( "payload/escape-character/"
+           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+  const Node head = getHeadOfCue(0);
+  ASSERT_LT( 0, head.childCount() );
 
   /* verify italic tag */
-  const Node italicTag = getHeadOfCue(0);
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  const Node italicTag = head[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
-  StringList cssClass = getHeadOfCue( 0 )[ 0 ].cssClasses();
-  assertEquals( "class", cssClass.stringAt(0) );
+  StringList cssClass = italicTag.cssClasses();
+  expectEquals( "class", cssClass.stringAt(0) );
 
+  ASSERT_LT( 1, head.childCount() );
   /* verify character escape outside i tag */
-  const Node textNode = getHeadOfCue( 0 )[ 1 ];
-  assertEquals( " &amp;", cssClass.stringAt(0) );
+  const Node textNode = head[1];
+  expectEquals( "& ", textNode.text() );
 }
+
