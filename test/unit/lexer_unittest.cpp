@@ -9,7 +9,8 @@ class Lexer : public ::testing::Test
 public:
   Lexer() : self(0) {}
   virtual void SetUp() {
-    ASSERT_FALSE( webvtt_create_parser( &dummyread, &dummyerr, 0, &self ) )
+    ASSERT_FALSE( WEBVTT_FAILED( webvtt_create_parser( &dummyread, &dummyerr, 
+                                                       0, &self ) ) )
       << "Failed to create parser";
   }
 
@@ -22,6 +23,10 @@ public:
                             bool finished = true ) {
     return webvtt_lex_newline( self, reinterpret_cast<const webvtt_byte *> (
                                str.c_str() ), &pos, str.size(), finished );
+  }
+
+  webvtt_lexer_state lexerState() const {
+    return self->tstate;
   }
 
 private:
@@ -41,8 +46,9 @@ private:
 TEST_F(Lexer,LexNewLineCR)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\r", pos ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\r", pos ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -51,8 +57,9 @@ TEST_F(Lexer,LexNewLineCR)
 TEST_F(Lexer,LexNewLineLF)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\n", pos ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\n", pos ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -61,8 +68,9 @@ TEST_F(Lexer,LexNewLineLF)
 TEST_F(Lexer,LexNewLineCRLF)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\r\n", pos ) );
-  ASSERT_EQ( 2, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\r\n", pos ) );
+  EXPECT_EQ( 2, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -71,11 +79,13 @@ TEST_F(Lexer,LexNewLineCRLF)
 TEST_F(Lexer,LexNewLineCRLFSplit)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( UNFINISHED, lex_newline( "\r", pos, false ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( UNFINISHED, lex_newline( "\r", pos, false ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_NEWLINE0, lexerState() );
   pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\n", pos, true ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\n", pos, true ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -85,8 +95,9 @@ TEST_F(Lexer,LexNewLineCRLFSplit)
 TEST_F(Lexer,LexNewLineCRXX)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\rx", pos ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\rx", pos ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -95,8 +106,9 @@ TEST_F(Lexer,LexNewLineCRXX)
 TEST_F(Lexer,LexNewLineLFXX)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\nx", pos ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\nx", pos ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -105,8 +117,9 @@ TEST_F(Lexer,LexNewLineLFXX)
 TEST_F(Lexer,LexNewLineLFCR)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "\n\r", pos ) );
-  ASSERT_EQ( 1, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "\n\r", pos ) );
+  EXPECT_EQ( 1, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 
@@ -116,8 +129,9 @@ TEST_F(Lexer,LexNewLineLFCR)
 TEST_F(Lexer,LexNewLineEOL)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( NEWLINE, lex_newline( "", pos ) );
-  ASSERT_EQ( 0, pos );
+  EXPECT_EQ( NEWLINE, lex_newline( "", pos ) );
+  EXPECT_EQ( 0, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 
 /**
@@ -127,7 +141,8 @@ TEST_F(Lexer,LexNewLineEOL)
 TEST_F(Lexer,LexNewLineXX)
 {
   webvtt_uint pos = 0;
-  ASSERT_EQ( BADTOKEN, lex_newline( "xxx", pos ) );
-  ASSERT_EQ( 0, pos );
+  EXPECT_EQ( BADTOKEN, lex_newline( "xxx", pos ) );
+  EXPECT_EQ( 0, pos );
+  EXPECT_EQ( L_START, lexerState() );
 }
 

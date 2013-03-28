@@ -228,6 +228,7 @@ webvtt_lex_newline( webvtt_parser self, const
       case L_NEWLINE0:
         if( c == UTF8_LINE_FEED ) {
           *pos = p;
+          self->tstate = L_START;
           return NEWLINE;
         } else {
           goto backup;
@@ -246,6 +247,7 @@ webvtt_lex_newline( webvtt_parser self, const
   *pos = p;
   if( finish && ( p >= length ) ) {
     /* If pos >= length, it's and 'finish' is set, it's an automatic EOL */
+    self->tstate = L_START;
     return NEWLINE;
   }
 
