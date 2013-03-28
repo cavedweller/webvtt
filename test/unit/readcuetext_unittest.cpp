@@ -22,6 +22,9 @@ public:
   }
 
   virtual void TearDown() {
+    if( uptype() == V_TEXT ) {
+      webvtt_release_string( &(self->top+1)->v.text );
+    }
     webvtt_release_cue( &cue );
     webvtt_delete_parser( self );
     self = 0;
@@ -36,6 +39,15 @@ public:
 
   std::string cuetext() const {
     return std::string( reinterpret_cast<const char *>( cue->body.d->text ) );
+  }
+
+  webvtt_state_value_type uptype() const {
+    return (self->top+1)->type;
+  }
+
+  std::string uptext() const {
+    return std::string( reinterpret_cast<const char *>(
+      (self->top+1)->v.text.d->text ) );
   }
 
 private:
@@ -231,5 +243,7 @@ TEST_F(ReadCuetext,FinishedOnCueTimesSeparator)
   ASSERT_EQ( WEBVTT_SUCCESS, read_cuetext( "CueText\n-->", pos ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( "CueText", cuetext() );
+  ASSERT_EQ( V_TEXT, uptype() );
+  EXPECT_EQ( "-->", uptext() );
 }
 
