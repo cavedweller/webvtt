@@ -1506,7 +1506,6 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
            */
           if( webvtt_string_length( &cue->body ) &&
               WEBVTT_FAILED( webvtt_string_putc( &cue->body, '\n' ) ) ) {
-            printf( "\nFailed to append string to cue->body!\n\n" );
             status = WEBVTT_OUT_OF_MEMORY;
             goto _finish;
           }
