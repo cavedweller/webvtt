@@ -133,10 +133,12 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
   ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
-/*
+/**
  * Verifies that multiple cue component are parsed correctly.
+ *
  * From http://dev.w3.org/html5/webvtt/#webvtt-cue-text (11/27/2012)
- *  Cue text text consists of one or more cue text components optionally separated by a single line terminator which can be:
+ *  Cue text text consists of one or more cue text components optionally
+ *  separated by a single line terminator which can be:
  *    1. CR (U+000D)
  *    2. LF (U+000A)
  *    3. CRLF pair
@@ -144,15 +146,19 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
 TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
 {
   loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt", 1 );
+  const Node head = getHeadOfCue( 0 );
+  ASSERT_LE( 1, head.childCount() );
+  
+  const Node underlineTag = head[0];
+  EXPECT_EQ( Node::Underline, underlineTag.kind() );
+  ASSERT_LE( 1, underlineTag.childCount() );
 
-  const Node node0 = getHeadOfCue( 0 );
-  ASSERT_EQ( Node::Underline, node0.kind() );
+  const Node italicTag = underlineTag[0];
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
+  ASSERT_LE( 1, italicTag.childCount() );
 
-  const Node node1 = node0[ 0 ];
-  ASSERT_EQ( Node::Italic, node1.kind() );
-
-  const Node node2 = node1[ 0 ];
-  ASSERT_EQ( Node::Bold, node2.kind() );
+  const Node boldTag = italicTag[0];
+  EXPECT_EQ( Node::Bold, boldTag.kind() );
 }
 
 /*
