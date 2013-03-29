@@ -236,6 +236,14 @@ WEBVTT_INTERN webvtt_token webvtt_lex_newline( webvtt_parser self, const
 
 WEBVTT_INTERN int parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result );
 
+WEBVTT_INTERN webvtt_status do_push( webvtt_parser self, webvtt_uint token,
+  webvtt_uint back, webvtt_uint state, void *data, webvtt_state_value_type type,
+  webvtt_uint line, webvtt_uint column );
+
+WEBVTT_INTERN webvtt_status read_cuetext( webvtt_parser self,
+  const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
+  webvtt_parse_mode *mode, webvtt_bool finish );
+
 /** 
  * Flags which can apply additional meaning to a token. find_token() will
  * test for only the actual token and ignore the additional flags.
