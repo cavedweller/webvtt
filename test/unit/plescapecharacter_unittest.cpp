@@ -23,7 +23,7 @@ class PayloadEscapeCharacter : public PayloadTest {};
  */
 TEST_F(PayloadEscapeCharacter, GT)
 {
-  loadVtt( "payload/escape-character/gt-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/gt-escape-character.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
@@ -38,7 +38,7 @@ TEST_F(PayloadEscapeCharacter, GT)
  */
 TEST_F(PayloadEscapeCharacter, LT)
 {
-  loadVtt( "payload/escape-character/lt-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/lt-escape-character.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
@@ -53,7 +53,7 @@ TEST_F(PayloadEscapeCharacter, LT)
  */
 TEST_F(PayloadEscapeCharacter, Ampersand)
 {
-  loadVtt( "payload/escape-character/ampersand-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-escape-character.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
    
@@ -68,7 +68,7 @@ TEST_F(PayloadEscapeCharacter, Ampersand)
  */
 TEST_F(PayloadEscapeCharacter, LRM)
 {
-  loadVtt( "payload/escape-character/lrm-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/lrm-escape-character.vtt", 1 );
    
     const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -85,7 +85,7 @@ TEST_F(PayloadEscapeCharacter, LRM)
  */
 TEST_F(PayloadEscapeCharacter, RLM)
 {
-  loadVtt( "payload/escape-character/rlm-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/rlm-escape-character.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -102,7 +102,7 @@ TEST_F(PayloadEscapeCharacter, RLM)
  */
 TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
 {
-  loadVtt( "payload/escape-character/multiple-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/multiple-escape-character.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -126,7 +126,7 @@ TEST_F(PayloadEscapeCharacter, MultipleEscapeCharacter)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LT( 0, head.childCount() );
 
@@ -144,7 +144,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacter)
 
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterText)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-text.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-text.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
@@ -165,7 +165,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterText)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCR)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-cr.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-cr.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
@@ -186,7 +186,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCR)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCRLF)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-crlf.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-crlf.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
 
@@ -208,7 +208,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterCRLF)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewline)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-extra-newline.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -230,7 +230,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewline)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCR)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline-cr.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-extra-newline-cr.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -252,7 +252,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCR)
  */
 TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCRLF)
 {
-  loadVtt( "payload/escape-character/multiline-multiple-escape-character-extra-newline-crlf.vtt", 1 );
+  loadVtt( "payload/escape/multiline-multiple-escape-character-extra-newline-crlf.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
     
@@ -296,7 +296,7 @@ TEST_F(PayloadEscapeCharacter, MultilineMultipleEscapeCharacterExtraNewlineCRLF)
 */
 TEST_F(PayloadEscapeCharacter, NSP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-nsp.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-nsp.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -317,7 +317,7 @@ TEST_F(PayloadEscapeCharacter, NSP)
 */
 TEST_F(PayloadEscapeCharacter, NBP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-nbp.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-nbp.vtt", 1 );
 
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
@@ -340,7 +340,7 @@ TEST_F(PayloadEscapeCharacter, NBP)
 */
 TEST_F(PayloadEscapeCharacter, BSP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-bsp.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-bsp.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -361,7 +361,7 @@ TEST_F(PayloadEscapeCharacter, BSP)
 */
 TEST_F(PayloadEscapeCharacter, BP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-bp.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-bp.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -383,7 +383,7 @@ TEST_F(PayloadEscapeCharacter, BP)
 */
 TEST_F(PayloadEscapeCharacter, B)
 {
-  loadVtt( "payload/escape-character/space-character-escape-b.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-b.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -404,7 +404,7 @@ TEST_F(PayloadEscapeCharacter, B)
 */
 TEST_F(PayloadEscapeCharacter, S)
 {
-  loadVtt( "payload/escape-character/space-character-escape-s.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-s.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -425,7 +425,7 @@ TEST_F(PayloadEscapeCharacter, S)
 */
 TEST_F(PayloadEscapeCharacter, NS)
 {
-  loadVtt( "payload/escape-character/space-character-escape-ns.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-ns.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -446,7 +446,7 @@ TEST_F(PayloadEscapeCharacter, NS)
 */
 TEST_F(PayloadEscapeCharacter, NP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-np.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-np.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -467,7 +467,7 @@ TEST_F(PayloadEscapeCharacter, NP)
 */
 TEST_F(PayloadEscapeCharacter, SP)
 {
-  loadVtt( "payload/escape-character/space-character-escape-sp.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-sp.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -488,7 +488,7 @@ TEST_F(PayloadEscapeCharacter, SP)
 */
 TEST_F(PayloadEscapeCharacter, P)
 {
-  loadVtt( "payload/escape-character/space-character-escape-p.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-p.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -509,7 +509,7 @@ TEST_F(PayloadEscapeCharacter, P)
 */
 TEST_F(PayloadEscapeCharacter, BS)
 {
-  loadVtt( "payload/escape-character/space-character-escape-bs.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-bs.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -531,7 +531,7 @@ TEST_F(PayloadEscapeCharacter, BS)
 */
 TEST_F(PayloadEscapeCharacter, NBS)
 {
-  loadVtt( "payload/escape-character/space-character-escape-nbs.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-nbs.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -552,7 +552,7 @@ TEST_F(PayloadEscapeCharacter, NBS)
 */
 TEST_F(PayloadEscapeCharacter, NB)
 {
-  loadVtt( "payload/escape-character/space-character-escape-nb.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-nb.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -573,7 +573,7 @@ TEST_F(PayloadEscapeCharacter, NB)
 */
 TEST_F(PayloadEscapeCharacter, N)
 {
-  loadVtt( "payload/escape-character/space-character-escape-n.vtt", 1 );
+  loadVtt( "payload/escape/space-character-escape-n.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -597,7 +597,7 @@ TEST_F(PayloadEscapeCharacter, N)
 */
 TEST_F(PayloadEscapeCharacter, LeftToRight)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-lr.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-lr.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -618,7 +618,7 @@ TEST_F(PayloadEscapeCharacter, LeftToRight)
 */
 TEST_F(PayloadEscapeCharacter, L)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-l.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-l.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -639,7 +639,7 @@ TEST_F(PayloadEscapeCharacter, L)
 */
 TEST_F(PayloadEscapeCharacter, LM)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-lm.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-lm.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -660,7 +660,7 @@ TEST_F(PayloadEscapeCharacter, LM)
 */
 TEST_F(PayloadEscapeCharacter, RM)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-rm.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-rm.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -681,7 +681,7 @@ TEST_F(PayloadEscapeCharacter, RM)
 */
 TEST_F(PayloadEscapeCharacter, M)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-m.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-m.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -702,7 +702,7 @@ TEST_F(PayloadEscapeCharacter, M)
 */
 TEST_F(PayloadEscapeCharacter, R)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-r.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-r.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -723,7 +723,7 @@ TEST_F(PayloadEscapeCharacter, R)
 */
 TEST_F(PayloadEscapeCharacter, LM_LeftToRight)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-lm.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-lm.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -744,7 +744,7 @@ TEST_F(PayloadEscapeCharacter, LM_LeftToRight)
 */
 TEST_F(PayloadEscapeCharacter, RL)
 {
-  loadVtt( "payload/escape-character/left-to-right-character-escape-rl.vtt", 1 );
+  loadVtt( "payload/escape/left-to-right-character-escape-rl.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -767,7 +767,7 @@ TEST_F(PayloadEscapeCharacter, RL)
 */
 TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -788,7 +788,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandCharacter)
 */
 TEST_F(PayloadEscapeCharacter, A)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-a.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape-a.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -809,7 +809,7 @@ TEST_F(PayloadEscapeCharacter, A)
 */
 TEST_F(PayloadEscapeCharacter, AM)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-am.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape-am.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -830,7 +830,7 @@ TEST_F(PayloadEscapeCharacter, AM)
 */
 TEST_F(PayloadEscapeCharacter, MP)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-mp.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape-mp.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -851,7 +851,7 @@ TEST_F(PayloadEscapeCharacter, MP)
 */
 TEST_F(PayloadEscapeCharacter, P_Ampersand)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-p.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape-p.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -872,7 +872,7 @@ TEST_F(PayloadEscapeCharacter, P_Ampersand)
 */
 TEST_F(PayloadEscapeCharacter, AP)
 {
-  loadVtt( "payload/escape-character/ampersand-character-escape-ap.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-character-escape-ap.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -896,7 +896,7 @@ TEST_F(PayloadEscapeCharacter, AP)
 */
 TEST_F(PayloadEscapeCharacter, LessThan)
 {
-  loadVtt( "payload/escape-character/less-than-character-escape-l.vtt", 1 );
+  loadVtt( "payload/escape/less-than-character-escape-l.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -917,7 +917,7 @@ TEST_F(PayloadEscapeCharacter, LessThan)
 */
 TEST_F(PayloadEscapeCharacter, T)
 {
-  loadVtt( "payload/escape-character/less-than-character-escape-t.vtt", 1 );
+  loadVtt( "payload/escape/less-than-character-escape-t.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -941,7 +941,7 @@ TEST_F(PayloadEscapeCharacter, T)
 */
 TEST_F(PayloadEscapeCharacter, GreaterThan)
 {
-  loadVtt( "payload/escape-character/greater-than-character-escape-g.vtt", 1 );
+  loadVtt( "payload/escape/greater-than-character-escape-g.vtt", 1 );
   const Node node = getHeadOfCue( 0 )[ 0 ];
   
   /* verify that it is a Node */
@@ -961,7 +961,7 @@ TEST_F(PayloadEscapeCharacter, GreaterThan)
 */
 TEST_F(PayloadEscapeCharacter, AmpersandWithinTag)
 {
-  loadVtt( "payload/escape-character/i-tag-with-ampersand.vtt", 1 );
+  loadVtt( "payload/escape/i-tag-with-ampersand.vtt", 1 );
 
   const Node node = getHeadOfCue(0);
 
@@ -988,7 +988,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinTag)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandWithinMultipleTags)
 {
-  loadVtt( "payload/escape-character/i-within-b-tag-with-ampersand.vtt", 1 );
+  loadVtt( "payload/escape/i-within-b-tag-with-ampersand.vtt", 1 );
   const Node head = getHeadOfCue(0);
   ASSERT_LT( 0, head.childCount() );
 
@@ -1021,7 +1021,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandWithinMultipleTags)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOutsideTwoTags)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "i-within-b-tag-with-ampersand-outside.vtt", 1 );
   const Node head = getHeadOfCue(0);
   ASSERT_LT( 0, head.childCount() );
@@ -1057,7 +1057,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOutsideTwoTags)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOnNewLineAfterTwoTagsWithClass)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "ampersand-outside-tag-on-newline-with-class.vtt", 1 );
   const Node head = getHeadOfCue(0);
   ASSERT_LT( 0, head.childCount() );
@@ -1090,7 +1090,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewLineAfterTwoTagsWithClass)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandInsideOneTagWithClass)
 {
-  loadVtt( "payload/escape-character/ampersand-inside-tag-with-class.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-inside-tag-with-class.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LT( 0, head.childCount() );
 
@@ -1125,7 +1125,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandInsideOneTagWithClass)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandInsideTagWithSubclasses)
 {
-  loadVtt( "payload/escape-character/ampersand-outside-encapsulated-tags.vtt", 1 );
+  loadVtt( "payload/escape/ampersand-outside-encapsulated-tags.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LT( 0, head.childCount() );
 
@@ -1159,7 +1159,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandInsideTagWithSubclasses)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOnLineWithClassAndSubClass)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "ampersand-inside-tag-with-subclass.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LT( 0, head.childCount() );
@@ -1199,7 +1199,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnLineWithClassAndSubClass)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOnNewlineWithClassAndSubclass)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LT( 0, head.childCount() );
@@ -1236,7 +1236,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewlineWithClassAndSubclass)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
   const Node head = getHeadOfCue(0);
   ASSERT_LT( 0, head.childCount() );
@@ -1273,7 +1273,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
  */
 TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
 {
-  loadVtt( "payload/escape-character/"
+  loadVtt( "payload/escape/"
            "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
   const Node head = getHeadOfCue(0);
   ASSERT_LT( 0, head.childCount() );
