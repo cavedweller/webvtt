@@ -7,7 +7,7 @@ class PayloadFormat : public PayloadTest {};
  */
 TEST_F(PayloadFormat, BasicCueText)
 {
-  loadVtt( "payload/payload-format/basic-cue-text.vtt", 1 );
+  loadVtt( "payload/format/basic-cue-text.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
@@ -17,7 +17,7 @@ TEST_F(PayloadFormat, BasicCueText)
  */
 TEST_F(PayloadFormat, MultipleCueTextTag)
 {
-  loadVtt( "payload/payload-format/multiple-cue-tag.vtt", 1 );
+  loadVtt( "payload/format/multiple-cue-tag.vtt", 1 );
   ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -28,7 +28,7 @@ TEST_F(PayloadFormat, MultipleCueTextTag)
  */
 TEST_F(PayloadFormat, MultipleCueTextTagTogether)
 {
-  loadVtt( "payload/payload-format/multiple-cue-tag-together.vtt", 1 );
+  loadVtt( "payload/format/multiple-cue-tag-together.vtt", 1 );
   ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -42,7 +42,7 @@ TEST_F(PayloadFormat, MultipleCueTextTagTogether)
  */
 TEST_F(PayloadFormat, MultilineBasicCueText)
 {
-  loadVtt( "payload/payload-format/multiline-basic-cue-text.vtt", 1 );
+  loadVtt( "payload/format/multiline-basic-cue-text.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
@@ -56,7 +56,7 @@ TEST_F(PayloadFormat, MultilineBasicCueText)
  */
 TEST_F(PayloadFormat, MultilineCueText)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text.vtt", 1 );
   ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -70,7 +70,7 @@ TEST_F(PayloadFormat, MultilineCueText)
  */
 TEST_F(PayloadFormat, MultilineCueTextCR)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text-cr.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text-cr.vtt", 1 );
   ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -84,7 +84,7 @@ TEST_F(PayloadFormat, MultilineCueTextCR)
  */
 TEST_F(PayloadFormat, MultilineCueTextCRLF)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text-crlf.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text-crlf.vtt", 1 );
   ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -99,7 +99,7 @@ TEST_F(PayloadFormat, MultilineCueTextCRLF)
  */
 TEST_F(PayloadFormat, MultilineCueTextExtraNewline)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text-extra-newline.vtt", 1 );
   ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -114,7 +114,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewline)
  */
 TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCR)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-cr.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text-extra-newline-cr.vtt", 1 );
   ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -129,7 +129,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCR)
  */
 TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
 {
-  loadVtt( "payload/payload-format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
+  loadVtt( "payload/format/multiline-cue-text-extra-newline-crlf.vtt", 1 );
   ASSERT_EQ( 2, getHeadOfCue( 0 ).childCount() );
 }
 
@@ -143,7 +143,7 @@ TEST_F(PayloadFormat, MultilineCueTextExtraNewlineCRLF)
  */
 TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
 {
-  loadVtt( "payload/payload-format/multiline-multiple-cue-text-tag.vtt", 1 );
+  loadVtt( "payload/format/multiline-multiple-cue-text-tag.vtt", 1 );
 
   const Node node0 = getHeadOfCue( 0 );
   ASSERT_EQ( Node::Underline, node0.kind() );
@@ -165,7 +165,7 @@ TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
  */
 TEST_F(PayloadFormat, MultilineBasicCueTextCR)
 {
-  loadVtt( "payload/payload-format/multiline-basic-cue-text-cr.vtt", 1 );
+  loadVtt( "payload/format/multiline-basic-cue-text-cr.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
@@ -179,7 +179,7 @@ TEST_F(PayloadFormat, MultilineBasicCueTextCR)
  */
 TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
 {
-  loadVtt( "payload/payload-format/multiline-basic-cue-text-crlf.vtt", 1 );
+  loadVtt( "payload/format/multiline-basic-cue-text-crlf.vtt", 1 );
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
 
@@ -190,6 +190,6 @@ TEST_F(PayloadFormat, MultilineBasicCueTextCRLF)
  */
 TEST_F(PayloadFormat, MultilineBasicCueTextExtraLine)
 {
-  loadVtt( "payload/payload-format/multiline-extra-line-terminator.vtt", 1);
+  loadVtt( "payload/format/multiline-extra-line-terminator.vtt", 1);
   ASSERT_EQ( Node::Text, getHeadOfCue( 0 )[ 0 ].kind() );
 }
