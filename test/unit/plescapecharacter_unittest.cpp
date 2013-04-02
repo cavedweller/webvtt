@@ -1240,7 +1240,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithSubclass)
            "ampersand-outside-tag-with-subclass.vtt", 1 );
   
   const Node head = getHeadOfCue(0);
-  EXPECT_EQ( 2, head.childCount() );
+  ASSERT_LE( 2, head.childCount() );
 
   /* verify italic tag */
   const Node italicTag = head[0];
@@ -1253,9 +1253,9 @@ TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithSubclass)
   /* verify subclass within the i tag */
   expectEquals( "subclass", cssClass.stringAt(1) );
 
-  EXPECT_EQ( 1, italicTag.childCount() );
+  ASSERT_LE( 1, italicTag.childCount() );
   /* verify text node within italic tag */
-  expectEquals( " Some Filler Text ", head[0][0].text() );
+  expectEquals( " Some Filler Text ", italicTag[0].text() );
 
   /* verify escape sequence in last text node */
   expectEquals( " & ", head[1].text() );
@@ -1274,12 +1274,12 @@ TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithSubclass)
  * correct Ampersand Character Escape on line outside tag with a class
  * and subclass
  */
-TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
+TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithClass)
 {
   loadVtt( "payload/escape/"
-           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+           "ampersand-outside-tag-with-class.vtt", 1 );
   const Node head = getHeadOfCue(0);
-  ASSERT_LT( 0, head.childCount() );
+  ASSERT_LE( 2, head.childCount() );
 
   /* verify italic tag */
   const Node italicTag = head[0];
@@ -1289,9 +1289,12 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
   StringList cssClass = italicTag.cssClasses();
   expectEquals( "class", cssClass.stringAt(0) );
 
-  ASSERT_LT( 1, head.childCount() );
-  /* verify character escape outside i tag */
-  const Node textNode = head[1];
-  expectEquals( "& ", textNode.text() );
+  ASSERT_LE( 1, italicTag.childCount() );
+  /* verify text node within italic node */
+  expectEquals( " Some Filler Text ", italicTag[0].text() );
+  
+  /* verify character escape sequence in last text node */
+  expectEquals( " & ", head[1].text() );
+  
 }
 
