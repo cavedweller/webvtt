@@ -1073,7 +1073,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewLineAfterTwoTagsWithClass)
   ASSERT_LT( 1, head.childCount() );
   /* verify the escape character text within i tag */
   const Node textNode = head[ 1 ];
-  expectEquals( "& ", textNode.text() );
+  expectEquals( "\n& ", textNode.text() );
 }
 
 /**
@@ -1218,7 +1218,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewlineWithClassAndSubclass)
   ASSERT_LT( 1, head.childCount() );
   /* verify character escape outside i tag */
   const Node textNode = head[ 1 ];
-  expectEquals( "& ", textNode.text() );
+  expectEquals( "\n& ", textNode.text() );
 }
 
 /**
