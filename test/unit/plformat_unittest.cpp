@@ -57,7 +57,7 @@ TEST_F(PayloadFormat, MultilineBasicCueText)
 TEST_F(PayloadFormat, MultilineCueText)
 {
   loadVtt( "payload/format/multiline-cue-text.vtt", 1 );
-  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
+  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -71,7 +71,7 @@ TEST_F(PayloadFormat, MultilineCueText)
 TEST_F(PayloadFormat, MultilineCueTextCR)
 {
   loadVtt( "payload/format/multiline-cue-text-cr.vtt", 1 );
-  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
+  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
@@ -85,7 +85,7 @@ TEST_F(PayloadFormat, MultilineCueTextCR)
 TEST_F(PayloadFormat, MultilineCueTextCRLF)
 {
   loadVtt( "payload/format/multiline-cue-text-crlf.vtt", 1 );
-  ASSERT_EQ( 4, getHeadOfCue( 0 ).childCount() );
+  ASSERT_EQ( 5, getHeadOfCue( 0 ).childCount() );
 }
 
 /*
