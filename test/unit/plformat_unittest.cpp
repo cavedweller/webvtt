@@ -151,13 +151,16 @@ TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
   
   const Node underlineTag = head[0];
   EXPECT_EQ( Node::Underline, underlineTag.kind() );
-  ASSERT_LE( 1, underlineTag.childCount() );
 
-  const Node italicTag = underlineTag[0];
+  ASSERT_LE( 2, underlineTag.childCount() );
+  EXPECT_EQ( Node::Text, underlineTag[0].kind() );
+
+  const Node italicTag = underlineTag[1];
   EXPECT_EQ( Node::Italic, italicTag.kind() );
-  ASSERT_LE( 1, italicTag.childCount() );
 
-  const Node boldTag = italicTag[0];
+  ASSERT_LE( 2, italicTag.childCount() );
+  EXPECT_EQ( Node::Text, italicTag[0].kind() );
+  const Node boldTag = italicTag[1];
   EXPECT_EQ( Node::Bold, boldTag.kind() );
 }
 
