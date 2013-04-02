@@ -1234,16 +1234,17 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnNewlineWithClassAndSubclass)
  * correct Ampersand Character Escape on line outside tag with a class
  * and subclass
  */
-TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
+TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithSubclass)
 {
   loadVtt( "payload/escape/"
-           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+           "ampersand-outside-tag-with-subclass.vtt", 1 );
+  
   const Node head = getHeadOfCue(0);
-  ASSERT_LT( 0, head.childCount() );
+  ASSERT_LE( 2, head.childCount() );
 
   /* verify italic tag */
   const Node italicTag = head[0];
-  ASSERT_EQ( Node::Italic, italicTag.kind() );
+  EXPECT_EQ( Node::Italic, italicTag.kind() );
 
   /* verify class inside italic tag*/
   StringList cssClass = italicTag.cssClasses();
@@ -1252,10 +1253,12 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
   /* verify subclass within the i tag */
   expectEquals( "subclass", cssClass.stringAt(1) );
 
-  ASSERT_LT( 1, head.childCount() );
-  /* verify character escape outside i tag */
-  const Node textNode = head[1];
-  expectEquals( "& ", textNode.text() );
+  ASSERT_LE( 1, italicTag.childCount() );
+  /* verify text node within italic tag */
+  expectEquals( " Some Filler Text ", italicTag[0].text() );
+
+  /* verify escape sequence in last text node */
+  expectEquals( " & ", head[1].text() );
 }
 
 /**
@@ -1271,12 +1274,12 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClassAndSubclass)
  * correct Ampersand Character Escape on line outside tag with a class
  * and subclass
  */
-TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
+TEST_F(PayloadEscapeCharacter, AmpersandOutsideTagWithClass)
 {
   loadVtt( "payload/escape/"
-           "ampersand-outside-tag-on-newline-with-subclass.vtt", 1 );
+           "ampersand-outside-tag-with-class.vtt", 1 );
   const Node head = getHeadOfCue(0);
-  ASSERT_LT( 0, head.childCount() );
+  ASSERT_LE( 2, head.childCount() );
 
   /* verify italic tag */
   const Node italicTag = head[0];
@@ -1286,9 +1289,12 @@ TEST_F(PayloadEscapeCharacter, AmpersandOnCurrlineWithClass)
   StringList cssClass = italicTag.cssClasses();
   expectEquals( "class", cssClass.stringAt(0) );
 
-  ASSERT_LT( 1, head.childCount() );
-  /* verify character escape outside i tag */
-  const Node textNode = head[1];
-  expectEquals( "& ", textNode.text() );
+  ASSERT_LE( 1, italicTag.childCount() );
+  /* verify text node within italic node */
+  expectEquals( " Some Filler Text ", italicTag[0].text() );
+  
+  /* verify character escape sequence in last text node */
+  expectEquals( " & ", head[1].text() );
+  
 }
 
