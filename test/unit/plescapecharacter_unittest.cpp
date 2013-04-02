@@ -1123,7 +1123,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandInsideOneTagWithClass)
  * &amp;
  * correct Ampersand Character Escape outside two encapsulates tags
  */
-TEST_F(PayloadEscapeCharacter, AmpersandInsideTagWithSubclasses)
+TEST_F(PayloadEscapeCharacter, AmpersandOutsideEncapsulatedTags)
 {
   loadVtt( "payload/escape/ampersand-outside-encapsulated-tags.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
@@ -1141,7 +1141,7 @@ TEST_F(PayloadEscapeCharacter, AmpersandInsideTagWithSubclasses)
 
   /* verify character escape outside i tag */
   const Node textNode = head[ 1 ];
-  expectEquals( "&", textNode.text() );
+  expectEquals( " \n&", textNode.text() );
 }
 
 /**
