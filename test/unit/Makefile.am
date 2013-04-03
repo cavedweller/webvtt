@@ -95,7 +95,6 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      cigeneral_unittest \
 	      cilineendings_unittest \
 	      csgeneric_unittest \
-	      cssize_unittest \
 	      ctgenstructure_unittest \
 	      cuetimes_unittest \
 	      filestructure_unittest
