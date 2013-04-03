@@ -155,7 +155,7 @@ TEST_F(CueSettingPosition, NoDelimiter)
    * 50 is default.
    */
   assertDefaultPositionSetting( getCue( 0 ) ); 
- 
+
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE on the 33rd column of the
    * 3rd line, and a WEBVTT_INVALID_CUESETTING error on the 34th column of the
