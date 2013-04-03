@@ -154,15 +154,15 @@ TEST_F(CueSettingPosition, NoDelimiter)
    * Position should be 50 because the malformed setting should be skipped and
    * 50 is default.
    */
-  assertDefaultPositionSetting( getCue( 0 ) );
+  expectDefaultPositionSetting( getCue( 0 ) );
 
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE on the 33rd column of the
    * 3rd line, and a WEBVTT_INVALID_CUESETTING error on the 34th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
-  assertEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
 /**
@@ -189,7 +189,7 @@ TEST_F(CueSettingPosition, NoKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -266,7 +266,7 @@ TEST_F(CueSettingPosition, BadDelimiter)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25rd column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**

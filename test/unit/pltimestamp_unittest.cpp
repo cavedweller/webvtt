@@ -12,7 +12,7 @@ TEST_F(PayloadTimestampTag, TimestampTag)
   const Node timeStamp = getHeadOfCue( 0 )[ 1 ];
 
   ASSERT_EQ( Node::TimeStamp, timeStamp.kind() );
-  assertEquals( timeStamp.timeStamp(), 0, 12, 0 );
+  expectEquals( timeStamp.timeStamp(), 0, 12, 0 );
 }
 
 /*
@@ -25,10 +25,10 @@ TEST_F(PayloadTimestampTag, MultipleTimestampTag)
   const Node timeStamp0 = getHeadOfCue( 0 )[ 1 ];
 
   ASSERT_EQ( Node::TimeStamp, timeStamp0.kind() );
-  assertEquals( timeStamp0.timeStamp(), 0, 12, 0 );
+  expectEquals( timeStamp0.timeStamp(), 0, 12, 0 );
 
   const Node timeStamp1 = getHeadOfCue( 0 )[ 3 ];
 
   ASSERT_EQ( Node::TimeStamp, timeStamp1.kind() );
-  assertEquals( timeStamp1.timeStamp(), 0, 13, 0 );
+  expectEquals( timeStamp1.timeStamp(), 0, 13, 0 );
 }

@@ -30,55 +30,44 @@ protected:
   }
 
   // Assert that we're using the default alignment for this cue
-  void assertDefaultAlignSetting( const Cue &cue ) {
-    ASSERT_TRUE( cue.isAlignedToMiddle() );
+  void expectDefaultAlignSetting( const Cue &cue ) {
+    EXPECT_TRUE( cue.isAlignedToMiddle() );
   }
 
   // Assert that we're using the default line position for this cue
-  void assertDefaultLineSetting( const Cue &cue ) {
-    ASSERT_TRUE( cue.isLinePositionAuto() );
-    ASSERT_TRUE( cue.snapToLines() );
+  void expectDefaultLineSetting( const Cue &cue ) {
+    EXPECT_TRUE( cue.isLinePositionAuto() );
+    EXPECT_TRUE( cue.snapToLines() );
   }
 
   // Assert that we're using the default text position for this cue
-  void assertDefaultPositionSetting( const Cue &cue ) {
-    ASSERT_EQ( 50, cue.textPositionPercentage() );
+  void expectDefaultPositionSetting( const Cue &cue ) {
+    EXPECT_EQ( 50, cue.textPositionPercentage() );
   }
 
   // Assert that we're using the default size for this cue
-  void assertDefaultSizeSetting( const Cue &cue ) {
-    ASSERT_EQ( 100, cue.sizePercentage() );
+  void expectDefaultSizeSetting( const Cue &cue ) {
+    EXPECT_EQ( 100, cue.sizePercentage() );
   }
 
   // Assert that we're using the default direction for this cue
-  void assertDefaultVerticalSetting( const Cue &cue ) {
-    ASSERT_TRUE( cue.isHorizontal() );
+  void expectDefaultVerticalSetting( const Cue &cue ) {
+    EXPECT_TRUE( cue.isHorizontal() );
   }
 
   // Assert that we haven't accepted any cuesettings for this cue
-  void assertDefaultCueSettings( const Cue &cue ) {
-    assertDefaultAlignSetting( cue );
-    assertDefaultLineSetting( cue );
-    assertDefaultPositionSetting( cue );
-    assertDefaultSizeSetting( cue );
-    assertDefaultVerticalSetting( cue );
+  void expectDefaultCueSettings( const Cue &cue ) {
+    expectDefaultAlignSetting( cue );
+    expectDefaultLineSetting( cue );
+    expectDefaultPositionSetting( cue );
+    expectDefaultSizeSetting( cue );
+    expectDefaultVerticalSetting( cue );
   }
 
-  void assertEquals( const String &one, const String &two )
-  {
-    ASSERT_STREQ( reinterpret_cast<const char *>( one.utf8() ),
-                  reinterpret_cast<const char *>( two.utf8() ) );
-  }
-  
   void expectEquals( const String &one, const String &two )
   {
     EXPECT_STREQ( reinterpret_cast<const char *>( one.utf8() ),
                   reinterpret_cast<const char *>( two.utf8() ) );
-  }
-
-  void assertEquals( const char *one, const String &two ) 
-  {
-    ASSERT_STREQ( one, reinterpret_cast<const char*>( two.utf8() ) );  
   }
 
   void expectEquals( const char *one, const String &two )
@@ -89,26 +78,27 @@ protected:
   /**
    * Added functions for ASSERT-ing timestamp equality in an easier way.
    */
-  void assertEquals( const Timestamp &ts, int hours, int minutes, int seconds, int millis )
+  void expectEquals( const Timestamp &ts, int hours, int minutes, int seconds, int millis )
   {
-    ASSERT_EQ( hours, ts.hours() );
-    ASSERT_EQ( minutes, ts.minutes() );
-    ASSERT_EQ( seconds, ts.seconds() );
+    EXPECT_EQ( hours, ts.hours() );
+    EXPECT_EQ( minutes, ts.minutes() );
+    EXPECT_EQ( seconds, ts.seconds() );
 
-    /* hack to avoid rounding error... */
-    ASSERT_TRUE( millis == ts.milliseconds() || millis == ts.milliseconds() + 1 );
+    /* hack to avoid rounding error... (Is this needed with the integer
+     * timestamps?) */
+    EXPECT_TRUE( millis == ts.milliseconds() || millis == ts.milliseconds() + 1 );
   }
 
-  inline void assertEquals( const Timestamp &ts, int minutes, int seconds, int millis )
+  inline void expectEquals( const Timestamp &ts, int minutes, int seconds, int millis )
   {
-    return assertEquals( ts, 0, minutes, seconds, millis );
+    return expectEquals( ts, 0, minutes, seconds, millis );
   }
 
-  inline void assertEquals( const Error &err, webvtt_error code, WebVTT::uint line, WebVTT::uint column )
+  inline void expectEquals( const Error &err, webvtt_error code, WebVTT::uint line, WebVTT::uint column )
   {
-    ASSERT_EQ( code, err.error() );
-    ASSERT_EQ( line, err.line() );
-    ASSERT_EQ( column, err.column() );
+    EXPECT_EQ( code, err.error() );
+    EXPECT_EQ( line, err.line() );
+    EXPECT_EQ( column, err.column() );
   }
 
   void setVtt( const char *relativeFilePath )

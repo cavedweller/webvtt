@@ -63,7 +63,7 @@ TEST_F(PayloadClassTag, ClassTagSingleSubclass)
   StringList cssClasses = head[ 1 ].cssClasses();
   
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( "class", cssClasses.stringAt( 0 ) );
+  expectEquals( "class", cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -91,6 +91,6 @@ TEST_F(PayloadClassTag, ClassTagMultiSubclass)
   StringList cssClasses = head[ 1 ].cssClasses();
 
   ASSERT_EQ( 2, cssClasses.length() );
-  assertEquals( "class", cssClasses.stringAt( 0 ) );
-  assertEquals( "subclass", cssClasses.stringAt( 1 ) );
+  expectEquals( "class", cssClasses.stringAt( 0 ) );
+  expectEquals( "subclass", cssClasses.stringAt( 1 ) );
 }
