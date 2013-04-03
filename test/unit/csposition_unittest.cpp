@@ -154,7 +154,7 @@ TEST_F(CueSettingPosition, NoDelimiter)
    * Position should be 50 because the malformed setting should be skipped and
    * 50 is default.
    */
-  assertDefaultPositionSetting( getCue( 0 ) ); 
+  assertDefaultPositionSetting( getCue( 0 ) );
 
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE on the 33rd column of the
