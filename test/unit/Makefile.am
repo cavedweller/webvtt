@@ -86,8 +86,7 @@ if VALGRIND_TESTING
 KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
 	cigeneral_unittest \
-	cilineendings_unittest \
-	csposition_unittest
+	cilineendings_unittest
 endif
 
 # Tests we expect to fail (i.e., known-fails)
@@ -96,7 +95,6 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      cigeneral_unittest \
 	      cilineendings_unittest \
 	      csgeneric_unittest \
-	      csposition_unittest \
 	      cssize_unittest \
 	      csvertical_unittest \
 	      ctgenstructure_unittest \

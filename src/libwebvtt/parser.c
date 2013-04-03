@@ -559,9 +559,8 @@ bad_value_eol:
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_parse_align( webvtt_parser self, webvtt_cue *cue, const
-webvtt_byte *text,
-  webvtt_uint *pos, webvtt_uint len )
+webvtt_parse_align( webvtt_parser self, webvtt_cue *cue,
+  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
   webvtt_uint last_column = self->column;
@@ -584,8 +583,7 @@ webvtt_byte *text,
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_parse_line( webvtt_parser self, webvtt_cue *cue, const
-webvtt_byte *text,
+webvtt_parse_line( webvtt_parser self, webvtt_cue *cue, const webvtt_byte *text,
   webvtt_uint *pos, webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
@@ -625,6 +623,40 @@ webvtt_byte *text,
         cue->settings.line = ( int )value;
       } break;
     }
+  }
+  return v >= 0 ? WEBVTT_SUCCESS : v;
+}
+
+WEBVTT_INTERN webvtt_status
+webvtt_parse_position( webvtt_parser self, webvtt_cue *cue,
+  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
+{
+  webvtt_uint last_line = self->line;
+  webvtt_uint last_column = self->column;
+  webvtt_status v;
+  webvtt_uint vc;
+  webvtt_bool first_flag = 0;
+  webvtt_token values[] = { PERCENTAGE|TF_POSITIVE, 0 };
+  if( ( v = webvtt_parse_cuesetting( self, text, pos, len,
+    WEBVTT_POSITION_BAD_VALUE, POSITION, values, &vc ) ) > 0 ) {
+    webvtt_uint digits;
+    webvtt_int64 value;
+    const webvtt_byte *t = self->token;
+    if( cue->flags & CUE_HAVE_LINE ) {
+      ERROR_AT( WEBVTT_POSITION_ALREADY_SET, last_line, last_column );
+    } else {
+      first_flag = 1;
+    }
+    cue->flags |= CUE_HAVE_POSITION;
+    value = parse_int( &t, &digits );
+    if( value < 0 || value > 100 ) {
+      if( first_flag ) {
+        cue->flags &= ~CUE_HAVE_POSITION;
+      }
+      ERROR_AT_COLUMN( WEBVTT_POSITION_BAD_VALUE, vc );
+      return WEBVTT_SUCCESS;
+    }
+    cue->settings.position = ( int )value;
   }
   return v >= 0 ? WEBVTT_SUCCESS : v;
 }
@@ -802,10 +834,19 @@ else if( !have_ws ) \
             CHKDELIM have_ws = 0;
             SETST( CP_V1 );
             break;
+
           case POSITION:
-            CHKDELIM have_ws = 0;
-            SETST( CP_P1 );
-            break;
+          {
+            webvtt_status status;
+            pos -= token_len; /* Required for parse_position() */
+            self->column = last_column; /* Reset for parse_position() */
+            status = webvtt_parse_position( self, cue, buffer, &pos, len );
+            if( status == WEBVTT_PARSE_ERROR ) {
+              return WEBVTT_PARSE_ERROR;
+            }
+          }
+          break;
+
           case ALIGN:
           {
             webvtt_status status;
@@ -825,8 +866,8 @@ else if( !have_ws ) \
           case LINE:
           {
             webvtt_status status;
-            pos -= token_len; /* Required for parse_align() */
-            self->column = last_column; /* Reset for parse_align() */
+            pos -= token_len; /* Required for parse_line() */
+            self->column = last_column; /* Reset for parse_line() */
             status = webvtt_parse_line( self, cue, buffer, &pos, len );
             if( status == WEBVTT_PARSE_ERROR ) {
               return WEBVTT_PARSE_ERROR;
