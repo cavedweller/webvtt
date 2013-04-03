@@ -61,7 +61,7 @@ TEST_F(PayloadVoiceTag, VoiceTagAnnotation)
 
   ASSERT_EQ( 3, head.childCount() );
   ASSERT_EQ( Node::Voice, head[ 1 ].kind() );
-  assertEquals( "Annotation", head[ 1 ].annotation() );
+  expectEquals( "Annotation", head[ 1 ].annotation() );
 }
 
 /*
@@ -93,7 +93,7 @@ TEST_F(PayloadVoiceTag, VoiceTagSingleSubclass)
   StringList cssClasses = head[ 1 ].cssClasses();
 
   ASSERT_EQ( 1, cssClasses.length() );
-  assertEquals( "class", cssClasses.stringAt( 0 ) );
+  expectEquals( "class", cssClasses.stringAt( 0 ) );
 }
 
 /*
@@ -124,6 +124,6 @@ TEST_F(PayloadVoiceTag, VoiceTagMultiSubclass)
   StringList cssClasses = head[ 1 ].cssClasses();
 
   ASSERT_EQ( 2, cssClasses.length() );
-  assertEquals( "class", cssClasses.stringAt( 0 ) );
-  assertEquals( "subclass", cssClasses.stringAt( 1 ) );
+  expectEquals( "class", cssClasses.stringAt( 0 ) );
+  expectEquals( "subclass", cssClasses.stringAt( 1 ) );
 }

@@ -125,7 +125,7 @@ TEST_F(CueSettingAlign, NoKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -205,7 +205,7 @@ TEST_F(CueSettingAlign, BadDelimiter)
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -257,7 +257,7 @@ TEST_F(CueSettingAlign, UppercaseKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**

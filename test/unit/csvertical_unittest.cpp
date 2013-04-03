@@ -62,7 +62,7 @@ TEST_F(CueSettingVertical, BadKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -88,7 +88,7 @@ TEST_F(CueSettingVertical, BadDelimiter)
   /**
    * Parsing should fail.
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -118,7 +118,7 @@ TEST_F(CueSettingVertical, BadValue)
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
 }
 
 /**
@@ -146,7 +146,7 @@ TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of
    * the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
 }
 
 /**
@@ -174,7 +174,7 @@ TEST_F(CueSettingVertical, BadWhitespaceAfterDelimiter)
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 34 );
 }
 
 /**
@@ -201,7 +201,7 @@ TEST_F(CueSettingVertical, NoKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -228,7 +228,7 @@ TEST_F(CueSettingVertical, NoValue)
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
 }
 
 /**
@@ -256,8 +256,8 @@ TEST_F(CueSettingVertical, NoDelimiter)
   /**
    * Verify correct errors are thrown.
    */
-  assertEquals( getError( 0 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 33 );
-  assertEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 33 );
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
 /**
@@ -287,7 +287,7 @@ TEST_F(CueSettingVertical, UppercaseKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -317,5 +317,5 @@ TEST_F(CueSettingVertical, UppercaseValue)
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
 }

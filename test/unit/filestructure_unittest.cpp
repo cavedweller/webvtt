@@ -131,7 +131,7 @@ TEST_F(FileStructure, TextBeforeHeader)
 {
   loadVtt( "filestructure/text-before-header.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() );
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
@@ -187,7 +187,7 @@ TEST_F(FileStructure, TabAfterBOMBeforeHeader)
 {
   loadVtt( "filestructure/tab-after-bom-before-header.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
@@ -213,9 +213,9 @@ TEST_F(FileStructure, HeaderNoNewLine)
 {
   loadVtt( "filestructure/header-no-new-line.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
-  assertEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 2, 1 );
-  assertEquals( getCue( 0 ).startTime(), 0, 11, 0 );
-  assertEquals( getCue( 0 ).endTime(), 0, 13, 0 );
+  expectEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 2, 1 );
+  expectEquals( getCue( 0 ).startTime(), 0, 11, 0 );
+  expectEquals( getCue( 0 ).endTime(), 0, 13, 0 );
 }
 
 /*
@@ -252,7 +252,7 @@ TEST_F(FileStructure, MissingCueIdentifier)
 {
   loadVtt( "filestructure/missing-cue-identifier.vtt", 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error: WEBVTT_CUE_INCOMPLETE.";
-  assertEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 3, 13 );
+  expectEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 3, 13 );
 }
 
 /*
@@ -278,7 +278,7 @@ TEST_F(FileStructure, BOMGarbageNoWebVTT)
    */
   loadVtt( "filestructure/bom-garbage-no-webvtt.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
@@ -312,7 +312,7 @@ TEST_F(FileStructure, MultiCueNoNewlineBetweenCues)
    */
   loadVtt( "filestructure/multi-cue-no-newline-between-cues.vtt", true, 2 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain no errors.";
-  assertEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 5, 1 );
+  expectEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 5, 1 );
 }
 
 /*
@@ -341,7 +341,7 @@ TEST_F(FileStructure, NewlineBeforeWebVTT)
 {
   loadVtt( "filestructure/newline-before-webvtt.vtt", false, 0 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
@@ -363,7 +363,7 @@ TEST_F(FileStructure, NewlineBetweenPayloadText)
 {
   loadVtt( "filestructure/newline-between-payload-text.vtt", 1 );
   ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
-  assertEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 7, 1 );
+  expectEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 7, 1 );
 }
 
 /*
@@ -407,7 +407,7 @@ TEST_F(FileStructure, BOMGarbageData)
 {
   loadVtt( "filestructure/bom_garbage_data.vtt", false, 0 );
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because it has garbage data";
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*
@@ -430,7 +430,7 @@ TEST_F(FileStructure, BOMTabWebvtt)
   loadVtt( "filestructure/bom_tab_webvtt.vtt", false, 0 );
   ASSERT_EQ(1, errorCount()) << "This file should fail the test because it" <<
     " contains a tab before WEBVTT";
-  assertEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
 /*

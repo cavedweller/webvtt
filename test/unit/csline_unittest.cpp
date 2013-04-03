@@ -491,7 +491,7 @@ TEST_F(CueSettingLine, BadKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -519,7 +519,7 @@ TEST_F(CueSettingLine, NoKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
    * We could return a smarter error, after a little bit of refactoring, perhaps.
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -547,7 +547,7 @@ TEST_F(CueSettingLine, NoDelimiter)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -576,7 +576,7 @@ TEST_F(CueSettingLine, BadDelimiter)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th
    * column of the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -603,7 +603,7 @@ TEST_F(CueSettingLine, BadValue)
    * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
    * line
    */
-  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
 
 /**
@@ -631,7 +631,7 @@ TEST_F(CueSettingLine, NoValue)
    * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
    * line
    */
-  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
 
 /**
@@ -657,7 +657,7 @@ TEST_F(CueSettingLine, BadValueSuffix)
   /**
    * Should expect a WEBVTT_LINE_BAD_VALUE at the 30th column of the 3rd line.
    */
-  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
 
 /**
@@ -686,8 +686,8 @@ TEST_F(CueSettingLine, WhitespaceDelimiter)
    * the 3rd line, and a WEBVTT_MISSING_CUESETTING_DELIMITER on the 30th column
    * of the 3rd line.
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
-  assertEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
 }
 
 /**
@@ -708,13 +708,13 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
   /**
    * line:68% -- snapToLines==false, linePositionPercentage==68
    */ 
-  assertDefaultLineSetting( getCue( 0 ) );
+  expectDefaultLineSetting( getCue( 0 ) );
  
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
    * the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
 }
 
 /**
@@ -739,7 +739,7 @@ TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 30th column of
    * the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 30 );
 }
 
 /**
@@ -769,7 +769,7 @@ TEST_F(CueSettingLine, UppercaseKeyword)
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -797,7 +797,7 @@ TEST_F(CueSettingLine, PercentNegative)
    * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column
    * of the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
 
 /**
@@ -823,5 +823,5 @@ TEST_F(CueSettingLine, PercentOver100)
   /**
    * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd line
    */
-  assertEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
 }
