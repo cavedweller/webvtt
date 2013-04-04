@@ -560,7 +560,7 @@ bad_value_eol:
 
 WEBVTT_INTERN webvtt_status
 webvtt_parse_align( webvtt_parser self, webvtt_cue *cue,
-  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
+                    const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
   webvtt_uint last_column = self->column;
@@ -584,7 +584,7 @@ webvtt_parse_align( webvtt_parser self, webvtt_cue *cue,
 
 WEBVTT_INTERN webvtt_status
 webvtt_parse_line( webvtt_parser self, webvtt_cue *cue, const webvtt_byte *text,
-  webvtt_uint *pos, webvtt_uint len )
+                   webvtt_uint *pos, webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
   webvtt_uint last_column = self->column;
@@ -629,7 +629,8 @@ webvtt_parse_line( webvtt_parser self, webvtt_cue *cue, const webvtt_byte *text,
 
 WEBVTT_INTERN webvtt_status
 webvtt_parse_position( webvtt_parser self, webvtt_cue *cue,
-  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
+                       const webvtt_byte *text, webvtt_uint *pos,
+                       webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
   webvtt_uint last_column = self->column;
@@ -662,8 +663,39 @@ webvtt_parse_position( webvtt_parser self, webvtt_cue *cue,
 }
 
 WEBVTT_INTERN webvtt_status
+webvtt_parse_size( webvtt_parser self, webvtt_cue *cue, const webvtt_byte *text,
+                   webvtt_uint *pos, webvtt_uint len )
+{
+  webvtt_uint last_line = self->line;
+  webvtt_uint last_column = self->column;
+  webvtt_status v;
+  webvtt_uint vc;
+  webvtt_token tokens[] = { PERCENTAGE|TF_POSITIVE, 0 };
+  if( ( v = webvtt_parse_cuesetting( self, text, pos, len,
+    WEBVTT_SIZE_BAD_VALUE, SIZE, tokens, &vc ) ) > 0 ) {
+    if( cue->flags & CUE_HAVE_SIZE ) {
+      ERROR_AT( WEBVTT_SIZE_ALREADY_SET, last_line, last_column );
+    }
+    cue->flags |= CUE_HAVE_SIZE;
+    if( tokens[ v - 1 ] ) {
+      int digits;
+      const webvtt_byte *t = self->token;
+      self->token_pos = 0;
+      webvtt_int64 value = parse_int( &t, &digits );
+      if( value < 0 || value > 100 ) {
+        ERROR_AT_COLUMN( WEBVTT_SIZE_BAD_VALUE, vc );
+      } else {
+        cue->settings.size = ( int )value;
+      }
+    }
+  }
+  return v >= 0 ? WEBVTT_SUCCESS : v;
+}
+
+WEBVTT_INTERN webvtt_status
 webvtt_parse_vertical( webvtt_parser self, webvtt_cue *cue,
-  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
+                       const webvtt_byte *text, webvtt_uint *pos,
+                       webvtt_uint len )
 {
   webvtt_uint last_line = self->line;
   webvtt_uint last_column = self->column;
@@ -681,7 +713,6 @@ webvtt_parse_vertical( webvtt_parser self, webvtt_cue *cue,
   }
   return v >= 0 ? WEBVTT_SUCCESS : v;
 }
-
 /**
  * Read a timestamp into 'result' field, following the rules of the cue-times
  * section of the draft:
@@ -889,9 +920,17 @@ else if( !have_ws ) \
           break;
 
           case SIZE:
-            CHKDELIM have_ws = 0;
-            SETST( CP_S1 );
-            break;
+          {
+            webvtt_status status;
+            pos -= token_len; /* Required for parse_size() */
+            self->column = last_column; /* Reset for parse_size() */
+            status = webvtt_parse_size( self, cue, buffer, &pos, len );
+            if( status == WEBVTT_PARSE_ERROR ) {
+              return WEBVTT_PARSE_ERROR;
+            }
+          }
+          break;
+
           case LINE:
           {
             webvtt_status status;
