@@ -134,14 +134,15 @@ TEST_F(CueSettingVertical, BadValue)
 TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-before-delimiter.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
 
   /**
    * Writing direction should be horizontal because the malformed setting should
    * be skipped because horiztonal is default.
    */
-  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
-  
+  expectDefaultVerticalSetting( getCue( 0 ) );
+
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of
    * the 3rd line
@@ -162,7 +163,8 @@ TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
 TEST_F(CueSettingVertical, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-after-delimiter.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
 
   /**
    * Writing direction should be left-to-right because we are not skipping this
@@ -243,20 +245,19 @@ TEST_F(CueSettingVertical, NoValue)
 TEST_F(CueSettingVertical, NoDelimiter)
 {
   loadVtt( "cue-settings/vertical/no-delimiter.vtt", 1 );
-  ASSERT_EQ( 2, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * Writing direction should be the horizontal default because
    * the error is not critical in this test fixture
    */
-  ASSERT_TRUE( getCue( 0 ).isHorizontal() );
-  ASSERT_FALSE( getCue( 0 ).isVerticalRightToLeft() );
-  ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
+  expectDefaultVerticalSetting( getCue( 0 ) );
 
   /**
    * Verify correct errors are thrown.
    */
-  expectEquals( getError( 0 ), WEBVTT_MISSING_CUESETTING_DELIMITER, 3, 33 );
+  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
   expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
