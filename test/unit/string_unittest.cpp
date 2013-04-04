@@ -24,57 +24,184 @@ const webvtt_uint16 UTF16AnNyungHaSeYo[] =
   0xC548, 0xB155, 0xD558, 0xC138, 0xC694, 0x0000
 };
 
-TEST(String,CreateWithText)
+TEST(String,CreateWithTextStrlen)
 {
   webvtt_string str;
   webvtt_create_string_with_text( &str,
     (const webvtt_byte *)"Hello World", -1 );
-  ASSERT_EQ( 11, webvtt_string_length( &str ) );
-  ASSERT_STREQ( "Hello World", (const char *)webvtt_string_text( &str ) );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+TEST(String,CreateWithText)
+{
+  webvtt_string str;
+  webvtt_create_string_with_text( &str,
+    (const webvtt_byte *)"Hello World", 11 );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World", (const char *)webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
 /**
- * string_getline boundary condition
+ * webvtt_string_getline with automatic length detection
  */
-TEST(String,GetLine)
+TEST(String,GetLineEOFStrlen)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world", &pos, -1,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+TEST(String,GetLineLFStrlen)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world\n", &pos, -1,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+TEST(String,GetLineCRStrlen)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world\r", &pos, -1,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * webvtt_string_getline without automatic length detection
+ */
+TEST(String,GetLineEOF)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world", &pos, 11,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+TEST(String,GetLineLF)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world\n", &pos, 12,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+TEST(String,GetLineCR)
+{
+  webvtt_uint pos = 0;
+  webvtt_string str;
+  webvtt_init_string( &str );
+  webvtt_string_getline( &str, (const webvtt_byte *)"Hello world\r", &pos, 12,
+                         0, 1 );
+  EXPECT_EQ( 11, pos );
+  EXPECT_EQ( 11, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello world", (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * string_getline append to existing string with automatic length detection
+ */
+TEST(String,AppendGetLineStrlen)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", -1 );
-  ASSERT_EQ( 9, webvtt_string_length( &str ) );
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", 9 );
+  EXPECT_EQ( 9, webvtt_string_length( &str ) );
   webvtt_string_getline( &str, (const webvtt_byte *)"ld! This is a test! Yup\n",
-    &pos, -1,  0, 1, 0 );
-  ASSERT_EQ( 32, webvtt_string_length( &str ) );
-  ASSERT_STREQ( "Hello World! This is a test! Yup",
+    &pos, -1,  0, 1 );
+  EXPECT_EQ( 32, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World! This is a test! Yup",
     (const char *)webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
 /**
- * string_append boundary condition
+ * string_getline append to existing string without automatic length detection
+ */
+TEST(String,AppendGetLine)
+{
+  WebVTT::uint pos = 0;
+  webvtt_string str;
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", 9 );
+  EXPECT_EQ( 9, webvtt_string_length( &str ) );
+  webvtt_string_getline( &str, (const webvtt_byte *)"ld! This is a test! Yup\n",
+    &pos, 24,  0, 1 );
+  EXPECT_EQ( 32, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World! This is a test! Yup",
+    (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * string_append boundary condition with automatic length detection
+ */
+TEST(String,AppendStrlen)
+{
+  WebVTT::uint pos = 0;
+  webvtt_string str;
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", 9 );
+  EXPECT_EQ( 9, webvtt_string_length( &str ) );
+  webvtt_string_append( &str, (const webvtt_byte *)"ld! This is a test! Yup",
+    -1 );
+  EXPECT_EQ( 32, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World! This is a test! Yup",
+    (const char *)webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * string_append boundary condition without automatic length detection
  */
 TEST(String,Append)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", -1 );
-  ASSERT_EQ( 9, webvtt_string_length( &str ) );
+  webvtt_create_string_with_text( &str, (const webvtt_byte *)"Hello Wor", 9 );
+  EXPECT_EQ( 9, webvtt_string_length( &str ) );
   webvtt_string_append( &str, (const webvtt_byte *)"ld! This is a test! Yup",
-    -1 );
-  ASSERT_EQ( 32, webvtt_string_length( &str ) );
-  ASSERT_STREQ( "Hello World! This is a test! Yup",
+    23 );
+  EXPECT_EQ( 32, webvtt_string_length( &str ) );
+  EXPECT_STREQ( "Hello World! This is a test! Yup",
     (const char *)webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
-
 
 /**
  * Test the webvtt_utf8_length routine
  */
 TEST(String,UTF8CodepointLength)
 {
-  ASSERT_EQ( 3, webvtt_utf8_length( UTF8AnNyungHaSeYo ) );
+  EXPECT_EQ( 3, webvtt_utf8_length( UTF8AnNyungHaSeYo ) );
 }
 
 /**
@@ -82,7 +209,7 @@ TEST(String,UTF8CodepointLength)
  */
 TEST(String,UTF8CodepointCount)
 {
-  ASSERT_EQ( 5, webvtt_utf8_chcount( UTF8AnNyungHaSeYo, 0 ) )
+  EXPECT_EQ( 5, webvtt_utf8_chcount( UTF8AnNyungHaSeYo, 0 ) )
     << "Incorrectly counted UTF8 codepoints";
 }
 
@@ -91,15 +218,15 @@ TEST(String,UTF8CodepointCount)
  */
 TEST(String,UTF8ToUTF16)
 {
-  ASSERT_EQ( UTF16AnNyungHaSeYo[0], webvtt_utf8_to_utf16(
+  EXPECT_EQ( UTF16AnNyungHaSeYo[0], webvtt_utf8_to_utf16(
     UTF8AnNyungHaSeYo+0, 0, 0 ) );
-  ASSERT_EQ( UTF16AnNyungHaSeYo[1], webvtt_utf8_to_utf16(
+  EXPECT_EQ( UTF16AnNyungHaSeYo[1], webvtt_utf8_to_utf16(
     UTF8AnNyungHaSeYo+3, 0, 0 ) );
-  ASSERT_EQ( UTF16AnNyungHaSeYo[2], webvtt_utf8_to_utf16(
+  EXPECT_EQ( UTF16AnNyungHaSeYo[2], webvtt_utf8_to_utf16(
     UTF8AnNyungHaSeYo+6, 0, 0 ) );
-  ASSERT_EQ( UTF16AnNyungHaSeYo[3], webvtt_utf8_to_utf16(
+  EXPECT_EQ( UTF16AnNyungHaSeYo[3], webvtt_utf8_to_utf16(
     UTF8AnNyungHaSeYo+9, 0, 0 ) );
-  ASSERT_EQ( UTF16AnNyungHaSeYo[4], webvtt_utf8_to_utf16(
+  EXPECT_EQ( UTF16AnNyungHaSeYo[4], webvtt_utf8_to_utf16(
     UTF8AnNyungHaSeYo+12, 0, 0 ) );
 }
 

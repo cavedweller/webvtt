@@ -157,8 +157,8 @@ cleanup_stack( webvtt_parser self )
 /**
  *
  */
-WEBVTT_EXPORT webvtt_status 
-webvtt_finish_parsing( webvtt_parser self ) 
+WEBVTT_EXPORT webvtt_status
+webvtt_finish_parsing( webvtt_parser self )
 {
   webvtt_status status = WEBVTT_SUCCESS;
   const webvtt_byte buffer[] = "\0";
@@ -167,7 +167,7 @@ webvtt_finish_parsing( webvtt_parser self )
 
   if( !self->finished ) {
     self->finished = 1;
-    
+
     switch( self->mode ) {
       /**
        * We've left off parsing cue settings and are not in the empty state,
@@ -178,15 +178,15 @@ webvtt_finish_parsing( webvtt_parser self )
           ERROR( WEBVTT_CUE_INCOMPLETE );
         }
         break;
-      /** 
+      /**
        * We've left off on trying to read in a cue text.
-       * Parse the partial cue text read and pass the cue back to the 
+       * Parse the partial cue text read and pass the cue back to the
        * application if possible.
        */
       case M_CUETEXT:
         status = read_cuetext( self, buffer, &pos, len, &self->mode,
                                self->finished );
-        status = webvtt_parse_cuetext( self, self->top->v.cue, 
+        status = webvtt_parse_cuetext( self, self->top->v.cue,
                                        &self->top->v.cue->body,
                                        self->finished );
         webvtt_release_string( &self->line_buffer );
@@ -201,7 +201,7 @@ webvtt_finish_parsing( webvtt_parser self )
     }
     cleanup_stack( self );
   }
-  
+
   return status;
 }
 
@@ -455,7 +455,7 @@ webvtt_parse_cuesetting( webvtt_parser self, const webvtt_byte *text,
                 keyword_column = last_column;
               }
             } else {
-              ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );     
+              ERROR_AT_COLUMN( WEBVTT_INVALID_CUESETTING, last_column );
             }
             break;
           case WHITESPACE:
@@ -1169,7 +1169,7 @@ parse_webvtt( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos,
       if( SP->flags == 0 ) {
         int v;
         if( ( v = webvtt_string_getline( &SP->v.text, buffer, &pos, len, 0,
-                                         finish, 0 ) ) ) {
+                                         finish ) ) ) {
           if( v < 0 ) {
             webvtt_release_string( &SP->v.text );
             SP->type = V_NONE;
@@ -1503,7 +1503,7 @@ read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
     if( !flags ) {
       int v;
       if( ( v = webvtt_string_getline( &self->line_buffer, b, &pos, len,
-                                       &self->truncate, finish, 0 ) ) ) {
+                                       &self->truncate, finish ) ) ) {
         if( v < 0 || WEBVTT_FAILED( webvtt_string_putc( &self->line_buffer,
                                                         '\n' ) ) ) {
           status = WEBVTT_OUT_OF_MEMORY;
@@ -1634,7 +1634,9 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
          * we will and depending on our state, do something with it.
          */
         int ret;
-        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len, &self->truncate, self->finished, 0 ) ) ) {
+        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len,
+                                           &self->truncate,
+                                           self->finished ) ) ) {
           if( ret < 0 ) {
             ERROR( WEBVTT_ALLOCATION_FAILED );
             return WEBVTT_OUT_OF_MEMORY;
@@ -1735,7 +1737,7 @@ parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result )
     malformed = 1;
   }
 
-  /* if we already know there's an hour component, or if the next byte is a 
+  /* if we already know there's an hour component, or if the next byte is a
      colon ':', read the next value */
   if ( have_hours || ( *b == UTF8_COLON ) ) {
     if( *b++ != UTF8_COLON ) {
