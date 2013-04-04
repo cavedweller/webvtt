@@ -234,6 +234,12 @@ WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *
 WEBVTT_INTERN webvtt_token webvtt_lex_newline( webvtt_parser self, const
   webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 
+WEBVTT_INTERN webvtt_status webvtt_parse_align( webvtt_parser self,
+  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+
+WEBVTT_INTERN webvtt_status webvtt_parse_line( webvtt_parser self,
+  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+
 WEBVTT_INTERN webvtt_status webvtt_parse_position( webvtt_parser self,
   webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
 
