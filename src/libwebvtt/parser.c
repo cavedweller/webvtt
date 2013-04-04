@@ -661,6 +661,27 @@ webvtt_parse_position( webvtt_parser self, webvtt_cue *cue,
   return v >= 0 ? WEBVTT_SUCCESS : v;
 }
 
+WEBVTT_INTERN webvtt_status
+webvtt_parse_vertical( webvtt_parser self, webvtt_cue *cue,
+  const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len )
+{
+  webvtt_uint last_line = self->line;
+  webvtt_uint last_column = self->column;
+  webvtt_status v;
+  webvtt_uint vc;
+  webvtt_token tokens[] = { RL, LR, 0 };
+  webvtt_vertical_type values[] = { WEBVTT_VERTICAL_RL, WEBVTT_VERTICAL_LR };
+  if( ( v = webvtt_parse_cuesetting( self, text, pos, len,
+        WEBVTT_VERTICAL_BAD_VALUE, VERTICAL, tokens, &vc ) ) > 0 ) {
+    if( cue->flags & CUE_HAVE_VERTICAL ) {
+      ERROR_AT( WEBVTT_VERTICAL_ALREADY_SET, last_line, last_column );
+    }
+    cue->flags |= CUE_HAVE_VERTICAL;
+    cue->settings.vertical = values[ v - 1 ];
+  }
+  return v >= 0 ? WEBVTT_SUCCESS : v;
+}
+
 /**
  * Read a timestamp into 'result' field, following the rules of the cue-times
  * section of the draft:
@@ -831,9 +852,17 @@ else if( !have_ws ) \
             have_ws = last_column;
             break;
           case VERTICAL:
-            CHKDELIM have_ws = 0;
-            SETST( CP_V1 );
-            break;
+          {
+            webvtt_status status;
+            pos -= token_len; /* Required for parse_vertical() */
+            self->column = last_column; /* Reset for parse_vertical() */
+            status = webvtt_parse_vertical( self, cue, buffer, &pos, len );
+            if( status == WEBVTT_PARSE_ERROR ) {
+              return WEBVTT_PARSE_ERROR;
+            }
+          }
+          break;
+
 
           case POSITION:
           {
