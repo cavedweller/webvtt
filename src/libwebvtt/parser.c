@@ -1670,14 +1670,26 @@ _finish:
        * return the cue to the user, if possible.
        */
       finish_cue( self, &cue );
+    } else {
+      webvtt_release_cue( &cue );
     }
+
+    self->top->type = V_NONE;
+    self->top->state = 0;
+    self->top->v.cue = 0;
 
     if( (self->top+1)->type == V_NONE ) {
       (self->top+1)->state = 0;
-      self->top->type = V_NONE;
-      self->top->state = 0;
-      self->top->v.cue = 0;
+      /* Pop from T_CUE state */
       POP();
+    } else {
+      /**
+       * If we found '-->', we need to create another cue and remain
+       * in T_CUE state
+       */
+      webvtt_create_cue( &self->top->v.cue );
+      self->top->type = V_CUE;
+      self->top->state = T_CUE;
     }
     self->mode = M_WEBVTT;
   }
