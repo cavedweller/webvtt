@@ -567,6 +567,11 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
         }
         DEFAULT {
           BACKUP
+		  /* Don't return a TIMESTAMP if we don't have at least one
+		     millisecond */
+          if( !webvtt_isdigit( self->token[ self->token_pos - 1 ] ) ) {
+            RETURN(BADTOKEN);
+          }
           RETURN(TIMESTAMP)
           BREAK
         }
