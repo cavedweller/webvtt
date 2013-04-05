@@ -739,7 +739,9 @@ webvtt_get_timestamp( webvtt_parser self, webvtt_timestamp *result,
       if( !parse_timestamp( self->token, result ) ) {
         /* Read a bad timestamp, throw away and abort cue */
         ERROR_AT( WEBVTT_MALFORMED_TIMESTAMP, last_line, last_column );
-        return WEBVTT_PARSE_ERROR;
+        if( BAD_TIMESTAMP( *result ) ) {
+          return WEBVTT_PARSE_ERROR;
+        }
       }
       return WEBVTT_SUCCESS;
     }
