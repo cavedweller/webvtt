@@ -22,9 +22,9 @@ class CueTimingsGeneralStructure : public CueTest { };
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
 
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1LeftMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparator1LeftMix)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_1l_mix_good.vtt", 1 );
+  loadVtt( "cue-times/separator/cuetimings_separator_1_space_left_mix.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
@@ -48,9 +48,10 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1LeftMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1RightMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparator1RightMix)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_1r_mix_good.vtt", 1 );
+  loadVtt( "cue-times/separator/"
+           "cuetimings_separator_1_space_right_mix.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
@@ -73,7 +74,7 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperator1RightMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNSpace)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparatorNSpace)
 {
   loadVtt( "cue-times/separator/cuetimings_separator_n_space_good.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
@@ -99,9 +100,9 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNSpace)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
  */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNTab)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparatorNTab)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_n_tab_good.vtt", 1 );
+  loadVtt( "cue-times/separator/cuetimings_separator_n_tab.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
@@ -125,9 +126,10 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNTab)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNLMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparatorNLMix)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_nl_mix_good.vtt", 1 );
+  loadVtt( "cue-times/separator/"
+           "cuetimings_separator_n_spaces_left_mix.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
@@ -151,9 +153,10 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNLMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNRMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparatorNRMix)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_nr_mix_good.vtt", 1 );
+  loadVtt( "cue-times/separator/"
+           "cuetimings_separator_n_spaces_right_mix.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
@@ -177,8 +180,9 @@ TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorNRMix)
  5. A WebVTT timestamp representing the end time offset of the cue. The time represented by this
  WebVTT timestamp must be greater than the start time offset of the cue.
 */
-TEST_F(CueTimingsGeneralStructure, CueTimingsSeperatorXMix)
+TEST_F(CueTimingsGeneralStructure, CueTimingsSeparatorXMix)
 {
-  loadVtt( "cue-times/separator/cuetimings_separator_x_mix_good.vtt", 1 );
+  loadVtt( "cue-times/separator/"
+           "cuetimings_separator_n_spaces_tabs_on_both_sides.vtt", 1 );
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
