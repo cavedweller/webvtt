@@ -33,8 +33,7 @@ public:
   webvtt_status read_cuetext( const std::string &str, webvtt_uint &pos, 
                               bool finished = true ) {
     return ::read_cuetext( self, reinterpret_cast<const webvtt_byte *>(
-                           str.c_str() ), &pos, str.size(), &self->mode,
-                           finished );
+                           str.c_str() ), &pos, str.size(), finished );
   }
 
   std::string cuetext() const {

@@ -200,6 +200,8 @@ webvtt_parser_t {
   void *userdata;
   webvtt_bool finished;
   
+  webvtt_uint cuetext_line; /* start line of cuetext */
+
   /**
    * 'mode' can have several states, it is not boolean.
    */
@@ -257,7 +259,10 @@ WEBVTT_INTERN webvtt_status do_push( webvtt_parser self, webvtt_uint token,
 
 WEBVTT_INTERN webvtt_status read_cuetext( webvtt_parser self,
   const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
-  webvtt_parse_mode *mode, webvtt_bool finish );
+  webvtt_bool finish );
+
+WEBVTT_INTERN int parse_cueparams( webvtt_parser self, const webvtt_byte *text,
+  webvtt_uint len, webvtt_cue *cue );
 
 /** 
  * Flags which can apply additional meaning to a token. find_token() will

@@ -186,7 +186,8 @@ TEST_F(FileStructure, BlankFileWithBOM)
 TEST_F(FileStructure, TabAfterBOMBeforeHeader)
 {
   loadVtt( "filestructure/tab-after-bom-before-header.vtt", false, 0 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
   expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
@@ -212,22 +213,26 @@ TEST_F(FileStructure, TabAfterBOMBeforeHeader)
 TEST_F(FileStructure, HeaderNoNewLine)
 {
   loadVtt( "filestructure/header-no-new-line.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
   expectEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 2, 1 );
   expectEquals( getCue( 0 ).startTime(), 0, 11, 0 );
   expectEquals( getCue( 0 ).endTime(), 0, 13, 0 );
 }
 
-/*
+/**
  * Verifies that a file with a cue containing no payload will parse correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-file-body (12/02/2012):
  *
  * A WebVTT file body consists of the following components, in the following order:
  * 1. An optional U+FEFF BYTE ORDER MARK (BOM) character.
  * 2. The string "WEBVTT".
- * 3. Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ * 3. Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER
+ *    TABULATION (tab) character followed by any number of characters that are not
+ *    U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
  * 4. Two or more WebVTT line terminators.
- * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other
+ *    by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
 TEST_F(FileStructure, NoPayloadText)
@@ -236,26 +241,30 @@ TEST_F(FileStructure, NoPayloadText)
   ASSERT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
-/*
+/**
  * Verifies that a file with a malformed cue will parse correctly.
  * From http://dev.w3.org/html5/webvtt/#webvtt-file-body (12/02/2012):
  *
  * A WebVTT file body consists of the following components, in the following order:
  * 1. An optional U+FEFF BYTE ORDER MARK (BOM) character.
  * 2. The string "WEBVTT".
- * 3. Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
+ * 3. Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER
+ *    TABULATION (tab) character followed by any number of characters that are not
+ *    U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
  * 4. Two or more WebVTT line terminators.
- * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
+ * 5. Zero or more WebVTT cues and/or WebVTT comments separated from each other
+ *    by two or more WebVTT line terminators.
  * 6. Zero or more WebVTT line terminators.
  */
-TEST_F(FileStructure, MissingCueIdentifier)
+TEST_F(FileStructure, MissingCueTimes)
 {
-  loadVtt( "filestructure/missing-cue-identifier.vtt", 0 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error: WEBVTT_CUE_INCOMPLETE.";
+  loadVtt( "filestructure/missing-cue-times.vtt", 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error: WEBVTT_CUE_INCOMPLETE.";
   expectEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 3, 13 );
 }
 
-/*
+/**
  * Verifies that a file with a BOM character and garbage text in the
  * place of the WEBVTT signature will finish the parsing attempt gracefully.
  * From http://dev.w3.org/html5/webvtt/#parsing (12/10/2012):
@@ -277,7 +286,8 @@ TEST_F(FileStructure, BOMGarbageNoWebVTT)
    * token never appears to change from BADTOKEN
    */
   loadVtt( "filestructure/bom-garbage-no-webvtt.vtt", false, 0 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
   expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
@@ -311,8 +321,7 @@ TEST_F(FileStructure, MultiCueNoNewlineBetweenCues)
    * self->state is stuck in T_STARTTIME
    */
   loadVtt( "filestructure/multi-cue-no-newline-between-cues.vtt", true, 2 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain no errors.";
-  expectEquals( getError( 0 ), WEBVTT_EXPECTED_EOL, 5, 1 );
+  EXPECT_EQ( 0, errorCount() ) << "This file should contain no errors.";
 }
 
 /*
@@ -340,7 +349,8 @@ TEST_F(FileStructure, MultiCueNoPayload)
 TEST_F(FileStructure, NewlineBeforeWebVTT)
 {
   loadVtt( "filestructure/newline-before-webvtt.vtt", false, 0 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
   expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
@@ -362,8 +372,9 @@ TEST_F(FileStructure, NewlineBeforeWebVTT)
 TEST_F(FileStructure, NewlineBetweenPayloadText)
 {
   loadVtt( "filestructure/newline-between-payload-text.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
-  expectEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 7, 1 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error.";
+  expectEquals( getError( 0 ), WEBVTT_CUE_INCOMPLETE, 6, 13 );
 }
 
 /*
@@ -406,7 +417,8 @@ TEST_F(FileStructure, NewLinesAtTheEnd)
 TEST_F(FileStructure, BOMGarbageData)
 {
   loadVtt( "filestructure/bom_garbage_data.vtt", false, 0 );
-  ASSERT_EQ(1, errorCount()) << "This file should fail the test because it has garbage data";
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should fail the test because it has garbage data";
   expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
@@ -428,28 +440,9 @@ TEST_F(FileStructure, BOMGarbageData)
 TEST_F(FileStructure, BOMTabWebvtt)
 {
   loadVtt( "filestructure/bom_tab_webvtt.vtt", false, 0 );
-  ASSERT_EQ(1, errorCount()) << "This file should fail the test because it" <<
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() ) << "This file should fail the test because it" <<
     " contains a tab before WEBVTT";
   expectEquals( getError( 0 ), WEBVTT_MALFORMED_TAG, 1, 1 );
 }
 
-/*
- Test expected to fail when missing a new line between two cues
-
- From http://dev.w3.org/html5/webvtt/#the-webvtt-file-format
- A WebVTT file must consist of a WebVTT file body encoded as UTF-8 and labeled with the MIME type text/vtt. [RFC3629]
-
- A WebVTT file body consists of the following components, in the following order:
-
- 1.  An optional U+FEFF BYTE ORDER MARK (BOM) character.
- 2.  The string "WEBVTT".
- 3.  Optionally, either a U+0020 SPACE character or a U+0009 CHARACTER TABULATION (tab) character followed by any number of characters that are not U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR) characters.
- 4.  Two or more WebVTT line terminators.
- 5.  Zero or more WebVTT cues and/or WebVTT comments separated from each other by two or more WebVTT line terminators.
- 6.  Zero or more WebVTT line terminators.
- */
-TEST_F(FileStructure, MissingNewLineBetweenCues)
-{
-  loadVtt( "filestructure/missing_new_line_between_cues.vtt");
-  ASSERT_EQ(1, errorCount()) << "This file should fail the test because a blank line is missing between cues";
-}
