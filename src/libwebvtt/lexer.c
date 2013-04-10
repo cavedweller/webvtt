@@ -216,17 +216,17 @@ webvtt_lex_newline( webvtt_parser self, const
 
     switch( self->tstate ) {
       case L_START:
-        if( c == UTF8_LINE_FEED ) {
+        if( c == '\n' ) {
           *pos = p;
           return NEWLINE;
-        } else if( c == UTF8_CARRIAGE_RETURN ) {
+        } else if( c == '\r' ) {
           self->tstate = L_NEWLINE0;
         } else {
           goto backup;
         }
         break;
       case L_NEWLINE0:
-        if( c == UTF8_LINE_FEED ) {
+        if( c == '\n' ) {
           *pos = p;
           self->tstate = L_START;
           return NEWLINE;
@@ -349,8 +349,8 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
             SET_STATE(L_DIGIT0)
           }
           U_COLON {
-            /* Don't return a TIMESTAMP if we start with UTF8_HYPHEN_MINUS */
-            if( self->token[0] == UTF8_HYPHEN_MINUS ) {
+            /* Don't return a TIMESTAMP if we start with '-' */
+            if( self->token[0] == '-' ) {
               RETURN(INTEGER);
             } else {
               SET_STATE(L_TIMESTAMP1)
