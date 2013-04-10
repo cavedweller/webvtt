@@ -42,6 +42,8 @@ static void WEBVTT_CALLBACK
 cue( void *userdata, webvtt_cue *cue )
 {
   /* do nothing! */
+  (void)userdata;
+  (void)cue;
 }
 
 int

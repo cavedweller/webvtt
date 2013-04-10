@@ -43,7 +43,6 @@ static const webvtt_byte separator[] = {
 #define MALFORMED_TIME ((webvtt_timestamp_t)-1.0)
 
 static webvtt_status find_bytes( const webvtt_byte *buffer, webvtt_uint len, const webvtt_byte *sbytes, webvtt_uint slen );
-static webvtt_status webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len );
 static webvtt_int64 parse_int( const webvtt_byte **pb, int *pdigits );
 static void skip_spacetab( const webvtt_byte *text, webvtt_uint *pos,
   webvtt_uint len, webvtt_uint *column );
@@ -300,18 +299,6 @@ skip_until_white( const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len,
       ++( *column );
     }
   }
-}
-
-static webvtt_status
-webvtt_skipwhite( const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint len )
-{
-  if( !buffer || !pos ) {
-    return WEBVTT_INVALID_PARAM;
-  }
-
-  for( ; *pos < len && webvtt_iswhite( buffer[ *pos ] ); (*pos)++ );
-
-  return WEBVTT_SUCCESS;
 }
 
 /**
@@ -850,7 +837,6 @@ parse_cueparams( webvtt_parser self, const webvtt_byte *buffer,
 {
   int digits;
   webvtt_uint have_ws = 0;
-  int unexpected_whitespace = 0;
   webvtt_uint baddelim = 0;
   webvtt_uint pos = 0;
 
@@ -1304,7 +1290,7 @@ parse_webvtt( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *ppos,
               webvtt_uint len, int finish )
 {
   webvtt_status status = WEBVTT_SUCCESS;
-  webvtt_token token;
+  webvtt_token token = 0;
   webvtt_uint pos = *ppos;
   int skip_error = 0;
 
