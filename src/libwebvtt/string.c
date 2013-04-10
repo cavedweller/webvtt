@@ -316,7 +316,7 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
   }
   n = buffer + len;
 
-  while( p < n && *p != UTF8_CARRIAGE_RETURN && *p != UTF8_LINE_FEED ) {
+  while( p < n && *p != '\r' && *p != '\n' ) {
     ++p;
   }
 
