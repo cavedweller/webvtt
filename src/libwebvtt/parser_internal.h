@@ -236,6 +236,9 @@ WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *
 WEBVTT_INTERN webvtt_token webvtt_lex_newline( webvtt_parser self, const
   webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 
+WEBVTT_INTERN webvtt_status webvtt_proc_cueline( webvtt_parser self,
+  webvtt_cue *cue, webvtt_string *line );
+
 WEBVTT_INTERN webvtt_status webvtt_parse_align( webvtt_parser self,
   webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
 
@@ -257,7 +260,11 @@ WEBVTT_INTERN webvtt_status do_push( webvtt_parser self, webvtt_uint token,
   webvtt_uint back, webvtt_uint state, void *data, webvtt_state_value_type type,
   webvtt_uint line, webvtt_uint column );
 
-WEBVTT_INTERN webvtt_status read_cuetext( webvtt_parser self,
+WEBVTT_INTERN webvtt_status webvtt_read_cuetext( webvtt_parser self,
+  const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
+  webvtt_bool finish );
+
+WEBVTT_INTERN webvtt_status webvtt_proc_cuetext( webvtt_parser self,
   const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
   webvtt_bool finish );
 

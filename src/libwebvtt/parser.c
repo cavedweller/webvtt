@@ -212,7 +212,7 @@ retry:
        * application if possible.
        */
       case M_CUETEXT:
-        status = read_cuetext( self, buffer, &pos, len, self->finished );
+        status = webvtt_proc_cuetext( self, buffer, &pos, len, self->finished );
         break;
       case M_SKIP_CUE:
         /* Nothing to do here. */
@@ -1563,8 +1563,8 @@ _finish:
 }
 
 WEBVTT_INTERN webvtt_status
-read_cuetext( webvtt_parser self, const webvtt_byte *b, webvtt_uint *ppos,
-              webvtt_uint len, webvtt_bool finish )
+webvtt_read_cuetext( webvtt_parser self, const webvtt_byte *b,
+                     webvtt_uint *ppos, webvtt_uint len, webvtt_bool finish )
 {
   webvtt_status status = WEBVTT_SUCCESS;
   webvtt_uint pos = *ppos;
@@ -1654,10 +1654,28 @@ _finish:
   }
 
   /**
-   * if we have finished reading the cue, and we don't have a newline
-   * read in, POP() state.
+   * If we didn't encounter 2 successive EOLs, and it's not the final buffer in
+   * the file, notify the caller.
    */
-  if( finished ) {
+  if( !finish && pos >= len && !WEBVTT_FAILED( status ) && !finished ) {
+    status = WEBVTT_UNFINISHED;
+  }
+  return status;
+}
+
+WEBVTT_INTERN webvtt_status
+webvtt_proc_cuetext( webvtt_parser self, const webvtt_byte *b,
+                     webvtt_uint *ppos, webvtt_uint len, webvtt_bool finish )
+{
+  webvtt_status status;
+  webvtt_cue *cue;
+  SAFE_ASSERT( ( self->mode == M_CUETEXT || self->mode == M_SKIP_CUE )
+               && self->top->type == V_CUE );
+  cue = self->top->v.cue;
+  SAFE_ASSERT( cue != 0 );
+  status  = webvtt_read_cuetext( self, b, ppos, len, finish );
+
+  if( status == WEBVTT_SUCCESS ) {
     if( self->mode != M_SKIP_CUE ) {
       /**
        * Once we've successfully read the cuetext into line_buffer, call the
@@ -1693,14 +1711,6 @@ _finish:
     }
     self->mode = M_WEBVTT;
   }
-
-  /**
-   * If we didn't encounter 2 successive EOLs, and it's not the final buffer in
-   * the file, notify the caller.
-   */
-  if( !finish && pos >= len && !WEBVTT_FAILED( status ) && !finished ) {
-    status = WEBVTT_UNFINISHED;
-  }
   return status;
 }
 
@@ -1723,7 +1733,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
         /**
          * read in cuetext
          */
-        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len,
+        if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
                                                   self->finished ) ) ) {
           if( status == WEBVTT_UNFINISHED ) {
             /* Make an exception here, because this isn't really a failure. */
@@ -1739,7 +1749,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
         break;
 
       case M_SKIP_CUE:
-        if( WEBVTT_FAILED( status = read_cuetext( self, b, &pos, len,
+        if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
                                                   self->finished ) ) ) {
           return status;
         }
