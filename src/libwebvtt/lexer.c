@@ -125,7 +125,7 @@
 #define OR
 #define AND
 
-#define OVERFLOW(X) \
+#define IF_OVERFLOW(X) \
   if( self->token_pos >= (sizeof(self->token) - 1 ) ) \
   { \
     RETURN(X) \
@@ -345,7 +345,7 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
 
         BEGIN_STATE(L_DIGIT0)
           U_DIGIT {
-            OVERFLOW(INTEGER)
+            IF_OVERFLOW(INTEGER)
             SET_STATE(L_DIGIT0)
           }
           U_COLON {
@@ -366,7 +366,7 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
         END_STATE_EX
 
         BEGIN_STATE(L_WHITESPACE)
-          U_SPACE OR U_TAB { OVERFLOW(WHITESPACE) SET_STATE(L_WHITESPACE) }
+          U_SPACE OR U_TAB { IF_OVERFLOW(WHITESPACE) SET_STATE(L_WHITESPACE) }
         DEFAULT { BACKUP RETURN(WHITESPACE) }
         END_STATE_EX
 
@@ -536,33 +536,33 @@ webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, web
 
         BEGIN_STATE(L_TIMESTAMP1)
           U_DIGIT {
-          OVERFLOW(BADTOKEN)
+          IF_OVERFLOW(BADTOKEN)
           SET_STATE(L_TIMESTAMP1)
         }
           U_COLON {
-          OVERFLOW(BADTOKEN)
+          IF_OVERFLOW(BADTOKEN)
           SET_STATE(L_TIMESTAMP2)
         }
           U_PERIOD {
-          OVERFLOW(BADTOKEN)
+          IF_OVERFLOW(BADTOKEN)
           SET_STATE(L_TIMESTAMP3)
         }
         END_STATE
 
         BEGIN_STATE(L_TIMESTAMP2)
           U_DIGIT {
-          OVERFLOW(BADTOKEN)
+          IF_OVERFLOW(BADTOKEN)
           SET_STATE(L_TIMESTAMP2)
         }
           U_PERIOD {
-          OVERFLOW(BADTOKEN)
+          IF_OVERFLOW(BADTOKEN)
           SET_STATE(L_TIMESTAMP3)
         }
         END_STATE
 
         BEGIN_STATE(L_TIMESTAMP3)
           U_DIGIT {
-          OVERFLOW(TIMESTAMP)
+          IF_OVERFLOW(TIMESTAMP)
           BREAK
         }
         DEFAULT {

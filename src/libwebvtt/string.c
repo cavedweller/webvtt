@@ -312,7 +312,7 @@ webvtt_string_getline( webvtt_string *src, const webvtt_byte *buffer,
     d = str->d;
   }
   if( len < 0 ) {
-    len = strlen( buffer );
+    len = strlen( (const char *)buffer );
   }
   n = buffer + len;
 
@@ -378,10 +378,10 @@ webvtt_string_is_equal( const webvtt_string *str, const webvtt_byte *to_compare,
   }
 
   if( len < 0 ) {
-    len = strlen( to_compare );
+    len = strlen( (const char *)to_compare );
   }
 
-  if( str->d->length != len ) {
+  if( str->d->length != (unsigned)len ) {
     return 0;
   }
 
@@ -593,8 +593,8 @@ WEBVTT_EXPORT webvtt_uint16
 webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end,
   webvtt_uint16 *high_surrogate )
 {
-  int need = 0, min = 0;
-  webvtt_uint32 uc = 0;
+  int need = 0;
+  webvtt_uint32 uc = 0, min = 0;
   
   /* We're missing our pointers */
   if( !utf8 ) {
@@ -634,7 +634,8 @@ webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end,
               *high_surrogate = UTF_HIGH_SURROGATE( uc );
             }
             return UTF_LOW_SURROGATE( uc );
-          } else if ( ( uc < min ) || ( uc >= 0xD800 && uc <= 0xDFFF ) || nc || uc >= 0x110000) {
+          } else if ( ( uc < min ) || ( uc >= 0xD800 && uc <= 0xDFFF ) || nc
+                      || uc >= 0x110000) {
             /* Non-character, overlong sequence, or utf16 surrogate */
             return 0xFFFD;  
           } else {
