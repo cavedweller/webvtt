@@ -53,6 +53,7 @@ FileParser::parse()
 {
   bool final = false;
   ::webvtt_status status;
+  ::webvtt_status finishStatus;
   char buffer[0x1000];
   if( !reader.good() ) {
     return false;
@@ -64,8 +65,11 @@ FileParser::parse()
     final = reader.eof();
     status = parseChunk( buffer, len );
   } while( !final && !WEBVTT_FAILED(status) );
-  
-  return finishParsing() == WEBVTT_SUCCESS;
+  if( status == WEBVTT_UNFINISHED ) {
+    status = WEBVTT_SUCCESS;
+  }
+  finishStatus = finishParsing();
+  return !( WEBVTT_FAILED(status) || WEBVTT_FAILED(finishStatus) );
 }
 
 }

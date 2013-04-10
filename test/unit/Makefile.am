@@ -94,8 +94,7 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      ciarrow_unittest \
 	      cigeneral_unittest \
 	      cilineendings_unittest \
-	      csgeneric_unittest \
-	      filestructure_unittest
+	      csgeneric_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"

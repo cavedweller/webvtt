@@ -24,6 +24,7 @@ public:
   virtual void TearDown() {
     if( uptype() == V_TEXT ) {
       webvtt_release_string( &(self->top+1)->v.text );
+      webvtt_release_cue( &self->top->v.cue );
     }
     webvtt_release_cue( &cue );
     webvtt_delete_parser( self );
@@ -32,9 +33,8 @@ public:
 
   webvtt_status read_cuetext( const std::string &str, webvtt_uint &pos, 
                               bool finished = true ) {
-    return ::read_cuetext( self, reinterpret_cast<const webvtt_byte *>(
-                           str.c_str() ), &pos, str.size(), &self->mode,
-                           finished );
+    return ::webvtt_read_cuetext( self, reinterpret_cast<const webvtt_byte *>(
+                           str.c_str() ), &pos, str.size(), finished );
   }
 
   std::string cuetext() const {
@@ -56,7 +56,9 @@ private:
                                        webvtt_error error ) {
     return -1;
   }
-  static void WEBVTT_CALLBACK dummyread( void *userdata, webvtt_cue *cue ) {}
+  static void WEBVTT_CALLBACK dummyread( void *userdata, webvtt_cue *cue ) {
+    webvtt_release_cue( &cue );
+  }
   webvtt_parser self;
   webvtt_cue *cue;
 };
