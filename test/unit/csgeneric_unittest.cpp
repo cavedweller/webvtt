@@ -310,10 +310,9 @@ TEST_F(CueSetting, DigitDelimiter)
   loadVtt( "cue-settings/digit-delimiter.vtt" );
   const Error &err = getError( 0 );
   /**
-   * We're expecting a WEBVTT_MALFORMED_TIMESTAMP error on the 24th column of the 3rd line.
-     * It might be on column 21 depending on how the parser parses the fractions of a second.
+   * We're expecting a WEBVTT_MALFORMED_TIMESTAMP error on the 3rd line.
    */
   ASSERT_EQ( WEBVTT_MALFORMED_TIMESTAMP, err.error() );
   ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 24, err.column() );
+  ASSERT_EQ( 15, err.column() );
 }
