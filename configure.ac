@@ -71,7 +71,7 @@ AC_ARG_ENABLE([gprof],
 	[CFLAGS='-pg'; AC_DEFINE([GPROF],[1],[Defined if using gprof profiling engine])])
 
 # Additional CFLAGS
-CFLAGS="$CFLAGS -Wall -Wextra"
+CFLAGS="$CFLAGS -Wall -Wextra -Werror=declaration-after-statement"
 
 # Checks for libraries.
 # * Check for pthreads library.
