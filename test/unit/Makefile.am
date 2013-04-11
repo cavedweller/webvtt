@@ -87,8 +87,7 @@ KNOWN_VALGRIND_TEST_FAILURES +=
 endif
 
 # Tests we expect to fail (i.e., known-fails)
-XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
-	      csgeneric_unittest
+XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
