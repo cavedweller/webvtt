@@ -27,7 +27,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([webvtt], [0.0.9])
+AC_INIT([webvtt], [0.4])
 AC_CANONICAL_HOST
 
 linux="no"
