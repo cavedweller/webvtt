@@ -773,14 +773,14 @@ webvtt_proc_cueline( webvtt_parser self, webvtt_cue *cue,
   DIE_IF( line == NULL );
   webvtt_uint length = webvtt_string_length( line );
   const webvtt_byte *text = webvtt_string_text( line );
+  /* backup the column */
+  self->column = 1;
   if( find_bytes( text, length, separator, sizeof( separator ) )
       == WEBVTT_SUCCESS) {
     /* It's not a cue id, we found '-->'. It can't be a second
        cueparams line, because if we had it, we would be in
        a different state. */
     int v;
-    /* backup the column */
-    self->column = 1;
     self->cuetext_line = self->line + 1;
     if( ( v = parse_cueparams( self, text, length, cue ) ) < 0 ) {
         if( v == WEBVTT_PARSE_ERROR ) {

@@ -85,15 +85,13 @@ KNOWN_VALGRIND_TEST_FAILURES =
 if VALGRIND_TESTING
 KNOWN_VALGRIND_TEST_FAILURES += \
 	ciarrow_unittest \
-	cigeneral_unittest \
-	cilineendings_unittest
+	cigeneral_unittest
 endif
 
 # Tests we expect to fail (i.e., known-fails)
 XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES) \
 	      ciarrow_unittest \
 	      cigeneral_unittest \
-	      cilineendings_unittest \
 	      csgeneric_unittest
 
 # TODO: OS X needs to filer gtest valgrind warnings:
