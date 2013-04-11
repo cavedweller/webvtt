@@ -182,11 +182,12 @@ retry:
 
         if( self->top->state == T_CUE ) {
           webvtt_string text;
+          webvtt_cue *cue;
           if( self->top->type == V_NONE ) {
             webvtt_create_cue( &self->top->v.cue );
             self->top->type = V_CUE;
           }
-          webvtt_cue *cue = self->top->v.cue;
+          cue = self->top->v.cue;
           SAFE_ASSERT( self->popped && (self->top+1)->state == T_CUEREAD );
           SAFE_ASSERT( cue != 0 );
           text.d = (self->top+1)->v.text.d;
@@ -686,8 +687,9 @@ webvtt_parse_size( webvtt_parser self, webvtt_cue *cue, const webvtt_byte *text,
     if( tokens[ v - 1 ] ) {
       int digits;
       const webvtt_byte *t = self->token;
+      webvtt_int64 value;
       self->token_pos = 0;
-      webvtt_int64 value = parse_int( &t, &digits );
+      value = parse_int( &t, &digits );
       if( value < 0 || value > 100 ) {
         ERROR_AT_COLUMN( WEBVTT_SIZE_BAD_VALUE, vc );
       } else {
@@ -770,9 +772,11 @@ WEBVTT_INTERN webvtt_status
 webvtt_proc_cueline( webvtt_parser self, webvtt_cue *cue,
                      webvtt_string *line )
 {
+  const webvtt_byte *text;
+  webvtt_uint length;
   DIE_IF( line == NULL );
-  webvtt_uint length = webvtt_string_length( line );
-  const webvtt_byte *text = webvtt_string_text( line );
+  length = webvtt_string_length( line );
+  text = webvtt_string_text( line );
   /* backup the column */
   self->column = 1;
   if( find_bytes( text, length, separator, sizeof( separator ) )
