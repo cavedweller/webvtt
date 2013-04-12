@@ -40,28 +40,95 @@ make check
 When running tests with valgrind, any test that fails valgrind (even if it passes Google Test) will fail. See `test/unit/Makefile.am` for info on known test failures, and how to add/remove them.
 
 ##Routines available to application:
-### Parser object routines
-	webvtt_status webvtt_create_parser( webvtt_cue_fn_ptr, webvtt_error_fn_ptr,
-		void *, webvtt_parser * );
-	void webvtt_delete_parser( webvtt_parser );
-	webvtt_status webvtt_parse_chunk( webvtt_parser, const void *, webvtt_uint );
+### Parser Object
+        webvtt_status webvtt_create_parser( webvtt_cue_fn on_read, webvtt_error_fn on_error, void *userdata, webvtt_parser *ppout );
+        void webvtt_delete_parser( webvtt_parser parser );
+        webvtt_status webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len );
+        webvtt_status webvtt_finish_parsing( webvtt_parser self );
 
-### String object routines
-	webvtt_status webvtt_string_new( webvtt_uint32, webvtt_string * );
-	void webvtt_string_delete( webvtt_string );
-	webvtt_status webvtt_string_append_utf8( webvtt_string *, const webvtt_byte *,
-		webvtt_uint *, webvtt_uint, webvtt_utf8_reader );
+### WebVTT Cues
+        webvtt_status webvtt_create_cue( webvtt_cue **pcue );
+        void webvtt_ref_cue( webvtt_cue *cue );
+        void webvtt_release_cue( webvtt_cue **pcue );
+        int webvtt_validate_cue( webvtt_cue *cue );
 
-### Memory allocation routines
-	void *webvtt_alloc( webvtt_uint );
-	void *webvtt_alloc0( webvtt_uint );
-	void webvtt_free( void * );
-	void webvtt_set_allocator( webvtt_alloc_fn_ptr, webvtt_free_fn_ptr, void * );
+### WebVTT Nodes
+        void webvtt_init_node( webvtt_node **node );
+        void webvtt_ref_node( webvtt_node *node );
+        void webvtt_release_node( webvtt_node **node );
+
+### Application Callbacks
+        typedef int ( WEBVTT_CALLBACK *webvtt_error_fn )( void *userdata, webvtt_uint line, webvtt_uint col, webvtt_error error );
+        typedef void ( WEBVTT_CALLBACK *webvtt_cue_fn )( void *userdata, webvtt_cue *cue );
+        
+### Strings
+        void webvtt_init_string( webvtt_string *result );
+        webvtt_status webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result );
+        webvtt_status webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len );
+        void webvtt_ref_string( webvtt_string *str );
+        void webvtt_release_string( webvtt_string *str );     
+        webvtt_status webvtt_string_detach( webvtt_string *str );
+        void webvtt_copy_string( webvtt_string *left, const webvtt_string *right );    
+        webvtt_uint webvtt_string_is_empty( const webvtt_string *str );
+        const webvtt_byte *webvtt_string_text( const webvtt_string *str );
+        webvtt_uint32 webvtt_string_length( const webvtt_string *str );
+        webvtt_uint32 webvtt_string_capacity( const webvtt_string *str );
+        int webvtt_string_getline( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint *pos, int len, int *truncate, webvtt_bool finish );
+        webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte to_append );
+        webvtt_bool webvtt_string_is_equal( const webvtt_string *str, const webvtt_byte *to_compare, int len );
+        webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len );
+        webvtt_status webvtt_string_append_string( webvtt_string *str, const webvtt_string *other );
+
+### UTF8 And UTF16 Conversion
+        webvtt_bool webvtt_next_utf8( const webvtt_byte **begin, const webvtt_byte *end );
+        webvtt_bool webvtt_skip_utf8( const webvtt_byte **begin, const webvtt_byte *end, int n_chars );
+        webvtt_uint16 webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end, webvtt_uint16 *high_surrogate );
+        int webvtt_utf8_chcount( const webvtt_byte *utf8, const webvtt_byte *end );
+        int webvtt_utf8_length( const webvtt_byte *utf8 );
+
+### String List
+        webvtt_status webvtt_create_stringlist( webvtt_stringlist **result );
+        void webvtt_ref_stringlist( webvtt_stringlist *list );
+        void webvtt_copy_stringlist( webvtt_stringlist **left, webvtt_stringlist *right );
+        void webvtt_release_stringlist( webvtt_stringlist **list );
+        webvtt_status webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str );
+        
+### Memory Allocation
+        void *webvtt_alloc( webvtt_uint nb );
+        void *webvtt_alloc0( webvtt_uint nb );
+        void webvtt_free( void *data );
+        void webvtt_set_allocator( webvtt_alloc_fn_ptr alloc, webvtt_free_fn_ptr free, void *userdata );
+
+### Memmory Application Callbacks
+        typedef void *(WEBVTT_CALLBACK *webvtt_alloc_fn_ptr)( void *userdata, webvtt_uint nbytes );
+        typedef void (WEBVTT_CALLBACK *webvtt_free_fn_ptr)( void *userdata, void *pmem );
 
 ### Error handling
 	const char *webvtt_strerror( webvtt_error );
 
-#License
+##Contributors
+  * Ralph Giles <giles@mozilla.com>
+  * Caitlin Potter <snowball@defpixel.com>
+  * Rick Eyre <rick.eyre@hotmail.com>
+  * Edwin Lim <limed3@gmail.com>
+  * Dale Karp <me@dale.io>
+  * Michael Afidchao <mdafidchao@learn.senecac.on.ca>
+  * Shayan Ahmad <szahmad@learn.senecac.on.ca>
+  * Jordan Raffoul <raffoul.jordan@gmail.com>
+  * David Humphrey <david.humphrey@senecacollege.ca>
+  * Vince Lee <vince.lee.lien@gmail.com>
+  * Mandeep Garg <mkgarg1@learn.senecac.on.ca>
+  * Anh Tran <tran.avr@gmail.com>
+  * Thevakaran Virutthasalam <thevakaran@gmail.com>
+  * Mike Shutov <mshutov@myseneca.ca>
+  * Michael Stiver-Balla <mikestiver@hotmail.com>
+  * Kyle Barnhart <kyle@barnhart.ca>
+  * David Perit <dperit@gmail.com>
+  
+## Current Users
+  * Mozilla Firefox
+  
+##License
 > Copyright (c) 2013 Mozilla Foundation and Contributors
 > All rights reserved.
 >
