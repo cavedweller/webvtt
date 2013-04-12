@@ -31,7 +31,10 @@ LDADD = $(LIBS)
 INTERNAL_TESTS = \
   lexer_unittest \
   readcuetext_unittest \
-  string_unittest
+  string_unittest \
+  datastatetokenizer_unittest \
+  escapestatetokenizer_unittest \
+  tagstatetokenizer_unittest
 
 FILESTRUCTURE_TESTS = \
   filestructure_unittest
@@ -98,12 +101,18 @@ TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
 noinst_PROGRAMS = $(UNIT_TESTS)
 
 # gtest fragments
-EXTRA_DIST += cue_testfixture payload_testfixture test_parser
+EXTRA_DIST += cue_testfixture \
+              payload_testfixture \
+              cuetexttokenizer_fixture \
+              test_parser
 
 # Utility unit tests
 lexer_unittest_SOURCES = lexer_unittest.cpp
 readcuetext_unittest_SOURCES = readcuetext_unittest.cpp
 string_unittest_SOURCES = string_unittest.cpp
+datastatetokenizer_unittest_SOURCES = datastatetokenizer_unittest.cpp
+escapestatetokenizer_unittest_SOURCES = escapestatetokenizer_unittest.cpp
+tagstatetokenizer_unittest_SOURCES = tagstatetokenizer_unittest.cpp
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests

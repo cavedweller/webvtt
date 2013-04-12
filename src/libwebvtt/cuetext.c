@@ -256,7 +256,7 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node, 
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_data_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_data_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                    webvtt_string *result )
 {
   for ( ; *token_state == DATA; (*position)++ ) {
@@ -298,7 +298,7 @@ webvtt_byte nbsp_replace[NBSP_REPLACE_LENGTH] = { UTF8_NO_BREAK_SPACE_1,
   UTF8_NO_BREAK_SPACE_2 };
   
 WEBVTT_INTERN webvtt_status
-webvtt_escape_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_escape_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                      webvtt_string *result )
 {
   webvtt_string buffer;
@@ -385,7 +385,7 @@ dealloc:
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_tag_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_tag_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                   webvtt_string *result )
 {
   for( ; *token_state == TAG; (*position)++ ) {
@@ -421,7 +421,7 @@ webvtt_tag_state( webvtt_byte **position, webvtt_token_state *token_state,
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_start_tag_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_start_tag_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                         webvtt_string *result )
 {
   for( ; *token_state == START_TAG; (*position)++ ) {
@@ -451,7 +451,7 @@ webvtt_start_tag_state( webvtt_byte **position, webvtt_token_state *token_state,
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_class_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_class_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                     webvtt_stringlist *css_classes )
 {
   webvtt_string buffer;
@@ -486,7 +486,7 @@ dealloc:
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_annotation_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_annotation_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                          webvtt_string *annotation )
 {
   for( ; *token_state == START_TAG_ANNOTATION; (*position)++ ) {
@@ -500,7 +500,7 @@ webvtt_annotation_state( webvtt_byte **position, webvtt_token_state *token_state
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_end_tag_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_end_tag_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                       webvtt_string *result )
 {
   for( ; *token_state == END_TAG; (*position)++ ) {
@@ -514,7 +514,7 @@ webvtt_end_tag_state( webvtt_byte **position, webvtt_token_state *token_state,
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_timestamp_state( webvtt_byte **position, webvtt_token_state *token_state, 
+webvtt_timestamp_state( const webvtt_byte **position, webvtt_token_state *token_state, 
                         webvtt_string *result )
 {
   for( ; *token_state == TIME_STAMP_TAG; (*position)++ ) {
@@ -532,7 +532,7 @@ webvtt_timestamp_state( webvtt_byte **position, webvtt_token_state *token_state,
  * Get a status in order to return at end and release memeory.
  */
 WEBVTT_INTERN webvtt_status
-webvtt_cuetext_tokenizer( webvtt_byte **position, webvtt_cuetext_token **token )
+webvtt_cuetext_tokenizer( const webvtt_byte **position, webvtt_cuetext_token **token )
 {
   webvtt_token_state token_state = DATA;
   webvtt_string result, annotation;
@@ -632,7 +632,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
 
   const webvtt_byte *cue_text;
   webvtt_status status;
-  webvtt_byte *position;
+  const webvtt_byte *position;
   webvtt_node *node_head;
   webvtt_node *current_node;
   webvtt_node *temp_node;
