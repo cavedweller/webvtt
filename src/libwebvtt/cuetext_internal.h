@@ -31,27 +31,24 @@
 # include <webvtt/string.h>
 # include <webvtt/cue.h>
 
-typedef enum webvtt_token_type_t webvtt_token_type;
-typedef enum webvtt_token_state_t webvtt_token_state;
-
 typedef struct webvtt_cuetext_token_t webvtt_cuetext_token;
 typedef struct webvtt_start_token_data_t webvtt_start_token_data;
 
 /**
  * Enumerates token types.
  */
-enum
+typedef enum
 webvtt_token_type_t {
   START_TOKEN, /* Identifies a webvtt_cue_text_start_tag_token. */
   END_TOKEN, /* Identifies a webvtt_cue_text_end_tag_token. */
   TIME_STAMP_TOKEN, /* Identifies a webvtt_cue_text_time_stamp_token. */
   TEXT_TOKEN /* Identifies a webvtt_cue_text_text_token. */
-};
+} webvtt_token_type;
 
 /**
  * Enumerates possible states that the cue text tokenizer can be in.
  */
-enum
+typedef enum
 webvtt_token_state_t {
   DATA, /* Initial state. */
   ESCAPE, /* Parsing an escape value. */
@@ -67,7 +64,7 @@ webvtt_token_state_t {
               '/' character. */
   TIME_STAMP_TAG /* Parsing a time stamp tag. Reached when a '<' character is
                     follwed by an integer character. */
-};
+} webvtt_token_state;
 
 /**
  * Represents a start tag in the cue text.
