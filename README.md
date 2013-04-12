@@ -106,25 +106,6 @@ When running tests with valgrind, any test that fails valgrind (even if it passe
 ### Error handling
 	const char *webvtt_strerror( webvtt_error );
 
-##Contributors
-  * Ralph Giles <giles@mozilla.com>
-  * Caitlin Potter <snowball@defpixel.com>
-  * Rick Eyre <rick.eyre@hotmail.com>
-  * Edwin Lim <limed3@gmail.com>
-  * Dale Karp <me@dale.io>
-  * Michael Afidchao <mdafidchao@learn.senecac.on.ca>
-  * Shayan Ahmad <szahmad@learn.senecac.on.ca>
-  * Jordan Raffoul <raffoul.jordan@gmail.com>
-  * David Humphrey <david.humphrey@senecacollege.ca>
-  * Vince Lee <vince.lee.lien@gmail.com>
-  * Mandeep Garg <mkgarg1@learn.senecac.on.ca>
-  * Anh Tran <tran.avr@gmail.com>
-  * Thevakaran Virutthasalam <thevakaran@gmail.com>
-  * Mike Shutov <mshutov@myseneca.ca>
-  * Michael Stiver-Balla <mikestiver@hotmail.com>
-  * Kyle Barnhart <kyle@barnhart.ca>
-  * David Perit <dperit@gmail.com>
-  
 ## Current Users
   * Mozilla Firefox
   
