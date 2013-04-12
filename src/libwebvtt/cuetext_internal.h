@@ -37,8 +37,7 @@ typedef struct webvtt_start_token_data_t webvtt_start_token_data;
 /**
  * Enumerates token types.
  */
-typedef enum
-webvtt_token_type_t {
+typedef enum {
   START_TOKEN, /* Identifies a webvtt_cue_text_start_tag_token. */
   END_TOKEN, /* Identifies a webvtt_cue_text_end_tag_token. */
   TIME_STAMP_TOKEN, /* Identifies a webvtt_cue_text_time_stamp_token. */
@@ -48,8 +47,7 @@ webvtt_token_type_t {
 /**
  * Enumerates possible states that the cue text tokenizer can be in.
  */
-typedef enum
-webvtt_token_state_t {
+typedef enum {
   DATA, /* Initial state. */
   ESCAPE, /* Parsing an escape value. */
   TAG, /* Reached a '<' character, about to start parsing a tag. */
