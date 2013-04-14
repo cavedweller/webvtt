@@ -38,6 +38,7 @@ public:
     reader.open( testfile.c_str(), std::ios::in | std::ios::binary );
 
     if( !reader.good() ) {
+      std::cout << "Failed to open file '" << testfile << "'\n"
       return false;
     }
 
