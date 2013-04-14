@@ -38,7 +38,7 @@ public:
     reader.open( testfile.c_str(), std::ios::in | std::ios::binary );
 
     if( !reader.good() ) {
-      std::cout << "Failed to open file '" << testfile << "'\n"
+      std::cout << "Failed to open file '" << testfile << "'\n";
       return false;
     }
 
@@ -58,6 +58,7 @@ public:
 
   virtual void readCue( webvtt_cue *cue )
   {
+    webvtt_release_cue( &cue );
   }
 
   virtual int reportError( webvtt_uint line, webvtt_uint col, webvtt_error err )

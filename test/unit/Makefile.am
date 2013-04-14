@@ -17,7 +17,8 @@ EXTRA_DIST = \
   cue-settings \
   cue-times \
   filestructure \
-  payload
+  payload \
+  regressions
 
 LIBS = \
   $(top_builddir)/src/libwebvtt/libwebvtt-static.la \
