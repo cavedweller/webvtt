@@ -69,6 +69,14 @@ PAYLOAD_TESTS = \
   plvoicetag_unittest \
   plrubytag_unittest
 
+# Test set representing reproduction of reported library bugs.
+# Do not check in code that changes one of these from a passing
+# to a failing state.
+#
+# These are not unit tests, and do not necessarily represent small
+# units of code.
+REGRESSION_TESTS = regression_tests
+
 UNIT_TESTS = \
   $(INTERNAL_TESTS) \
   $(FILESTRUCTURE_TESTS) \
@@ -94,17 +102,18 @@ XFAIL_TESTS = $(KNOWN_VALGRIND_TEST_FAILURES)
 
 # TODO: OS X needs to filer gtest valgrind warnings:
 # valgrind ... <unittest> 2>&1 | sed -e "/warning: addVar:/d"
-TESTS = $(UNIT_TESTS)
+TESTS = $(UNIT_TESTS) $(REGRESSION_TESTS)
 TESTS_ENVIRONMENT = TEST_FILE_DIR=$(srcdir) \
                     $(VALGRIND_ENVIRONMENT)
 
-noinst_PROGRAMS = $(UNIT_TESTS)
+noinst_PROGRAMS = $(UNIT_TESTS) $(REGRESSION_TESTS)
 
 # gtest fragments
 EXTRA_DIST += cue_testfixture \
               payload_testfixture \
               cuetexttokenizer_fixture \
-              test_parser
+              test_parser \
+              regression_testfixture
 
 # Utility unit tests
 lexer_unittest_SOURCES = lexer_unittest.cpp
@@ -144,3 +153,6 @@ pltimestamp_unittest_SOURCES = pltimestamp_unittest.cpp
 plunderlinetag_unittest_SOURCES = plunderlinetag_unittest.cpp
 plvoicetag_unittest_SOURCES = plvoicetag_unittest.cpp
 plrubytag_unittest_SOURCES = plrubytag_unittest.cpp
+
+# Regression Tests
+regression_tests_SOURCES = regression_tests.cpp
