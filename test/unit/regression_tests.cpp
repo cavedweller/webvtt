@@ -4,8 +4,8 @@
 
 // Infinite loop in function parse_cueparams()
 //
-// File is invalid, but should parse successfully due to not aborting
-// on errors.
+// File contains syntax errors, but should parse successfully due to not
+// aborting on errors.
 TEST_F(RegressionTest,Bug853879)
 {
   EXPECT_TRUE( parse( "853879-1.vtt" ) );
