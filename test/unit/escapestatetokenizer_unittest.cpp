@@ -43,7 +43,7 @@ TEST_F(EscapeStateTokenizerTest, LTFinished)
 }
 
 /*
- * Tests if the escape state tokenizer exist correctly upon encountering non
+ * Tests if the escape state tokenizer exits correctly upon encountering non
  * alpha numeric characters. It should exit upon encountering the ' ' character
  * in this example.
  */
@@ -57,7 +57,7 @@ TEST_F(EscapeStateTokenizerTest, NonAlphaNumeric)
 }
 
 /*
- * Tests if the escape state tokenizer exist correctly upon encountering a
+ * Tests if the escape state tokenizer exits correctly upon encountering a
  * string that is not a valid escape sequence.
  */
 TEST_F(EscapeStateTokenizerTest, IncorrectEscape)
