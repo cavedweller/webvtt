@@ -44,15 +44,16 @@ TEST_F(EscapeStateTokenizerTest, LTFinished)
 
 /*
  * Tests if the escape state tokenizer exist correctly upon encountering non
- * alpha numeric characters.
+ * alpha numeric characters. It should exit upon encountering the ' ' character
+ * in this example.
  */
 TEST_F(EscapeStateTokenizerTest, NonAlphaNumeric)
 {
-  EscapeTokenize( "Text <c>" );
+  EscapeTokenize( "Some Text" );
   EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( '<', GetCurrentChar() );
+  EXPECT_EQ( 'T', GetCurrentChar() );
   EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "&Text ", ParsedText() );
+  EXPECT_STREQ( "&Some ", ParsedText() );
 }
 
 /*
