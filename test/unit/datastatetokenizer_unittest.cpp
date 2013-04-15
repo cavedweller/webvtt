@@ -11,8 +11,7 @@ class DataStateTokenizerTest : public CueTextTokenizerTest
 };
 
 /*
- * Tests if the data state tokenizer will switch to the escape state if it
- * encounters an '&' character.
+ * Tests if the data state tokenizer will parse basic text.
  */
 TEST_F(DataStateTokenizerTest, BasicText)
 {
