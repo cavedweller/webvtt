@@ -5,7 +5,7 @@ class TagStateTokenizerTest : public CueTextTokenizerTest
   public:
     void TagTokenize( const char *text ) {
       state = TAG;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_tag_state( &pos, &state, &res );
     }
 };

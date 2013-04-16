@@ -152,7 +152,7 @@ if(self->token_pos == sizeof(self->token) - 1 ) \
 }
 
 WEBVTT_INTERN webvtt_status
-webvtt_lex_word( webvtt_parser self, webvtt_string *str, const webvtt_byte *buffer, webvtt_uint *ppos, webvtt_uint length, webvtt_bool finish )
+webvtt_lex_word( webvtt_parser self, webvtt_string *str, const char *buffer, webvtt_uint *ppos, webvtt_uint length, webvtt_bool finish )
 {
   webvtt_status status = WEBVTT_SUCCESS;
   webvtt_uint pos = *ppos;
@@ -200,7 +200,7 @@ _finished:
  */
 WEBVTT_INTERN webvtt_token
 webvtt_lex_newline( webvtt_parser self, const
-  webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length,
+  char *buffer, webvtt_uint *pos, webvtt_uint length,
   webvtt_bool finish )
 {
   webvtt_uint p = *pos;
@@ -209,7 +209,7 @@ webvtt_lex_newline( webvtt_parser self, const
   DIE_IF( self->tstate != L_START && self->tstate != L_NEWLINE0 );
 
   while( p < length ) {
-    webvtt_byte c = buffer[ p++ ];
+    unsigned char c = (unsigned char)buffer[ p++ ];
     self->token[ self->token_pos++ ] = c;
     self->token[ self->token_pos ] = 0;
     self->bytes++;
@@ -270,10 +270,10 @@ backup:
 }
 
 WEBVTT_INTERN webvtt_token
-webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish )
+webvtt_lex( webvtt_parser self, const char *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish )
 {
   while( *pos < length ) {
-    webvtt_byte c = buffer[(*pos)++];
+    unsigned char c = (unsigned char)buffer[(*pos)++];
     self->token[ self->token_pos++ ] = c;
     self->token[ self->token_pos ] = 0;
     self->column++;

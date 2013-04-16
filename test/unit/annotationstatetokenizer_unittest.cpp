@@ -5,7 +5,7 @@ class AnnotationStateTokenizerTest : public CueTextTokenizerTest
   public:
     void AnnotationTagTokenize( const char *text ) {
       state = START_TAG_ANNOTATION;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_annotation_state( &pos, &state, &res );
     }
 };

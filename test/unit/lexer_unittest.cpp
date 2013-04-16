@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <string>
 extern "C" {
-#include "libwebvtt/lexer.c"
+#include "libwebvtt/parser_internal.h"
 }
 
 class Lexer : public ::testing::Test
@@ -21,8 +21,7 @@ public:
 
   webvtt_token lex_newline( const std::string &str, webvtt_uint &pos,
                             bool finished = true ) {
-    return webvtt_lex_newline( self, reinterpret_cast<const webvtt_byte *> (
-                               str.c_str() ), &pos, str.size(), finished );
+    return webvtt_lex_newline( self, str.c_str(), &pos, str.size(), finished );
   }
 
   webvtt_lexer_state lexerState() const {

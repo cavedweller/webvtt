@@ -5,7 +5,7 @@ class DataStateTokenizerTest : public CueTextTokenizerTest
   public:
     void DataTokenize( const char *text ) {
       state = DATA;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_data_state( &pos, &state, &res );
     }
 };

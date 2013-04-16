@@ -5,7 +5,7 @@ class EscapeStateTokenizerTest : public CueTextTokenizerTest
   public:
     void EscapeTokenize( const char *text ) {
       state = ESCAPE;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_escape_state( &pos, &state, &res );
     }
 };

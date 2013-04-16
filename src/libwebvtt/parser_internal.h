@@ -227,50 +227,50 @@ webvtt_parser_t {
    */
   webvtt_lexer_state tstate;
   webvtt_uint token_pos;
-  webvtt_byte token[0x100];
+  char token[0x100];
 };
 
-WEBVTT_INTERN webvtt_token webvtt_lex( webvtt_parser self, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
-WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *pba, const webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
+WEBVTT_INTERN webvtt_token webvtt_lex( webvtt_parser self, const char *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
+WEBVTT_INTERN webvtt_status webvtt_lex_word( webvtt_parser self, webvtt_string *pba, const char *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 
 /* Tokenize newline sequence, without incrementing 'self->line'. Returns
  * BAD_TOKEN when a newline sequence is not found. */
 WEBVTT_INTERN webvtt_token webvtt_lex_newline( webvtt_parser self, const
-  webvtt_byte *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
+  char *buffer, webvtt_uint *pos, webvtt_uint length, webvtt_bool finish );
 
 WEBVTT_INTERN webvtt_status webvtt_proc_cueline( webvtt_parser self,
   webvtt_cue *cue, webvtt_string *line );
 
 WEBVTT_INTERN webvtt_status webvtt_parse_align( webvtt_parser self,
-  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+  webvtt_cue *cue, const char *text, webvtt_uint *pos, webvtt_uint len );
 
 WEBVTT_INTERN webvtt_status webvtt_parse_line( webvtt_parser self,
-  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+  webvtt_cue *cue, const char *text, webvtt_uint *pos, webvtt_uint len );
 
 WEBVTT_INTERN webvtt_status webvtt_parse_position( webvtt_parser self,
-  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+  webvtt_cue *cue, const char *text, webvtt_uint *pos, webvtt_uint len );
 
 WEBVTT_INTERN webvtt_status webvtt_parse_size( webvtt_parser self,
-  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+  webvtt_cue *cue, const char *text, webvtt_uint *pos, webvtt_uint len );
 
 WEBVTT_INTERN webvtt_status webvtt_parse_vertical( webvtt_parser self,
-  webvtt_cue *cue, const webvtt_byte *text, webvtt_uint *pos, webvtt_uint len );
+  webvtt_cue *cue, const char *text, webvtt_uint *pos, webvtt_uint len );
 
-WEBVTT_INTERN int parse_timestamp( const webvtt_byte *b, webvtt_timestamp *result );
+WEBVTT_INTERN int parse_timestamp( const char *b, webvtt_timestamp *result );
 
 WEBVTT_INTERN webvtt_status do_push( webvtt_parser self, webvtt_uint token,
   webvtt_uint back, webvtt_uint state, void *data, webvtt_state_value_type type,
   webvtt_uint line, webvtt_uint column );
 
 WEBVTT_INTERN webvtt_status webvtt_read_cuetext( webvtt_parser self,
-  const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
+  const char *b, webvtt_uint *ppos, webvtt_uint len,
   webvtt_bool finish );
 
 WEBVTT_INTERN webvtt_status webvtt_proc_cuetext( webvtt_parser self,
-  const webvtt_byte *b, webvtt_uint *ppos, webvtt_uint len,
+  const char *b, webvtt_uint *ppos, webvtt_uint len,
   webvtt_bool finish );
 
-WEBVTT_INTERN int parse_cueparams( webvtt_parser self, const webvtt_byte *text,
+WEBVTT_INTERN int parse_cueparams( webvtt_parser self, const char *text,
   webvtt_uint len, webvtt_cue *cue );
 
 /** 

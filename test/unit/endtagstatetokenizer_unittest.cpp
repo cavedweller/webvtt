@@ -5,7 +5,7 @@ class EndTagStateTokenizerTest : public CueTextTokenizerTest
   public:
     void EndTagTokenize( const char *text ) {
       state = END_TAG;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_end_tag_state( &pos, &state, &res );
     }
 };
