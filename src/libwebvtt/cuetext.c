@@ -431,9 +431,6 @@ webvtt_start_tag_state( const webvtt_byte **position, webvtt_token_state *token_
       *token_state = START_TAG_ANNOTATION;
     } else {
       switch( **position ) {
-        case '\t':
-          *token_state = START_TAG_ANNOTATION;
-          break;
         case '.':
           *token_state = START_TAG_CLASS;
           break;

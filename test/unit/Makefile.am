@@ -35,8 +35,12 @@ INTERNAL_TESTS = \
   string_unittest \
   datastatetokenizer_unittest \
   escapestatetokenizer_unittest \
-  tagstatetokenizer_unittest
-
+  tagstatetokenizer_unittest \
+  starttagstatetokenizer_unittest \
+  annotationstatetokenizer_unittest \
+  endtagstatetokenizer_unittest \
+  timestamptokenizer_unittest
+  
 FILESTRUCTURE_TESTS = \
   filestructure_unittest
 
@@ -123,6 +127,10 @@ string_unittest_SOURCES = string_unittest.cpp
 datastatetokenizer_unittest_SOURCES = datastatetokenizer_unittest.cpp
 escapestatetokenizer_unittest_SOURCES = escapestatetokenizer_unittest.cpp
 tagstatetokenizer_unittest_SOURCES = tagstatetokenizer_unittest.cpp
+starttagstatetokenizer_unittest_SOURCES = starttagstatetokenizer_unittest.cpp
+annotationstatetokenizer_unittest_SOURCES = annotationstatetokenizer_unittest.cpp
+endtagstatetokenizer_unittest_SOURCES = endtagstatetokenizer_unittest.cpp
+timestamptokenizer_unittest_SOURCES = timestamptokenizer_unittest.cpp
 
 filestructure_unittest_SOURCES = filestructure_unittest.cpp
 # Cue Settings tests
