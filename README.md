@@ -64,27 +64,27 @@ When running tests with valgrind, any test that fails valgrind (even if it passe
 ### Strings
         void webvtt_init_string( webvtt_string *result );
         webvtt_status webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result );
-        webvtt_status webvtt_create_string_with_text( webvtt_string *result, const webvtt_byte *init_text, int len );
+        webvtt_status webvtt_create_string_with_text( webvtt_string *result, const char *init_text, int len );
         void webvtt_ref_string( webvtt_string *str );
         void webvtt_release_string( webvtt_string *str );     
         webvtt_status webvtt_string_detach( webvtt_string *str );
         void webvtt_copy_string( webvtt_string *left, const webvtt_string *right );    
         webvtt_uint webvtt_string_is_empty( const webvtt_string *str );
-        const webvtt_byte *webvtt_string_text( const webvtt_string *str );
+        const char *webvtt_string_text( const webvtt_string *str );
         webvtt_uint32 webvtt_string_length( const webvtt_string *str );
         webvtt_uint32 webvtt_string_capacity( const webvtt_string *str );
-        int webvtt_string_getline( webvtt_string *str, const webvtt_byte *buffer, webvtt_uint *pos, int len, int *truncate, webvtt_bool finish );
-        webvtt_status webvtt_string_putc( webvtt_string *str, webvtt_byte to_append );
-        webvtt_bool webvtt_string_is_equal( const webvtt_string *str, const webvtt_byte *to_compare, int len );
-        webvtt_status webvtt_string_append( webvtt_string *str, const webvtt_byte *buffer, int len );
+        int webvtt_string_getline( webvtt_string *str, const char *buffer, webvtt_uint *pos, int len, int *truncate, webvtt_bool finish );
+        webvtt_status webvtt_string_putc( webvtt_string *str, char to_append );
+        webvtt_bool webvtt_string_is_equal( const webvtt_string *str, const char *to_compare, int len );
+        webvtt_status webvtt_string_append( webvtt_string *str, const char *buffer, int len );
         webvtt_status webvtt_string_append_string( webvtt_string *str, const webvtt_string *other );
 
 ### UTF8 And UTF16 Conversion
-        webvtt_bool webvtt_next_utf8( const webvtt_byte **begin, const webvtt_byte *end );
-        webvtt_bool webvtt_skip_utf8( const webvtt_byte **begin, const webvtt_byte *end, int n_chars );
-        webvtt_uint16 webvtt_utf8_to_utf16( const webvtt_byte *utf8, const webvtt_byte *end, webvtt_uint16 *high_surrogate );
-        int webvtt_utf8_chcount( const webvtt_byte *utf8, const webvtt_byte *end );
-        int webvtt_utf8_length( const webvtt_byte *utf8 );
+        webvtt_bool webvtt_next_utf8( const char **begin, const char *end );
+        webvtt_bool webvtt_skip_utf8( const char **begin, const char *end, int n_chars );
+        webvtt_uint16 webvtt_utf8_to_utf16( const char *utf8, const char *end, webvtt_uint16 *high_surrogate );
+        int webvtt_utf8_chcount( const char *utf8, const char *end );
+        int webvtt_utf8_length( const char *utf8 );
 
 ### String List
         webvtt_status webvtt_create_stringlist( webvtt_stringlist **result );
