@@ -153,14 +153,12 @@ public:
   }
 
   inline String &append( const char *str, webvtt_status &result ) {
-    result = webvtt_string_append( &string,
-      reinterpret_cast<const char *>( str ), -1 );
+    result = webvtt_string_append( &string, str, -1 );
     return *this;
   }
 
   inline String &append( const char *str, int len, webvtt_status &result ) {
-    result = webvtt_string_append( &string,
-      reinterpret_cast<const char *>( str ), len );
+    result = webvtt_string_append( &string, str, len );
     return *this;
   }
 
