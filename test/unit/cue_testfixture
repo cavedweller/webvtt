@@ -66,13 +66,12 @@ protected:
 
   void expectEquals( const String &one, const String &two )
   {
-    EXPECT_STREQ( reinterpret_cast<const char *>( one.utf8() ),
-                  reinterpret_cast<const char *>( two.utf8() ) );
+    EXPECT_STREQ( one.utf8(), two.utf8() );
   }
 
   void expectEquals( const char *one, const String &two )
   {
-    EXPECT_STREQ( one, reinterpret_cast<const char *>( two.utf8() ) );
+    EXPECT_STREQ( one, two.utf8() );
   }
 
   /**

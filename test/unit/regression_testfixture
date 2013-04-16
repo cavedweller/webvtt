@@ -42,8 +42,8 @@ public:
       return false;
     }
 
-    std::vector<webvtt_byte> array( bufferSize );
-    webvtt_byte *buf = reinterpret_cast<webvtt_byte *>( &array[0] );
+    std::vector<char> array( bufferSize );
+    char *buf = &array[0];
     webvtt_status status;
     bool eof;
     do {

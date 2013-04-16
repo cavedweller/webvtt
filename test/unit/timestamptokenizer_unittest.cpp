@@ -5,7 +5,7 @@ class TimeStampStateTokenizerTest : public CueTextTokenizerTest
   public:
     void TimeStampTokenize( const char *text ) {
       state = TIME_STAMP_TAG;
-      pos = reinterpret_cast<const webvtt_byte *>( text );
+      pos = text;
       status = webvtt_timestamp_state( &pos, &state, &res );
     }
 };
