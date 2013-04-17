@@ -17,14 +17,14 @@ class ClassStateTokenizerTest : public CueTextTokenizerTest
       webvtt_release_stringlist( &classes );
     }
     
-    WebVTT::StringList ParsedClasses() {
+    WebVTT::StringList parsedClasses() {
       return WebVTT::StringList( classes );
     }
     
-    void StartTagTokenize( const char *text ) {
-      state = START_TAG_CLASS;
+    void startClassTokenize( const char *text ) {
+      token_state = START_TAG_CLASS;
       pos = text;
-      status = webvtt_class_state( &pos, &state, classes );
+      current_status = webvtt_class_state( &pos, &token_state, classes );
     }
     
   private:
@@ -36,14 +36,14 @@ class ClassStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(ClassStateTokenizerTest, ClassParsing)
 {
-  StartTagTokenize( "class.subclass.subsub>" );
+  startClassTokenize( "class.subclass.subsub>" );
   
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '>', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_CLASS, GetState() );
-  EXPECT_STREQ( "class", ParsedClasses()[0].utf8() );
-  EXPECT_STREQ( "subclass", ParsedClasses()[1].utf8() );
-  EXPECT_STREQ( "subsub", ParsedClasses()[2].utf8() );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( START_TAG_CLASS, state() );
+  EXPECT_STREQ( "class", parsedClasses()[0].utf8() );
+  EXPECT_STREQ( "subclass", parsedClasses()[1].utf8() );
+  EXPECT_STREQ( "subsub", parsedClasses()[2].utf8() );
 }
 
 /*
@@ -52,12 +52,12 @@ TEST_F(ClassStateTokenizerTest, ClassParsing)
  */
 TEST_F(ClassStateTokenizerTest, GTFinished)
 {
-  StartTagTokenize( "class>Text" );
+  startClassTokenize( "class>Text" );
   
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '>', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_CLASS, GetState() );
-  EXPECT_STREQ( "class", ParsedClasses()[0].utf8() );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( START_TAG_CLASS, state() );
+  EXPECT_STREQ( "class", parsedClasses()[0].utf8() );
 }
 
 /*
@@ -66,12 +66,12 @@ TEST_F(ClassStateTokenizerTest, GTFinished)
  */
 TEST_F(ClassStateTokenizerTest, NullByteFinished)
 {
-  StartTagTokenize( "class\0" );
+  startClassTokenize( "class\0" );
   
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_CLASS, GetState() );
-  EXPECT_STREQ( "class", ParsedClasses()[0].utf8() );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( START_TAG_CLASS, state() );
+  EXPECT_STREQ( "class", parsedClasses()[0].utf8() );
 }
 
 /*
@@ -80,11 +80,11 @@ TEST_F(ClassStateTokenizerTest, NullByteFinished)
  */
 TEST_F(ClassStateTokenizerTest, SpaceAnnotationStateChange)
 {
-  StartTagTokenize( " class" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_EQ( ParsedClasses().length(), 0 );
+  startClassTokenize( " class" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_EQ( parsedClasses().length(), 0 );
 }
 
 /*
@@ -93,11 +93,11 @@ TEST_F(ClassStateTokenizerTest, SpaceAnnotationStateChange)
  */
 TEST_F(ClassStateTokenizerTest, NewLineAnnotationStateChange)
 {
-  StartTagTokenize( "\nclass" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\n', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_EQ( ParsedClasses().length(), 0 );
+  startClassTokenize( "\nclass" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\n', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_EQ( parsedClasses().length(), 0 );
 }
 
 /*
@@ -106,11 +106,11 @@ TEST_F(ClassStateTokenizerTest, NewLineAnnotationStateChange)
  */
 TEST_F(ClassStateTokenizerTest, CRAnnotationStateChange)
 {
-  StartTagTokenize( "\rclass" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\r', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_EQ( ParsedClasses().length(), 0 );
+  startClassTokenize( "\rclass" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\r', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_EQ( parsedClasses().length(), 0 );
 }
 
 /*
@@ -119,11 +119,11 @@ TEST_F(ClassStateTokenizerTest, CRAnnotationStateChange)
  */
 TEST_F(ClassStateTokenizerTest, FormFeedAnnotationStateChange)
 {
-  StartTagTokenize( "\fclass" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\f', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_EQ( ParsedClasses().length(), 0 );
+  startClassTokenize( "\fclass" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\f', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_EQ( parsedClasses().length(), 0 );
 }
 
 /*
@@ -132,9 +132,9 @@ TEST_F(ClassStateTokenizerTest, FormFeedAnnotationStateChange)
  */
 TEST_F(ClassStateTokenizerTest, TabAnnotationStateChange)
 {
-  StartTagTokenize( "\tclass" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\t', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_EQ( ParsedClasses().length(), 0 );
+  startClassTokenize( "\tclass" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\t', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_EQ( parsedClasses().length(), 0 );
 }

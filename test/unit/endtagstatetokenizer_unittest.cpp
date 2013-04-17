@@ -3,10 +3,10 @@
 class EndTagStateTokenizerTest : public CueTextTokenizerTest
 {
   public:
-    void EndTagTokenize( const char *text ) {
-      state = END_TAG;
+    void endTagTokenize( const char *text ) {
+      token_state = END_TAG;
       pos = text;
-      status = webvtt_end_tag_state( &pos, &state, &res );
+      current_status = webvtt_end_tag_state( &pos, &token_state, &res );
     }
 };
 
@@ -15,11 +15,11 @@ class EndTagStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(EndTagStateTokenizerTest, BasicText)
 {
-  EndTagTokenize( "ruby" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( END_TAG, GetState() );
-  EXPECT_STREQ( "ruby", ParsedText() );
+  endTagTokenize( "ruby" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( END_TAG, state() );
+  EXPECT_STREQ( "ruby", parsedText() );
 }
 
 /*
@@ -28,11 +28,11 @@ TEST_F(EndTagStateTokenizerTest, BasicText)
  */
 TEST_F(EndTagStateTokenizerTest, GTFinished)
 {
-  EndTagTokenize( "ruby>Text" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '>', GetCurrentChar() );
-  EXPECT_EQ( END_TAG, GetState() );
-  EXPECT_STREQ( "ruby", ParsedText() );
+  endTagTokenize( "ruby>Text" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( END_TAG, state() );
+  EXPECT_STREQ( "ruby", parsedText() );
 }
 
 /*
@@ -41,9 +41,9 @@ TEST_F(EndTagStateTokenizerTest, GTFinished)
  */
 TEST_F(EndTagStateTokenizerTest, NullByteFinished)
 {
-  EndTagTokenize( "ruby\0" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( END_TAG, GetState() );
-  EXPECT_STREQ( "ruby", ParsedText() );
+  endTagTokenize( "ruby\0" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( END_TAG, state() );
+  EXPECT_STREQ( "ruby", parsedText() );
 }

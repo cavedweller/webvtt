@@ -3,10 +3,10 @@
 class StartTagStateTokenizerTest : public CueTextTokenizerTest
 {
   public:
-    void StartTagTokenize( const char *text ) {
-      state = START_TAG;
+    void startTagTokenize( const char *text ) {
+      token_state = START_TAG;
       pos = text;
-      status = webvtt_start_tag_state( &pos, &state, &res );
+      current_status = webvtt_start_tag_state( &pos, &token_state, &res );
     }
 };
 
@@ -16,11 +16,11 @@ class StartTagStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(StartTagStateTokenizerTest, GTFinished)
 {
-  StartTagTokenize( "ruby>Text" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '>', GetCurrentChar() );
-  EXPECT_EQ( START_TAG, GetState() );
-  EXPECT_STREQ( "ruby", ParsedText() );
+  startTagTokenize( "ruby>Text" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( START_TAG, state() );
+  EXPECT_STREQ( "ruby", parsedText() );
 }
 
 /*
@@ -29,11 +29,11 @@ TEST_F(StartTagStateTokenizerTest, GTFinished)
  */
 TEST_F(StartTagStateTokenizerTest, StartTagClassStateChange)
 {
-  StartTagTokenize( "ruby.class" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'c', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_CLASS, GetState() );
-  EXPECT_STREQ( "ruby", ParsedText() );
+  startTagTokenize( "ruby.class" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'c', currentChar() );
+  EXPECT_EQ( START_TAG_CLASS, state() );
+  EXPECT_STREQ( "ruby", parsedText() );
 }
 
 /*
@@ -42,11 +42,11 @@ TEST_F(StartTagStateTokenizerTest, StartTagClassStateChange)
  */
 TEST_F(StartTagStateTokenizerTest, SpaceAnnotationStateChange)
 {
-  StartTagTokenize( " Annotation" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'A', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  startTagTokenize( " Annotation" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'A', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -55,11 +55,11 @@ TEST_F(StartTagStateTokenizerTest, SpaceAnnotationStateChange)
  */
 TEST_F(StartTagStateTokenizerTest, NewLineAnnotationStateChange)
 {
-  StartTagTokenize( "\nAnnotation" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'A', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  startTagTokenize( "\nAnnotation" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'A', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -68,11 +68,11 @@ TEST_F(StartTagStateTokenizerTest, NewLineAnnotationStateChange)
  */
 TEST_F(StartTagStateTokenizerTest, CRAnnotationStateChange)
 {
-  StartTagTokenize( "\rAnnotation" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'A', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  startTagTokenize( "\rAnnotation" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'A', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -81,11 +81,11 @@ TEST_F(StartTagStateTokenizerTest, CRAnnotationStateChange)
  */
 TEST_F(StartTagStateTokenizerTest, FormFeedAnnotationStateChange)
 {
-  StartTagTokenize( "\fAnnotation" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'A', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  startTagTokenize( "\fAnnotation" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'A', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -94,9 +94,9 @@ TEST_F(StartTagStateTokenizerTest, FormFeedAnnotationStateChange)
  */
 TEST_F(StartTagStateTokenizerTest, TabAnnotationStateChange)
 {
-  StartTagTokenize( "\tAnnotation" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'A', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  startTagTokenize( "\tAnnotation" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'A', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
