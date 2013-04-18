@@ -5,7 +5,7 @@ class DataStateTokenizerTest : public CueTextTokenizerTest
   public:
     void dataTokenize( const char *text ) {
       token_state = DATA;
-      pos = text;
+      pos = start = text;
       current_status = webvtt_data_state( &pos, &token_state, &res );
     }
 };
@@ -17,7 +17,7 @@ TEST_F(DataStateTokenizerTest, BasicText)
 {
   dataTokenize( "Some Text Here" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( 14, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "Some Text Here", parsedText() );
 }
@@ -30,7 +30,7 @@ TEST_F(DataStateTokenizerTest, EscapeStateChange)
 {
   dataTokenize( "&amp" );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( 'a', currentChar() );
+  EXPECT_EQ( 1, currentCharPos() );
   EXPECT_EQ( ESCAPE, state() );
   EXPECT_STREQ( "", parsedText() );
 }
@@ -43,7 +43,7 @@ TEST_F(DataStateTokenizerTest, LTFinishedToken)
 {
   dataTokenize( "Text <b>" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '<', currentChar() );
+  EXPECT_EQ( 5, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "Text ", parsedText() );
 }
@@ -56,7 +56,7 @@ TEST_F(DataStateTokenizerTest, LTStartedToken)
 {
   dataTokenize( "<b>" );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( 'b', currentChar() );
+  EXPECT_EQ( 1, currentCharPos() );
   EXPECT_EQ( TAG, state() );
   EXPECT_STREQ( "", parsedText() );
 }
@@ -69,7 +69,7 @@ TEST_F(DataStateTokenizerTest, NullByteFinishedToken)
 {
   dataTokenize( "Text \0" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( 5, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "Text ", parsedText() );
 }
