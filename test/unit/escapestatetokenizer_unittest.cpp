@@ -3,10 +3,10 @@
 class EscapeStateTokenizerTest : public CueTextTokenizerTest
 {
   public:
-    void EscapeTokenize( const char *text ) {
-      state = ESCAPE;
+    void escapeTokenize( const char *text ) {
+      token_state = ESCAPE;
       pos = text;
-      status = webvtt_escape_state( &pos, &state, &res );
+      current_status = webvtt_escape_state( &pos, &token_state, &res );
     }
 };
 
@@ -22,11 +22,11 @@ class EscapeStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(EscapeStateTokenizerTest, NullByteFinished)
 {
-  EscapeTokenize( "Text\0" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( ESCAPE, GetState() );
-  EXPECT_STREQ( "&Text", ParsedText() );
+  escapeTokenize( "Text\0" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( ESCAPE, state() );
+  EXPECT_STREQ( "&Text", parsedText() );
 }
 
 /*
@@ -35,11 +35,11 @@ TEST_F(EscapeStateTokenizerTest, NullByteFinished)
  */
 TEST_F(EscapeStateTokenizerTest, LTFinished)
 {
-  EscapeTokenize( "Text<c>" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '<', GetCurrentChar() );
-  EXPECT_EQ( ESCAPE, GetState() );
-  EXPECT_STREQ( "&Text", ParsedText() );
+  escapeTokenize( "Text<c>" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '<', currentChar() );
+  EXPECT_EQ( ESCAPE, state() );
+  EXPECT_STREQ( "&Text", parsedText() );
 }
 
 /*
@@ -49,11 +49,11 @@ TEST_F(EscapeStateTokenizerTest, LTFinished)
  */
 TEST_F(EscapeStateTokenizerTest, NonAlphaNumeric)
 {
-  EscapeTokenize( "Some Text" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'T', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "&Some ", ParsedText() );
+  escapeTokenize( "Some Text" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'T', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "&Some ", parsedText() );
 }
 
 /*
@@ -62,11 +62,11 @@ TEST_F(EscapeStateTokenizerTest, NonAlphaNumeric)
  */
 TEST_F(EscapeStateTokenizerTest, IncorrectEscape)
 {
-  EscapeTokenize( "amb; " );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "&amb;", ParsedText() );
+  escapeTokenize( "amb; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "&amb;", parsedText() );
 }
 
 /*
@@ -75,11 +75,11 @@ TEST_F(EscapeStateTokenizerTest, IncorrectEscape)
  */
 TEST_F(EscapeStateTokenizerTest, CorrectAmpersand)
 {
-  EscapeTokenize( "amp; " );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "&", ParsedText() );
+  escapeTokenize( "amp; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "&", parsedText() );
 }
 
 /*
@@ -88,11 +88,11 @@ TEST_F(EscapeStateTokenizerTest, CorrectAmpersand)
  */
 TEST_F(EscapeStateTokenizerTest, CorrectLT)
 {
-  EscapeTokenize( "lt; " );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "<", ParsedText() );
+  escapeTokenize( "lt; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "<", parsedText() );
 }
 
 /*
@@ -101,11 +101,11 @@ TEST_F(EscapeStateTokenizerTest, CorrectLT)
  */
 TEST_F(EscapeStateTokenizerTest, CorrectGT)
 {
-  EscapeTokenize( "gt; " );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( ">", ParsedText() );
+  escapeTokenize( "gt; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( ">", parsedText() );
 }
 
 /*
@@ -113,9 +113,9 @@ TEST_F(EscapeStateTokenizerTest, CorrectGT)
  */
 TEST_F(EscapeStateTokenizerTest, ExtraAmpersand)
 {
-  EscapeTokenize( "am&amp; " );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( ' ', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "&am&", ParsedText() );
+  escapeTokenize( "am&amp; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "&am&", parsedText() );
 }

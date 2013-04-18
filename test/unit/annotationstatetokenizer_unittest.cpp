@@ -3,10 +3,10 @@
 class AnnotationStateTokenizerTest : public CueTextTokenizerTest
 {
   public:
-    void AnnotationTagTokenize( const char *text ) {
-      state = START_TAG_ANNOTATION;
+    void annotationTagTokenize( const char *text ) {
+      token_state = START_TAG_ANNOTATION;
       pos = text;
-      status = webvtt_annotation_state( &pos, &state, &res );
+      current_status = webvtt_annotation_state( &pos, &token_state, &res );
     }
 };
 
@@ -15,11 +15,11 @@ class AnnotationStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(AnnotationStateTokenizerTest, BasicText)
 {
-  AnnotationTagTokenize( "Annotation" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "Annotation", ParsedText() );
+  annotationTagTokenize( "Annotation" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "Annotation", parsedText() );
 }
 
 /*
@@ -28,11 +28,11 @@ TEST_F(AnnotationStateTokenizerTest, BasicText)
  */
 TEST_F(AnnotationStateTokenizerTest, GTFinished)
 {
-  AnnotationTagTokenize( "Annotation>Text" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '>', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "Annotation", ParsedText() );
+  annotationTagTokenize( "Annotation>Text" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "Annotation", parsedText() );
 }
 
 /*
@@ -41,9 +41,9 @@ TEST_F(AnnotationStateTokenizerTest, GTFinished)
  */
 TEST_F(AnnotationStateTokenizerTest, NullByteFinished)
 {
-  AnnotationTagTokenize( "Annotation\0" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( START_TAG_ANNOTATION, GetState() );
-  EXPECT_STREQ( "Annotation", ParsedText() );
+  annotationTagTokenize( "Annotation\0" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( START_TAG_ANNOTATION, state() );
+  EXPECT_STREQ( "Annotation", parsedText() );
 }

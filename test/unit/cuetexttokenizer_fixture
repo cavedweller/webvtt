@@ -15,25 +15,25 @@ class CueTextTokenizerTest : public ::testing::Test
       webvtt_release_string( &res );
     }
     
-    webvtt_status GetStatus() const {
-      return status;
+    webvtt_status status() const {
+      return current_status;
     }
     
-    webvtt_token_state GetState() const {
-      return state;
+    webvtt_token_state state() const {
+      return token_state;
     }
     
-    const char * ParsedText() const {
+    const char * parsedText() const {
       return webvtt_string_text( &res );
     }
     
-    char GetCurrentChar() const {
+    char currentChar() const {
       return *pos;
     }
     
   protected:
     webvtt_string res;
-    webvtt_token_state state;
-    webvtt_status status;
+    webvtt_token_state token_state;
+    webvtt_status current_status;
     const char *pos;
 };

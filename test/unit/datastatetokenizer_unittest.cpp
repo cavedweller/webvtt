@@ -3,10 +3,10 @@
 class DataStateTokenizerTest : public CueTextTokenizerTest
 {
   public:
-    void DataTokenize( const char *text ) {
-      state = DATA;
+    void dataTokenize( const char *text ) {
+      token_state = DATA;
       pos = text;
-      status = webvtt_data_state( &pos, &state, &res );
+      current_status = webvtt_data_state( &pos, &token_state, &res );
     }
 };
 
@@ -15,11 +15,11 @@ class DataStateTokenizerTest : public CueTextTokenizerTest
  */
 TEST_F(DataStateTokenizerTest, BasicText)
 {
-  DataTokenize( "Some Text Here" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "Some Text Here", ParsedText() );
+  dataTokenize( "Some Text Here" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "Some Text Here", parsedText() );
 }
 
 /*
@@ -28,11 +28,11 @@ TEST_F(DataStateTokenizerTest, BasicText)
  */
 TEST_F(DataStateTokenizerTest, EscapeStateChange)
 {
-  DataTokenize( "&amp" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'a', GetCurrentChar() );
-  EXPECT_EQ( ESCAPE, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  dataTokenize( "&amp" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'a', currentChar() );
+  EXPECT_EQ( ESCAPE, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -41,11 +41,11 @@ TEST_F(DataStateTokenizerTest, EscapeStateChange)
  */
 TEST_F(DataStateTokenizerTest, LTFinishedToken)
 {
-  DataTokenize( "Text <b>" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '<', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "Text ", ParsedText() );
+  dataTokenize( "Text <b>" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '<', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "Text ", parsedText() );
 }
 
 /*
@@ -54,11 +54,11 @@ TEST_F(DataStateTokenizerTest, LTFinishedToken)
  */
 TEST_F(DataStateTokenizerTest, LTStartedToken)
 {
-  DataTokenize( "<b>" );
-  EXPECT_EQ( WEBVTT_UNFINISHED, GetStatus() );
-  EXPECT_EQ( 'b', GetCurrentChar() );
-  EXPECT_EQ( TAG, GetState() );
-  EXPECT_STREQ( "", ParsedText() );
+  dataTokenize( "<b>" );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 'b', currentChar() );
+  EXPECT_EQ( TAG, state() );
+  EXPECT_STREQ( "", parsedText() );
 }
 
 /*
@@ -67,9 +67,9 @@ TEST_F(DataStateTokenizerTest, LTStartedToken)
  */
 TEST_F(DataStateTokenizerTest, NullByteFinishedToken)
 {
-  DataTokenize( "Text \0" );
-  EXPECT_EQ( WEBVTT_SUCCESS, GetStatus() );
-  EXPECT_EQ( '\0', GetCurrentChar() );
-  EXPECT_EQ( DATA, GetState() );
-  EXPECT_STREQ( "Text ", ParsedText() );
+  dataTokenize( "Text \0" );
+  EXPECT_EQ( WEBVTT_SUCCESS, status() );
+  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_STREQ( "Text ", parsedText() );
 }
