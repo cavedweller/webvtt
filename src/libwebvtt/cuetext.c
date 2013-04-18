@@ -464,6 +464,7 @@ webvtt_class_state( const char **position, webvtt_token_state *token_state,
         CHECK_MEMORY_OP_JUMP( status, webvtt_stringlist_push( css_classes, &buffer ) );
       }
       *token_state = START_TAG_ANNOTATION;
+      webvtt_release_string( &buffer );
       return WEBVTT_SUCCESS;
     } else if( **position == '>' || **position == '\0' ) {
       CHECK_MEMORY_OP_JUMP( status, webvtt_stringlist_push( css_classes, &buffer ) );
