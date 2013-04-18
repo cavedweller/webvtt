@@ -35,6 +35,8 @@
 static const char separator[] = {
   '-', '-', '>'
 };
+/* UTF8 encoding of U+FFFD REPLACEMENT CHAR */
+static const char replacement[] = { 0xEF, 0xBF, 0xBD };
 
 #define MSECS_PER_HOUR (3600000)
 #define MSECS_PER_MINUTE (60000)
@@ -1049,6 +1051,17 @@ parse_webvtt( webvtt_parser self, const char *buffer, webvtt_uint *ppos,
             status = WEBVTT_OUT_OF_MEMORY;
             goto _finish;
           }
+          /* replace '\0' with u+fffd */
+          if( WEBVTT_FAILED( status = webvtt_string_replace_all( &SP->v.text,
+                                                                 "\0", 1,
+                                                                 replacement,
+                                                                 3 ) ) ) {
+            webvtt_release_string( &SP->v.text );
+            SP->type = V_NONE;
+            POP();
+            ERROR( WEBVTT_ALLOCATION_FAILED );
+            goto _finish;
+          }
           SP->flags = 1;
         }
       }
@@ -1310,9 +1323,19 @@ webvtt_read_cuetext( webvtt_parser self, const char *b,
                                        &self->truncate, finish ) ) ) {
         if( v < 0 || WEBVTT_FAILED( webvtt_string_putc( &self->line_buffer,
                                                         '\n' ) ) ) {
+          ERROR( WEBVTT_ALLOCATION_FAILED );
           status = WEBVTT_OUT_OF_MEMORY;
           goto _finish;
         }
+        /* replace '\0' with u+fffd */
+        if( WEBVTT_FAILED( status =
+                           webvtt_string_replace_all( &self->line_buffer,
+                                                      "\0", 1, replacement,
+                                                      3 ) ) ) {
+          ERROR( WEBVTT_ALLOCATION_FAILED );
+          goto _finish;
+        }
+
         flags = 1;
       }
     }

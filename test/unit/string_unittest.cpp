@@ -24,11 +24,14 @@ const webvtt_uint16 UTF16AnNyungHaSeYo[] =
   0xC548, 0xB155, 0xD558, 0xC138, 0xC694, 0x0000
 };
 
+const char UTF8ReplacementChar[] = { 0xEF, 0xBF, 0xBD };
+
 TEST(String,CreateWithTextStrlen)
 {
   webvtt_string str;
-  webvtt_create_string_with_text( &str,
-    "Hello World", -1 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str,
+                                                             "Hello World",
+                                                             -1 ) );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World", webvtt_string_text( &str ) );
   webvtt_release_string( &str );
@@ -37,8 +40,9 @@ TEST(String,CreateWithTextStrlen)
 TEST(String,CreateWithText)
 {
   webvtt_string str;
-  webvtt_create_string_with_text( &str,
-    "Hello World", 11 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str,
+                                                             "Hello World",
+                                                             11 ) );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World", webvtt_string_text( &str ) );
   webvtt_release_string( &str );
@@ -52,8 +56,8 @@ TEST(String,GetLineEOFStrlen)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world", &pos, -1,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world", &pos,
+                                       -1, 0, 1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -65,8 +69,8 @@ TEST(String,GetLineLFStrlen)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world\n", &pos, -1,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world\n", &pos,
+                                       -1, 0, 1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -78,8 +82,8 @@ TEST(String,GetLineCRStrlen)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world\r", &pos, -1,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world\r", &pos,
+                                       -1, 0, 1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -94,8 +98,8 @@ TEST(String,GetLineEOF)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world", &pos, 11,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world", &pos,
+                                       11, 0, 1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -107,8 +111,8 @@ TEST(String,GetLineLF)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world\n", &pos, 12,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world\n", &pos,
+                                       12, 0, 1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -120,8 +124,8 @@ TEST(String,GetLineCR)
   webvtt_uint pos = 0;
   webvtt_string str;
   webvtt_init_string( &str );
-  webvtt_string_getline( &str, "Hello world\r", &pos, 12,
-                         0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "Hello world\r", &pos, 12, 0,
+                                       1 ) );
   EXPECT_EQ( 11, pos );
   EXPECT_EQ( 11, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello world", webvtt_string_text( &str ) );
@@ -135,13 +139,15 @@ TEST(String,AppendGetLineStrlen)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, "Hello Wor", 9 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str,
+                                                             "Hello Wor",
+                                                             9 ) );
   EXPECT_EQ( 9, webvtt_string_length( &str ) );
-  webvtt_string_getline( &str, "ld! This is a test! Yup\n",
-    &pos, -1,  0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "ld! This is a test! Yup\n",
+                                       &pos, -1,  0, 1 ) );
   EXPECT_EQ( 32, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World! This is a test! Yup",
-    webvtt_string_text( &str ) );
+                webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
@@ -152,13 +158,14 @@ TEST(String,AppendGetLine)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, "Hello Wor", 9 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, "Hello Wor",
+                                                             9 ) );
   EXPECT_EQ( 9, webvtt_string_length( &str ) );
-  webvtt_string_getline( &str, "ld! This is a test! Yup\n",
-    &pos, 24,  0, 1 );
+  ASSERT_LT( 0, webvtt_string_getline( &str, "ld! This is a test! Yup\n",
+                                       &pos, 24,  0, 1 ) );
   EXPECT_EQ( 32, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World! This is a test! Yup",
-    webvtt_string_text( &str ) );
+                webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
@@ -169,13 +176,15 @@ TEST(String,AppendStrlen)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, "Hello Wor", 9 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, "Hello Wor",
+                                                             9 ) );
   EXPECT_EQ( 9, webvtt_string_length( &str ) );
-  webvtt_string_append( &str, "ld! This is a test! Yup",
-    -1 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_string_append( &str,
+                                                   "ld! This is a test! Yup",
+                                                   -1 ) );
   EXPECT_EQ( 32, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World! This is a test! Yup",
-    webvtt_string_text( &str ) );
+                webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
@@ -186,13 +195,15 @@ TEST(String,Append)
 {
   WebVTT::uint pos = 0;
   webvtt_string str;
-  webvtt_create_string_with_text( &str, "Hello Wor", 9 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, "Hello Wor",
+                                                             9 ) );
   EXPECT_EQ( 9, webvtt_string_length( &str ) );
-  webvtt_string_append( &str, "ld! This is a test! Yup",
-    23 );
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_string_append( &str,
+                                                  "ld! This is a test! Yup",
+                                                  23 ) );
   EXPECT_EQ( 32, webvtt_string_length( &str ) );
   EXPECT_STREQ( "Hello World! This is a test! Yup",
-    webvtt_string_text( &str ) );
+                webvtt_string_text( &str ) );
   webvtt_release_string( &str );
 }
 
@@ -320,4 +331,73 @@ TEST(String,IsEmptyCXX)
   ASSERT_TRUE( str.isEmpty() );
   str.append( "Not Empty!" ); 
   ASSERT_FALSE( str.isEmpty() );
+}
+
+/**
+ * Test that replace behaves correctly
+ */
+TEST(String,Replace)
+{
+  char conststr[3] = {0,0,0};
+  char expectedOutput[] = { 0xEF, 0xBF, 0xBD, 0, 0, 0 };
+  webvtt_string str;
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, conststr,
+                                                             3 ) );
+  EXPECT_EQ( 3, webvtt_string_length( &str ) );
+  EXPECT_EQ( 1, webvtt_string_replace( &str, "\0", 1, UTF8ReplacementChar,
+                                       3 ) );
+  EXPECT_STREQ( expectedOutput, webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * Test that replace behaves correctly (with strlen)
+ */
+TEST(String,ReplaceStrlen)
+{
+  char conststr[] = "potato";
+  char expectedOutput[] = "poTato";
+  webvtt_string str;
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, conststr,
+                                                             6 ) );
+  EXPECT_EQ( 6, webvtt_string_length( &str ) );
+  EXPECT_EQ( 1, webvtt_string_replace( &str, "t", 1, "T", 1 ) );
+  EXPECT_STREQ( expectedOutput, webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+
+/**
+ * Test that replace_all behaves correctly
+ */
+TEST(String,ReplaceAll)
+{
+  char conststr[] = "\0a\0b";
+  char expectedOutput[] = { 0xEF, 0xBF, 0xBD, 'a', 0xEF, 0xBF, 0xBD, 'b', 0 };
+  webvtt_string str;
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, conststr,
+                                                             4 ) );
+  EXPECT_EQ( 4, webvtt_string_length( &str ) );
+  EXPECT_EQ( WEBVTT_SUCCESS, webvtt_string_replace_all( &str, "\0", 1,
+                                                        UTF8ReplacementChar,
+                                                        3 ) );
+  EXPECT_STREQ( expectedOutput, webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
+}
+
+/**
+ * Test that replace_all behaves correctly (with strlen)
+ */
+TEST(String,ReplaceAllStrlen)
+{
+  char conststr[] = "potato";
+  char expectedOutput[] = "poTaTo";
+  webvtt_string str;
+  ASSERT_EQ( WEBVTT_SUCCESS, webvtt_create_string_with_text( &str, conststr,
+                                                             6 ) );
+  EXPECT_EQ( 6, webvtt_string_length( &str ) );
+  EXPECT_EQ( WEBVTT_SUCCESS, webvtt_string_replace_all( &str, "t", -1,
+                                                        "T", -1 ) );
+  EXPECT_STREQ( expectedOutput, webvtt_string_text( &str ) );
+  webvtt_release_string( &str );
 }
