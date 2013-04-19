@@ -219,9 +219,6 @@ retry:
       case M_SKIP_CUE:
         /* Nothing to do here. */
         break;
-      case M_READ_LINE:
-        /* Nothing to do here. */
-        break;
     }
     cleanup_stack( self );
   }
@@ -1464,7 +1461,8 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
   while( pos < len ) {
     switch( self->mode ) {
       case M_WEBVTT:
-        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len, self->finished ) ) ) {
+        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len,
+                                                  self->finished ) ) ) {
           return status;
         }
         break;
@@ -1474,7 +1472,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
          * read in cuetext
          */
         if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
-                                                  self->finished ) ) ) {
+                                                         self->finished ) ) ) {
           if( status == WEBVTT_UNFINISHED ) {
             /* Make an exception here, because this isn't really a failure. */
             return WEBVTT_SUCCESS;
@@ -1490,28 +1488,10 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
 
       case M_SKIP_CUE:
         if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
-                                                  self->finished ) ) ) {
+                                                         self->finished ) ) ) {
           return status;
         }
         break;
-
-      case M_READ_LINE: {
-        /**
-         * Read in a line of text into the line-buffer,
-         * we will and depending on our state, do something with it.
-         */
-        int ret;
-        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len,
-                                           &self->truncate,
-                                           self->finished ) ) ) {
-          if( ret < 0 ) {
-            ERROR( WEBVTT_ALLOCATION_FAILED );
-            return WEBVTT_OUT_OF_MEMORY;
-          }
-          self->mode = M_WEBVTT;
-        }
-        break;
-      }
     }
   }
 
