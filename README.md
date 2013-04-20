@@ -99,7 +99,7 @@ When running tests with valgrind, any test that fails valgrind (even if it passe
         void webvtt_free( void *data );
         void webvtt_set_allocator( webvtt_alloc_fn_ptr alloc, webvtt_free_fn_ptr free, void *userdata );
 
-### Memmory Application Callbacks
+### Memory Application Callbacks
         typedef void *(WEBVTT_CALLBACK *webvtt_alloc_fn_ptr)( void *userdata, webvtt_uint nbytes );
         typedef void (WEBVTT_CALLBACK *webvtt_free_fn_ptr)( void *userdata, void *pmem );
 
