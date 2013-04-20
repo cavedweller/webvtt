@@ -27,13 +27,13 @@ class CueTextTokenizerTest : public ::testing::Test
       return webvtt_string_text( &res );
     }
     
-    char currentChar() const {
-      return *pos;
+    webvtt_uint currentCharPos() {
+      return pos - start;
     }
     
   protected:
     webvtt_string res;
     webvtt_token_state token_state;
     webvtt_status current_status;
-    const char *pos;
+    const char *pos, *start;
 };

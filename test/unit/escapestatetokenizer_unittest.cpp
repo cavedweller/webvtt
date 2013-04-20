@@ -5,7 +5,7 @@ class EscapeStateTokenizerTest : public CueTextTokenizerTest
   public:
     void escapeTokenize( const char *text ) {
       token_state = ESCAPE;
-      pos = text;
+      pos = start = text;
       current_status = webvtt_escape_state( &pos, &token_state, &res );
     }
 };
@@ -24,7 +24,7 @@ TEST_F(EscapeStateTokenizerTest, NullByteFinished)
 {
   escapeTokenize( "Text\0" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( 4, currentCharPos() );
   EXPECT_EQ( ESCAPE, state() );
   EXPECT_STREQ( "&Text", parsedText() );
 }
@@ -37,7 +37,7 @@ TEST_F(EscapeStateTokenizerTest, LTFinished)
 {
   escapeTokenize( "Text<c>" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '<', currentChar() );
+  EXPECT_EQ( 4, currentCharPos() );
   EXPECT_EQ( ESCAPE, state() );
   EXPECT_STREQ( "&Text", parsedText() );
 }
@@ -51,7 +51,7 @@ TEST_F(EscapeStateTokenizerTest, NonAlphaNumeric)
 {
   escapeTokenize( "Some Text" );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( 'T', currentChar() );
+  EXPECT_EQ( 5, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "&Some ", parsedText() );
 }
@@ -64,7 +64,7 @@ TEST_F(EscapeStateTokenizerTest, IncorrectEscape)
 {
   escapeTokenize( "amb; " );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( 4, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "&amb;", parsedText() );
 }
@@ -77,7 +77,7 @@ TEST_F(EscapeStateTokenizerTest, CorrectAmpersand)
 {
   escapeTokenize( "amp; " );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( 4, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "&", parsedText() );
 }
@@ -90,7 +90,7 @@ TEST_F(EscapeStateTokenizerTest, CorrectLT)
 {
   escapeTokenize( "lt; " );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( 3, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "<", parsedText() );
 }
@@ -103,7 +103,7 @@ TEST_F(EscapeStateTokenizerTest, CorrectGT)
 {
   escapeTokenize( "gt; " );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( 3, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( ">", parsedText() );
 }
@@ -115,7 +115,7 @@ TEST_F(EscapeStateTokenizerTest, ExtraAmpersand)
 {
   escapeTokenize( "am&amp; " );
   EXPECT_EQ( WEBVTT_UNFINISHED, status() );
-  EXPECT_EQ( ' ', currentChar() );
+  EXPECT_EQ( 7, currentCharPos() );
   EXPECT_EQ( DATA, state() );
   EXPECT_STREQ( "&am&", parsedText() );
 }

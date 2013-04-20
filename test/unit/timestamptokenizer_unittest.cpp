@@ -5,7 +5,7 @@ class TimeStampStateTokenizerTest : public CueTextTokenizerTest
   public:
     void timeStampTokenize( const char *text ) {
       token_state = TIME_STAMP_TAG;
-      pos = text;
+      pos = start = text;
       current_status = webvtt_timestamp_state( &pos, &token_state, &res );
     }
 };
@@ -17,7 +17,7 @@ TEST_F(TimeStampStateTokenizerTest, BasicText)
 {
   timeStampTokenize( "11:00.000" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( 9, currentCharPos() );
   EXPECT_EQ( TIME_STAMP_TAG, state() );
   EXPECT_STREQ( "11:00.000", parsedText() );
 }
@@ -30,7 +30,7 @@ TEST_F(TimeStampStateTokenizerTest, GTFinished)
 {
   timeStampTokenize( "11:00.000>Text" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '>', currentChar() );
+  EXPECT_EQ( 9, currentCharPos() );
   EXPECT_EQ( TIME_STAMP_TAG, state() );
   EXPECT_STREQ( "11:00.000", parsedText() );
 }
@@ -43,7 +43,7 @@ TEST_F(TimeStampStateTokenizerTest, NullByteFinished)
 {
   timeStampTokenize( "11:00.000\0" );
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
-  EXPECT_EQ( '\0', currentChar() );
+  EXPECT_EQ( 9, currentCharPos() );
   EXPECT_EQ( TIME_STAMP_TAG, state() );
   EXPECT_STREQ( "11:00.000", parsedText() );
 }
