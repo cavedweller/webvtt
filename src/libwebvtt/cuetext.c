@@ -434,6 +434,8 @@ webvtt_start_tag_state( const char **position, webvtt_token_state *token_state,
         case '.':
           *token_state = START_TAG_CLASS;
           break;
+        case '\0':
+          return WEBVTT_SUCCESS;
         case '>':
           return WEBVTT_SUCCESS;
           break;
