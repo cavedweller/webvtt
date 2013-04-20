@@ -88,7 +88,6 @@ webvtt_parse_mode_t {
   M_WEBVTT = 0,
   M_CUETEXT,
   M_SKIP_CUE,
-  M_READ_LINE,
 } webvtt_parse_mode;
 
 

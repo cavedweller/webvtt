@@ -35,6 +35,8 @@
 static const char separator[] = {
   '-', '-', '>'
 };
+/* UTF8 encoding of U+FFFD REPLACEMENT CHAR */
+static const char replacement[] = { 0xEF, 0xBF, 0xBD };
 
 #define MSECS_PER_HOUR (3600000)
 #define MSECS_PER_MINUTE (60000)
@@ -215,9 +217,6 @@ retry:
         status = webvtt_proc_cuetext( self, buffer, &pos, len, self->finished );
         break;
       case M_SKIP_CUE:
-        /* Nothing to do here. */
-        break;
-      case M_READ_LINE:
         /* Nothing to do here. */
         break;
     }
@@ -1049,6 +1048,17 @@ parse_webvtt( webvtt_parser self, const char *buffer, webvtt_uint *ppos,
             status = WEBVTT_OUT_OF_MEMORY;
             goto _finish;
           }
+          /* replace '\0' with u+fffd */
+          if( WEBVTT_FAILED( status = webvtt_string_replace_all( &SP->v.text,
+                                                                 "\0", 1,
+                                                                 replacement,
+                                                                 3 ) ) ) {
+            webvtt_release_string( &SP->v.text );
+            SP->type = V_NONE;
+            POP();
+            ERROR( WEBVTT_ALLOCATION_FAILED );
+            goto _finish;
+          }
           SP->flags = 1;
         }
       }
@@ -1310,9 +1320,19 @@ webvtt_read_cuetext( webvtt_parser self, const char *b,
                                        &self->truncate, finish ) ) ) {
         if( v < 0 || WEBVTT_FAILED( webvtt_string_putc( &self->line_buffer,
                                                         '\n' ) ) ) {
+          ERROR( WEBVTT_ALLOCATION_FAILED );
           status = WEBVTT_OUT_OF_MEMORY;
           goto _finish;
         }
+        /* replace '\0' with u+fffd */
+        if( WEBVTT_FAILED( status =
+                           webvtt_string_replace_all( &self->line_buffer,
+                                                      "\0", 1, replacement,
+                                                      3 ) ) ) {
+          ERROR( WEBVTT_ALLOCATION_FAILED );
+          goto _finish;
+        }
+
         flags = 1;
       }
     }
@@ -1441,7 +1461,8 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
   while( pos < len ) {
     switch( self->mode ) {
       case M_WEBVTT:
-        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len, self->finished ) ) ) {
+        if( WEBVTT_FAILED( status = parse_webvtt( self, b, &pos, len,
+                                                  self->finished ) ) ) {
           return status;
         }
         break;
@@ -1451,7 +1472,7 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
          * read in cuetext
          */
         if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
-                                                  self->finished ) ) ) {
+                                                         self->finished ) ) ) {
           if( status == WEBVTT_UNFINISHED ) {
             /* Make an exception here, because this isn't really a failure. */
             return WEBVTT_SUCCESS;
@@ -1467,28 +1488,10 @@ webvtt_parse_chunk( webvtt_parser self, const void *buffer, webvtt_uint len )
 
       case M_SKIP_CUE:
         if( WEBVTT_FAILED( status = webvtt_proc_cuetext( self, b, &pos, len,
-                                                  self->finished ) ) ) {
+                                                         self->finished ) ) ) {
           return status;
         }
         break;
-
-      case M_READ_LINE: {
-        /**
-         * Read in a line of text into the line-buffer,
-         * we will and depending on our state, do something with it.
-         */
-        int ret;
-        if( ( ret = webvtt_string_getline( &self->line_buffer, b, &pos, len,
-                                           &self->truncate,
-                                           self->finished ) ) ) {
-          if( ret < 0 ) {
-            ERROR( WEBVTT_ALLOCATION_FAILED );
-            return WEBVTT_OUT_OF_MEMORY;
-          }
-          self->mode = M_WEBVTT;
-        }
-        break;
-      }
     }
   }
 

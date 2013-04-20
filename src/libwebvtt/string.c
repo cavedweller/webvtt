@@ -29,6 +29,40 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* TODO: Use libc implementation if we have one */
+
+void *
+memmem(const void *l, size_t l_len, const void *s, size_t s_len)
+{
+  register char *cur, *last;
+  const char *cl = ( const char * )l;
+  const char *cs = ( const char * )s;
+
+  /* we need something to compare */
+  if ( l_len == 0 || s_len == 0 ) {
+    return NULL;
+  }
+
+  /* "s" must be smaller or equal to "l" */
+  if ( l_len < s_len ) {
+    return NULL;
+  }
+
+  /* special case where s_len == 1 */
+  if ( s_len == 1 ) {
+    return ( void * )memchr( l, ( int )*cs, l_len );
+  }
+
+  /* the last position where its possible to find "s" in "l" */
+  last = (char *)cl + l_len - s_len;
+
+  for ( cur = ( char * )cl; cur <= last; cur++ ) {
+    if ( cur[0] == cs[0] && memcmp( cur, cs, s_len ) == 0 ) {
+      return cur;
+    }
+  }
+  return NULL;
+}
 
 static webvtt_string_data empty_string = {
   { 1 }, /* init refcount */
@@ -97,15 +131,14 @@ webvtt_create_string_with_text( webvtt_string *result, const char *init_text, in
     len = strlen( ( const char * )init_text );
   }
   
-  if( len == 0 ) {
-    webvtt_init_string( result );
-    return WEBVTT_SUCCESS;
-  }
-  
   /**
    * initialize the string by referencing empty_string
    */
   webvtt_init_string( result );
+  
+  if( len == 0 ) {
+    return WEBVTT_SUCCESS;
+  }
 
   /**
    * append the appropriate data to the empty string
@@ -426,6 +459,72 @@ WEBVTT_EXPORT webvtt_status
   }
 
   return webvtt_string_append( str, other->d->text, other->d->length );
+}
+
+WEBVTT_EXPORT webvtt_status
+webvtt_string_replace( webvtt_string *str, const char *search, int search_len,
+                       const char *replace, int replace_len )
+{
+  webvtt_status status = WEBVTT_SUCCESS;
+  char *p;
+  if( !str || !search || !replace ) {
+    return WEBVTT_INVALID_PARAM;
+  }
+
+  if( search_len < 0 ) {
+    search_len = ( int )strlen( search );
+  }
+
+  if( replace_len < 0 ) {
+    replace_len = ( int )strlen( replace );
+  }
+
+  if( ( p = (char *)memmem( str->d->text, str->d->length, search,
+                            search_len ) ) ) {
+    const char *end;
+    size_t pos = p - str->d->text;
+    if( WEBVTT_FAILED( status = grow( str, replace_len ) ) ) {
+      return status;
+    }
+    p = str->d->text + pos;
+    end = str->d->text + str->d->length - 1; /* Don't worry about the NULL byte. */
+    if( search_len != replace_len ) {
+      memmove( p + replace_len, p + search_len, end - p );
+    }
+    memcpy( p, replace, replace_len );
+    str->d->length = ( str->d->length - search_len ) + replace_len;
+    str->d->text[ str->d->length ] = 0;
+    status = ( webvtt_status )1;
+  }
+  return status;
+}
+
+/**
+ * webvtt_string_replace_all
+ *
+ * replace all instances of substring with replacement string
+ */
+WEBVTT_EXPORT webvtt_status
+webvtt_string_replace_all( webvtt_string *str, const char *search,
+                           int search_len, const char *replace,
+                           int replace_len )
+{
+  webvtt_status status = WEBVTT_SUCCESS;
+  if( !str || !search || !replace ) {
+    return WEBVTT_INVALID_PARAM;
+  }
+
+  if( search_len < 0 ) {
+    search_len = ( int )strlen( search );
+  }
+
+  if( replace_len < 0 ) {
+    replace_len = ( int )strlen( replace );
+  }
+
+  while( ( status = webvtt_string_replace( str, search, search_len, replace,
+                                           replace_len ) ) == 1 );
+  return status;
 }
 
 /**

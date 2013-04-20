@@ -151,6 +151,26 @@ WEBVTT_EXPORT int webvtt_string_getline( webvtt_string *str, const char *buffer,
  */
 WEBVTT_EXPORT webvtt_status webvtt_string_putc( webvtt_string *str, char to_append );
 
+/**
+ * webvtt_string_replace
+ *
+ * replace first instance of substring with replacement string.
+ */
+WEBVTT_EXPORT webvtt_status webvtt_string_replace( webvtt_string *str,
+                                                   const char *search,
+                                                   int search_len,
+                                                   const char *replace,
+                                                   int replace_len );
+/**
+ * webvtt_string_replace_all
+ *
+ * replace all instances of substring with replacement string
+ */
+WEBVTT_EXPORT webvtt_status webvtt_string_replace_all( webvtt_string *str,
+                                                       const char *search,
+                                                       int search_len,
+                                                       const char *replace,
+                                                       int replace_len );
 
 /**
  * webvtt_string_is_equal
