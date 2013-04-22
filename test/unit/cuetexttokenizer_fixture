@@ -1,4 +1,3 @@
-#include <string>
 #include <gtest/gtest.h>
 extern "C" {
 #include "libwebvtt/cuetext.c"
