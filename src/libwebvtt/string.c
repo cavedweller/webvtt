@@ -128,7 +128,7 @@ webvtt_create_string_with_text( webvtt_string *result, const char *init_text, in
   }
 
   if( len < 0 ) {
-    len = strlen( ( const char * )init_text );
+    len = strlen( init_text );
   }
   
   /**
@@ -345,7 +345,7 @@ webvtt_string_getline( webvtt_string *src, const char *buffer,
     d = str->d;
   }
   if( len < 0 ) {
-    len = strlen( (const char *)buffer );
+    len = strlen( buffer );
   }
   n = buffer + len;
 
@@ -411,7 +411,7 @@ webvtt_string_is_equal( const webvtt_string *str, const char *to_compare,
   }
 
   if( len < 0 ) {
-    len = strlen( (const char *)to_compare );
+    len = strlen( to_compare );
   }
 
   if( str->d->length != (unsigned)len ) {
@@ -434,7 +434,7 @@ webvtt_string_append( webvtt_string *str, const char *buffer, int len )
   }
 
   if( len < 0 ) {
-    len = strlen( ( const char * )buffer );
+    len = strlen( buffer );
   }
 
   if( len == 0 ) {
@@ -636,7 +636,7 @@ webvtt_next_utf8( const char **begin, const char *end )
   p = *begin;
 
   if( !end ) {
-    end = p + strlen( ( const char * )p );
+    end = p + strlen( p );
   }
 
   c = webvtt_utf8_length( p );
@@ -673,7 +673,7 @@ webvtt_skip_utf8( const char **begin, const char *end, int n_chars )
 
   first = *begin;
   if( !end ) {
-    end = first + strlen( ( const char * )first );
+    end = first + strlen( first );
   }
 
   if( end > first ) {
@@ -700,7 +700,7 @@ webvtt_utf8_to_utf16( const char *utf8, const char *end,
     return 0;
   }
   if( !end ) {
-    end = utf8 + strlen( ( const char * )utf8 );
+    end = utf8 + strlen( utf8 );
   }
   if( utf8 >= end ) {
     return 0;
@@ -775,7 +775,7 @@ webvtt_utf8_chcount( const char *utf8, const char *end )
     return 0;
   }
   if( !end ) {
-    end = utf8 + strlen( ( const char * )utf8 );
+    end = utf8 + strlen( utf8 );
   }
   
   for( p = utf8; p < end; ++n ) {
