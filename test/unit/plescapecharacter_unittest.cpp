@@ -75,7 +75,7 @@ TEST_F(PayloadEscapeCharacter, LRM)
     /* verify that it is a Node */
     ASSERT_EQ( Node::Text, node.kind() );
     
-    /* create a UTF8 representation of NBSP and compare with textnode */
+    /* create a UTF8 representation of LRM and compare with textnode */
     ASSERT_EQ( LRM, node.text().utf16At( 0 ) );
 }
 
@@ -92,7 +92,7 @@ TEST_F(PayloadEscapeCharacter, RLM)
   /* verify that it is a Node */
   ASSERT_EQ( Node::Text, node.kind()) ;
     
-  /* create a UTF8 representation of NBSP and compare with textnode */
+  /* create a UTF8 representation of RLM and compare with textnode */
   ASSERT_EQ( RLM, node.text().utf16At( 0 ) );
 }
 
