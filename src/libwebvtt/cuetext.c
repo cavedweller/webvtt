@@ -708,11 +708,12 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
           continue;
         }
 
-        if( current_node->kind == kind ) {
+        if( current_node->kind == kind ||
+            ( current_node->kind == WEBVTT_RUBY_TEXT
+              && kind == WEBVTT_RUBY ) ) {
           /**
-           * We have encountered an end token and it matches the start token of
-           * the node that we are currently on. Move back up the list of nodes
-           * and continue parsing.
+           * We have encountered a valid end tag to our current tag. Move back
+           * up the tree of nodes and continue parsing.
            */
           current_node = current_node->parent;
         }
@@ -726,6 +727,15 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
         if( webvtt_create_node_from_token( token, &temp_node, current_node ) != WEBVTT_SUCCESS ) { 
           /* Do something here? */ 
         } else {
+          /**
+           * If the parsed node is ruby text and we are not currently on a ruby
+           * node then do not attach the ruby text node.
+           */
+          if( temp_node->kind == WEBVTT_RUBY_TEXT &&
+              current_node->kind != WEBVTT_RUBY ) {
+            continue;
+          }
+          
           webvtt_attach_node( current_node, temp_node );
 
           if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) { 
