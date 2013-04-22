@@ -178,7 +178,7 @@ webvtt_delete_token( webvtt_cuetext_token **token )
 WEBVTT_INTERN int
 tag_accepts_annotation( webvtt_string *tag_name )
 {
-  return webvtt_string_is_equal( tag_name, ( char * )"v", 1 );
+  return webvtt_string_is_equal( tag_name, "v", 1 );
 }
 
 WEBVTT_INTERN webvtt_status
@@ -206,9 +206,9 @@ webvtt_node_kind_from_tag_name( webvtt_string *tag_name, webvtt_node_kind *kind 
         *kind = WEBVTT_VOICE;
         break;
     }
-  } else if( webvtt_string_is_equal( tag_name, ( char * )"ruby", 4 ) ) {
+  } else if( webvtt_string_is_equal( tag_name, "ruby", 4 ) ) {
     *kind = WEBVTT_RUBY;
-  } else if( webvtt_string_is_equal( tag_name, ( char * )"rt", 2 ) ) {
+  } else if( webvtt_string_is_equal( tag_name, "rt", 2 ) ) {
     *kind = WEBVTT_RUBY_TEXT;
   } else {
     return WEBVTT_INVALID_TAG_NAME;
@@ -338,17 +338,17 @@ webvtt_escape_state( const char **position, webvtt_token_state *token_state,
      * the interpretation to result and change the state to DATA.
      */
     else if( **position == ';' ) {
-      if( webvtt_string_is_equal( &buffer, ( char * )"&amp", 4 ) ) {
+      if( webvtt_string_is_equal( &buffer, "&amp", 4 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '&' ) );
-      } else if( webvtt_string_is_equal( &buffer, ( char * )"&lt", 3 ) ) {
+      } else if( webvtt_string_is_equal( &buffer, "&lt", 3 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '<' ) );
-      } else if( webvtt_string_is_equal( &buffer, ( char * )"&gt", 3 ) ) {
+      } else if( webvtt_string_is_equal( &buffer, "&gt", 3 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_putc( result, '>' ) );
-      } else if( webvtt_string_is_equal( &buffer, ( char * )"&rlm", 4 ) ) {
+      } else if( webvtt_string_is_equal( &buffer, "&rlm", 4 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, rlm_replace, RLM_REPLACE_LENGTH ) );
-      } else if( webvtt_string_is_equal( &buffer, ( char * )"&lrm", 4 ) ) {
+      } else if( webvtt_string_is_equal( &buffer, "&lrm", 4 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, lrm_replace, LRM_REPLACE_LENGTH ) );
-      } else if( webvtt_string_is_equal( &buffer, ( char * )"&nbsp", 5 ) ) {
+      } else if( webvtt_string_is_equal( &buffer, "&nbsp", 5 ) ) {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append( result, nbsp_replace, NBSP_REPLACE_LENGTH ) );
       } else {
         CHECK_MEMORY_OP_JUMP( status, webvtt_string_append_string( result, &buffer ) );
@@ -665,7 +665,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue, webvtt_string *payloa
     return status;
   }
 
-  position = (char *)cue_text;
+  position = cue_text;
   node_head = cue->node_head;
   current_node = node_head;
   temp_node = NULL;
