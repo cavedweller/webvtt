@@ -51,7 +51,8 @@ public:
   }
 
   Error( uint line, uint column, webvtt_error error )
-    : _line(line), _column(column), _error(error), _message( webvtt_strerror(error) ) {
+    : _line(line), _column(column), _error(error),
+      _message( webvtt_strerror(error) ) {
   }
 
   ~Error() { }

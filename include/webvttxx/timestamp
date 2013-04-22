@@ -48,8 +48,12 @@ public:
   inline webvtt_timestamp value() const { return ts; }
 
   inline uint64 hours() const { return ts / MillisPerHour; }
-  inline uint64 minutes() const { return ( ts % MillisPerHour ) / MillisPerMinute; }
-  inline uint64 seconds() const { return ( ts % MillisPerMinute ) / MillisPerSecond; }
+  inline uint64 minutes() const {
+    return ( ts % MillisPerHour ) / MillisPerMinute;
+  }
+  inline uint64 seconds() const {
+    return ( ts % MillisPerMinute ) / MillisPerSecond;
+  }
   inline uint64 milliseconds() const { return ts % MillisPerSecond; }
 
 private:

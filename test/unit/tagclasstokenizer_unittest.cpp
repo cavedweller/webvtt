@@ -11,22 +11,22 @@ class ClassStateTokenizerTest : public CueTextTokenizerTest
       CueTextTokenizerTest::SetUp();
       webvtt_create_stringlist( &classes );
     }
-    
+
     virtual void TearDown() {
       CueTextTokenizerTest::TearDown();
       webvtt_release_stringlist( &classes );
     }
-    
+
     WebVTT::StringList parsedClasses() {
       return WebVTT::StringList( classes );
     }
-    
+
     void startClassTokenize( const char *text ) {
       token_state = START_TAG_CLASS;
       pos = start = text;
       current_status = webvtt_class_state( &pos, &token_state, classes );
     }
-    
+
   private:
     webvtt_stringlist *classes;
 };
@@ -37,7 +37,7 @@ class ClassStateTokenizerTest : public CueTextTokenizerTest
 TEST_F(ClassStateTokenizerTest, ClassParsing)
 {
   startClassTokenize( "class.subclass.subsub>" );
-  
+
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
   EXPECT_EQ( 21, currentCharPos() );
   EXPECT_EQ( START_TAG_CLASS, state() );
@@ -53,7 +53,7 @@ TEST_F(ClassStateTokenizerTest, ClassParsing)
 TEST_F(ClassStateTokenizerTest, GTFinished)
 {
   startClassTokenize( "class>Text" );
-  
+
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
   EXPECT_EQ( 5, currentCharPos() );
   EXPECT_EQ( START_TAG_CLASS, state() );
@@ -67,7 +67,7 @@ TEST_F(ClassStateTokenizerTest, GTFinished)
 TEST_F(ClassStateTokenizerTest, NullByteFinished)
 {
   startClassTokenize( "class\0" );
-  
+
   EXPECT_EQ( WEBVTT_SUCCESS, status() );
   EXPECT_EQ( 5, currentCharPos() );
   EXPECT_EQ( START_TAG_CLASS, state() );

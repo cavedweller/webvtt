@@ -156,8 +156,8 @@ TEST_F(CueSettingSize, NoDelimiter)
    * Size should be 100 because the malformed setting should be skipped * and
    * 100 is default.
    */
-  expectDefaultSizeSetting( getCue( 0 ) ); 
- 
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
    * the 3rd line
@@ -166,7 +166,7 @@ TEST_F(CueSettingSize, NoDelimiter)
 
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 30th
-   * column of the 3rd line 
+   * column of the 3rd line
    */
   expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
 }
@@ -183,7 +183,7 @@ TEST_F(CueSettingSize, NoDelimiter)
 TEST_F(CueSettingSize, NoKeyword)
 {
   loadVtt( "cue-settings/size/no-keyword.vtt",  1 );
-  ASSERT_LE( 1, errorCount() ); 
+  ASSERT_LE( 1, errorCount() );
   EXPECT_EQ( 1, errorCount() );
 
   /**
@@ -290,13 +290,13 @@ TEST_F(CueSettingSize, BadKeyword)
 {
   loadVtt( "cue-settings/size/bad-keyword.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
- 
+
   /**
    * Size should be 100 because the malformed setting should be skipped and
    * 100 is default.
    */
   ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
-  
+
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line

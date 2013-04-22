@@ -82,12 +82,12 @@ TEST_F(PayloadRubyTag, NoRubyText)
   ASSERT_EQ( head0[ 1 ][ 1 ].childCount(), 0 );
 }
 
-TEST_F(PayloadRubyTag, NoRubyTextNoEndRubTextBrace) 
+TEST_F(PayloadRubyTag, NoRubyTextNoEndRubTextBrace)
 {
   loadVtt( "payload/ruby-tag/no-ruby-text-no-end-ruby-text-tag.vtt", 1 );
-  
+
   const Node head = getHeadOfCue( 0 );
-  
+
   ASSERT_EQ( Node::Ruby, head[ 1 ].kind() );
   ASSERT_EQ( Node::Text, head[ 1 ][ 0 ].kind() );
   ASSERT_EQ( Node::RubyText, head[ 1 ][ 1 ].kind() );
@@ -130,7 +130,7 @@ TEST_F(PayloadRubyTag, RubyTagMultiSubclass)
   ASSERT_EQ( Node::Ruby, head[ 1 ].kind() );
 
   StringList cssClasses =  head[ 1 ].cssClasses();
-  
+
   ASSERT_EQ( 2, cssClasses.length() );
   expectEquals( "class", cssClasses.stringAt( 0 ) );
   expectEquals( "subclass", cssClasses.stringAt( 1 ) );

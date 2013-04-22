@@ -32,7 +32,8 @@
 extern "C" {
 #endif
 
-# if defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+# if defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
+#    || defined(__WINDOWS__)
 #   if !WEBVTT_NO_CONFIG_H
 #     include "webvtt-config-win32.h"
 #   endif
@@ -142,31 +143,36 @@ extern "C" {
   typedef webvtt_uint64 webvtt_timestamp;
 
   /**
-   * Memory allocation callbacks, which allow overriding the allocation strategy.
+   * Memory allocation callbacks, which allow overriding the allocation
+   * strategy.
    */
-  typedef void *(WEBVTT_CALLBACK *webvtt_alloc_fn_ptr)( void *userdata, webvtt_uint nbytes );
-  typedef void (WEBVTT_CALLBACK *webvtt_free_fn_ptr)( void *userdata, void *pmem );
+  typedef void *(WEBVTT_CALLBACK *webvtt_alloc_fn_ptr)( void *userdata,
+                                                        webvtt_uint nbytes );
+  typedef void (WEBVTT_CALLBACK *webvtt_free_fn_ptr)( void *userdata,
+                                                      void *pmem );
 
   /**
-   * Allocation functions. webvtt_set_allocator() should really be the first 
-   * function called. However, it will do nothing (and not report error) if 
-   * objects have already been allocated and not freed. Therefore, it is NOT 
+   * Allocation functions. webvtt_set_allocator() should really be the first
+   * function called. However, it will do nothing (and not report error) if
+   * objects have already been allocated and not freed. Therefore, it is NOT
    * safe to assume that it worked and use the supplied
    * function pointers directly.
    *
-   * Currently, set_allocator (and the other allocation functions) do not use 
-   * any locking mechanism, so the library cannot be considered to be 
+   * Currently, set_allocator (and the other allocation functions) do not use
+   * any locking mechanism, so the library cannot be considered to be
    * thread-safe at this time if changing the allocator is used.
    *
-   * I don't believe there is much of a reason to worry about the overhead of 
+   * I don't believe there is much of a reason to worry about the overhead of
    * using function pointers for allocation, as it is negligible compared to the
-   * act of allocating memory itself, and having a configurable allocation 
+   * act of allocating memory itself, and having a configurable allocation
    * strategy could be very useful.
    */
   WEBVTT_EXPORT void *webvtt_alloc( webvtt_uint nb );
   WEBVTT_EXPORT void *webvtt_alloc0( webvtt_uint nb );
   WEBVTT_EXPORT void webvtt_free( void *data );
-  WEBVTT_EXPORT void webvtt_set_allocator( webvtt_alloc_fn_ptr alloc, webvtt_free_fn_ptr free, void *userdata );
+  WEBVTT_EXPORT void webvtt_set_allocator( webvtt_alloc_fn_ptr alloc,
+                                           webvtt_free_fn_ptr free,
+                                           void *userdata );
 
   enum
   webvtt_status_t {
@@ -184,7 +190,7 @@ extern "C" {
 
     /**
      * A failure that requires the parser to completely skip beyond a cue.
-     */ 
+     */
     WEBVTT_SKIP_CUE = -11,
 
     /**

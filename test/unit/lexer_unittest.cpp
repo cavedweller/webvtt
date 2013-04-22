@@ -9,7 +9,7 @@ class Lexer : public ::testing::Test
 public:
   Lexer() : self(0) {}
   virtual void SetUp() {
-    ASSERT_FALSE( WEBVTT_FAILED( webvtt_create_parser( &dummyread, &dummyerr, 
+    ASSERT_FALSE( WEBVTT_FAILED( webvtt_create_parser( &dummyread, &dummyerr,
                                                        0, &self ) ) )
       << "Failed to create parser";
   }

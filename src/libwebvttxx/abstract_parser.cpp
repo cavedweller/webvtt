@@ -34,7 +34,8 @@ namespace WebVTT
 AbstractParser::AbstractParser()
 {
   webvtt_status status;
-  if(WEBVTT_FAILED(status = webvtt_create_parser( &__parsedCue, &__reportError, this, &parser ) ) ) {
+  if(WEBVTT_FAILED(status = webvtt_create_parser( &__parsedCue, &__reportError,
+                                                  this, &parser ) ) ) {
     /**
      * TODO: Throw error
      */
@@ -47,7 +48,7 @@ AbstractParser::~AbstractParser()
 }
 
 ::webvtt_status
-AbstractParser::finishParsing() 
+AbstractParser::finishParsing()
 {
   return webvtt_finish_parsing( parser );
 }
@@ -72,7 +73,8 @@ AbstractParser::__parsedCue( void *userdata, webvtt_cue *pcue )
 }
 
 int WEBVTT_CALLBACK
-AbstractParser::__reportError( void *userdata, webvtt_uint line, webvtt_uint col, webvtt_error error )
+AbstractParser::__reportError( void *userdata, webvtt_uint line,
+                               webvtt_uint col, webvtt_error error )
 {
   AbstractParser *self = reinterpret_cast<AbstractParser *>( userdata );
   Error err( line, col, error );

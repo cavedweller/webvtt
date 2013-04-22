@@ -195,7 +195,7 @@ TEST_F(CueSettingAlign, BadDelimiter)
 {
   loadVtt( "cue-settings/align/bad-delimiter.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
- 
+
   /**
    * Align should be "middle" because the malformed setting should be skipped
    * and "middle" is default.

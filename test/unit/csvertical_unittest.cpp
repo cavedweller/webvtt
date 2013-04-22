@@ -171,7 +171,7 @@ TEST_F(CueSettingVertical, BadWhitespaceAfterDelimiter)
    * setting in this lenient run
    */
   ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
- 
+
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the
    * 3rd line
@@ -225,7 +225,7 @@ TEST_F(CueSettingVertical, NoValue)
    * be skipped because horiztonal is default.
    */
   ASSERT_TRUE( getCue( 0 ).isHorizontal() );
- 
+
   /**
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
    * 3rd line
@@ -313,7 +313,7 @@ TEST_F(CueSettingVertical, UppercaseValue)
   ASSERT_TRUE( getCue( 0 ).isHorizontal() );
   ASSERT_FALSE( getCue( 0 ).isVerticalRightToLeft() );
   ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
-  
+
   /**
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
    * 3rd line

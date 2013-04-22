@@ -48,8 +48,8 @@ public:
   inline String( webvtt_string *other ) {
     webvtt_copy_string( &string, other );
   }
-  
-  inline String( const char *buffer, int len = -1 ) {   
+
+  inline String( const char *buffer, int len = -1 ) {
     if( WEBVTT_FAILED( webvtt_create_string_with_text( &string, buffer, len ) ) ) {
       // TODO: Throw exception on errors.
     }

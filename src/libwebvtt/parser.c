@@ -44,7 +44,8 @@ static const char replacement[] = { 0xEF, 0xBF, 0xBD };
 #define BUFFER (self->buffer + self->position)
 #define MALFORMED_TIME ((webvtt_timestamp_t)-1.0)
 
-static webvtt_status find_bytes( const char *buffer, webvtt_uint len, const char *sbytes, webvtt_uint slen );
+static webvtt_status find_bytes( const char *buffer, webvtt_uint len,
+                                 const char *sbytes, webvtt_uint slen );
 static webvtt_int64 parse_int( const char **pb, int *pdigits );
 static void skip_spacetab( const char *text, webvtt_uint *pos,
   webvtt_uint len, webvtt_uint *column );
@@ -340,10 +341,14 @@ find_bytes( const char *buffer, webvtt_uint len,
  * More state stack helpers
  */
 WEBVTT_INTERN webvtt_status
-do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back, webvtt_uint state, void *data, webvtt_state_value_type type, webvtt_uint line, webvtt_uint column )
+do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back,
+         webvtt_uint state, void *data, webvtt_state_value_type type,
+         webvtt_uint line, webvtt_uint column )
 {
   if( STACK_SIZE + 1 >= self->stack_alloc ) {
-    webvtt_state *stack = ( webvtt_state * )webvtt_alloc0( sizeof( webvtt_state ) * ( self->stack_alloc << 1 ) ), *tmp;
+    webvtt_state *stack =
+        ( webvtt_state * )webvtt_alloc0( sizeof( webvtt_state ) *
+                                         ( self->stack_alloc << 1 ) ), *tmp;
     if( !stack ) {
       ERROR( WEBVTT_ALLOCATION_FAILED );
       return WEBVTT_OUT_OF_MEMORY;
@@ -1081,7 +1086,8 @@ parse_webvtt( webvtt_parser self, const char *buffer, webvtt_uint *ppos,
      * Otherwise, if we are expecting further data at some point, and have
      * an unfinished token, return and let the next chunk deal with it.
      */
-    if( SP->state != T_CUE || !( self->popped && FRAMEUP( 1 )->state == T_CUEREAD ) ) {
+    if( SP->state != T_CUE ||
+        !( self->popped && FRAMEUP( 1 )->state == T_CUEREAD ) ) {
       /**
        * We don't tokenize in certain states
        */

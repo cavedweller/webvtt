@@ -98,7 +98,8 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
     return WEBVTT_INVALID_PARAM;
   }
 
-  d = ( webvtt_string_data * )webvtt_alloc( sizeof( webvtt_string_data ) + ( alloc * sizeof( char ) ) );
+  d = ( webvtt_string_data * )webvtt_alloc( sizeof( webvtt_string_data ) +
+                                            ( alloc * sizeof( char ) ) );
 
   if( !d ) {
     return WEBVTT_OUT_OF_MEMORY;
@@ -116,12 +117,13 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_create_string_with_text( webvtt_string *result, const char *init_text, int len )
+webvtt_create_string_with_text( webvtt_string *result, const char *init_text,
+                                int len )
 {
   if( !result ) {
     return WEBVTT_INVALID_PARAM;
   }
-  
+
   if( !init_text ) {
     webvtt_init_string( result );
     return WEBVTT_SUCCESS;
@@ -130,12 +132,12 @@ webvtt_create_string_with_text( webvtt_string *result, const char *init_text, in
   if( len < 0 ) {
     len = strlen( init_text );
   }
-  
+
   /**
    * initialize the string by referencing empty_string
    */
   webvtt_init_string( result );
-  
+
   if( len == 0 ) {
     return WEBVTT_SUCCESS;
   }
@@ -190,7 +192,8 @@ webvtt_string_detach( /* in, out */ webvtt_string *str )
     return WEBVTT_SUCCESS;
   }
 
-  d = ( webvtt_string_data * )webvtt_alloc( sizeof( webvtt_string_data ) + ( sizeof( char ) * str->d->alloc ) );
+  d = ( webvtt_string_data * )webvtt_alloc( sizeof( webvtt_string_data ) +
+                                           ( sizeof( char ) * str->d->alloc ) );
 
   d->refs.value = 1;
   d->text = d->array;
@@ -487,7 +490,8 @@ webvtt_string_replace( webvtt_string *str, const char *search, int search_len,
       return status;
     }
     p = str->d->text + pos;
-    end = str->d->text + str->d->length - 1; /* Don't worry about the NULL byte. */
+    end = str->d->text + str->d->length - 1; /* Don't worry about the NULL
+                                              * byte. */
     if( search_len != replace_len ) {
       memmove( p + replace_len, p + search_len, end - p );
     }
@@ -547,21 +551,21 @@ webvtt_create_stringlist( webvtt_stringlist **result )
   list->alloc = 0;
   list->length = 0;
   webvtt_ref_stringlist( list );
-  
+
   *result = list;
 
   return WEBVTT_SUCCESS;
 }
 
-WEBVTT_EXPORT void 
-webvtt_ref_stringlist( webvtt_stringlist *list ) 
+WEBVTT_EXPORT void
+webvtt_ref_stringlist( webvtt_stringlist *list )
 {
   if( list ) {
     webvtt_ref( &list->refs );
   }
 }
 
-WEBVTT_EXPORT void 
+WEBVTT_EXPORT void
 webvtt_copy_stringlist( webvtt_stringlist **left, webvtt_stringlist *right )
 {
   if( !left || !right ) {
@@ -580,13 +584,13 @@ webvtt_release_stringlist( webvtt_stringlist **list )
     return;
   }
   l = *list;
-  
+
   if( webvtt_deref( &l->refs ) == 0 ) {
     if( l->items ) {
       for( i = 0; i < l->length; i++ ) {
         webvtt_release_string( &l->items[ i ] );
       }
-      webvtt_free( l->items );      
+      webvtt_free( l->items );
     }
     webvtt_free( l );
   }
@@ -604,7 +608,8 @@ webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str )
     webvtt_string *arr, *old;
 
     list->alloc = list->alloc == 0 ? 8 : list->alloc * 2;
-    arr = ( webvtt_string * )webvtt_alloc0( sizeof( webvtt_string ) * list->alloc );
+    arr = ( webvtt_string * )webvtt_alloc0( sizeof( webvtt_string ) *
+                                            list->alloc );
 
     if( !arr ) {
       return WEBVTT_OUT_OF_MEMORY;
@@ -651,7 +656,7 @@ webvtt_next_utf8( const char **begin, const char *end )
       p = pc;
     }
   }
-  
+
   if( *begin != p && p <= end ) {
     *begin = p;
     return 1;
@@ -682,7 +687,7 @@ webvtt_skip_utf8( const char **begin, const char *end, int n_chars )
       if( webvtt_next_utf8( begin, end ) ) {
         --n_chars;
       }
-    } 
+    }
   }
 
   return n_chars == 0;
@@ -694,7 +699,7 @@ webvtt_utf8_to_utf16( const char *utf8, const char *end,
 {
   int need = 0;
   webvtt_uint32 uc = 0, min = 0;
-  
+
   /* We're missing our pointers */
   if( !utf8 ) {
     return 0;
@@ -736,7 +741,7 @@ webvtt_utf8_to_utf16( const char *utf8, const char *end,
           } else if ( ( uc < min ) || ( uc >= 0xD800 && uc <= 0xDFFF ) || nc
                       || uc >= 0x110000) {
             /* Non-character, overlong sequence, or utf16 surrogate */
-            return 0xFFFD;  
+            return 0xFFFD;
           } else {
             /* Non-surrogate */
             return uc;
@@ -777,7 +782,7 @@ webvtt_utf8_chcount( const char *utf8, const char *end )
   if( !end ) {
     end = utf8 + strlen( utf8 );
   }
-  
+
   for( p = utf8; p < end; ++n ) {
     int c = webvtt_utf8_length( p );
     if( c < 1 ) {
@@ -793,7 +798,7 @@ WEBVTT_EXPORT int
 webvtt_utf8_length( const char *utf8 )
 {
   char ch;
-  if( !utf8 ) { 
+  if( !utf8 ) {
     return 0;
   }
   ch = *utf8;

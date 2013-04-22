@@ -56,7 +56,7 @@ public:
   Cue &operator=( const Cue &other ) {
     webvtt_ref_cue( other.cue );
     webvtt_cue *oldcue = 0;
-    
+
     if( cue ) {
       oldcue = cue;
     }
@@ -125,26 +125,40 @@ public:
     return orientations[!!cue->settings.vertical];
   }
 
-  inline Direction direction() const { return (Direction)cue->settings.vertical; }
+  inline Direction direction() const {
+    return (Direction)cue->settings.vertical;
+  }
   inline float relativeLinePosition() const {
     return ( 1.f / 100.f ) * static_cast<float>(
       relativeLinePositionPercentage()
     );
   }
-  inline uint relativeLinePositionPercentage() const { return static_cast<uint>( cue->settings.line ); }
+  inline uint relativeLinePositionPercentage() const {
+    return static_cast<uint>( cue->settings.line );
+  }
   inline int lineNumber() const { return cue->settings.line; }
-  inline float textPosition() const { return ( 1.f / 100.f ) * (float)cue->settings.position; }
+  inline float textPosition() const {
+    return ( 1.f / 100.f ) * (float)cue->settings.position;
+  }
   inline uint textPositionPercentage() const { return cue->settings.position; }
-  inline float size() const { return ( 1.f / 100.f ) * (float)cue->settings.size; }
+  inline float size() const {
+    return ( 1.f / 100.f ) * (float)cue->settings.size;
+  }
   inline uint sizePercentage() const { return cue->settings.size; }
   inline Align alignment() const { return (Align)(cue->settings.align); }
 
   inline bool isHorizontal() const { return orientation() == Horizontal; }
   inline bool isVertical() const { return orientation() == Vertical; }
-  inline bool isVerticalLeftToRight() const { return direction() == LeftToRight; }
-  inline bool isVerticalRightToLeft() const { return direction() == RightToLeft; }
+  inline bool isVerticalLeftToRight() const {
+    return direction() == LeftToRight;
+  }
+  inline bool isVerticalRightToLeft() const {
+    return direction() == RightToLeft;
+  }
   inline bool isRelativeLinePosition() const { return !snapToLines(); }
-  inline bool isLinePositionAuto() const { return relativeLinePositionPercentage() == WEBVTT_AUTO; }
+  inline bool isLinePositionAuto() const {
+    return relativeLinePositionPercentage() == WEBVTT_AUTO;
+  }
   inline bool isAlignedToStart() const { return alignment() == Start; }
   inline bool isAlignedToMiddle() const { return alignment() == Middle; }
   inline bool isAlignedToEnd() const { return alignment() == End; }

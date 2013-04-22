@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 #ifndef __WEBVTT_NODE_H__
 # define __WEBVTT_NODE_H__
 # include <webvtt/string.h>
@@ -93,8 +93,8 @@ webvtt_node_t {
 
   struct webvtt_refcount_t refs;
   /**
-    * The specification asks for uni directional linked list, but we have added 
-    * a parent node in order to facilitate an iterative cue text parsing 
+    * The specification asks for uni directional linked list, but we have added
+    * a parent node in order to facilitate an iterative cue text parsing
     * solution.
     */
   struct webvtt_node_t *parent;
@@ -117,9 +117,14 @@ webvtt_internal_node_data_t {
   webvtt_node **children;
 } webvtt_internal_node_data;
 
-WEBVTT_EXPORT void webvtt_init_node( webvtt_node **node );
-WEBVTT_EXPORT void webvtt_ref_node( webvtt_node *node );
-WEBVTT_EXPORT void webvtt_release_node( webvtt_node **node );
+WEBVTT_EXPORT void
+webvtt_init_node( webvtt_node **node );
+
+WEBVTT_EXPORT void
+webvtt_ref_node( webvtt_node *node );
+
+WEBVTT_EXPORT void
+webvtt_release_node( webvtt_node **node );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

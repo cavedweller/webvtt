@@ -293,7 +293,7 @@ TEST_F(CueSetting, BadDelimiter)
   loadVtt( "cue-settings/bad-delimiter.vtt", 1 );
   ASSERT_LE( 1, errorCount() ) << "This file should contain at least 1 error";
   EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error";
-  
+
   /**
    * The parser should try to use "vertical" as keyword and "lr;line:50%" as
    * value.  Writing direction should "horizontal" because the malformed setting
@@ -331,7 +331,7 @@ TEST_F(CueSetting, BadDelimiter2)
   loadVtt( "cue-settings/bad-delimiter2.vtt", 0 );
   ASSERT_LE( 1, errorCount() ) << "This file should contain at least 1 error";
   EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error";
-  
+
   /**
    * We're expecting a WEBVTT_EXPECTED_TIMESTAMP error on the 15th column of
    * the 3rd line

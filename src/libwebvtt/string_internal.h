@@ -72,7 +72,8 @@ webvtt_string_data_t {
 static __WEBVTT_STRING_INLINE  int
 webvtt_isalpha( char ch )
 {
-  return ( ( ( ch >= 'A' ) && ( ch <= 'Z' ) ) || ( ( ch >= 'a' ) && ( ch <= 'z' ) ) );
+  return ( ( ( ch >= 'A' ) && ( ch <= 'Z' ) ) || ( ( ch >= 'a' ) &&
+                                                   ( ch <= 'z' ) ) );
 }
 static __WEBVTT_STRING_INLINE int
 webvtt_isdigit( char ch )
