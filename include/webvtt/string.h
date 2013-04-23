@@ -209,7 +209,8 @@ webvtt_string_append( webvtt_string *str, const char *buffer, int len );
 /**
  * webvtt_string_appendstr
  *
- * append the contents of a string object 'other' to a string object 'str'
+ * if 'len' is < 0 then the max length of the string will be taken to be the
+ * first occurence of a null byte character
  */
 WEBVTT_EXPORT webvtt_status
 webvtt_string_append_string( webvtt_string *str, const webvtt_string *other );
