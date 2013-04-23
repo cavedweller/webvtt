@@ -109,6 +109,45 @@ TEST_F(EscapeStateTokenizerTest, CorrectGT)
 }
 
 /*
+ * Tests if the escape state tokenizer parses a correct right-to-left escape
+ * sequence.
+ */
+TEST_F(EscapeStateTokenizerTest, CorrectRLM)
+{
+  escapeTokenize( "rlm; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 4, currentCharPos() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_EQ( RLM, utf16At( 0 )  );
+}
+
+/*
+ * Tests if the escape state tokenizer parses a correct left-to-right escape
+ * sequence.
+ */
+TEST_F(EscapeStateTokenizerTest, CorrectLRM)
+{
+  escapeTokenize( "lrm; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 4, currentCharPos() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_EQ( LRM, utf16At( 0 ) );
+}
+
+/*
+ * Tests if the escape state tokenizer parses a correct non-breaking space
+ * escape sequence.
+ */
+TEST_F(EscapeStateTokenizerTest, CorrectNBSP)
+{
+  escapeTokenize( "nbsp; " );
+  EXPECT_EQ( WEBVTT_UNFINISHED, status() );
+  EXPECT_EQ( 5, currentCharPos() );
+  EXPECT_EQ( DATA, state() );
+  EXPECT_EQ( NBSP, utf16At( 0 ) );
+}
+
+/*
  * Tests if the escape state tokenizer parses an extra ampersand correctly.
  */
 TEST_F(EscapeStateTokenizerTest, ExtraAmpersand)

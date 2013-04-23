@@ -1,8 +1,14 @@
-#include <string>
 #include <gtest/gtest.h>
 extern "C" {
 #include "libwebvtt/cuetext.c"
 }
+
+enum
+{
+ RLM = 0x200F,
+ LRM = 0x200E,
+ NBSP = 0x00A0
+};
 
 class CueTextTokenizerTest : public ::testing::Test
 {
@@ -25,6 +31,13 @@ class CueTextTokenizerTest : public ::testing::Test
     
     const char * parsedText() const {
       return webvtt_string_text( &res );
+    }
+    
+    webvtt_uint16 utf16At( int offset ) {
+      webvtt_uint16 highSurrogate;
+      return webvtt_utf8_to_utf16( parsedText() + offset,
+                                   parsedText() + webvtt_string_length( &res ),
+                                   &highSurrogate );
     }
     
     webvtt_uint currentCharPos() {
