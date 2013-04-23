@@ -479,7 +479,7 @@ TEST_F(CueSettingLine, BadKeyword)
 {
   loadVtt( "cue-settings/line/bad-keyword.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
- 
+
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
@@ -542,7 +542,7 @@ TEST_F(CueSettingLine, NoDelimiter)
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
-  
+
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
@@ -591,14 +591,14 @@ TEST_F(CueSettingLine, BadValue)
 {
   loadVtt( "cue-settings/line/bad-value.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
-  
+
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
-  
+
   /**
    * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
    * line
@@ -619,7 +619,7 @@ TEST_F(CueSettingLine, NoValue)
 {
   loadVtt( "cue-settings/line/no-value.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
-  
+
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
@@ -653,7 +653,7 @@ TEST_F(CueSettingLine, BadValueSuffix)
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
- 
+
   /**
    * Should expect a WEBVTT_LINE_BAD_VALUE at the 30th column of the 3rd line.
    */
@@ -704,12 +704,12 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-before-delimiter.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
- 
+
   /**
    * line:68% -- snapToLines==false, linePositionPercentage==68
-   */ 
+   */
   expectDefaultLineSetting( getCue( 0 ) );
- 
+
   /**
    * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
    * the 3rd line
@@ -731,8 +731,8 @@ TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-after-delimiter.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
- 
-  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() ); 
+
+  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
   ASSERT_FALSE( getCue( 0 ).snapToLines() );
 
   /**
@@ -764,7 +764,7 @@ TEST_F(CueSettingLine, UppercaseKeyword)
    */
   ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
-  
+
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
@@ -785,7 +785,7 @@ TEST_F(CueSettingLine, PercentNegative)
 {
   loadVtt( "cue-settings/line/bad-pct-negative.vtt", 1 );
   ASSERT_EQ( 1, errorCount() );
-  
+
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed settinga should be skipped and "auto" and true are default.

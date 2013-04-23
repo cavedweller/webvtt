@@ -329,7 +329,7 @@ TEST(String,IsEmptyCXX)
   ASSERT_TRUE( str.isEmpty() );
   str = String( "" );
   ASSERT_TRUE( str.isEmpty() );
-  str.append( "Not Empty!" ); 
+  str.append( "Not Empty!" );
   ASSERT_FALSE( str.isEmpty() );
 }
 

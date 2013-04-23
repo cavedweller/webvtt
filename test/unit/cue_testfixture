@@ -77,7 +77,8 @@ protected:
   /**
    * Added functions for ASSERT-ing timestamp equality in an easier way.
    */
-  void expectEquals( const Timestamp &ts, int hours, int minutes, int seconds, int millis )
+  void expectEquals( const Timestamp &ts, int hours, int minutes, int seconds,
+										 int millis )
   {
     EXPECT_EQ( hours, ts.hours() );
     EXPECT_EQ( minutes, ts.minutes() );
@@ -85,15 +86,18 @@ protected:
 
     /* hack to avoid rounding error... (Is this needed with the integer
      * timestamps?) */
-    EXPECT_TRUE( millis == ts.milliseconds() || millis == ts.milliseconds() + 1 );
+    EXPECT_TRUE( millis == ts.milliseconds() ||
+								 millis == ts.milliseconds() + 1 );
   }
 
-  inline void expectEquals( const Timestamp &ts, int minutes, int seconds, int millis )
+  inline void expectEquals( const Timestamp &ts, int minutes, int seconds,
+														int millis )
   {
     return expectEquals( ts, 0, minutes, seconds, millis );
   }
 
-  inline void expectEquals( const Error &err, webvtt_error code, WebVTT::uint line, WebVTT::uint column )
+  inline void expectEquals( const Error &err, webvtt_error code,
+														WebVTT::uint line, WebVTT::uint column )
   {
     EXPECT_EQ( code, err.error() );
     EXPECT_EQ( line, err.line() );
@@ -107,8 +111,9 @@ protected:
     // If TEST_FILE_DIR has not been set then that means we are probably
     // not executing from a make command. Therefore, just use the path
     // passed in.
-    filePath = std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) +
-               std::string( "/" ) + relativeFilePath;
+    filePath =
+				std::string( getenv("TEST_FILE_DIR") ? getenv("TEST_FILE_DIR") : "." ) +
+        std::string( "/" ) + relativeFilePath;
 
     parser = new ItemStorageParser( filePath.c_str() );
   }
@@ -119,17 +124,26 @@ protected:
     ASSERT_TRUE( parser->parse() ) << "parser.parse() failed";
   }
 
-  void loadVtt( const char *relativeFilePath, WebVTT::uint expectedNumberOfCues )
+  void loadVtt( const char *relativeFilePath,
+								WebVTT::uint expectedNumberOfCues )
   {
     loadVtt( relativeFilePath );
-    ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
+    ASSERT_EQ( expectedNumberOfCues,
+							 parser->cueCount() ) << "webvtt file contained different " <<
+																			 "number of cues than expected, once" <<
+																			 "parsed.";
   }
 
-  void loadVtt( const char *relativeFilePath, bool expectedParseSuccessful, WebVTT::uint expectedNumberOfCues )
+  void loadVtt( const char *relativeFilePath, bool expectedParseSuccessful,
+								WebVTT::uint expectedNumberOfCues )
   {
     setVtt( relativeFilePath );
-    ASSERT_EQ( expectedParseSuccessful, parser->parse() ) << "parser.parse() failed";
-    ASSERT_EQ( expectedNumberOfCues, parser->cueCount() ) << "webvtt file contained different number of cues than expected, once parsed.";
+    ASSERT_EQ( expectedParseSuccessful,
+							 parser->parse() ) << "parser.parse() failed";
+    ASSERT_EQ( expectedNumberOfCues,
+							 parser->cueCount() ) << "webvtt file contained different" <<
+																			 "number of cues than expected," <<
+																			 "once parsed.";
   }
 
   WebVTT::uint cueCount() const

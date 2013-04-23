@@ -148,7 +148,7 @@ TEST_F(PayloadFormat, MultilineMultipleCueTextTag)
   loadVtt( "payload/format/multiline-multiple-cue-text-tag.vtt", 1 );
   const Node head = getHeadOfCue( 0 );
   ASSERT_LE( 1, head.childCount() );
-  
+
   const Node underlineTag = head[0];
   EXPECT_EQ( Node::Underline, underlineTag.kind() );
 

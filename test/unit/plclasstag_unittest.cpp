@@ -61,7 +61,7 @@ TEST_F(PayloadClassTag, ClassTagSingleSubclass)
   ASSERT_EQ( Node::Class, head[ 1 ].kind() );
 
   StringList cssClasses = head[ 1 ].cssClasses();
-  
+
   ASSERT_EQ( 1, cssClasses.length() );
   expectEquals( "class", cssClasses.stringAt( 0 ) );
 }

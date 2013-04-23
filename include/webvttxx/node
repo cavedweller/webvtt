@@ -54,12 +54,14 @@ public:
   };
 
   Node() { webvtt_init_node( &node ); }
-  Node( const Node &otherNode ) : node( otherNode.node ) { webvtt_ref_node( node ); }
-  Node( webvtt_node *pnode ) 
-  { 
+  Node( const Node &otherNode ) : node( otherNode.node ) {
+    webvtt_ref_node( node );
+  }
+  Node( webvtt_node *pnode )
+  {
     if( pnode ) {
       node = pnode;
-      webvtt_ref_node( node ); 
+      webvtt_ref_node( node );
     }
     else {
       webvtt_init_node( &node );
@@ -71,7 +73,7 @@ public:
   NodeKind kind() const { return (NodeKind)node->kind; }
   int childCount() const { return node->data.internal_data->length; }
 
-  Node operator[]( int index ) 
+  Node operator[]( int index )
   {
     if( index < 0 || index >= childCount() ) {
       throw std::out_of_range( "Node Node::operator[]: "
@@ -80,7 +82,7 @@ public:
     return Node( node->data.internal_data->children[ index ] );
   }
 
-  const Node operator[]( int index ) const 
+  const Node operator[]( int index ) const
   {
     if( index < 0 || index >= childCount() ) {
       throw std::out_of_range( "const Node::operator[] const: "
@@ -89,36 +91,36 @@ public:
     return Node( node->data.internal_data->children[ index ] );
   }
 
-  const Timestamp timeStamp() const 
+  const Timestamp timeStamp() const
   {
     if( kind() != TimeStamp ) {
       return Timestamp();
     }
-    return Timestamp( node->data.timestamp ); 
+    return Timestamp( node->data.timestamp );
   }
 
-  const String text() const 
-  { 
+  const String text() const
+  {
     if( kind() != Text ) {
       return String();
     }
-    return String( &node->data.text ); 
+    return String( &node->data.text );
   }
 
-  const String annotation() const 
-  { 
+  const String annotation() const
+  {
     if( !node->data.internal_data ) {
       return String();
     }
-    return String( &node->data.internal_data->annotation ); 
+    return String( &node->data.internal_data->annotation );
   }
 
   const StringList cssClasses() const
-  { 
+  {
     if( !node->data.internal_data->css_classes ) {
       return StringList();
     }
-    return StringList( node->data.internal_data->css_classes ); 
+    return StringList( node->data.internal_data->css_classes );
   }
 private:
   webvtt_node *node;
