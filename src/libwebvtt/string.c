@@ -117,15 +117,15 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result )
 }
 
 WEBVTT_EXPORT webvtt_status
-webvtt_create_string_with_text( webvtt_string *result, const char *init_text,
+webvtt_create_string_with_text( webvtt_string *out, const char *init_text,
                                 int len )
 {
-  if( !result ) {
+  if( !out ) {
     return WEBVTT_INVALID_PARAM;
   }
 
   if( !init_text ) {
-    webvtt_init_string( result );
+    webvtt_init_string( out );
     return WEBVTT_SUCCESS;
   }
 
@@ -136,7 +136,7 @@ webvtt_create_string_with_text( webvtt_string *result, const char *init_text,
   /**
    * initialize the string by referencing empty_string
    */
-  webvtt_init_string( result );
+  webvtt_init_string( out );
 
   if( len == 0 ) {
     return WEBVTT_SUCCESS;
@@ -145,7 +145,7 @@ webvtt_create_string_with_text( webvtt_string *result, const char *init_text,
   /**
    * append the appropriate data to the empty string
    */
-  return webvtt_string_append( result, init_text, len );
+  return webvtt_string_append( out, init_text, len );
 }
 
 /**

@@ -82,7 +82,7 @@ webvtt_create_string( webvtt_uint32 alloc, webvtt_string *result );
  * 'len' if 'len' < 0, assume init_text to be null-terminated.
  */
 WEBVTT_EXPORT webvtt_status
-webvtt_create_string_with_text( webvtt_string *result, const char *init_text,
+webvtt_create_string_with_text( webvtt_string *out, const char *init_text,
                                 int len );
 
 /**
