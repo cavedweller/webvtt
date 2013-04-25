@@ -195,19 +195,19 @@ webvtt_node_kind_from_tag_name( webvtt_string *tag_name,
 
   if( webvtt_string_length(tag_name) == 1 ) {
     switch( webvtt_string_text(tag_name)[0] ) {
-      case( 'b' ):
+      case 'b':
         *kind = WEBVTT_BOLD;
         break;
-      case( 'i' ):
+      case 'i':
         *kind = WEBVTT_ITALIC;
         break;
-      case( 'u' ):
+      case 'u':
         *kind = WEBVTT_UNDERLINE;
         break;
-      case( 'c' ):
+      case 'c':
         *kind = WEBVTT_CLASS;
         break;
-      case( 'v' ):
+      case 'v':
         *kind = WEBVTT_VOICE;
         break;
     }
@@ -242,10 +242,10 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node,
   }
 
   switch ( token->token_type ) {
-    case( TEXT_TOKEN ):
+    case TEXT_TOKEN:
       return webvtt_create_text_node( node, parent, &token->text );
       break;
-    case( START_TOKEN ):
+    case START_TOKEN:
 
       CHECK_MEMORY_OP( webvtt_node_kind_from_tag_name( &token->tag_name,
                                                        &kind) );
@@ -255,7 +255,7 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node,
                                         &token->start_token_data.annotations );
 
       break;
-    case ( TIME_STAMP_TOKEN ):
+    case TIME_STAMP_TOKEN:
       return webvtt_create_timestamp_node( node, parent, token->time_stamp );
       break;
     default:
