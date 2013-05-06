@@ -31,7 +31,6 @@ ltmain.sh
 missing
 build/include/
 include/Makefile
-include/webvtt/webvtt-config.h
 src/Makefile
 src/parsevtt/Makefile
 src/libwebvtt/Makefile
