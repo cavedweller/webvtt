@@ -37,6 +37,7 @@ extern "C" {
  * it doesn't... MSVC does not ship stdint.h prior to MSVC2010.
  */
 # if !defined(_MSC_VER) || _MSC_VER >= 1600
+#   define WEBVTT_HAVE_STDINT 1
 #   include <stdint.h>
 # endif
 
@@ -50,12 +51,8 @@ extern "C" {
 #   else
 #     define WEBVTT_EXPORT
 #   endif
-#   if _MSC_VER >= 1600
-#     define WEBVTT_HAVE_STDINT 1
-#   endif
 # elif defined(__GNUC__)
 #   define WEBVTT_CC_GCC 1
-#   define WEBVTT_HAVE_STDINT 1
 #   if WEBVTT_OS_WIN32
 #     if WEBVTT_BUILD_LIBRARY
 #       define WEBVTT_EXPORT __declspec(dllexport)
@@ -72,6 +69,10 @@ extern "C" {
 #   endif
 # else
 #   define WEBVTT_CC_UNKNOWN 1
+# endif
+
+# ifndef WEBVTT_HAVE_STDINT
+#   define WEBVTT_HAVE_STDINT 0
 # endif
 
 # ifndef WEBVTT_CALLBACK
@@ -93,7 +94,6 @@ extern "C" {
 # endif
 
 # if WEBVTT_HAVE_STDINT
-#   include <stdint.h>
   typedef int8_t webvtt_int8;
   typedef int16_t webvtt_int16;
   typedef int32_t webvtt_int32;
