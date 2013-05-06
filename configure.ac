@@ -46,7 +46,6 @@ AM_CONDITIONAL(WIN32,test x$win32 = xtrue)
 AC_CONFIG_MACRO_DIR([build/autoconf])
 AM_INIT_AUTOMAKE([1.10 foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/libwebvtt/alloc.c])
-AC_CONFIG_HEADERS([config.h])
 
 dnl enable silent rules on automake 1.11 and later
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
@@ -137,7 +136,6 @@ AC_CHECK_HEADER([stdint.h],[],[])
 
 # Checks for library functions.
 AC_FUNC_ERROR_AT_LINE
-AC_CHECK_FUNC([strerror],[AC_DEFINE([HAVE_STRERROR],[1],[Define if strerror() is available])])
 
 # Generate Makefiles
 AC_CONFIG_FILES([
