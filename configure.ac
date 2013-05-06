@@ -46,7 +46,6 @@ AM_CONDITIONAL(WIN32,test x$win32 = xtrue)
 AC_CONFIG_MACRO_DIR([build/autoconf])
 AM_INIT_AUTOMAKE([1.10 foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/libwebvtt/alloc.c])
-AC_CONFIG_HEADERS([config.h])
 
 dnl enable silent rules on automake 1.11 and later
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
