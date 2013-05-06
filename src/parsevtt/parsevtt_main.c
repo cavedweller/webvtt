@@ -110,13 +110,9 @@ main( int argc, char **argv )
   fh = fopen(input_file, "rb");
   if( !fh ) {
     fprintf( stderr, "error: failed to open `%s'"
-#ifdef WEBVTT_HAVE_STRERROR
              ": %s"
-#endif
-             "\n", input_file
-#ifdef WEBVTT_HAVE_STRERROR
-             , strerror(errno)
-#endif
+             "\n", input_file,
+             strerror(errno)
            );
     return 1;
   }

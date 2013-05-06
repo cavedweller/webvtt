@@ -41,19 +41,14 @@ extern "C" {
 #   include "config.h"
 # endif
 
-# if defined(HAVE_STDINT_H)
-/**
- * If config.h says we have stdint.h, then trust it.
- */
-#   include <stdint.h>
-# else
 /**
  * Assuming that libc provides stdint.h unless we have a good reason to believe
  * it doesn't... MSVC does not ship stdint.h prior to MSVC2010.
+ *
+ * If config.h says we have stdint.h, trust it.
  */
-#   if !defined(_MSC_VER) || _MSC_VER >= 1600
-#     include <stdint.h>
-#   endif
+# if defined(HAVE_STDINT_H) || !defined(_MSC_VER) || _MSC_VER >= 1600
+#   include <stdint.h>
 # endif
 
 # if defined(_MSC_VER)
