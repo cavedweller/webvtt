@@ -213,6 +213,18 @@ public:
     return stringList ? stringList->alloc : 0;
   }
 
+  inline bool pop( String &str ) {
+    webvtt_string temp;
+
+    if( !webvtt_stringlist_pop( stringList, &temp ) ) {
+      return false;
+    }
+
+    str = String( &temp );
+    webvtt_release_string( &temp );
+    return true;
+  }
+
 private:
   webvtt_stringlist *stringList;
 };

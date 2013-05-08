@@ -267,6 +267,14 @@ WEBVTT_EXPORT webvtt_status
 webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str );
 
 /**
+ * webvtt_stringlist_pop
+ *
+ * pop the top of the string list
+ */
+WEBVTT_EXPORT webvtt_bool
+webvtt_stringlist_pop( webvtt_stringlist *list, webvtt_string *out );
+
+/**
  * Helper functions
  */
 
