@@ -41,6 +41,14 @@ extern "C" {
 #   include <stdint.h>
 # endif
 
+# if defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || \
+     defined(__WINDOWS__)
+#   define WEBVTT_OS_WIN32 1
+#   if defined(_WIN64)
+#     define WEBVTT_OS_WIN64 1
+#   endif
+# endif 
+
 # if defined(_MSC_VER)
 #   define WEBVTT_CC_MSVC 1
 #   define WEBVTT_CALLBACK __cdecl
