@@ -574,6 +574,7 @@ webvtt_copy_stringlist( webvtt_stringlist **left, webvtt_stringlist *right )
   *left = right;
   webvtt_ref_stringlist( *left );
 }
+
 WEBVTT_EXPORT void
 webvtt_release_stringlist( webvtt_stringlist **list )
 {
@@ -626,6 +627,20 @@ webvtt_stringlist_push( webvtt_stringlist *list, webvtt_string *str )
   webvtt_ref_string( list->items + list->length++ );
 
   return WEBVTT_SUCCESS;
+}
+
+WEBVTT_EXPORT webvtt_bool
+webvtt_stringlist_pop( webvtt_stringlist *list, webvtt_string *out )
+{
+  if( !list || !out || list->length < 1 ) {
+    return 0;
+  }
+
+  list->length--;
+  webvtt_copy_string( out, list->items + list->length );
+  webvtt_release_string( list->items + list->length );
+
+  return 1;
 }
 
 WEBVTT_EXPORT webvtt_bool
