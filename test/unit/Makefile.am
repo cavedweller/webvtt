@@ -74,7 +74,8 @@ PAYLOAD_TESTS = \
   pltimestamp_unittest \
   plunderlinetag_unittest \
   plvoicetag_unittest \
-  plrubytag_unittest
+  plrubytag_unittest \
+  pllangtag_unittest
 
 # Test set representing reproduction of reported library bugs.
 # Do not check in code that changes one of these from a passing
@@ -166,6 +167,7 @@ pltimestamp_unittest_SOURCES = pltimestamp_unittest.cpp
 plunderlinetag_unittest_SOURCES = plunderlinetag_unittest.cpp
 plvoicetag_unittest_SOURCES = plvoicetag_unittest.cpp
 plrubytag_unittest_SOURCES = plrubytag_unittest.cpp
+pllangtag_unittest_SOURCES = pllangtag_unittest.cpp
 
 # Regression Tests
 regression_tests_SOURCES = regression_tests.cpp

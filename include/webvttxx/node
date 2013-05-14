@@ -50,7 +50,8 @@ public:
     Text = WEBVTT_TEXT,
     TimeStamp = WEBVTT_TIME_STAMP,
     Head = WEBVTT_HEAD_NODE,
-    Empty = WEBVTT_EMPTY_NODE
+    Empty = WEBVTT_EMPTY_NODE,
+    Lang = WEBVTT_LANG
   };
 
   Node() { webvtt_init_node( &node ); }
@@ -113,6 +114,14 @@ public:
       return String();
     }
     return String( &node->data.internal_data->annotation );
+  }
+
+  const String lang() const
+  {
+    if( !node->data.internal_data ) {
+      return String();
+    }
+    return String( &node->data.internal_data->lang );
   }
 
   const StringList cssClasses() const
