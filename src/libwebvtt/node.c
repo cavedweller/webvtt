@@ -113,15 +113,16 @@ WEBVTT_INTERN webvtt_status
 webvtt_create_head_node( webvtt_node **node )
 {
   webvtt_status status;
-  webvtt_string temp_annotation;
+  webvtt_string empty_annotation;
 
-  webvtt_init_string( &temp_annotation );
+  webvtt_init_string( &empty_annotation );
   if( WEBVTT_FAILED( status =
-                     webvtt_create_internal_node( node, NULL, WEBVTT_HEAD_NODE,
-                                                  NULL, &temp_annotation ) ) ) {
+                   webvtt_create_internal_node( node, NULL, WEBVTT_HEAD_NODE,
+                                                NULL, &empty_annotation ) ) ) {
     return status;
   }
 
+  webvtt_release_string( &empty_annotation );
   return WEBVTT_SUCCESS;
 }
 
