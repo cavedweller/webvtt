@@ -177,3 +177,14 @@ TEST_F(PayloadRubyTag, RubyTextTagMultiSubclass)
   expectEquals( "class", cssClasses.stringAt( 0 ) );
   expectEquals( "subclass", cssClasses.stringAt( 1 ) );
 }
+
+TEST_F(PayloadRubyTag, RubyTextNoRuby)
+{
+  loadVtt( "payload/ruby-tag/rt-no-ruby.vtt", 1 );
+
+  const Node head = getHeadOfCue( 0 );
+
+  EXPECT_EQ( 2, head.childCount() );
+  EXPECT_EQ( Node::Text, head[ 0 ].kind() );
+  EXPECT_EQ( Node::Text, head[ 1 ].kind() );
+}
