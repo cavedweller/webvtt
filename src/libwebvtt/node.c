@@ -100,6 +100,7 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent,
 
   webvtt_copy_stringlist( &node_data->css_classes, css_classes );
   webvtt_copy_string( &node_data->annotation, annotation );
+  webvtt_init_string( &node_data->lang );
   node_data->children = NULL;
   node_data->length = 0;
   node_data->alloc = 0;
@@ -107,6 +108,26 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent,
   (*node)->data.internal_data = node_data;
 
   return WEBVTT_SUCCESS;
+}
+
+WEBVTT_INTERN webvtt_status
+webvtt_create_lang_node( webvtt_node **node, webvtt_node *parent,
+                         webvtt_stringlist *css_classes,
+                         webvtt_string *lang )
+{
+  webvtt_string empty_annotation;
+  webvtt_status status;
+
+  webvtt_init_string( &empty_annotation );
+  status = webvtt_create_internal_node( node, parent, WEBVTT_LANG, css_classes,
+                                        &empty_annotation );
+  webvtt_release_string( &empty_annotation );
+
+  /* We need to release as create internal node put a default value in. */
+  webvtt_release_string( &(*node)->data.internal_data->lang );
+  webvtt_copy_string( &(*node)->data.internal_data->lang, lang );
+
+  return status;
 }
 
 WEBVTT_INTERN webvtt_status
@@ -177,6 +198,7 @@ webvtt_release_node( webvtt_node **node )
     } else if( WEBVTT_IS_VALID_INTERNAL_NODE( n->kind ) &&
                n->data.internal_data ) {
       webvtt_release_stringlist( &n->data.internal_data->css_classes );
+      webvtt_release_string( &n->data.internal_data->lang );
       webvtt_release_string( &n->data.internal_data->annotation );
       for( i = 0; i < n->data.internal_data->length; i++ ) {
         webvtt_release_node( n->data.internal_data->children + i );

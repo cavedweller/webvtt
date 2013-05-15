@@ -49,14 +49,15 @@ webvtt_node_kind_t {
   WEBVTT_RUBY = 4 | WEBVTT_NODE_INTERNAL,
   WEBVTT_RUBY_TEXT = 5 | WEBVTT_NODE_INTERNAL,
   WEBVTT_VOICE = 6 | WEBVTT_NODE_INTERNAL,
+  WEBVTT_LANG = 7 | WEBVTT_NODE_INTERNAL,
 
   /**
     * This type of node has should not be rendered.
     * It is the top of the node list and only contains a list of nodes.
     */
-  WEBVTT_HEAD_NODE = 7,
+  WEBVTT_HEAD_NODE = 8,
 
-  WEBVTT_NODE_INTERNAL_END = 7,
+  WEBVTT_NODE_INTERNAL_END = 8,
 
   /**
     * Leaf Node objects
@@ -110,6 +111,7 @@ webvtt_node_t {
 typedef struct
 webvtt_internal_node_data_t {
   webvtt_string annotation;
+  webvtt_string lang;
   webvtt_stringlist *css_classes;
 
   webvtt_uint alloc;

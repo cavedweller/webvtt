@@ -182,7 +182,8 @@ webvtt_delete_token( webvtt_cuetext_token **token )
 WEBVTT_INTERN int
 tag_accepts_annotation( webvtt_string *tag_name )
 {
-  return webvtt_string_is_equal( tag_name, "v", 1 );
+  return webvtt_string_is_equal( tag_name, "v", 1 ) ||
+         webvtt_string_is_equal( tag_name, "lang", 4 );
 }
 
 WEBVTT_INTERN webvtt_status
@@ -215,6 +216,8 @@ webvtt_node_kind_from_tag_name( webvtt_string *tag_name,
     *kind = WEBVTT_RUBY;
   } else if( webvtt_string_is_equal( tag_name, "rt", 2 ) ) {
     *kind = WEBVTT_RUBY_TEXT;
+  } else if ( webvtt_string_is_equal( tag_name, "lang", 4 ) ) {
+    *kind = WEBVTT_LANG;
   } else {
     return WEBVTT_INVALID_TAG_NAME;
   }
@@ -246,13 +249,18 @@ webvtt_create_node_from_token( webvtt_cuetext_token *token, webvtt_node **node,
       return webvtt_create_text_node( node, parent, &token->text );
       break;
     case START_TOKEN:
-
       CHECK_MEMORY_OP( webvtt_node_kind_from_tag_name( &token->tag_name,
                                                        &kind) );
-
-      return webvtt_create_internal_node( node, parent, kind,
+      if( kind == WEBVTT_LANG ) {
+        return webvtt_create_lang_node( node, parent,
                                         token->start_token_data.css_classes,
                                         &token->start_token_data.annotations );
+      }
+      else {
+        return webvtt_create_internal_node( node, parent, kind,
+                                        token->start_token_data.css_classes,
+                                        &token->start_token_data.annotations );
+      }
 
       break;
     case TIME_STAMP_TOKEN:
@@ -665,6 +673,8 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue,
   webvtt_node *temp_node;
   webvtt_cuetext_token *token;
   webvtt_node_kind kind;
+  webvtt_stringlist *lang_stack;
+  webvtt_string temp;
 
   /**
    *  TODO: Use these parameters! 'finished' isn't really important
@@ -695,6 +705,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue,
   current_node = node_head;
   temp_node = NULL;
   token = NULL;
+  webvtt_create_stringlist( &lang_stack );
 
   /**
    * Routine taken from the W3C specification
@@ -742,6 +753,11 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue,
            * up the tree of nodes and continue parsing.
            */
           current_node = current_node->parent;
+
+          if( kind == WEBVTT_LANG ) {
+            webvtt_stringlist_pop( lang_stack, &temp );
+            webvtt_release_string( &temp );
+          }
         }
       } else {
         /**
@@ -760,15 +776,30 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue,
            */
           if( temp_node->kind == WEBVTT_RUBY_TEXT &&
               current_node->kind != WEBVTT_RUBY ) {
+            webvtt_release_node( &temp_node );
             continue;
           }
-          
+
           webvtt_attach_node( current_node, temp_node );
 
-          if( WEBVTT_IS_VALID_INTERNAL_NODE( temp_node->kind ) ) {
-            current_node = temp_node;
+          /**
+           * If the child node is a leaf node then we are done.
+           */
+          if( WEBVTT_IS_VALID_LEAF_NODE( temp_node->kind ) ) {
+            webvtt_release_node( &temp_node );
+            continue;
           }
 
+          if( temp_node->kind == WEBVTT_LANG ) {
+            webvtt_stringlist_push( lang_stack,
+                                    &temp_node->data.internal_data->lang );
+          } else if( lang_stack->length >= 1 ) {
+            webvtt_release_string( &temp_node->data.internal_data->lang );
+            webvtt_copy_string( &temp_node->data.internal_data->lang,
+                                lang_stack->items + lang_stack->length - 1 );
+          }
+
+          current_node = temp_node;
           /* Release the node as attach internal node increases the count. */
           webvtt_release_node( &temp_node );
         }
@@ -777,6 +808,7 @@ webvtt_parse_cuetext( webvtt_parser self, webvtt_cue *cue,
   }
 
   webvtt_delete_token( &token );
+  webvtt_release_stringlist( &lang_stack );
 
   return WEBVTT_SUCCESS;
 }

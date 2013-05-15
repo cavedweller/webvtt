@@ -42,6 +42,11 @@ webvtt_create_internal_node( webvtt_node **node, webvtt_node *parent,
                              webvtt_stringlist *css_classes,
                              webvtt_string *annotation );
 
+WEBVTT_INTERN webvtt_status
+webvtt_create_lang_node( webvtt_node **node, webvtt_node *parent,
+                         webvtt_stringlist *css_classes,
+                         webvtt_string *lang );
+
 /**
  * We probably shouldn't have a 'head node' type.
  * We should just return a list of node trees...
