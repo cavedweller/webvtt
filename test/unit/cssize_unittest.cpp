@@ -159,10 +159,10 @@ TEST_F(CueSettingSize, NoDelimiter)
   expectDefaultSizeSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 
   /**
    * We're expecting a WEBVTT_INVALID_CUESETTING error on the 30th
@@ -209,18 +209,19 @@ TEST_F(CueSettingSize, NoKeyword)
 TEST_F(CueSettingSize, NoValue)
 {
   loadVtt( "cue-settings/size/no-value.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * and 100 is default.
    */
-  ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_SIZE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -228,23 +229,26 @@ TEST_F(CueSettingSize, NoValue)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * If name is a case-sensitive match for "size"
- * 3. If any character in value other than the last character is a U+0025 PERCENT SIGN character (%), then jump to the step labeled next setting.
+ * 3. If any character in value other than the last character is a U+0025
+ *    PERCENT SIGN character (%), then jump to the step labeled next setting.
  */
 TEST_F(CueSettingSize, NoPercentSign)
 {
   loadVtt( "cue-settings/size/no-percent-sign.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * and 100 is default.
    */
-  ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 25th column of the 3rd
+   * line
    */
-  ASSERT_EQ( WEBVTT_SIZE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -314,18 +318,20 @@ TEST_F(CueSettingSize, BadKeyword)
 TEST_F(CueSettingSize, AsciiDigitBeyondHighBoundary)
 {
   loadVtt( "cue-settings/size/above-0x39.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * and 100 is default.
    */
-  ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 25th column of the 3rd
+   * line
    */
-  ASSERT_EQ( WEBVTT_SIZE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -338,18 +344,21 @@ TEST_F(CueSettingSize, AsciiDigitBeyondHighBoundary)
 TEST_F(CueSettingSize, AsciiDigitBeyondLowBoundary)
 {
   loadVtt( "cue-settings/size/below-0x30.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * and 100 is default.
    */
-  ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 25th column of the 3rd
+   * line
    */
-  ASSERT_EQ( WEBVTT_SIZE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -362,18 +371,20 @@ TEST_F(CueSettingSize, AsciiDigitBeyondLowBoundary)
 TEST_F(CueSettingSize, PercentNegative)
 {
   loadVtt( "cue-settings/size/bad-pct-negative.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Size should be 100 because the malformed setting should be skipped
-     * and 100 is default.
+   * and 100 is default.
    */
-  ASSERT_EQ( 100, getCue( 0 ).sizePercentage() );
+  expectDefaultSizeSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 25th column of the 3rd
+   * line
    */
-  ASSERT_EQ( WEBVTT_SIZE_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 30, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -397,7 +408,7 @@ TEST_F(CueSettingSize, PercentOver100)
   /**
    * We're expecting a WEBVTT_SIZE_BAD_VALUE error on the 30th column of the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_SIZE_BAD_VALUE, 3, 25 );
 }
 
 /**

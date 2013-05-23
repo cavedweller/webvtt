@@ -24,6 +24,10 @@ public:
     return webvtt_lex_newline( self, str.c_str(), &pos, str.size(), finished );
   }
 
+  webvtt_token lex( const std::string &str, webvtt_uint &pos, bool finished = true ) {
+    return ::webvtt_lex( self, str.c_str(), &pos, str.size(), finished );
+  }
+
   webvtt_lexer_state lexerState() const {
     return self->tstate;
   }
@@ -142,6 +146,28 @@ TEST_F(Lexer,LexNewLineXX)
   webvtt_uint pos = 0;
   EXPECT_EQ( BADTOKEN, lex_newline( "xxx", pos ) );
   EXPECT_EQ( 0, pos );
+  EXPECT_EQ( L_START, lexerState() );
+}
+
+/**
+ * Test that we correctly return WEBVTT when preceded by a BOM character
+ */
+TEST_F(Lexer,LexWEBVTTWithBOM)
+{
+  webvtt_uint pos = 0;
+  EXPECT_EQ( WEBVTT, lex( "\xEF\xBB\xBFWEBVTT", pos ) );
+  EXPECT_EQ( 9, pos );
+  EXPECT_EQ( L_START, lexerState() );
+}
+
+/**
+ * Test that we correctly return WEBVTT when not preceded by a BOM character
+ */
+TEST_F(Lexer,LexWEBVTT)
+{
+  webvtt_uint pos = 0;
+  EXPECT_EQ( WEBVTT, lex( "WEBVTT", pos ) );
+  EXPECT_EQ( 6, pos );
   EXPECT_EQ( L_START, lexerState() );
 }
 

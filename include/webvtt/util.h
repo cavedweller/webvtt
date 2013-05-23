@@ -211,6 +211,35 @@ extern "C" {
      * is not defined.
      */
     WEBVTT_FAILED_ASSERTION = -14,
+
+    /**
+     * Status indicating that a cue is discarded
+     */
+    WEBVTT_BAD_CUE = -15,
+
+    /**
+     * Indicate that a cue-setting is not supported/valid
+     */
+    WEBVTT_BAD_CUESETTING = -16,
+
+    /**
+     * Cue-setting status errors
+     */
+    WEBVTT_BAD_CUESETTING_VALUE_BEGIN = -17,
+    WEBVTT_BAD_ALIGN = -18,
+    WEBVTT_BAD_LINE = -19,
+    WEBVTT_BAD_POSITION = -20,
+    WEBVTT_BAD_SIZE = -21,
+    WEBVTT_BAD_VERTICAL = -22,
+    WEBVTT_BAD_CUESETTING_VALUE_END = -23,
+
+    WEBVTT_ALREADY_CUESETTING_BEGIN = -24,
+    WEBVTT_ALREADY_ALIGN = -25,
+    WEBVTT_ALREADY_LINE = -26,
+    WEBVTT_ALREADY_POSITION = -27,
+    WEBVTT_ALREADY_SIZE = -28,
+    WEBVTT_ALREADY_VERTICAL = -29,
+    WEBVTT_ALREADY_CUESETTING_END = -29
   };
 
   typedef enum webvtt_status_t webvtt_status;

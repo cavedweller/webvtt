@@ -87,8 +87,19 @@ webvtt_isalphanum( char ch )
   return ( webvtt_isalpha( ch ) || webvtt_isdigit( ch ) );
 }
 
+/**
+ * Return true (non-zero) if character matches the HTML5 definition of
+ * "space" characters.
+ *
+ * http://www.w3.org/html/wg/drafts/html/master/single-page.html#space-character
+ * ```
+ * The space characters, for the purposes of this specification, are
+ * U+0020 SPACE, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), and
+ * "CR" (U+000D).
+ * ```
+ */
 static __WEBVTT_STRING_INLINE int
-webvtt_iswhite( char ch )
+webvtt_isspace( char ch )
 {
   return ( ( ch == '\r' ) || ( ch == '\n' ) || ( ch == '\f' )
            || ( ch == '\t' ) || ( ch == ' ' ) ) ;

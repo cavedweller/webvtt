@@ -148,7 +148,8 @@ TEST_F(CueSettingPosition, TripleDigitPercentageLowBoundary)
 TEST_F(CueSettingPosition, NoDelimiter)
 {
   loadVtt( "cue-settings/position/no-delimiter.vtt", 1 );
-  ASSERT_EQ( 2, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * Position should be 50 because the malformed setting should be skipped and
@@ -157,11 +158,11 @@ TEST_F(CueSettingPosition, NoDelimiter)
   expectDefaultPositionSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE on the 33rd column of the
+   * We're expecting a WEBVTT_INVALID_CUESETTING on the 25th column of the
    * 3rd line, and a WEBVTT_INVALID_CUESETTING error on the 34th column of the
    * 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
   expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
@@ -202,19 +203,19 @@ TEST_F(CueSettingPosition, NoKeyword)
 TEST_F(CueSettingPosition, NoValue)
 {
   loadVtt( "cue-settings/position/no-value.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
-   * We can probably make this smarter, like WEBVTT_EXPECTED_CUESETTING_VALUE or something
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -222,24 +223,26 @@ TEST_F(CueSettingPosition, NoValue)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * If name is a case-sensitive match for "position"
- * 3. If any character in value other than the last character is a U+0025 PERCENT SIGN character (%), then jump to the step labeled next setting.
+ * 3. If any character in value other than the last character is a U+0025
+ *    PERCENT SIGN character (%), then jump to the step labeled next setting.
  */
 TEST_F(CueSettingPosition, NoPercentSign)
 {
   loadVtt( "cue-settings/position/no-percent-sign.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
-   * We can probably make this smarter, like WEBVTT_EXPECTED_PERCENTAGE or something
+   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 25th column of the
+   * 3rd line.
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_POSITION_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -308,18 +311,20 @@ TEST_F(CueSettingPosition, BadKeyword)
 TEST_F(CueSettingPosition, AsciiDigitBeyondHighBoundary)
 {
   loadVtt( "cue-settings/position/above-0x39.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_POSITION_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -327,23 +332,26 @@ TEST_F(CueSettingPosition, AsciiDigitBeyondHighBoundary)
  *
  * From http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * If name is a case-sensitive match for "position"
- * 1. If value contains any characters other than U+0025 PERCENT SIGN characters (%) and ASCII digits, then jump to the step labeled next setting.
+ * 1. If value contains any characters other than U+0025 PERCENT SIGN characters
+ *    (%) and ASCII digits, then jump to the step labeled next setting.
  */
 TEST_F(CueSettingPosition, AsciiDigitBeyondLowBoundary)
 {
   loadVtt( "cue-settings/position/below-0x30.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_POSITION_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -351,23 +359,24 @@ TEST_F(CueSettingPosition, AsciiDigitBeyondLowBoundary)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * If name is a case-sensitive match for "position"
- *  6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
+ * 6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
  */
 TEST_F(CueSettingPosition, PercentNegative)
 {
   loadVtt( "cue-settings/position/bad-pct-negative.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 25th column of the 3rd line
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_POSITION_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -375,23 +384,25 @@ TEST_F(CueSettingPosition, PercentNegative)
  *
  * http://dev.w3.org/html5/webvtt/#parse-the-webvtt-settings (11/28/2012):
  * If name is a case-sensitive match for "position"
- *  6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
+ * 6. If number is not in the range 0 <= number <= 100, then jump to the step labeled next setting.
  */
 TEST_F(CueSettingPosition, PercentOver100)
 {
   loadVtt( "cue-settings/position/bad-pct-over-100.vtt", 1 );
-  const Error &err = getError( 0 );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
+
   /**
    * Position should be 50 because the malformed setting should be skipped
-     * and 50 is default.
+   * and 50 is default.
    */
-  ASSERT_EQ( 50, getCue( 0 ).textPositionPercentage() );
+  expectDefaultPositionSetting( getCue( 0 ) );
+
   /**
-   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 34th column of the 3rd line
+   * We're expecting a WEBVTT_POSITION_BAD_VALUE error on the 25th column of the
+   * 3rd line
    */
-  ASSERT_EQ( WEBVTT_POSITION_BAD_VALUE, err.error() );
-  ASSERT_EQ( 3, err.line() );
-  ASSERT_EQ( 34, err.column() );
+  expectEquals( getError( 0 ), WEBVTT_POSITION_BAD_VALUE, 3, 25 );
 }
 
 /**

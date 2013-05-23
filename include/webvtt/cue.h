@@ -36,6 +36,9 @@
 extern "C" {
 #endif
 
+/* Forward declare webvtt_parser */
+struct webvtt_parser_t;
+
 #define WEBVTT_AUTO (0xFFFFFFFF)
 
 typedef enum
@@ -100,6 +103,35 @@ webvtt_release_cue( webvtt_cue **pcue );
 
 WEBVTT_EXPORT int
 webvtt_validate_cue( webvtt_cue *cue );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_align( webvtt_cue *cue, const char *value );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_line( webvtt_cue *cue, const char *value );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_position( webvtt_cue *cue, const char *value );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_size( webvtt_cue *cue, const char *value );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_vertical( webvtt_cue *cue, const char *value );
+
+/**
+ * Set cue-settings from a string, according to the rules defined in
+ * http://dev.w3.org/html5/webvtt/#dfn-parse-the-webvtt-settings
+ */
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_settings( webvtt_cue *cue, const webvtt_string *settings );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_set_setting_word( webvtt_cue *cue, const char *word );
+
+WEBVTT_EXPORT webvtt_status
+webvtt_cue_validate_set_settings( struct webvtt_parser_t *self, webvtt_cue *cue,
+                                  const webvtt_string *settings );
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

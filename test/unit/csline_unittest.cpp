@@ -600,10 +600,10 @@ TEST_F(CueSettingLine, BadValue)
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
 
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
+   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 25th column of the 3rd
    * line
    */
-  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -618,20 +618,20 @@ TEST_F(CueSettingLine, BadValue)
 TEST_F(CueSettingLine, NoValue)
 {
   loadVtt( "cue-settings/line/no-value.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
 
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
    */
-  ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-  ASSERT_TRUE( getCue( 0 ).snapToLines() );
+  expectDefaultLineSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the 3rd
    * line
    */
-  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -645,19 +645,19 @@ TEST_F(CueSettingLine, NoValue)
 TEST_F(CueSettingLine, BadValueSuffix)
 {
   loadVtt( "cue-settings/line/bad-value-suffix.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 1, errorCount() );
+  EXPECT_EQ( 1, errorCount() );
 
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
    */
-  ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-  ASSERT_TRUE( getCue( 0 ).snapToLines() );
+  expectDefaultLineSetting( getCue( 0 ) );
 
   /**
-   * Should expect a WEBVTT_LINE_BAD_VALUE at the 30th column of the 3rd line.
+   * Should expect a WEBVTT_LINE_BAD_VALUE at the 25th column of the 3rd line.
    */
-  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -672,21 +672,21 @@ TEST_F(CueSettingLine, BadValueSuffix)
 TEST_F(CueSettingLine, WhitespaceDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-delimiter.vtt", 1 );
-  ASSERT_EQ( 2, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * Line should be "auto" and snap-to-lines should be true because the
    * malformed setting should be skipped and "auto" and true are default.
    */
-  ASSERT_TRUE( getCue( 0 ).isLinePositionAuto() );
-  ASSERT_TRUE( getCue( 0 ).snapToLines() );
+  expectDefaultLineSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
-   * the 3rd line, and a WEBVTT_MISSING_CUESETTING_DELIMITER on the 30th column
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of
+   * the 3rd line, and a WEBVTT_INVALID_CUESETTING on the 30th column
    * of the 3rd line.
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
   expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
 }
 
@@ -703,7 +703,8 @@ TEST_F(CueSettingLine, WhitespaceDelimiter)
 TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-before-delimiter.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * line:68% -- snapToLines==false, linePositionPercentage==68
@@ -711,10 +712,11 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
   expectDefaultLineSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 29th column of
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 29 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 30 );
 }
 
 /**
@@ -730,16 +732,17 @@ TEST_F(CueSettingLine, BadWhitespaceBeforeDelimiter)
 TEST_F(CueSettingLine, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/line/bad-whitespace-after-delimiter.vtt", 1 );
-  ASSERT_EQ( 1, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
-  ASSERT_EQ( 68, getCue( 0 ).relativeLinePositionPercentage() );
-  ASSERT_FALSE( getCue( 0 ).snapToLines() );
+  expectDefaultLineSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 30th column of
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 31 );
 }
 
 /**
@@ -794,10 +797,10 @@ TEST_F(CueSettingLine, PercentNegative)
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
 
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column
+   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 25th column
    * of the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -821,7 +824,7 @@ TEST_F(CueSettingLine, PercentOver100)
   ASSERT_TRUE( getCue( 0 ).snapToLines() );
 
   /**
-   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 30th column of the 3rd line
+   * We're expecting a WEBVTT_LINE_BAD_VALUE error on the 25th column of the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 30 );
+  expectEquals( getError( 0 ), WEBVTT_LINE_BAD_VALUE, 3, 25 );
 }

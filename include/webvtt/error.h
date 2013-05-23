@@ -105,7 +105,8 @@ extern "C" {
   typedef enum webvtt_error_t webvtt_error;
 
   WEBVTT_EXPORT const char *webvtt_strerror( webvtt_error );
-
+  WEBVTT_EXPORT webvtt_bool
+  webvtt_error_for_status( webvtt_status status, webvtt_error *out );
 #if defined(__cplusplus) || defined(c_plusplus)
 }
 #endif

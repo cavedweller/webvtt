@@ -305,7 +305,7 @@ TEST_F(CueSetting, BadDelimiter)
    * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of
    * the 3rd line (Beginning of value token)
    */
-  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -328,15 +328,20 @@ TEST_F(CueSetting, BadDelimiter)
  */
 TEST_F(CueSetting, BadDelimiter2)
 {
-  loadVtt( "cue-settings/bad-delimiter2.vtt", 0 );
-  ASSERT_LE( 1, errorCount() ) << "This file should contain at least 1 error";
-  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error";
+  loadVtt( "cue-settings/bad-delimiter2.vtt", 1 );
+  ASSERT_LE( 2, errorCount() ) << "This file should contain at least 2 error";
+  EXPECT_EQ( 2, errorCount() ) << "This file should contain 2 error";
 
   /**
-   * We're expecting a WEBVTT_EXPECTED_TIMESTAMP error on the 15th column of
+   * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 15 );
+  expectEquals( getError( 0 ), WEBVTT_EXPECTED_WHITESPACE, 3, 24 );
+  /**
+   * Expecting WEBVTT_INVALID_CUESETTING on the 24th column of the 3rd line
+   * (^line is not a valid keyword)
+   */
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 24 );
 }
 
 /**
@@ -359,15 +364,15 @@ TEST_F(CueSetting, BadDelimiter2)
  */
 TEST_F(CueSetting, NoDelimiter)
 {
-  loadVtt( "cue-settings/no-delimiter.vtt", 0 );
+  loadVtt( "cue-settings/no-delimiter.vtt", 1 );
   ASSERT_LE( 1, errorCount() ) << "This file should contain at least 1 error";
   EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error";
 
   /**
-   * We're expecting a WEBVTT_EXPECTED_TIMESTAMP error on the 15th column of
+   * We're expecting a WEBVTT_EXPECTED_WHITESPACE error on the 24th column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 15 );
+  expectEquals( getError( 0 ), WEBVTT_EXPECTED_WHITESPACE, 3, 24 );
 }
 
 /**
@@ -390,12 +395,20 @@ TEST_F(CueSetting, NoDelimiter)
  */
 TEST_F(CueSetting, DigitDelimiter)
 {
-  loadVtt( "cue-settings/digit-delimiter.vtt", 0 );
-  ASSERT_LE( 1, errorCount() ) << "This file should contain at least 1 error";
-  EXPECT_EQ( 1, errorCount() ) << "This file should contain 1 error";
+  loadVtt( "cue-settings/digit-delimiter.vtt", 1 );
+  ASSERT_LE( 3, errorCount() ) << "This file should contain at least 3 error";
+  EXPECT_EQ( 3, errorCount() ) << "This file should contain 3 error";
 
   /**
    * We're expecting a WEBVTT_MALFORMED_TIMESTAMP error on the 3rd line.
    */
-  expectEquals( getError( 0 ), WEBVTT_EXPECTED_TIMESTAMP, 3, 15 );
+  expectEquals( getError( 0 ), WEBVTT_MALFORMED_TIMESTAMP, 3, 15 );
+  /**
+   * Expecting WEBVTT_EXPECTED_WHITESPACE at the 25th column of the 3rd line
+   */
+  expectEquals( getError( 1 ), WEBVTT_EXPECTED_WHITESPACE, 3, 25 );
+  /**
+   * Expecting WEBVTT_INVALID_CUESETTING at the 25th column of the 3rd line
+   */
+  expectEquals( getError( 2 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }

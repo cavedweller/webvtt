@@ -286,6 +286,9 @@ WEBVTT_INTERN webvtt_status
 webvtt_proc_cuetext( webvtt_parser self, const char *b, webvtt_uint *ppos,
                     webvtt_uint len, webvtt_bool finish );
 
+WEBVTT_INTERN webvtt_status
+webvtt_parse_timings_and_settings( webvtt_parser self, const webvtt_string *line );
+
 WEBVTT_INTERN int
 parse_cueparams( webvtt_parser self, const char *text, webvtt_uint len,
                  webvtt_cue *cue );
@@ -338,6 +341,9 @@ token_in_list( webvtt_token search_for, const webvtt_token token_list[] );
 WEBVTT_INTERN int
 find_token( webvtt_token search_for, const webvtt_token token_list[] );
 
+WEBVTT_INTERN webvtt_int64
+webvtt_parse_int( const char **pb, int *pdigits );
+
 #define BAD_TIMESTAMP(ts) ( ( ts ) == 0xFFFFFFFFFFFFFFFF )
 
 #ifdef FATAL_ASSERTION
@@ -374,14 +380,17 @@ if( !(condition) ) { \
 #  endif
 #endif
 
-#define ERROR_AT(errno, line, column) \
+#define ERROR_AT_OR(errno, line, column, ret) \
 do \
 { \
   if( !self->error \
     || self->error( (self->userdata), (line), (column), (errno) ) < 0 ) { \
-    return WEBVTT_PARSE_ERROR; \
+    return (ret); \
   } \
 } while(0)
+
+#define ERROR_AT(errno, line, column) \
+  ERROR_AT_OR( (errno), (line), (column), WEBVTT_PARSE_ERROR )
 
 #define ERROR(error) \
   ERROR_AT( (error), (self->line), (self->column) )

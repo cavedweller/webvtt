@@ -74,9 +74,9 @@ public:
   };
 
   enum Direction {
-    Default,
-    LeftToRight,
-    RightToLeft
+    Default = WEBVTT_HORIZONTAL,
+    LeftToRight = WEBVTT_VERTICAL_LR,
+    RightToLeft = WEBVTT_VERTICAL_RL
   };
 
   enum Align {
