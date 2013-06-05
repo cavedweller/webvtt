@@ -73,3 +73,32 @@ webvtt_strerror( webvtt_error err )
   }
   return errstr[ err ];
 }
+
+/* Some status codes have error codes as well */
+webvtt_bool
+webvtt_error_for_status( webvtt_status status, webvtt_error *out )
+{
+  if( !out ) {
+    return 0;
+  }
+  switch( status ) {
+    case WEBVTT_OUT_OF_MEMORY: *out = WEBVTT_ALLOCATION_FAILED; break;
+    case WEBVTT_BAD_ALIGN: *out = WEBVTT_ALIGN_BAD_VALUE; break;
+    case WEBVTT_BAD_LINE: *out = WEBVTT_LINE_BAD_VALUE; break;
+    case WEBVTT_BAD_SIZE: *out = WEBVTT_SIZE_BAD_VALUE; break;
+    case WEBVTT_BAD_POSITION: *out = WEBVTT_POSITION_BAD_VALUE; break;
+    case WEBVTT_BAD_VERTICAL: *out = WEBVTT_VERTICAL_BAD_VALUE; break;
+
+    case WEBVTT_ALREADY_ALIGN: *out = WEBVTT_ALIGN_ALREADY_SET; break;
+    case WEBVTT_ALREADY_LINE: *out = WEBVTT_LINE_ALREADY_SET; break;
+    case WEBVTT_ALREADY_SIZE: *out = WEBVTT_SIZE_ALREADY_SET; break;
+    case WEBVTT_ALREADY_POSITION: *out = WEBVTT_POSITION_ALREADY_SET; break;
+    case WEBVTT_ALREADY_VERTICAL: *out = WEBVTT_VERTICAL_ALREADY_SET; break;
+
+    case WEBVTT_BAD_CUESETTING: *out = WEBVTT_INVALID_CUESETTING; break;
+
+    default: return 0;
+  }
+
+  return 1;
+}

@@ -115,10 +115,10 @@ TEST_F(CueSettingVertical, BadValue)
   ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
 
   /**
-   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 25th column of the
    * 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 25 );
 }
 
 /**
@@ -134,8 +134,8 @@ TEST_F(CueSettingVertical, BadValue)
 TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-before-delimiter.vtt", 1 );
-  ASSERT_LE( 1, errorCount() );
-  EXPECT_EQ( 1, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * Writing direction should be horizontal because the malformed setting should
@@ -144,10 +144,14 @@ TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
   expectDefaultVerticalSetting( getCue( 0 ) );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 33rd column of
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25rd column of
    * the 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  /**
+   * Expecting WEBVTT_INVALID_CUESETTING on 34th column of 3rd line
+   */
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
 /**
@@ -163,20 +167,24 @@ TEST_F(CueSettingVertical, BadWhitespaceBeforeDelimiter)
 TEST_F(CueSettingVertical, BadWhitespaceAfterDelimiter)
 {
   loadVtt( "cue-settings/vertical/bad-whitespace-after-delimiter.vtt", 1 );
-  ASSERT_LE( 1, errorCount() );
-  EXPECT_EQ( 1, errorCount() );
+  ASSERT_LE( 2, errorCount() );
+  EXPECT_EQ( 2, errorCount() );
 
   /**
    * Writing direction should be left-to-right because we are not skipping this
    * setting in this lenient run
    */
-  ASSERT_TRUE( getCue( 0 ).isVerticalLeftToRight() );
+  EXPECT_TRUE( getCue( 0 ).isHorizontal() );
 
   /**
-   * We're expecting a WEBVTT_UNEXPECTED_WHITESPACE error on the 34th column of the
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
+  /**
+   * Expecting WEBVTT_INVALID_CUESETTING error on 35th column of 3rd line
+   */
+  expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 35 );
 }
 
 /**
@@ -227,10 +235,10 @@ TEST_F(CueSettingVertical, NoValue)
   ASSERT_TRUE( getCue( 0 ).isHorizontal() );
 
   /**
-   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
+   * We're expecting a WEBVTT_INVALID_CUESETTING error on the 25th column of the
    * 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
 }
 
 /**
@@ -257,7 +265,7 @@ TEST_F(CueSettingVertical, NoDelimiter)
   /**
    * Verify correct errors are thrown.
    */
-  expectEquals( getError( 0 ), WEBVTT_UNEXPECTED_WHITESPACE, 3, 33 );
+  expectEquals( getError( 0 ), WEBVTT_INVALID_CUESETTING, 3, 25 );
   expectEquals( getError( 1 ), WEBVTT_INVALID_CUESETTING, 3, 34 );
 }
 
@@ -315,8 +323,8 @@ TEST_F(CueSettingVertical, UppercaseValue)
   ASSERT_FALSE( getCue( 0 ).isVerticalLeftToRight() );
 
   /**
-   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 34th column of the
+   * We're expecting a WEBVTT_VERTICAL_BAD_VALUE error on the 25th column of the
    * 3rd line
    */
-  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 34 );
+  expectEquals( getError( 0 ), WEBVTT_VERTICAL_BAD_VALUE, 3, 25 );
 }

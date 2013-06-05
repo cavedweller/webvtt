@@ -216,6 +216,19 @@ WEBVTT_EXPORT webvtt_status
 webvtt_string_append_string( webvtt_string *str, const webvtt_string *other );
 
 /**
+ * webvtt_string_collect_word
+ *
+ * collect a sequence of text until a whitespace or the end of string is
+ * encountered
+ */
+WEBVTT_EXPORT webvtt_status
+webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
+                            webvtt_uint *pos );
+
+WEBVTT_EXPORT int
+webvtt_string_skip_whitespace( const webvtt_string *buffer, webvtt_uint *pos );
+
+/**
  * basic dynamic array of strings
  */
 struct

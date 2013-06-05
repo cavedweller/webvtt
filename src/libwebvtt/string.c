@@ -643,6 +643,51 @@ webvtt_stringlist_pop( webvtt_stringlist *list, webvtt_string *out )
   return 1;
 }
 
+/* Collect a string, delimited by whitespace */
+WEBVTT_EXPORT webvtt_status
+webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
+                            webvtt_uint *pos )
+{
+  if( !buffer || !out || !pos ) {
+    return WEBVTT_INVALID_PARAM;
+  }
+
+  /* Initialize the string */
+  webvtt_init_string( out );
+
+  /**
+   * Collect characters from a string until a space character is encountered.
+   */
+  for( ; *pos < webvtt_string_length( buffer ) ; ++(*pos) ) {
+    webvtt_status s;
+    char c = webvtt_string_text( buffer )[ *pos ];
+    if( webvtt_isspace( c ) ) {
+      break;
+    }
+    if( WEBVTT_FAILED( s = webvtt_string_putc( out, c ) ) ) {
+      return s;
+    }
+  }
+  return WEBVTT_SUCCESS;
+}
+
+WEBVTT_EXPORT int
+webvtt_string_skip_whitespace( const webvtt_string *buffer, webvtt_uint *pos )
+{
+  int i;
+  if( !buffer || !pos ) {
+    return 0;
+  }
+
+  /* Skip spaces */
+  for( i=0 ; *pos < webvtt_string_length( buffer )
+       && webvtt_isspace( webvtt_string_text( buffer )[ *pos ] ) ;
+       ++(*pos), ++i );
+
+  /* Return the number of spaces which were skipped */
+  return i;
+}
+
 WEBVTT_EXPORT webvtt_bool
 webvtt_next_utf8( const char **begin, const char *end )
 {
