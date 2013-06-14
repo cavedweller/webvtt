@@ -50,4 +50,7 @@ enum {
 WEBVTT_INTERN webvtt_bool
 cue_is_incomplete( const webvtt_cue *cue );
 
+WEBVTT_INTERN webvtt_status
+webvtt_cue_set_setting_from_string( webvtt_cue *cue, const char *word );
+
 #endif

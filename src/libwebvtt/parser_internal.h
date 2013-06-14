@@ -380,14 +380,20 @@ if( !(condition) ) { \
 #  endif
 #endif
 
-#define ERROR_AT_OR(errno, line, column, ret) \
+#define __ERROR_AT_OR(errno, line, column, __or) \
 do \
 { \
   if( !self->error \
     || self->error( (self->userdata), (line), (column), (errno) ) < 0 ) { \
-    return (ret); \
+    __or \
   } \
 } while(0)
+
+#define ERROR_AT_OR(errno, line, column, ret) \
+  __ERROR_AT_OR(errno,line,column,return (ret);)
+
+#define WARNING_AT(errno, line, column) \
+  __ERROR_AT_OR(errno,line,column,)
 
 #define ERROR_AT(errno, line, column) \
   ERROR_AT_OR( (errno), (line), (column), WEBVTT_PARSE_ERROR )

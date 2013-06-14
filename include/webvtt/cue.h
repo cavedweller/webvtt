@@ -127,9 +127,6 @@ WEBVTT_EXPORT webvtt_status
 webvtt_cue_set_settings( webvtt_cue *cue, const webvtt_string *settings );
 
 WEBVTT_EXPORT webvtt_status
-webvtt_cue_set_setting_word( webvtt_cue *cue, const char *word );
-
-WEBVTT_EXPORT webvtt_status
 webvtt_cue_validate_set_settings( struct webvtt_parser_t *self, webvtt_cue *cue,
                                   const webvtt_string *settings );
 
