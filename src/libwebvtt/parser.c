@@ -756,9 +756,7 @@ _recheck:
           FRAMEUP( 1 )->state = 0;
           FRAMEUP( 1 )->v.cue = NULL;
         }
-        if( token == NOTE ) {
-          PUSH0( T_COMMENT, 0, V_NONE );
-        } else if( token != NEWLINE ) {
+        if( token != NEWLINE ) {
           webvtt_cue *cue = 0;
           webvtt_string tk = { 0 };
           if( WEBVTT_FAILED( status = webvtt_create_cue( &cue ) ) ) {
