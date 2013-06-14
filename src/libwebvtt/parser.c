@@ -373,27 +373,26 @@ do \
  */
 WEBVTT_INTERN webvtt_status
 webvtt_collect_timestamp( webvtt_parser self, webvtt_timestamp *result,
-                          const webvtt_string *input, webvtt_uint *position )
+                          const webvtt_string *input, int *position )
 {
   int column = self->column;
   int line = self->line;
-  webvtt_token token;
-
-  self->token_pos = 0;
-  token = webvtt_lex( self, webvtt_string_text( input ), position,
-                      webvtt_string_length( input ), 1 );
-  self->token_pos = 0;
-  if( token == TIMESTAMP ) {
-    if( !parse_timestamp( self->token, result ) ) {
-      /* Read a bad timestamp, throw away and abort cue */
-      ERROR_AT_OR( WEBVTT_MALFORMED_TIMESTAMP, line, column,
-                   WEBVTT_BAD_CUE );
+  int len;
+  int rv = webvtt_parse_timestamp( webvtt_string_text(input) + *position, &len, result );
+  if( !rv ) {
+    if( BAD_TIMESTAMP(*result) ) {
+      ERROR_AT( WEBVTT_EXPECTED_TIMESTAMP, line, column );
+      return WEBVTT_BAD_CUE;  
+    } else {
+      /* Time is malformed, but still usable. Let the UA decide. */
+      ERROR_AT_OR( WEBVTT_MALFORMED_TIMESTAMP, line, column, WEBVTT_BAD_CUE );
     }
-  } else {
-    /* If the token wasn't a timestamp, return an error and skip the cue */
-    ERROR_AT_OR( WEBVTT_EXPECTED_TIMESTAMP, line, column, WEBVTT_BAD_CUE );
-    return WEBVTT_BAD_CUE;
   }
+
+  /* Move column ahead */
+  self->column += len;
+  *position += len;
+
   return WEBVTT_SUCCESS;
 }
 
@@ -415,7 +414,7 @@ webvtt_collect_timings_and_settings( webvtt_parser self,
    * 2. Let position be a pointer to input, initially pointing at the start of
    * the string
    */
-  webvtt_uint position = 0;
+  int position = 0;
 
   /* 3. Skip whitespace */
   webvtt_string_skip_whitespace( line, &position );
@@ -1086,15 +1085,16 @@ webvtt_parse_int( const char **pb, int *pdigits )
  * returns 0 if it fails
  */
 WEBVTT_INTERN int
-parse_timestamp( const char *b, webvtt_timestamp *result )
+webvtt_parse_timestamp( const char *b, int *tokenLength, webvtt_timestamp *result )
 {
   webvtt_int64 tmp;
   int have_hours = 0;
   int digits;
   int malformed = 0;
   webvtt_int64 v[4];
+  int n = 0;
   if ( !webvtt_isdigit( *b ) ) {
-    goto _malformed;
+    goto not_timestamp;
   }
 
   /* get sequence of digits */
@@ -1108,14 +1108,19 @@ parse_timestamp( const char *b, webvtt_timestamp *result )
     have_hours = 1;
   }
 
+  n += digits;
+
   /* fail if missing colon ':' character */
   if ( !*b || *b++ != ':' ) {
     malformed = 1;
+    goto not_timestamp;
   }
+  ++n;
 
   /* fail if end of data reached, or byte is not an ASCII digit */
   if ( !*b || !webvtt_isdigit( *b ) ) {
     malformed = 1;
+    goto not_timestamp;
   }
 
   /* get another integer value, fail if digits is not equal to 2 */
@@ -1123,21 +1128,34 @@ parse_timestamp( const char *b, webvtt_timestamp *result )
   if( digits != 2 ) {
     malformed = 1;
   }
+  n += digits;
 
   /* if we already know there's an hour component, or if the next byte is a
      colon ':', read the next value */
   if ( have_hours || ( *b == ':' ) ) {
-    if( *b++ != ':' ) {
-      goto _malformed;
+    if( *b == '.' ) {
+      /* If this byte is '.', then have_hours is incorrectly set to true.
+         the timestamp is technically malformed, but still understandable,
+         so far. */
+      malformed = 1;
+      goto shift_over;
+    } else if( *b++ != ':' ) {
+      /* If ':' is not found, this is not a timestamp. */
+      goto not_timestamp;
     }
+    ++n;
     if( !*b || !webvtt_isdigit( *b ) ) {
       malformed = 1;
-    }
-    v[2] = webvtt_parse_int( &b, &digits );
-    if( digits != 2 ) {
-      malformed = 1;
+      v[2] = 0;
+    } else {
+      v[2] = webvtt_parse_int( &b, &digits );
+      if( digits != 2 ) {
+        malformed = 1;
+      }
+      n += digits;
     }
   } else {
+shift_over:
     /* Otherwise, if there is no hour component, shift everything over */
     v[2] = v[1];
     v[1] = v[0];
@@ -1147,12 +1165,14 @@ parse_timestamp( const char *b, webvtt_timestamp *result )
   /* collect the manditory seconds-frac component. fail if there is no FULL_STOP
      '.' or if there is no ascii digit following it */
   if( *b++ != '.' || !webvtt_isdigit( *b ) ) {
-    goto _malformed;
+    goto not_timestamp;
   }
+  ++n;
   v[3] = webvtt_parse_int( &b, &digits );
   if( digits != 3 ) {
     malformed = 1;
   }
+  n += digits;
 
   /* Ensure that minutes and seconds are acceptable values */
   if( v[3] > 999 ) {
@@ -1182,12 +1202,20 @@ parse_timestamp( const char *b, webvtt_timestamp *result )
             + ( v[2] * MSECS_PER_SECOND )
             + ( v[3] );
 
+  if( tokenLength ) {
+    *tokenLength = n;
+  }
+
   if( malformed ) {
     return 0;
   }
   return 1;
-_malformed:
+
+not_timestamp:
   *result = 0xFFFFFFFFFFFFFFFF;
+  if( tokenLength ) {
+    *tokenLength = n;
+  }
   return 0;
 }
 

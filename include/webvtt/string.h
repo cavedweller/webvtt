@@ -223,10 +223,10 @@ webvtt_string_append_string( webvtt_string *str, const webvtt_string *other );
  */
 WEBVTT_EXPORT webvtt_status
 webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
-                            webvtt_uint *pos );
+                            int *pos );
 
 WEBVTT_EXPORT int
-webvtt_string_skip_whitespace( const webvtt_string *buffer, webvtt_uint *pos );
+webvtt_string_skip_whitespace( const webvtt_string *buffer, int *pos );
 
 /**
  * basic dynamic array of strings
