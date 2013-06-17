@@ -425,6 +425,9 @@ static struct
   { "vertical", &webvtt_cue_set_vertical },
 };
 
+/**
+ * Set a cuesetting from key-value pairs (as C strings)
+ */
 WEBVTT_EXPORT webvtt_status
 webvtt_cue_set_setting( webvtt_cue *cue,
                         const char *key, const char *value )
@@ -449,8 +452,11 @@ webvtt_cue_set_settings( webvtt_cue *cue, const webvtt_string *settings )
   return webvtt_cue_validate_set_settings( 0, cue, settings );
 }
 
-WEBVTT_EXPORT webvtt_status
-webvtt_cue_set_setting_word( webvtt_cue *cue, const char *word )
+/* Separate 'word' into key and value (delimited by ':'), and call
+   webvtt_cue_set_setting() with the calculated key/value pair.
+   Intern'd due to scariness of the name, and non-usefulness for users. */
+WEBVTT_INTERN webvtt_status
+webvtt_cue_set_setting_from_string( webvtt_cue *cue, const char *word )
 {
   char keyword[32] = "";
   char *value;
@@ -510,31 +516,34 @@ webvtt_cue_validate_set_settings( webvtt_parser self, webvtt_cue *cue,
     const char *keyword;
     const char *end;
     int nwhite, ncol;
+    /* Collect word (sequence of non-space characters terminated by space) */
     if( WEBVTT_FAILED( webvtt_string_collect_word( settings, &word,
                        &position ) ) ) {
       return WEBVTT_OUT_OF_MEMORY;
     }
+    /* skip trailing whitespace */
     nwhite = webvtt_string_skip_whitespace( settings, &position );
+    /* Get the word text */
     keyword = webvtt_string_text( &word );
-    ncol = webvtt_utf8_chcount( keyword,
-                                keyword + webvtt_string_length( &word ) );
+    /* Get pointer to end of the word. (for chcount()) */
     end = keyword + webvtt_string_length( &word );
-    if( WEBVTT_FAILED( s = webvtt_cue_set_setting_word( cue,
+    /* Get the column count that needs to be skipped. */
+    ncol = webvtt_utf8_chcount( keyword, end );
+    if( WEBVTT_FAILED( s = webvtt_cue_set_setting_from_string( cue,
                        keyword ) ) ) {
       if( self ) {
         /* Figure out which error to emit */
         webvtt_error error;
         if( webvtt_error_for_status( s, &error ) ) {
-          ERROR_AT( error, line, column );
+          /* There is no non-recoverable cue-setting error.
+             Therefore we do not want to abort the loop, regardless
+             of the return value from the error handler. */
+          WARNING_AT( error, line, column );
         }
       }
-      if( s == WEBVTT_BAD_CUE || s == WEBVTT_PARSE_ERROR ) {
-        webvtt_release_string( &word );
-        return s;
-      }
     }
-    column += ncol; /* increment column count */
-    column += nwhite; /* add the trailing whitespace */
+    /* Move column pointer beyond word and trailing whitespace */
+    column += ncol + nwhite;
     webvtt_release_string( &word );
   }
 

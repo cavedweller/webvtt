@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
-#include <webvtt/cue.h>
+extern "C" {
+#include "libwebvtt/cue_internal.h"
+}
 
 class SetCueSetting : public ::testing::Test
 {
@@ -23,7 +25,7 @@ public:
   }
 
   ::webvtt_status set( const char *str ) {
-    return ::webvtt_cue_set_setting_word( cue, str );
+    return ::webvtt_cue_set_setting_from_string( cue, str );
   }
 
   ::webvtt_status setAlign( const char *value ) {
