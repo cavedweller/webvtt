@@ -485,8 +485,8 @@ WEBVTT_EXPORT webvtt_status
 webvtt_cue_validate_set_settings( webvtt_parser self, webvtt_cue *cue,
                                   const webvtt_string *settings )
 {
-  int line;
-  int column;
+  int line = 1;
+  int column = 0;
   int length;
   const char *eol;
   int position = 0;
