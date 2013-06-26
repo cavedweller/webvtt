@@ -485,8 +485,8 @@ WEBVTT_EXPORT webvtt_status
 webvtt_cue_validate_set_settings( webvtt_parser self, webvtt_cue *cue,
                                   const webvtt_string *settings )
 {
-  int line;
-  int column;
+  int line = 1;
+  int column = 0;
   int length;
   const char *eol;
   int position = 0;
@@ -494,10 +494,10 @@ webvtt_cue_validate_set_settings( webvtt_parser self, webvtt_cue *cue,
   if( !cue || !settings ) {
     return WEBVTT_INVALID_PARAM;
   }
-  length = webvtt_string_length( settings );
+  length = (int)webvtt_string_length( settings );
   if( ( eol = strchr( webvtt_string_text( settings ), '\r' ) )
       || ( eol = strchr( webvtt_string_text( settings ), '\n' ) ) ) {
-    length = ( eol - webvtt_string_text( settings ) );
+    length = (int)( eol - webvtt_string_text( settings ) );
   }
 
   if( self ) {
