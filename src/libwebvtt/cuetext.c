@@ -641,7 +641,7 @@ webvtt_cuetext_tokenizer( const char **position, webvtt_cuetext_token **token )
     } else if( token_state == END_TAG ) {
       status = webvtt_create_end_token( token, &result );
     } else if( token_state == TIME_STAMP_TAG ) {
-      parse_timestamp( webvtt_string_text( &result ), &time_stamp );
+      webvtt_parse_timestamp( webvtt_string_text( &result ), 0, &time_stamp );
       status = webvtt_create_timestamp_token( token, time_stamp );
     } else {
       status = WEBVTT_INVALID_TOKEN_STATE;

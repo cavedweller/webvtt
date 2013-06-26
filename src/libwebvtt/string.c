@@ -646,7 +646,7 @@ webvtt_stringlist_pop( webvtt_stringlist *list, webvtt_string *out )
 /* Collect a string, delimited by whitespace */
 WEBVTT_EXPORT webvtt_status
 webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
-                            webvtt_uint *pos )
+                            int *pos )
 {
   if( !buffer || !out || !pos ) {
     return WEBVTT_INVALID_PARAM;
@@ -658,7 +658,7 @@ webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
   /**
    * Collect characters from a string until a space character is encountered.
    */
-  for( ; *pos < webvtt_string_length( buffer ) ; ++(*pos) ) {
+  for( ; *pos < (int)webvtt_string_length( buffer ) ; ++(*pos) ) {
     webvtt_status s;
     char c = webvtt_string_text( buffer )[ *pos ];
     if( webvtt_isspace( c ) ) {
@@ -672,16 +672,20 @@ webvtt_string_collect_word( const webvtt_string *buffer, webvtt_string *out,
 }
 
 WEBVTT_EXPORT int
-webvtt_string_skip_whitespace( const webvtt_string *buffer, webvtt_uint *pos )
+webvtt_string_skip_whitespace( const webvtt_string *buffer, int *pos )
 {
   int i;
   if( !buffer || !pos ) {
     return 0;
   }
 
+  if( *pos < 0 ) {
+    return 0;
+  }
+
   /* Skip spaces */
-  for( i=0 ; *pos < webvtt_string_length( buffer )
-       && webvtt_isspace( webvtt_string_text( buffer )[ *pos ] ) ;
+  for( i=0 ; (unsigned)*pos < webvtt_string_length( buffer )
+       && (unsigned)webvtt_isspace( webvtt_string_text( buffer )[ *pos ] ) ;
        ++(*pos), ++i );
 
   /* Return the number of spaces which were skipped */

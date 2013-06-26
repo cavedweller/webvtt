@@ -271,7 +271,8 @@ webvtt_parse_vertical( webvtt_parser self, webvtt_cue *cue, const char *text,
                        webvtt_uint *pos, webvtt_uint len );
 
 WEBVTT_INTERN int
-parse_timestamp( const char *b, webvtt_timestamp *result );
+webvtt_parse_timestamp( const char *b, int *tokenLength,
+                        webvtt_timestamp *result );
 
 WEBVTT_INTERN webvtt_status
 do_push( webvtt_parser self, webvtt_uint token, webvtt_uint back,

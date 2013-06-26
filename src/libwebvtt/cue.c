@@ -487,9 +487,9 @@ webvtt_cue_validate_set_settings( webvtt_parser self, webvtt_cue *cue,
 {
   int line;
   int column;
-  webvtt_uint length;
+  int length;
   const char *eol;
-  webvtt_uint position = 0;
+  int position = 0;
   webvtt_status s;
   if( !cue || !settings ) {
     return WEBVTT_INVALID_PARAM;
